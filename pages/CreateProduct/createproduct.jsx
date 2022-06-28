@@ -41,6 +41,7 @@ import VehiculoSeleccionado from "./VehiculoSeleccionado";
 import DatosVehiculosEditar from "./DatosVehiculosEditar";
 import DatosVehiculosDuplicar from "./DatosVehiculosDuplicar";
 import ModalComentariosHabitaculo from "./ModalComentariosHabitaculo";
+import CategoriasProductosGenericos from "./CategoriasProductosGenericos";
 
 function NumberFormatCustom(props) {
     const { inputRef, onChange, ...other } = props;
@@ -100,10 +101,10 @@ NumberFormatCelular.propTypes = {
 const CreateProduct = () => {
     const targetshow = useRef(null);
     const [showEdit, setShowEdit] = useState(false);
-    const [showCopy, setShowCopy] = useState(false);
     const [agregarDatos, setAgregarDatos] = useState(false);
     const [mostrarBotonDatosMotor, setMostrarBotonDatosMotor] = useState(false);
     const [agregarVehiculo, setAgregarVehiculo] = useState(false);
+    const [showModalDatosProducto, setShowModalDatosProducto] = useState(false);
 
     const [mostrar, setMostrar] = useState(false);
     const [tamaño, setTamaño] = useState("col-12 col-md-6 ml-250");
@@ -114,11 +115,13 @@ const CreateProduct = () => {
         "custom-selectcreateproducto redondearbordegenerico"
     );
     const [iconoCerrarUno, setIconCerrarUno] = useState(
-        "form-control ps-form__input textoeditardatosvehiculo"
+        "ml-40 showcerrarabrir"
     );
     const [iconoCerrarDos, setIconCerrarDos] = useState(
-        "form-control ps-form__input mlmenos15"
+        "form-control ps-form__input"
     );
+
+    const [showIconoCerrarAbrir, setShowIconoCerrarAbrir] = useState(false);
 
     const [genericoUno, setGenericoUno] = useState("Si");
     const [labelGenericoUno, setLabelGenericoUno] = useState(
@@ -151,7 +154,7 @@ const CreateProduct = () => {
     const [modeloVeh, setModeloVeh] = useState([]);
     const [carroceriaVeh, setCarroceriaVeh] = useState([]);
 
-    const [generico, setGenerico] = useState(null);
+    const [generico, setGenerico] = useState("No");
     const [duplicar, setDuplicar] = useState(false);
 
     const [showModalGenerico, setShowModalGenerico] = useState(false);
@@ -422,17 +425,16 @@ const CreateProduct = () => {
     };
 
     const agregarDatosLatoneria = () => {
+        setShowIconoCerrarAbrir(true);
         setAgregarVehiculo(false);
         setCerrarDatos("");
         setCerrarDatosDos("mt-1 datoscerrados");
-        setIconCerrarUno(
-            "form-control ps-form__input textoeditardatosvehiculo ml-110"
-        );
+        setIconCerrarUno("showcerrarabrir");
         setIconCerrarDos("form-control ps-form__input ml-20");
         setGenericoUno("Si");
         setLabelGenericoUno("Es genérico, sirve para varios vehículos.");
-        setGenericoDos("Si");
-        setLabelGenericoDos("Es genérico, sirve para varios vehículos.");
+        setGenericoDos("No");
+        setLabelGenericoDos("No es genérico, sirve para varios vehículos.");
         setMostrar(true);
 
         setShowModalLatoneria(true);
@@ -497,15 +499,30 @@ const CreateProduct = () => {
         setVehiculoDiezUbicar(true);
     };
 
+    const agregarDatosGenerico = () => {
+        setShowIconoCerrarAbrir(true);
+        setAgregarVehiculo(false);
+        setCerrarDatos("");
+        setCerrarDatosDos("mt-1 datoscerrados");
+        setIconCerrarUno("showcerrarabrir");
+        setIconCerrarDos("form-control ps-form__input ml-20");
+        setGenericoUno("Si");
+        setLabelGenericoUno("Es genérico, sirve para varios vehículos.");
+        setGenericoDos("No");
+        setLabelGenericoDos("No es genérico, sirve para varios vehículos.");
+        setMostrar(true);
+    };
+
     const mostrarVehiculos = () => {
         setAgregarVehiculo(true);
+        setShowIconoCerrarAbrir(false);
         setCerrarDatos("ps-form__group cajavehiculoscompatiblesproducto");
         setCerrarDatosDos("custom-selectcreateproducto redondearbordegenerico");
 
         setIconCerrarUno(
             "form-control ps-form__input textoeditardatosvehiculo"
         );
-        setIconCerrarDos("form-control ps-form__input mlmenos15");
+        setIconCerrarDos("form-control ps-form__input");
 
         setGenericoUno("Si");
         setLabelGenericoUno(
@@ -532,6 +549,7 @@ const CreateProduct = () => {
     const ingresarDatosProductos = () => {
         setShowDatosProductos(true);
         setSelecDatosProducto(true);
+        setShowModalDatosProducto(true);
     };
 
     //setMostrarDatosMotor(true);
@@ -579,128 +597,142 @@ const CreateProduct = () => {
                                         {showCreateProduct ? (
                                             <div>
                                                 <div className={cerrarDatos}>
-                                                    <br />
-                                                    <br />
-                                                    <h3 className="tituloadvertenciaproductos mtmenos30">
-                                                        Identificación de los
-                                                        vehículos compatibles
-                                                    </h3>
-                                                    <br />
-                                                    <Row>
-                                                        <Col
-                                                            xl={10}
-                                                            lg={10}
-                                                            md={10}
-                                                            xs={10}>
-                                                            <div>
-                                                                <select
-                                                                    //disabled="disabled"
-                                                                    disabled={
-                                                                        mostrar
-                                                                    }
-                                                                    className={
-                                                                        cerrarDatosDos
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) =>
-                                                                        handleChangeGenerico(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }>
-                                                                    {productogenerico &&
-                                                                        productogenerico.map(
-                                                                            (
-                                                                                itemselect
-                                                                            ) => {
-                                                                                return (
-                                                                                    <option
-                                                                                        value={
-                                                                                            itemselect.value
-                                                                                        }>
-                                                                                        {
-                                                                                            itemselect.label
-                                                                                        }
-                                                                                    </option>
-                                                                                );
-                                                                            }
-                                                                        )}
-                                                                </select>
-                                                            </div>
-                                                        </Col>
-                                                        <Col
-                                                            xl={1}
-                                                            lg={1}
-                                                            md={1}
-                                                            xs={1}>
-                                                            <div
-                                                                className={
-                                                                    iconoCerrarUno
-                                                                }>
-                                                                <i
-                                                                    onClick={() =>
-                                                                        mostrarVehiculos()
-                                                                    }
-                                                                    class="mt-2 fa fa-table d-flex justify-content-center"
-                                                                    aria-hidden="true"
-                                                                    ref={
-                                                                        targetshow
-                                                                    }
-                                                                    onMouseOver={() =>
-                                                                        setShowEdit(
-                                                                            true
-                                                                        )
-                                                                    }
-                                                                    onMouseOut={() =>
-                                                                        setShowEdit(
-                                                                            false
-                                                                        )
-                                                                    }></i>
-                                                            </div>
+                                                    {generico === "No" ? (
+                                                        <div>
+                                                            <br />
+                                                            <br />
+                                                            <h3 className="tituloadvertenciaproductos mtmenos30">
+                                                                Identificación
+                                                                de los vehículos
+                                                                compatibles
+                                                            </h3>
+                                                            <br />
 
-                                                            <Overlay
-                                                                className=""
-                                                                target={
-                                                                    targetshow.current
-                                                                }
-                                                                show={showEdit}
-                                                                placement="top">
-                                                                {(props) => (
-                                                                    <Tooltip
-                                                                        className="ubicartooltipproducto"
-                                                                        id="overlay-example"
-                                                                        {...props}>
-                                                                        <h3 className="tamañotextotooltipproducto">
-                                                                            {" "}
-                                                                            Mostrar
-                                                                            Vehiculos{" "}
-                                                                        </h3>
-                                                                    </Tooltip>
+                                                            <Row>
+                                                                <Col
+                                                                    xl={10}
+                                                                    lg={10}
+                                                                    md={10}
+                                                                    xs={10}>
+                                                                    <div>
+                                                                        <select
+                                                                            //disabled="disabled"
+                                                                            disabled={
+                                                                                mostrar
+                                                                            }
+                                                                            className={
+                                                                                cerrarDatosDos
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                handleChangeGenerico(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                )
+                                                                            }>
+                                                                            {productogenerico &&
+                                                                                productogenerico.map(
+                                                                                    (
+                                                                                        itemselect
+                                                                                    ) => {
+                                                                                        return (
+                                                                                            <option
+                                                                                                value={
+                                                                                                    itemselect.value
+                                                                                                }>
+                                                                                                {
+                                                                                                    itemselect.label
+                                                                                                }
+                                                                                            </option>
+                                                                                        );
+                                                                                    }
+                                                                                )}
+                                                                        </select>
+                                                                    </div>
+                                                                </Col>
+                                                                {showIconoCerrarAbrir ? (
+                                                                    <Col
+                                                                        xl={1}
+                                                                        lg={1}
+                                                                        md={1}
+                                                                        xs={1}
+                                                                        className="mlmenos40">
+                                                                        <div
+                                                                            className={
+                                                                                iconoCerrarUno
+                                                                            }>
+                                                                            <i
+                                                                                onClick={() =>
+                                                                                    mostrarVehiculos()
+                                                                                }
+                                                                                class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                                                                aria-hidden="true"
+                                                                                ref={
+                                                                                    targetshow
+                                                                                }
+                                                                                onMouseOver={() =>
+                                                                                    setShowEdit(
+                                                                                        true
+                                                                                    )
+                                                                                }
+                                                                                onMouseOut={() =>
+                                                                                    setShowEdit(
+                                                                                        false
+                                                                                    )
+                                                                                }></i>
+                                                                        </div>
+
+                                                                        <Overlay
+                                                                            className=""
+                                                                            target={
+                                                                                targetshow.current
+                                                                            }
+                                                                            show={
+                                                                                showEdit
+                                                                            }
+                                                                            placement="top">
+                                                                            {(
+                                                                                props
+                                                                            ) => (
+                                                                                <Tooltip
+                                                                                    className="ubicartooltipproducto"
+                                                                                    id="overlay-example"
+                                                                                    {...props}>
+                                                                                    <h3 className="tamañotextotooltipproducto">
+                                                                                        {" "}
+                                                                                        Mostrar
+                                                                                        Vehiculos{" "}
+                                                                                    </h3>
+                                                                                </Tooltip>
+                                                                            )}
+                                                                        </Overlay>
+                                                                    </Col>
+                                                                ) : (
+                                                                    <Col
+                                                                        xl={1}
+                                                                        lg={1}
+                                                                        md={1}
+                                                                        xs={1}>
+                                                                        <div
+                                                                            className={
+                                                                                iconoCerrarDos
+                                                                            }>
+                                                                            <i
+                                                                                onClick={() => {
+                                                                                    setShowModalGenerico(
+                                                                                        !showModalGenerico
+                                                                                    );
+                                                                                }}
+                                                                                class="fa fa-info d-flex justify-content-center"
+                                                                                aria-hidden="true"></i>
+                                                                        </div>
+                                                                    </Col>
                                                                 )}
-                                                            </Overlay>
-                                                        </Col>
-                                                        <Col
-                                                            xl={1}
-                                                            lg={1}
-                                                            md={1}
-                                                            xs={1}>
-                                                            <div
-                                                                className={
-                                                                    iconoCerrarDos
-                                                                }>
-                                                                <i
-                                                                    onClick={() => {
-                                                                        setShowModalGenerico(
-                                                                            !showModalGenerico
-                                                                        );
-                                                                    }}
-                                                                    class="fa fa-info d-flex justify-content-center"
-                                                                    aria-hidden="true"></i>
-                                                            </div>
-                                                        </Col>
-                                                    </Row>
+                                                            </Row>
+                                                        </div>
+                                                    ) : null}
 
                                                     {generico ? (
                                                         generico === "No" ? (
@@ -1239,13 +1271,107 @@ const CreateProduct = () => {
                                                                     </div>
                                                                 }
                                                             </div>
-                                                        ) : null
-                                                    ) : (
-                                                        console.log(
-                                                            "VALOR GENERICO : ",
-                                                            generico
+                                                        ) : (
+                                                            <div>
+                                                                {
+                                                                    <div>
+                                                                        <Row>
+                                                                            <Col
+                                                                                xl={
+                                                                                    7
+                                                                                }
+                                                                                lg={
+                                                                                    7
+                                                                                }
+                                                                                md={
+                                                                                    7
+                                                                                }
+                                                                                xs={
+                                                                                    7
+                                                                                }>
+                                                                                <div
+                                                                                    className="mt-1 datoscerrados"
+                                                                                    disabled={
+                                                                                        true
+                                                                                    }>
+                                                                                    <h3 className="textoubicacionproducto">
+                                                                                        Es
+                                                                                        genérico
+                                                                                        sirve
+                                                                                        para
+                                                                                        varios
+                                                                                        vehículos.
+                                                                                    </h3>
+                                                                                </div>
+                                                                            </Col>
+                                                                            <Col
+                                                                                xl={
+                                                                                    1
+                                                                                }
+                                                                                lg={
+                                                                                    1
+                                                                                }
+                                                                                md={
+                                                                                    1
+                                                                                }
+                                                                                xs={
+                                                                                    1
+                                                                                }
+                                                                                className="ml-53 mtmenos2">
+                                                                                <div className="showcerrarabrir">
+                                                                                    <i
+                                                                                        class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                                                                        onClick={
+                                                                                            agregarDatosGenerico
+                                                                                        }
+                                                                                        aria-hidden="true"
+                                                                                        ref={
+                                                                                            targetshow
+                                                                                        }
+                                                                                        onMouseOver={() =>
+                                                                                            setShowEdit(
+                                                                                                true
+                                                                                            )
+                                                                                        }
+                                                                                        onMouseOut={() =>
+                                                                                            setShowEdit(
+                                                                                                false
+                                                                                            )
+                                                                                        }></i>
+                                                                                </div>
+
+                                                                                <Overlay
+                                                                                    className=""
+                                                                                    target={
+                                                                                        targetshow.current
+                                                                                    }
+                                                                                    show={
+                                                                                        showEdit
+                                                                                    }
+                                                                                    placement="top">
+                                                                                    {(
+                                                                                        props
+                                                                                    ) => (
+                                                                                        <Tooltip
+                                                                                            className="ubicartooltipproducto"
+                                                                                            id="overlay-example"
+                                                                                            {...props}>
+                                                                                            <h3 className="tamañotextotooltipproducto">
+                                                                                                {" "}
+                                                                                                Ubicación
+                                                                                                de
+                                                                                                producto{" "}
+                                                                                            </h3>
+                                                                                        </Tooltip>
+                                                                                    )}
+                                                                                </Overlay>
+                                                                            </Col>
+                                                                        </Row>
+                                                                    </div>
+                                                                }
+                                                            </div>
                                                         )
-                                                    )}
+                                                    ) : null}
 
                                                     {agregarVehiculo ? (
                                                         <div>
@@ -1279,6 +1405,16 @@ const CreateProduct = () => {
                                                         </div>
                                                     ) : null}
                                                 </div>
+
+                                                {generico == "Si" ? (
+                                                    <div className="cajavehiculoscompatiblesproducto">
+                                                        <h3 className="tituloadvertenciaproductos">
+                                                            Escoge la categoría
+                                                        </h3>
+                                                        <br/>
+                                                        <CategoriasProductosGenericos />
+                                                    </div>
+                                                ) : null}
                                             </div>
                                         ) : (
                                             <div className="ps-form__group mtmenos20">
@@ -1385,6 +1521,18 @@ const CreateProduct = () => {
                                     setSeleccionoUbicacionProducto={
                                         setSeleccionoUbicacionProducto
                                     }
+                                    showModalDatosProducto={
+                                        showModalDatosProducto
+                                    }
+                                    setShowModalDatosProducto={
+                                        setShowModalDatosProducto
+                                    }
+                                    setShowDatosProductos={
+                                        setShowDatosProductos
+                                    }
+                                    setSelecDatosProducto={
+                                        setSelecDatosProducto
+                                    }
                                 />
                             ) : seleccionoUbicacionProducto ? (
                                 <div className="ml-40">
@@ -1434,6 +1582,10 @@ const CreateProduct = () => {
                                 }
                                 setShowDatosProductosAdicionales={
                                     setShowDatosProductosAdicionales
+                                }
+                                showModalDatosProducto={showModalDatosProducto}
+                                setShowModalDatosProducto={
+                                    setShowModalDatosProducto
                                 }
                             />
                         ) : SelecDatosProducto ? (
@@ -1602,6 +1754,62 @@ function ModalInformacionPorUnoVarios({ shown, close }) {
 }
 
 function DatosLatoneria(props) {
+    const {
+        setShowModalLatoneria,
+        showModalLatoneria,
+        seleccionoUbicacionProducto,
+        setSeleccionoUbicacionProducto,
+        setShowModalDatosProducto,
+        showModalDatosProducto,
+        setShowDatosProductos,
+        setSelecDatosProducto,
+    } = props;
+    const [showEdit, setShowEdit] = useState(false);
+    const targetshow = useRef(null);
+
+    const [nombreUbicacionExterior, setnombreUbicacionExterior] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionInterior, setnombreUbicacionInterior] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionTrenMotriz, setnombreUbicacionTrenMotriz] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionExteriorInfo, setnombreUbicacionExteriorInfo] =
+        useState("botonpartesvehiculoinfo mlmenos1 mt-2");
+    const [nombreUbicacionInteriorInfo, setnombreUbicacionInteriorInfo] =
+        useState("botonpartesvehiculoinfo mlmenos1 mt-2");
+    const [nombreUbicacionTrenMotrizInfo, setnombreUbicacionTrenMotrizInfo] =
+        useState("botonpartesvehiculoinfo mlmenos1 mt-2");
+
+    const [nombreUbicacionIzquierda, setnombreUbicacionIzquierda] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionCentro, setnombreUbicacionCentro] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionDerecha, setnombreUbicacionDerecha] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionIzquierdaInfo, setnombreUbicacionIzquierdaInfo] =
+        useState("botonpartesvehiculoinfo mlmenos1 mt-2");
+    const [nombreUbicacionCentroInfo, setnombreUbicacionCentroInfo] = useState(
+        "botonpartesvehiculoinfo mlmenos1 mt-2"
+    );
+    const [nombreUbicacionDerechaInfo, setnombreUbicacionDerechaInfo] =
+        useState("botonpartesvehiculoinfo mlmenos1 mt-2");
+
+    const [nombreUbicacionConsola, setnombreUbicacionConsola] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionAsiento, setnombreUbicacionAsiento] = useState(
+        "botonpartesvehiculo"
+    );
+    const [nombreUbicacionTecho, setnombreUbicacionTecho] = useState(
+        "botonpartesvehiculo"
+    );
+
     const [showImagenExterior, setShowImagenExterior] = useState(true);
     const [showImagenInterior, setShowImagenInterior] = useState(false);
     const [showImagenTrenMotriz, setShowImagenTrenMotriz] = useState(false);
@@ -1614,15 +1822,29 @@ function DatosLatoneria(props) {
     const [showImagenAsiento, setShowImagenAsiento] = useState(false);
     const [showImagenTecho, setShowImagenTecho] = useState(false);
 
-    const {
-        setShowModalLatoneria,
-        showModalLatoneria,
-        seleccionoUbicacionProducto,
-        setSeleccionoUbicacionProducto,
-    } = props;
-
-    const dispatch = useDispatch();
-    const [showModalProducto, setShowModalProducto] = useState(false);
+    const [showImagenBaseMotorElectrico, setShowImagenBaseMotorElectrico] =
+        useState(true);
+    const [showImagenAireacondicionado, setShowImagenAireacondicionado] =
+        useState(false);
+    const [showImagenArranque, setShowImagenArranque] = useState(false);
+    const [showImagenCaja, setShowImagenCaja] = useState(false);
+    const [showImagenDireccion, setShowImagenDireccion] = useState(false);
+    const [showImagenEmbrague, setShowImagenEmbrague] = useState(false);
+    const [showImagenEscape, setShowImagenEscape] = useState(false);
+    const [showImagenFrenos, setShowImagenFrenos] = useState(false);
+    const [showImagenInyeccion, setShowImagenInyeccion] = useState(false);
+    const [showImagenMotor, setShowImagenMotor] = useState(false);
+    const [showImagenParabrisas, setShowImagenParabrisas] = useState(false);
+    const [showImagenRefrigeracion, setShowImagenRefrigeracion] =
+        useState(false);
+    const [showImagenRefrigeracionCaja, setShowImagenRefrigeracionCaja] =
+        useState(false);
+    const [showImagenSistemElectrico, setShowImagenSistemElectrico] =
+        useState(false);
+    const [showImagenSistemElectricoMotor, setShowImagenSistemElectricoMotor] =
+        useState(false);
+    const [showImagenSuspension, setShowImagensuspension] = useState(false);
+    const [showImagenTransmision, setShowImagenTransmision] = useState(false);
 
     const [showModalComentariosLatoneria, setShowModalComentariosLatoneria] =
         useState(false);
@@ -1634,7 +1856,7 @@ function DatosLatoneria(props) {
 
     const [showModalComentariosMotor, setShowModalComentariosMotor] =
         useState(false);
-    const [showModalDatosProducto, setShowModalDatosProducto] = useState(false);
+    //const [showModalDatosProducto, setShowModalDatosProducto] = useState(false);
 
     const [ubicarProducto, setUbicarProducto] = useState(0);
 
@@ -1643,6 +1865,8 @@ function DatosLatoneria(props) {
     const [ubicarProductoHabitaculo, setUbicarProductoHabitaculo] =
         useState(false);
     const [ubicarProductoMotor, setUbicarProductoMotor] = useState(false);
+    const [abrirCerarUbicarProducto, setAbrirCerarUbicarProducto] =
+        useState(false);
 
     const [
         showModalPosicionProductoLatoneria,
@@ -1682,49 +1906,30 @@ function DatosLatoneria(props) {
 
     const [showModalPosicionProductoMotor, setShowModalPosicionProductoMotor] =
         useState(false);
-
-    const mostrarModalPosicionProducto = () => {
-        if (
-            ubicarProductoLatoneria === false &&
-            ubicarProductoHabitaculo === false &&
-            ubicarProductoMotor === false
-        ) {
-            swal({
-                title: "Posición Producto",
-                text: "Debes Selecccionar una posición para tu producto!",
-                icon: "warning",
-                button: "Aceptar",
-            });
-            return;
-        }
-
-        if (ubicarProductoLatoneria) {
-            setShowModalPosicionProductoLatoneria(true);
-            setUbicarProducto(1);
-        } else if (ubicarProductoHabitaculo) {
-            setShowModalPosicionProductoHabitaculo(true);
-            setUbicarProducto(2);
-        } else if (ubicarProductoMotor) {
-            setShowModalPosicionProductoMotor(true);
-            setUbicarProducto(3);
-        } else {
-            swal({
-                title: "Posición Producto",
-                text: "Recuerda, Debes Seleccionar la posicion del producto !",
-                icon: "warning",
-                button: "Aceptar",
-            });
-            return;
-        }
-        setShowModalDatosProducto(true);
-    };
+    const [sistemaMotorSeleccionado, setSistemaMotorSeleccionado] = useState(0);
 
     const mostrarModalDatosProducto = () => {
-        // Coloca los datos en state sobre donde esta ubicado el producto a vender
-        //dispatch(getUbicarProducto(ubicarproducto));
-        setShowModalDatosProducto(true);
-        setShowModalLatoneria(false);
+        setShowModalLatoneria(true);
         setSeleccionoUbicacionProducto(true);
+
+        setAbrirCerarUbicarProducto(true);
+        setUbicarProductoLatoneria(false);
+        setUbicarProductoHabitaculo(false);
+        setUbicarProductoMotor(false);
+
+        setShowDatosProductos(true);
+        //setSelecDatosProducto(true);
+        //setShowModalDatosProducto(true);
+    };
+
+    const abrirDatosUbicacionProucto = () => {
+        setShowModalLatoneria(true);
+        setSeleccionoUbicacionProducto(true);
+        setAbrirCerarUbicarProducto(false);
+        setUbicarProductoLatoneria(true);
+        setUbicarProductoHabitaculo(false);
+        setUbicarProductoMotor(false);
+        setShowDatosProductos(false);
     };
 
     const mostrarComentariolatoneria = () => {
@@ -1746,6 +1951,22 @@ function DatosLatoneria(props) {
         setShowImagenExterior(true);
         setShowImagenInterior(false);
         setShowImagenTrenMotriz(false);
+
+        setShowModalPosicionProductoLatoneria(true);
+        setUbicarProducto(1);
+        setShowModalDatosProducto(true);
+
+        setnombreUbicacionExterior("botonpartesvehiculo colorseleccionboton");
+        setnombreUbicacionInterior("botonpartesvehiculo");
+        setnombreUbicacionTrenMotriz("botonpartesvehiculo");
+
+        setnombreUbicacionExteriorInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2 colorseleccionboton"
+        );
+        setnombreUbicacionInteriorInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionTrenMotrizInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2"
+        );
     };
 
     const SelecUbicarProductoHabitaculo = () => {
@@ -1755,6 +1976,22 @@ function DatosLatoneria(props) {
         setShowImagenExterior(false);
         setShowImagenInterior(true);
         setShowImagenTrenMotriz(false);
+
+        setShowModalPosicionProductoHabitaculo(true);
+        setUbicarProducto(2);
+        setShowModalDatosProducto(true);
+
+        setnombreUbicacionExterior("botonpartesvehiculo");
+        setnombreUbicacionInterior("botonpartesvehiculo  colorseleccionboton");
+        setnombreUbicacionTrenMotriz("botonpartesvehiculo");
+
+        setnombreUbicacionExteriorInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionInteriorInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2  colorseleccionboton"
+        );
+        setnombreUbicacionTrenMotrizInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2"
+        );
     };
 
     const SelecUbicarProductoMotor = () => {
@@ -1764,6 +2001,20 @@ function DatosLatoneria(props) {
         setShowImagenExterior(false);
         setShowImagenInterior(false);
         setShowImagenTrenMotriz(true);
+
+        setShowModalPosicionProductoMotor(true);
+        setUbicarProducto(3);
+        setShowModalDatosProducto(true);
+
+        setnombreUbicacionExterior("botonpartesvehiculo");
+        setnombreUbicacionInterior("botonpartesvehiculo");
+        setnombreUbicacionTrenMotriz("botonpartesvehiculo colorseleccionboton");
+
+        setnombreUbicacionExteriorInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionInteriorInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionTrenMotrizInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2  colorseleccionboton"
+        );
     };
 
     const mostrarComentarioPosicionIzquierdo = () => {
@@ -1800,6 +2051,15 @@ function DatosLatoneria(props) {
         setShowImagenIzquierda(true);
         setShowImagenCentro(false);
         setShowImagenDerecha(false);
+
+        setnombreUbicacionIzquierda("botonpartesvehiculo colorseleccionboton");
+        setnombreUbicacionCentro("botonpartesvehiculo");
+        setnombreUbicacionDerecha("botonpartesvehiculo");
+        setnombreUbicacionIzquierdaInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2 colorseleccionboton"
+        );
+        setnombreUbicacionCentroInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionDerechaInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
     };
 
     const SeleccionePosicionProductoCentro = () => {
@@ -1809,6 +2069,17 @@ function DatosLatoneria(props) {
         setShowImagenIzquierda(false);
         setShowImagenCentro(true);
         setShowImagenDerecha(false);
+
+        setnombreUbicacionIzquierda("botonpartesvehiculo");
+        setnombreUbicacionCentro("botonpartesvehiculo colorseleccionboton");
+        setnombreUbicacionDerecha("botonpartesvehiculo");
+        setnombreUbicacionIzquierdaInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2"
+        );
+        setnombreUbicacionCentroInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2 colorseleccionboton"
+        );
+        setnombreUbicacionDerechaInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
     };
 
     const SeleccionePosicionProductoDerecho = () => {
@@ -1818,6 +2089,17 @@ function DatosLatoneria(props) {
         setShowImagenIzquierda(false);
         setShowImagenCentro(false);
         setShowImagenDerecha(true);
+
+        setnombreUbicacionIzquierda("botonpartesvehiculo");
+        setnombreUbicacionCentro("botonpartesvehiculo");
+        setnombreUbicacionDerecha("botonpartesvehiculo  colorseleccionboton");
+        setnombreUbicacionIzquierdaInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2"
+        );
+        setnombreUbicacionCentroInfo("botonpartesvehiculoinfo mlmenos1 mt-2");
+        setnombreUbicacionDerechaInfo(
+            "botonpartesvehiculoinfo mlmenos1 mt-2  colorseleccionboton"
+        );
     };
 
     const SeleccioneConsola = () => {
@@ -1830,8 +2112,8 @@ function DatosLatoneria(props) {
     };
 
     const SeleccioneAsiento = () => {
-        setPosicionProductoConsola(true);
-        setPosicionProductoAsiento(false);
+        setPosicionProductoConsola(false);
+        setPosicionProductoAsiento(true);
         setPosicionProductoTecho(false);
         setShowImagenConsola(false);
         setShowImagenAsiento(true);
@@ -1839,16 +2121,360 @@ function DatosLatoneria(props) {
     };
 
     const SeleccioneTecho = () => {
-        setPosicionProductoConsola(true);
+        setPosicionProductoConsola(false);
         setPosicionProductoAsiento(false);
-        setPosicionProductoTecho(false);
+        setPosicionProductoTecho(true);
         setShowImagenConsola(false);
         setShowImagenAsiento(false);
         setShowImagenTecho(true);
     };
 
-    const onCloseModalPosicionProducto = () => {
-        setShowModalPosicionProductoLatoneria(false);
+    const SeleccionBaseMotorElectrico = () => {
+        setShowImagenBaseMotorElectrico(true);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaAireAcondicionado = () => {
+        setSistemaMotorSeleccionado(1);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(true);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaArranque = () => {
+        setSistemaMotorSeleccionado(2);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(true);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaCaja = () => {
+        setSistemaMotorSeleccionado(3);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(true);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaDireccion = () => {
+        setSistemaMotorSeleccionado(4);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(true);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaEmbrague = () => {
+        setSistemaMotorSeleccionado(5);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(true);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaEscape = () => {
+        setSistemaMotorSeleccionado(6);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(true);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaFrenos = () => {
+        setSistemaMotorSeleccionado(7);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(true);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaInyeccion = () => {
+        setSistemaMotorSeleccionado(8);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(true);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaMotor = () => {
+        setSistemaMotorSeleccionado(9);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(true);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaParabrisas = () => {
+        setSistemaMotorSeleccionado(10);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(true);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+
+    const SeleccionaRefrigeracion = () => {
+        setSistemaMotorSeleccionado(11);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(true);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaRefrigeracionCaja = () => {
+        setSistemaMotorSeleccionado(12);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(true);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionasistemaElectrico = () => {
+        setSistemaMotorSeleccionado(13);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(true);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionasistemaElectricoMotor = () => {
+        setSistemaMotorSeleccionado(14);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(true);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaAireSuspension = () => {
+        setSistemaMotorSeleccionado(15);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(true);
+        setShowImagenTransmision(false);
+    };
+    const SeleccionaTransmision = () => {
+        setSistemaMotorSeleccionado(16);
+        setShowImagenBaseMotorElectrico(false);
+        setShowImagenAireacondicionado(false);
+        setShowImagenArranque(false);
+        setShowImagenCaja(false);
+        setShowImagenDireccion(false);
+        setShowImagenEmbrague(false);
+        setShowImagenEscape(false);
+        setShowImagenFrenos(false);
+        setShowImagenInyeccion(false);
+        setShowImagenMotor(false);
+        setShowImagenParabrisas(false);
+        setShowImagenRefrigeracion(false);
+        setShowImagenRefrigeracionCaja(false);
+        setShowImagenSistemElectrico(false);
+        setShowImagenSistemElectricoMotor(false);
+        setShowImagensuspension(false);
+        setShowImagenTransmision(true);
     };
 
     return (
@@ -1858,142 +2484,153 @@ function DatosLatoneria(props) {
                     <h3 className="tituloadvertenciaproductosizquierda mtmenos50 mb-15">
                         Ubicación del producto en tu vehículo
                     </h3>
-                    <h3 className="textotuproductoestaen">
-                        Tu producto está en:
-                    </h3>
                 </div>
-
-                <Row>
-                    <Col xl={4} lg={4} md={4} xs={4} className="mlmenos5">
+                {!abrirCerarUbicarProducto ? (
+                    <div>
+                        <div className="ml-60 mb-20">
+                            <h3 className="textotuproductoestaen">
+                                Tu producto está en:
+                            </h3>
+                        </div>
                         <Row>
-                            <Col xl={10} lg={10} md={10} xs={10}>
-                                <Button
-                                    className="botonpartesvehiculo"
-                                    onClick={SelecUbicarProductoLatoneria}>
-                                    EXTERIOR
-                                </Button>
+                            <Col
+                                xl={4}
+                                lg={4}
+                                md={4}
+                                xs={4}
+                                className="mlmenos5">
+                                <Row>
+                                    <Col xl={10} lg={10} md={10} xs={10}>
+                                        <Button
+                                            className={nombreUbicacionExterior}
+                                            onClick={
+                                                SelecUbicarProductoLatoneria
+                                            }>
+                                            EXTERIOR
+                                        </Button>
+                                    </Col>
+                                    <Col
+                                        xl={1}
+                                        lg={1}
+                                        md={1}
+                                        xs={1}
+                                        className="mlmenos25">
+                                        <Button
+                                            className={
+                                                nombreUbicacionExteriorInfo
+                                            }
+                                            onClick={
+                                                mostrarComentariolatoneria
+                                            }>
+                                            {!ubicarProductoLatoneria ? (
+                                                <i
+                                                    class="fa fa-info d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            ) : (
+                                                <i
+                                                    class="fa fa-check-square-o d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            )}
+                                        </Button>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xl={10} lg={10} md={10} xs={10}>
+                                        <Button
+                                            className={nombreUbicacionInterior}
+                                            onClick={
+                                                SelecUbicarProductoHabitaculo
+                                            }>
+                                            INTERIOR
+                                        </Button>
+                                    </Col>
+                                    <Col
+                                        xl={1}
+                                        lg={1}
+                                        md={1}
+                                        xs={1}
+                                        className="mlmenos25">
+                                        <Button
+                                            className={
+                                                nombreUbicacionInteriorInfo
+                                            }
+                                            onClick={
+                                                mostrarComentariohabitaculo
+                                            }>
+                                            {!ubicarProductoHabitaculo ? (
+                                                <i
+                                                    class="fa fa-info d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            ) : (
+                                                <i
+                                                    class="fa fa-check-square-o d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            )}
+                                        </Button>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xl={10} lg={10} md={10} xs={10}>
+                                        <Button
+                                            className={
+                                                nombreUbicacionTrenMotriz
+                                            }
+                                            onClick={SelecUbicarProductoMotor}>
+                                            TREN MOTRIZ
+                                        </Button>
+                                    </Col>
+                                    <Col
+                                        xl={1}
+                                        lg={1}
+                                        md={1}
+                                        xs={1}
+                                        className="mlmenos25">
+                                        <Button
+                                            className={
+                                                nombreUbicacionTrenMotrizInfo
+                                            }
+                                            onClick={mostrarComentariomotor}>
+                                            {!ubicarProductoMotor ? (
+                                                <i
+                                                    class="fa fa-info d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            ) : (
+                                                <i
+                                                    class="fa fa-check-square-o d-flex justify-content-center"
+                                                    aria-hidden="true"></i>
+                                            )}
+                                        </Button>
+                                    </Col>
+                                </Row>
                             </Col>
                             <Col
-                                xl={1}
-                                lg={1}
-                                md={1}
-                                xs={1}
-                                className="mlmenos25">
-                                <Button
-                                    className="botonpartesvehiculoinfo mlmenos1 mt-2"
-                                    onClick={mostrarComentariolatoneria}>
-                                    {!ubicarProductoLatoneria ? (
-                                        <i
-                                            class="fa fa-info d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    ) : (
-                                        <i
-                                            class="fa fa-check-square-o d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    )}
-                                </Button>
+                                xl={5}
+                                lg={5}
+                                md={5}
+                                xs={5}
+                                className="ml-60 mtmenos20">
+                                <Card.Body>
+                                    {showImagenExterior ? (
+                                        <Card.Img
+                                            src="/imgcarrusel/createproducto/exteriorbase.jpg"
+                                            alt="Card image"
+                                        />
+                                    ) : showImagenInterior ? (
+                                        <Card.Img
+                                            src="/imgcarrusel/createproducto/interior.jpg"
+                                            alt="Card image"
+                                        />
+                                    ) : showImagenTrenMotriz ? (
+                                        <Card.Img
+                                            src="/imgcarrusel/createproducto/trenmotrizbase.jpg"
+                                            alt="Card image"
+                                        />
+                                    ) : null}
+                                </Card.Body>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col xl={10} lg={10} md={10} xs={10}>
-                                <Button
-                                    className="botonpartesvehiculo"
-                                    onClick={SelecUbicarProductoHabitaculo}>
-                                    INTERIOR
-                                </Button>
-                            </Col>
-                            <Col
-                                xl={1}
-                                lg={1}
-                                md={1}
-                                xs={1}
-                                className="mlmenos25">
-                                <Button
-                                    className="botonpartesvehiculoinfo mlmenos1 mt-2"
-                                    onClick={mostrarComentariohabitaculo}>
-                                    {!ubicarProductoHabitaculo ? (
-                                        <i
-                                            class="fa fa-info d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    ) : (
-                                        <i
-                                            class="fa fa-check-square-o d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    )}
-                                </Button>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xl={10} lg={10} md={10} xs={10}>
-                                <Button
-                                    className="botonpartesvehiculo"
-                                    onClick={SelecUbicarProductoMotor}>
-                                    TREN MOTRIZ
-                                </Button>
-                            </Col>
-                            <Col
-                                xl={1}
-                                lg={1}
-                                md={1}
-                                xs={1}
-                                className="mlmenos25">
-                                <Button
-                                    className="botonpartesvehiculoinfo mlmenos1 mt-2"
-                                    onClick={mostrarComentariomotor}>
-                                    {!ubicarProductoMotor ? (
-                                        <i
-                                            class="fa fa-info d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    ) : (
-                                        <i
-                                            class="fa fa-check-square-o d-flex justify-content-center"
-                                            aria-hidden="true"></i>
-                                    )}
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <Col
-                        xl={5}
-                        lg={5}
-                        md={5}
-                        xs={5}
-                        className="ml-60 mtmenos20">
-                        <Card.Body>
-                            {showImagenExterior ? (
-                                <Card.Img
-                                    src="/imgcarrusel/createproducto/exteriorbase.jpg"
-                                    alt="Card image"
-                                />
-                            ) : showImagenInterior ? (
-                                <Card.Img
-                                    src="/imgcarrusel/createproducto/interior.jpg"
-                                    alt="Card image"
-                                />
-                            ) : showImagenTrenMotriz ? (
-                                <Card.Img
-                                    src="/imgcarrusel/createproducto/trenmotrizbase.jpg"
-                                    alt="Card image"
-                                />
-                            ) : null}
-                        </Card.Body>
-                    </Col>
-                </Row>
-
-                <Row className="mt-20 mb-30">
-                    <Col xl={1} lg={1} md={1} xs={1}></Col>
-                    <Col xl={3} lg={3} md={3} xs={3}>
-                        <Button
-                            className="ps-btn ml-30"
-                            onClick={() => mostrarModalPosicionProducto()}>
-                            {" "}
-                            Aceptar{" "}
-                        </Button>
-                    </Col>
-                    <Col xl={4} lg={4} md={4} xs={4}>
-                        <Button className="ps-btn ml-100"> Cancelar </Button>
-                    </Col>
-                </Row>
+                    </div>
+                ) : null}
             </div>
 
             <div>
@@ -2086,7 +2723,7 @@ function DatosLatoneria(props) {
             {showModalDatosProducto ? (
                 ubicarProductoLatoneria ? (
                     <div>
-                        <div>
+                        <div className="ml-55 mt-20 mb-20">
                             <Row>
                                 <Col xl={10} lg={10} md={10} sm={10}>
                                     <h3 className="tituloadvertenciaproductosizquierda">
@@ -2101,7 +2738,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col lg={9} xl={9} xs={9} md={9}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            className={nombreUbicacionIzquierda}
                                             onClick={
                                                 SeleccionePosicionProductoIzquierdo
                                             }>
@@ -2110,7 +2747,9 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
-                                            className="botonpartesvehiculoinfo mt-2"
+                                            className={
+                                                nombreUbicacionIzquierdaInfo
+                                            }
                                             onClick={
                                                 mostrarComentarioPosicionIzquierdo
                                             }>
@@ -2129,7 +2768,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col lg={9} xl={9} xs={9} md={9}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            className={nombreUbicacionCentro}
                                             onClick={
                                                 SeleccionePosicionProductoCentro
                                             }>
@@ -2138,7 +2777,9 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
-                                            className="botonpartesvehiculoinfo mt-2"
+                                            className={
+                                                nombreUbicacionCentroInfo
+                                            }
                                             onClick={
                                                 mostrarComentarioPosicionCentro
                                             }>
@@ -2157,7 +2798,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col lg={9} xl={9} xs={9} md={9}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            className={nombreUbicacionDerecha}
                                             onClick={
                                                 SeleccionePosicionProductoDerecho
                                             }>
@@ -2166,7 +2807,9 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
-                                            className="botonpartesvehiculoinfo mt-2"
+                                            className={
+                                                nombreUbicacionDerechaInfo
+                                            }
                                             onClick={
                                                 mostrarComentarioPosicionDerecho
                                             }>
@@ -2209,10 +2852,9 @@ function DatosLatoneria(props) {
                                 </Card.Body>
                             </Col>
                         </Row>
-
                         <br />
                         <hr />
-                        <div className="ml-140">
+                        <div className="ml-400">
                             <Row>
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <Button
@@ -2221,19 +2863,7 @@ function DatosLatoneria(props) {
                                             mostrarModalDatosProducto()
                                         }>
                                         {" "}
-                                        Aceptar
-                                    </Button>
-                                </Col>
-                                <Col xl={4} lg={4} md={4} xs={4}>
-                                    <Button
-                                        className="ps-btn"
-                                        onClick={() =>
-                                            setShowModalPosicionProductoLatoneria(
-                                                false
-                                            )
-                                        }>
-                                        {" "}
-                                        Cancelar{" "}
+                                        Siguiente
                                     </Button>
                                 </Col>
                             </Row>
@@ -2331,28 +2961,23 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col
-                                xl={7}
-                                lg={7}
-                                md={7}
-                                xs={7}
-                                className="ml-45">
-                                <Card.Body>
+                            <Col xl={6} lg={6} md={6} xs={6} className="ml-45">
+                                <Card.Body className="mtmenos25">
                                     {showImagenConsola ? (
                                         <Card.Img
-                                        width={150}
-                                        height={150}
-                                            src="/imgcarrusel/createproducto/izquierda.jpg"
+                                            width={100}
+                                            height={180}
+                                            src="/imgcarrusel/createproducto/consola.jpg"
                                             alt="Card image"
                                         />
                                     ) : showImagenAsiento ? (
                                         <Card.Img
-                                            src="/imgcarrusel/createproducto/centro.jpg"
+                                            src="/imgcarrusel/createproducto/asientos.jpg"
                                             alt="Card image"
                                         />
                                     ) : showImagenTecho ? (
                                         <Card.Img
-                                            src="/imgcarrusel/createproducto/derecha.jpg"
+                                            src="/imgcarrusel/createproducto/techo.jpg"
                                             alt="Card image"
                                         />
                                     ) : null}
@@ -2361,7 +2986,7 @@ function DatosLatoneria(props) {
                         </Row>
                         <br />
                         <hr />
-                        <div className="ml-140">
+                        <div className="ml-400">
                             <Row>
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <Button
@@ -2370,565 +2995,380 @@ function DatosLatoneria(props) {
                                             mostrarModalDatosProducto()
                                         }>
                                         {" "}
-                                        Aceptar
-                                    </Button>
-                                </Col>
-                                <Col xl={4} lg={4} md={4} xs={4}>
-                                    <Button
-                                        className="ps-btn"
-                                        onClick={() =>
-                                            setShowModalPosicionProductoLatoneria(
-                                                false
-                                            )
-                                        }>
-                                        {" "}
-                                        Cancelar{" "}
+                                        Siguiente
                                     </Button>
                                 </Col>
                             </Row>
                         </div>
                     </div>
                 ) : ubicarProductoMotor ? (
-                    <div>
-                        <div className="ml-90">
+                    <div className="ml-55">
+                        <Row>
+                            <Col xl={10} lg={10} md={10} sm={10}>
+                                <h3 className="tituloadvertenciaproductosizquierda mt-10 mb-20">
+                                    Escoge el sistema en que se encuentra tu
+                                    producto:
+                                </h3>
+                            </Col>
+                        </Row>
+                        <Row>
                             <Row>
-                                <Col xl={10} lg={10} md={10} sm={10}>
-                                    <div className="botonimagenesilustrativas">
-                                        <h3 className="textoimagenesilustrativas">
-                                            ! Escoge en que posición del
-                                            habitáculo esta ubicado el producto
-                                            ¡
-                                        </h3>
-                                    </div>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaAireAcondicionado}
+                                        onMouseOver={() =>
+                                            SeleccionaAireAcondicionado()
+                                        }
+                                        onMouseOut={() =>
+                                            SeleccionBaseMotorElectrico()
+                                        }>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/aireacondicionado.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaArranque}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/arranque.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaCaja}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/caja.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaDireccion}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/direccion.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaEmbrague}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/embrague.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaEscape}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/escape.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaFrenos}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaInyeccion}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
                                 </Col>
                             </Row>
-                        </div>
-                        <Row>
-                            <Col xl={4} lg={4} md={4} xs={4}>
-                                <ButtonGroup vertical className="ml-10 mt-40">
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneConsola}>
-                                                Aireacondicionado
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioConsola
-                                                }>
-                                                {!posicionProductoConsola ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneAsiento}>
-                                                Dirección
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioAsiento
-                                                }>
-                                                {!posicionProductoAsiento ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Frenos
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Caja
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Refrigeración
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Arranque
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Embrague
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Escape
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Inyección
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Refrigeración Caja
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Sistema Eléctrico Motor
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Sistema Eléctrico General
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Suspensión
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Transmisión
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Parabrisas
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col lg={1} xl={1} xs={1} md={1}>
-                                            <Button
-                                                className="botonposicionproducto"
-                                                onClick={SeleccioneTecho}>
-                                                Motor
-                                            </Button>
-                                        </Col>
-                                        <Col
-                                            lg={1}
-                                            xl={1}
-                                            xs={1}
-                                            md={1}
-                                            className="mlmenos20">
-                                            <Button
-                                                className="botonposicionproductoinfo"
-                                                onClick={
-                                                    mostrarComentarioTecho
-                                                }>
-                                                {!posicionProductoTecho ? (
-                                                    <i
-                                                        class="fa fa-info d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                ) : (
-                                                    <i
-                                                        class="fa fa-check-square-o d-flex justify-content-center"
-                                                        aria-hidden="true"></i>
-                                                )}
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </ButtonGroup>
-                            </Col>
-                            <Col
-                                xl={5}
-                                lg={5}
-                                md={5}
-                                xs={5}
-                                className="ml-60 mt-10">
-                                <Card.Body>
-                                    <Card.Img
-                                        width="60px"
-                                        height="340px"
-                                        src="/static/img/createproducts/motorgeneral.jpg"
-                                        alt="Card image"
-                                    />
+                            <Row>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaMotor}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/motor.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaParabrisas}>
+                                        <img
+                                            width={50}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/parabrisas.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaRefrigeracion}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaRefrigeracionCaja}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionasistemaElectrico}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectricomotor.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={
+                                            SeleccionasistemaElectricoMotor
+                                        }>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaAireSuspension}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/aireacondicionado.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaTransmision}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <Col xl={7} lg={7} md={7} xs={7}>
+                                <Card.Body className="ml-95 mtmenos500">
+                                    {showImagenBaseMotorElectrico ? (
+                                        <div>
+                                            <h3 className="seccionesvehiculotext">
+                                                Sistemas Motor Eléctrico
+                                            </h3>
+                                            <Card.Img
+                                                width="100px"
+                                                height="220px"
+                                                src="/static/img/createproducts/motorgeneral.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenAireacondicionado ? (
+                                        <div>
+                                            <h3>Sistema acondicionado</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenArranque ? (
+                                        <div>
+                                            <h3>Sistema de arranque</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenCaja ? (
+                                        <div>
+                                            <h3>Sistema de caja</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenDireccion ? (
+                                        <div>
+                                            <h3>Sistema de dirección</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenEmbrague ? (
+                                        <div>
+                                            <h3>Sistema de embrague</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenEscape ? (
+                                        <div>
+                                            <h3>Sistema de escape</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenFrenos ? (
+                                        <div>
+                                            <h3>Sistema de frenos</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenInyeccion ? (
+                                        <div>
+                                            <h3>Sistema de inyeccion</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenMotor ? (
+                                        <div>
+                                            <h3>Sistema de motor</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenParabrisas ? (
+                                        <div>
+                                            <h3>Sistema parabrisas</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenRefrigeracion ? (
+                                        <div>
+                                            <h3>Sistema de refrigeración</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenRefrigeracionCaja ? (
+                                        <div>
+                                            <h3>Sistema de caja</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenSistemElectrico ? (
+                                        <div>
+                                            <h3>Sistema Eléctrico</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenSistemElectricoMotor ? (
+                                        <div>
+                                            <h3>Sistema eléctrico motor</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenSuspension ? (
+                                        <div>
+                                            <h3>Sistema de suspensión</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/uno.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : showImagenTransmision ? (
+                                        <div>
+                                            <h3>Sistemas de Transmisión</h3>
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/dos.jpg"
+                                                alt="Card image"
+                                            />
+                                        </div>
+                                    ) : null}
                                 </Card.Body>
-                                <Card.Footer>
-                                    <h2 className="seccionesVehtexto">
-                                        {" "}
-                                        Sistemas del Motor/Eléctrico{" "}
-                                    </h2>
-                                </Card.Footer>
                             </Col>
                         </Row>
                         <br />
                         <hr />
-                        <div className="ml-140">
+                        <div className="ml-400">
                             <Row>
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <Button
@@ -2937,24 +3377,58 @@ function DatosLatoneria(props) {
                                             mostrarModalDatosProducto()
                                         }>
                                         {" "}
-                                        Aceptar
-                                    </Button>
-                                </Col>
-                                <Col xl={4} lg={4} md={4} xs={4}>
-                                    <Button
-                                        className="ps-btn"
-                                        onClick={() =>
-                                            setShowModalPosicionProductoLatoneria(
-                                                false
-                                            )
-                                        }>
-                                        {" "}
-                                        Cancelar{" "}
+                                        Siguiente
                                     </Button>
                                 </Col>
                             </Row>
                         </div>
                     </div>
+                ) : abrirCerarUbicarProducto ? (
+                    <Row>
+                        <Col xl={7} lg={7} md={7} xs={7}>
+                            <div
+                                className="mt-1 ml-60 datoscerrados"
+                                disabled={true}>
+                                <h3 className="textoubicacionproducto">
+                                    Ubicación del producto en el vehículo.
+                                </h3>
+                            </div>
+                        </Col>
+                        <Col
+                            xl={1}
+                            lg={1}
+                            md={1}
+                            xs={1}
+                            className="mlmenos60 mtmenos2">
+                            <div className="showcerrarabrir">
+                                <i
+                                    class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                    onClick={abrirDatosUbicacionProucto}
+                                    aria-hidden="true"
+                                    ref={targetshow}
+                                    onMouseOver={() => setShowEdit(true)}
+                                    onMouseOut={() => setShowEdit(false)}></i>
+                            </div>
+
+                            <Overlay
+                                className=""
+                                target={targetshow.current}
+                                show={showEdit}
+                                placement="top">
+                                {(props) => (
+                                    <Tooltip
+                                        className="ubicartooltipproducto"
+                                        id="overlay-example"
+                                        {...props}>
+                                        <h3 className="tamañotextotooltipproducto">
+                                            {" "}
+                                            Ubicación de producto{" "}
+                                        </h3>
+                                    </Tooltip>
+                                )}
+                            </Overlay>
+                        </Col>
+                    </Row>
                 ) : null
             ) : null}
 
@@ -3062,17 +3536,16 @@ function DatosProductos(props) {
         setShowDatosProductosAdicionales,
     } = props;
 
+    const [showEdit, setShowEdit] = useState(false);
+    const targetshow = useRef(null);
     const caracteristicasVeh = useSelector(
         (state) => state.vehiculoseleccionado.vehiculoseleccionado
     );
-    const dispatch = useDispatch();
-    const router = useRouter();
-    //console.log("DATOS Veh : ", caracteristicasVeh);
-    const { setShowModalProducto, showModalProducto } = props;
+
     const [formData, setFormData] = useState(defaultValueForm());
     const [formError, setFormError] = useState({});
     const [loading, setLoading] = useState(false);
-    const [fileName, setFileName] = useState("Subir Imagenes");
+    const [informacionProducto, setInformacionProducto] = useState(true);
 
     const onChange = (e) => {
         setFormData({
@@ -3111,7 +3584,7 @@ function DatosProductos(props) {
         if (!formData.titulonombre) {
             swal(
                 "Información del producto",
-                "Debe ingresar el Nombre del Prodcto!",
+                "Debe ingresar el titulo de la publicación!",
                 "warning",
                 { button: "Aceptar" }
             );
@@ -3190,150 +3663,211 @@ function DatosProductos(props) {
     };
 
     const onCloseModaDatosProductos = () => {
-        setShowDatosProductos(false);
         setShowDatosProductosAdicionales(true);
+        setInformacionProducto(false);
+    };
+
+    const onOpenModaDatosProductos = () => {
+        setShowDatosProductosAdicionales(false);
+        setInformacionProducto(true);
     };
 
     return (
         <div className="ps-page__header">
-            <div className="ml-250 mt-10">
-                <Row>
-                    <Col xl={1} lg={1} md={1} sm={1}>
-                        <div className="botonimagenesilustrativas mt-10">
-                            <h3 className="textoimagenesilustrativas ">
-                                Ingresa la información sobre tu producto.
-                            </h3>
+            {informacionProducto ? (
+                <div className="mt-40 ">
+                    <h3 className="tituloadvertenciaproductosizquierda ml-250">
+                        Información sobre tu producto.
+                    </h3>
+                    <form onChange={onChange} className="ml-240">
+                        <div className="ps-form--review">
+                            <div className="ps-form__group inputdatosproducto">
+                                <label className="ps-form__label">
+                                    * Titulo publicación
+                                </label>
+                                <input
+                                    className="form-control ps-form__input"
+                                    name="titulonombre"
+                                    onChange={(e) =>
+                                        tituloOnChange(e.target.value)
+                                    }
+                                    type="text"
+                                />
+                            </div>
+                            <div className="ps-form__group inputdatosproducto">
+                                <label className="ps-form__label">
+                                    * Marca del Repuesto
+                                </label>
+                                <input
+                                    className="form-control ps-form__input"
+                                    name="marcarepuesto"
+                                    type="text"
+                                />
+                            </div>
+                            <div className="ps-form__group inputdatosproducto">
+                                <label className="ps-form__label">
+                                    * Condición del Producto Nuevo o Usado
+                                </label>
+                                <div className="form-control ps-form__input">
+                                    <select
+                                        className="custom-select ps-form__labelselect"
+                                        name="condicion">
+                                        <option
+                                            selected
+                                            className="select-fontsize ps-form__label"></option>
+                                        {condicionproducto &&
+                                            condicionproducto.map(
+                                                (itemselect) => {
+                                                    return (
+                                                        <option
+                                                            value={
+                                                                itemselect.value
+                                                            }>
+                                                            {itemselect.label}
+                                                        </option>
+                                                    );
+                                                }
+                                            )}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="ps-form__group inputdatosproducto">
+                                <label className="ps-form__label">
+                                    * Califica tu Producto
+                                </label>
+                                <div className="form-control ps-form__input">
+                                    <select
+                                        className="custom-select ps-form__labelselect"
+                                        name="calificacionproducto">
+                                        <option
+                                            selected
+                                            className="select-fontsize ps-form__label"></option>
+                                        {calificacionproducto &&
+                                            calificacionproducto.map(
+                                                (itemselect) => {
+                                                    return (
+                                                        <option
+                                                            value={
+                                                                itemselect.value
+                                                            }>
+                                                            {itemselect.label}
+                                                        </option>
+                                                    );
+                                                }
+                                            )}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="ps-form__group inputdatosproducto">
+                                <label className="ps-form__label">
+                                    Numero de Parte
+                                </label>
+                                <input
+                                    className="form-control ps-form__input"
+                                    name="numerodeparte"
+                                    type="text"
+                                    defaultValue={0}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    InputProps={{
+                                        inputComponent: NumberFormatCelular,
+                                    }}
+                                />
+                            </div>
+                            {caracteristicasVeh.productogenerico === "Si" ? (
+                                <div className="ps-form__group">
+                                    <label className="ps-form__label">
+                                        Con que Vehiculos es Compatible
+                                    </label>
+                                    <input
+                                        className="form-control ps-form__input"
+                                        name="compatible"
+                                        type="text"
+                                    />
+                                </div>
+                            ) : null}
                         </div>
-                    </Col>
-                </Row>
-            </div>
-            <br />
-            <form onChange={onChange} className="ml-200">
-                <div className="ps-form--review">
-                    <div className="ps-form__group inputdatosproducto">
-                        <label className="ps-form__label">
-                            * Nombre del producto
-                        </label>
-                        <input
-                            className="form-control ps-form__input"
-                            name="titulonombre"
-                            onChange={(e) => tituloOnChange(e.target.value)}
-                            type="text"
-                        />
-                    </div>
-                    <div className="ps-form__group inputdatosproducto">
-                        <label className="ps-form__label">
-                            * Marca del Repuesto
-                        </label>
-                        <input
-                            className="form-control ps-form__input"
-                            name="marcarepuesto"
-                            type="text"
-                        />
-                    </div>
-                    <div className="ps-form__group inputdatosproducto">
-                        <label className="ps-form__label">
-                            * Condición del Producto Nuevo o Usado
-                        </label>
-                        <div className="form-control ps-form__input">
-                            <select
-                                className="custom-select ps-form__labelselect"
-                                name="condicion">
-                                <option
-                                    selected
-                                    className="select-fontsize ps-form__label"></option>
-                                {condicionproducto &&
-                                    condicionproducto.map((itemselect) => {
-                                        return (
-                                            <option value={itemselect.value}>
-                                                {itemselect.label}
-                                            </option>
-                                        );
-                                    })}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="ps-form__group inputdatosproducto">
-                        <label className="ps-form__label">
-                            * Califica tu Producto
-                        </label>
-                        <div className="form-control ps-form__input">
-                            <select
-                                className="custom-select ps-form__labelselect"
-                                name="calificacionproducto">
-                                <option
-                                    selected
-                                    className="select-fontsize ps-form__label"></option>
-                                {calificacionproducto &&
-                                    calificacionproducto.map((itemselect) => {
-                                        return (
-                                            <option value={itemselect.value}>
-                                                {itemselect.label}
-                                            </option>
-                                        );
-                                    })}
-                            </select>
-                        </div>
-                    </div>
-                    <div className="ps-form__group inputdatosproducto">
-                        <label className="ps-form__label">
-                            Numero de Parte
-                        </label>
-                        <input
-                            className="form-control ps-form__input"
-                            name="numerodeparte"
-                            type="text"
-                            defaultValue={0}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            InputProps={{
-                                inputComponent: NumberFormatCelular,
-                            }}
-                        />
-                    </div>
-                    {caracteristicasVeh.productogenerico === "Si" ? (
-                        <div className="ps-form__group">
-                            <label className="ps-form__label">
-                                Con que Vehiculos es Compatible
-                            </label>
-                            <input
-                                className="form-control ps-form__input"
-                                name="compatible"
-                                type="text"
-                            />
-                        </div>
-                    ) : null}
-                </div>
-            </form>
+                    </form>
 
-            <div className="botongrabarproducto">
-                <Row>
-                    <Col xl={1} lg={1} md={1} xs={1}></Col>
-                    <Col xl={2} lg={2} md={2} xs={2}>
-                        <div>
-                            <p className="ps-form__text ">
-                                * Datos Requeridos.
-                            </p>
-                        </div>
-                    </Col>
-                    <Col xl={3} lg={3} md={3} xs={3}>
-                        <div
-                            className="ps-btn"
-                            onClick={grabardatosadicionales}>
-                            Click para Continuar
-                        </div>
-                    </Col>
-                    <Col xl={4} lg={4} md={4} xs={4}>
-                        <Button
-                            className="ps-btn"
-                            onClick={() => setShowModalProducto(false)}>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Col>
-                </Row>
-            </div>
+                    <div className="botongrabarproducto mtmenos40">
+                        <Row>
+                            <Col xl={1} lg={1} md={1} xs={1}></Col>
+                            <Col xl={6} lg={6} md={6} xs={6}>
+                                <div>
+                                    <p className="ps-form__text ">
+                                        * Datos Requeridos.
+                                    </p>
+                                </div>
+                            </Col>
+                            <Col xl={3} lg={3} md={3} xs={3}>
+                                <div
+                                    className="ps-btn"
+                                    onClick={grabardatosadicionales}>
+                                    Siguiente
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+            ) : (
+                <div>
+                    <div className="mt-30">
+                        <h3 className="tituloadvertenciaproductosizquierda ml-250">
+                            Datos del producto
+                        </h3>
+                    </div>
+                    <div className="mt-20 ml-190">
+                        <Row>
+                            <Col xl={7} lg={7} md={7} xs={7}>
+                                <div
+                                    className="mt-1 ml-60 datoscerrados"
+                                    disabled={true}>
+                                    <h3 className="textoubicacionproducto">
+                                        Información sobre tu producto.
+                                    </h3>
+                                </div>
+                            </Col>
+                            <Col
+                                xl={1}
+                                lg={1}
+                                md={1}
+                                xs={1}
+                                className="mlmenos60 mtmenos2">
+                                <div className="showcerrarabrir">
+                                    <i
+                                        class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                        onClick={onOpenModaDatosProductos}
+                                        aria-hidden="true"
+                                        ref={targetshow}
+                                        onMouseOver={() => setShowEdit(true)}
+                                        onMouseOut={() =>
+                                            setShowEdit(false)
+                                        }></i>
+                                </div>
+
+                                <Overlay
+                                    className=""
+                                    target={targetshow.current}
+                                    show={showEdit}
+                                    placement="top">
+                                    {(props) => (
+                                        <Tooltip
+                                            className="ubicartooltipproducto"
+                                            id="overlay-example"
+                                            {...props}>
+                                            <h3 className="tamañotextotooltipproducto">
+                                                {" "}
+                                                Información del producto{" "}
+                                            </h3>
+                                        </Tooltip>
+                                    )}
+                                </Overlay>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
@@ -3348,7 +3882,9 @@ function DatosProductosAdicionales(props) {
         setShowIngresoFotos,
     } = props;
 
-    const [showModalFotos, setShowModalFotos] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const targetshow = useRef(null);
+    const [datosPublicacion, setDatosPublicacion] = useState(true);
     const [formData, setFormData] = useState(defaultValueForm());
     const [formError, setFormError] = useState({});
     const [loading, setLoading] = useState(false);
@@ -3487,15 +4023,6 @@ function DatosProductosAdicionales(props) {
     };
 
     const datosProductoDos = () => {
-        //setSelectedOption(selectedOption);
-        //console.log(`Numero de Unidades :`, formData.numerodeunidades);
-        //console.log(`Descripción Producto :`, formData.descripcionproducto);
-        //console.log(`Vendo por Partes : `, formData.vendeporpartes);
-        //console.log(`Peso : `, formData.peso);
-        //console.log(`Largo : `, formData.largo);
-        //console.log(`Ancho : `, formData.ancho);
-        //console.log(`Alto : `, formData.alto);
-
         const datosproductodos = {
             numerodeunidades: formData.numerodeunidades,
             precio: formData.precio,
@@ -3507,182 +4034,233 @@ function DatosProductosAdicionales(props) {
             alto: formData.alto,
         };
 
-        console.log("DATOS PRODUCTO DOS : ", datosproductodos);
-
         //Asigna Caracteristicas del Veh Selecdo al state
         // dispatch(getDatosProductoUno(datosproductodos));
-        onCloseModalDatosAdicionalProductos();
+        onCloseModalDatosPublicacion();
     };
 
-    const onCloseModalDatosAdicionalProductos = () => {
-        setShowDatosProductosAdicionales(false);
+    const onCloseModalDatosPublicacion = () => {
         setShowIngresoFotos(true);
+        setDatosPublicacion(false);
+    };
+
+    const onOpenModalDatosPublicacion = () => {
+        setShowIngresoFotos(false);
+        setDatosPublicacion(true);
     };
 
     return (
         <div className="ps-page__header">
-            <div>
+            {datosPublicacion ? (
                 <div>
-                    <h3 className="textoimagenesilustrativas ml-250 mt-40">
-                        Uf, falta poco, aún necesitamos datos adicionales del
-                        producto.
-                    </h3>
-                </div>
-
-                <br />
-                <form onChange={onChange} className="ml-100">
-                    <div className="ps-form--review">
-                        <div className="ps-form__group inputdatosproductoadicional">
-                            <Row>
-                                <Col xs lg={6}>
-                                    <label className="ps-form__label">
-                                        Número de Unidades
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="numerodeunidades"
-                                        placeholder="Ingrese número de unidades"
-                                        thousandSeparator={true}
-                                        prefix={""}
-                                    />
-                                </Col>
-                                <Col xs lg={6}>
-                                    <label className="ps-form__label">
-                                        Precio del producto
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="precio"
-                                        placeholder="Ingrese precio del producto"
-                                        thousandSeparator={true}
-                                        prefix={"$"}
-                                    />
-                                </Col>
-                            </Row>
-                        </div>
-                        <div className="ps-form__group inputdatosproductoadicional mt-10">
-                            <label className="ps-form__label">
-                                Descripción del producto
-                            </label>
-                            <input
-                                className="form-control ps-form__input"
-                                name="descripcionproducto"
-                                type="text"
-                            />
-                        </div>
-                        <div className="ps-form__group inputdatosproductoadicional mt-10">
-                            <Row>
-                                <Col xs lg={6}>
-                                    <label className="ps-form__label">
-                                        Vende por partes
-                                    </label>
-                                    <div className="form-control ps-form__input">
-                                        <select
-                                            className="custom-select ps-form__labelselect"
-                                            name="vendeporpartes">
-                                            <option
-                                                selected
-                                                className="select-fontsize ps-form__label">
-                                                Por partes Si o No
-                                            </option>
-                                            {porpartes &&
-                                                porpartes.map((itemselect) => {
-                                                    return (
-                                                        <option
-                                                            value={
-                                                                itemselect.value
-                                                            }>
-                                                            {itemselect.label}
-                                                        </option>
-                                                    );
-                                                })}
-                                        </select>
-                                    </div>
-                                </Col>
-                                <Col xs lg={6}>
-                                    <label className="ps-form__label">
-                                        Peso del producto
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="peso"
-                                        placeholder="Ingrese peso del producto en kilogramos"
-                                        thousandSeparator={true}
-                                        prefix={""}
-                                    />
-                                </Col>
-                            </Row>
-                        </div>
-                        <br />
-                        <div className="ps-form__group inputdatosproductoadicional">
-                            <label className="labeldimensionesproducto text-center">
-                                Las dimensiones del producto las debes ingresar
-                                en Centimetros
-                            </label>
-                            <Row>
-                                <Col xs lg={4}>
-                                    <label className="ps-form__label">
-                                        Largo del producto
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="largo"
-                                        placeholder="Ingrese dimensiones en cms"
-                                        thousandSeparator={true}
-                                        prefix={""}
-                                    />
-                                </Col>
-                                <Col xs lg={4}>
-                                    <label className="ps-form__label">
-                                        Ancho del producto
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="ancho"
-                                        placeholder="Ingrese dimensiones en cms"
-                                        thousandSeparator={true}
-                                        prefix={""}
-                                    />
-                                </Col>
-                                <Col xs lg={4}>
-                                    <label className="ps-form__label">
-                                        Altura del producto
-                                    </label>
-                                    <NumberFormat
-                                        className="form-control ps-form__input"
-                                        name="alto"
-                                        placeholder="Ingrese dimensiones en cms"
-                                        thousandSeparator={true}
-                                        prefix={""}
-                                    />
-                                </Col>
-                            </Row>
-                        </div>
+                    <div className="mt-30 ml-250">
+                        <h3 className="tituloadvertenciaproductosizquierda">
+                            Datos de la publicación.
+                        </h3>
                     </div>
-                </form>
+                    <form onChange={onChange} className="ml-240">
+                        <div className="ps-form--review">
+                            <div className="ps-form__group inputdatosproductoadicional">
+                                <Row>
+                                    <Col xs lg={6}>
+                                        <label className="ps-form__label">
+                                            Número de Unidades
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="numerodeunidades"
+                                            placeholder="Ingrese número de unidades"
+                                            thousandSeparator={true}
+                                            prefix={""}
+                                        />
+                                    </Col>
+                                    <Col xs lg={6}>
+                                        <label className="ps-form__label">
+                                            Precio del producto
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="precio"
+                                            placeholder="Ingrese precio del producto"
+                                            thousandSeparator={true}
+                                            prefix={"$"}
+                                        />
+                                    </Col>
+                                </Row>
+                            </div>
+                            <div className="ps-form__group inputdatosproductoadicional mt-10">
+                                <label className="ps-form__label">
+                                    Descripción del producto
+                                </label>
+                                <input
+                                    className="form-control ps-form__input"
+                                    name="descripcionproducto"
+                                    type="text"
+                                />
+                            </div>
+                            <div className="ps-form__group inputdatosproductoadicional mt-10">
+                                <Row>
+                                    <Col xs lg={6}>
+                                        <label className="ps-form__label">
+                                            Vende por partes
+                                        </label>
+                                        <div className="form-control ps-form__input">
+                                            <select
+                                                className="custom-select ps-form__labelselect"
+                                                name="vendeporpartes">
+                                                <option
+                                                    selected
+                                                    className="select-fontsize ps-form__label">
+                                                    Por partes Si o No
+                                                </option>
+                                                {porpartes &&
+                                                    porpartes.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col xs lg={6}>
+                                        <label className="ps-form__label">
+                                            Peso del producto
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="peso"
+                                            placeholder="Ingrese peso del producto en kilogramos"
+                                            thousandSeparator={true}
+                                            prefix={""}
+                                        />
+                                    </Col>
+                                </Row>
+                            </div>
+                            <br />
+                            <div className="ps-form__group inputdatosproductoadicional">
+                                <label className="labeldimensionesproducto text-center">
+                                    Ingrese las dimensiones en centimetros
+                                </label>
+                                <Row>
+                                    <Col xs lg={4}>
+                                        <label className="ps-form__label">
+                                            Largo del producto
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="largo"
+                                            placeholder="Dimensiones en cms"
+                                            thousandSeparator={true}
+                                            prefix={""}
+                                        />
+                                    </Col>
+                                    <Col xs lg={4}>
+                                        <label className="ps-form__label">
+                                            Ancho del producto
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="ancho"
+                                            placeholder="Dimensiones en cms"
+                                            thousandSeparator={true}
+                                            prefix={""}
+                                        />
+                                    </Col>
+                                    <Col xs lg={4}>
+                                        <label className="ps-form__label">
+                                            Altura del producto
+                                        </label>
+                                        <NumberFormat
+                                            className="form-control ps-form__input"
+                                            name="alto"
+                                            placeholder="Dimensiones en cms"
+                                            thousandSeparator={true}
+                                            prefix={""}
+                                        />
+                                    </Col>
+                                </Row>
+                            </div>
+                        </div>
+                    </form>
 
-                <div className="botongrabaradicionalproducto mt-20">
+                    <div className="botongrabaradicionalproducto mtmenos30">
+                        <Row>
+                            <Col xl={2} lg={2} md={2} xs={2}></Col>
+                            <Col xl={2} lg={2} md={2} xs={2}>
+                                <div>
+                                    <p className="ps-form__text">
+                                        * Datos Requeridos.
+                                    </p>
+                                </div>
+                            </Col>
+                            <Col xl={8} lg={8} md={8} xs={8}>
+                                <div
+                                    className="ps-btn"
+                                    onClick={datosAdicionalesProducto}>
+                                    Vamos al ingreso de fotos del producto
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+            ) : (
+                <div className="mt-20 ml-190">
                     <Row>
-                        <Col xl={2} lg={2} md={2} xs={2}>
-                            <div>
-                                <p className="ps-form__text">
-                                    * Datos Requeridos.
-                                </p>
-                            </div>
-                        </Col>
-                        <Col xl={4} lg={4} md={4} xs={4}>
+                        <Col xl={7} lg={7} md={7} xs={7}>
                             <div
-                                className="ps-btn"
-                                onClick={datosAdicionalesProducto}>
-                                Vamos al ingreso de fotos del producto
+                                className="mt-1 ml-60 datoscerrados"
+                                disabled={true}>
+                                <h3 className="textoubicacionproducto">
+                                    Datos publicación.
+                                </h3>
                             </div>
                         </Col>
-                        <Col xl={2} lg={2} md={2} xs={2}>
-                            <Button className="ps-btn"> Cancelar </Button>
+                        <Col
+                            xl={1}
+                            lg={1}
+                            md={1}
+                            xs={1}
+                            className="mlmenos60 mtmenos2">
+                            <div className="showcerrarabrir">
+                                <i
+                                    class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                    onClick={onOpenModalDatosPublicacion}
+                                    aria-hidden="true"
+                                    ref={targetshow}
+                                    onMouseOver={() => setShowEdit(true)}
+                                    onMouseOut={() => setShowEdit(false)}></i>
+                            </div>
+
+                            <Overlay
+                                className=""
+                                target={targetshow.current}
+                                show={showEdit}
+                                placement="top">
+                                {(props) => (
+                                    <Tooltip
+                                        className="ubicartooltipproducto"
+                                        id="overlay-example"
+                                        {...props}>
+                                        <h3 className="tamañotextotooltipproducto">
+                                            {" "}
+                                            Datos publicación{" "}
+                                        </h3>
+                                    </Tooltip>
+                                )}
+                            </Overlay>
                         </Col>
                     </Row>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
@@ -4439,18 +5017,20 @@ function RegistrarFotos(props) {
 
     return (
         <div className="ps-page__header mlmenos50">
-            <div className="ml-90">
+            <div className="mt-20 ml-130">
                 <Row>
-                    <Col xl={4} lg={4} md={4} sm={4}></Col>
+                    <Col xl={3} lg={3} md={3} sm={3}></Col>
                     <Col xl={7} lg={7} md={7} sm={7}>
-                        <div className="tamañotextocrearproducto">
-                            SUBIR FOTOS DEL PRODUCTO
+                        <div className="mt-20">
+                            <h3 className="tituloadvertenciaproductosizquierda ml-50">
+                                Ingresa fotos del producto - mínimo una
+                            </h3>
                         </div>
                     </Col>
                 </Row>
             </div>
             <br />
-            <form onChange={onChange}>
+            <form onChange={onChange} className="ml-10">
                 <div className="ps-form--review">
                     <div className="ps-form__group">
                         <Form.Group
@@ -5298,9 +5878,8 @@ function RegistrarFotos(props) {
                 </div>
             )}
 
-            <div className="botongrabarproducto">
+            <div className="ml-270 mtmenos50">
                 <Row>
-                    <Col xl={2} lg={2} xs={2} md={2}></Col>
                     <Col xl={3} lg={3} xs={3} md={3}>
                         <div>
                             <p className="ps-form__text">
@@ -5308,13 +5887,13 @@ function RegistrarFotos(props) {
                             </p>
                         </div>
                     </Col>
-                    <Col xl={2} lg={2} xs={2} md={2}>
+                    <Col xl={3} lg={3} xs={3} md={3}>
+                        <Button className="ps-btn"> Cancelar </Button>
+                    </Col>
+                    <Col xl={4} lg={4} xs={4} md={4}>
                         <div className="ps-btn" onClick={generabase64}>
                             Grabar Producto
                         </div>
-                    </Col>
-                    <Col xl={3} lg={3} xs={3} md={3}>
-                        <Button className="ps-btn"> Cancelar </Button>
                     </Col>
                 </Row>
             </div>

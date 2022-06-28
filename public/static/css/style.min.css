@@ -3887,6 +3887,10 @@ body::after {
     color:  #2D2E83 !important;
 }
 
+.colorseleccionboton {
+    background-color: #D3D4E4 !important;
+}
+
 .labeltexto {
     font-size: 14px !important;
 }
@@ -4550,8 +4554,17 @@ body::after {
     color:  #2D2E83 !important;
 }
 
+.iconomotorelectricocrearproducto {
+    background-color: white !important;
+    width: 75px !important;
+    border: solid white !important;
+    height: 65px !important;
+    font-size: 14px !important;
+  
+}
+
 .seccionesvehiculotexto {
-    text-align: center;
+    text-align: center !important;
 }
 
 .textoimagenesilustrativas {
@@ -4634,7 +4647,7 @@ body::after {
 
 .inputdatosproductoadicional {
     margin-left: 10px !important;
-    width: 760px !important;
+    width: 570px !important;
 }
 
 .inputdatosproductoadicionaluno {
@@ -16738,6 +16751,18 @@ body::after {
     margin-left: -50px !important;
 }
 
+.mlmenos55 {
+    margin-left: -55px !important;
+}
+
+.mlmenos60 {
+    margin-left: -60px !important;
+}
+
+.mlmenos65 {
+    margin-left: -65px !important;
+}
+
 .mlmenos200 {
     margin-left: -200px !important;
 }
@@ -16780,6 +16805,9 @@ body::after {
 .mtmenos20 {
     margin-top: -20px !important;
 }
+.mtmenos25 {
+    margin-top: -25px !important;
+}
 .mtmenos30 {
     margin-top: -30px !important;
 }
@@ -16800,12 +16828,24 @@ body::after {
     margin-top: -50px !important;
 }
 
+.mtmenos60 {
+    margin-top: -60px !important;
+}
+
+.mtmenos70 {
+    margin-top: -70px !important;
+}
+
 .mtmenos80 {
     margin-top: -80px !important;
 }
 
 .mtmenos100 {
-    margin-top: -80px !important;
+    margin-top: -100px !important;
+}
+
+.mtmenos500 {
+    margin-top: -400px !important;
 }
 
 .mlmenos10 {
@@ -17238,6 +17278,18 @@ body::after {
     margin-left: 55px;
 }
 
+.ml-54 {
+    margin-left: 54px;
+}
+
+.ml-53 {
+    margin-left: 53px;
+}
+
+.ml-52 {
+    margin-left: 52px;
+}
+
 .pt-55 {
     padding-top: 55px;
 }
@@ -17615,12 +17667,40 @@ body::after {
     margin-left: 230px;
 }
 
+.ml-235 {
+    margin-left: 235px;
+}
+
+.ml-240 {
+    margin-left: 240px;
+}
+
+.ml-245 {
+    margin-left: 245px;
+}
+
 .ml-250 {
     margin-left: 250px;
 }
 
+.ml-255 {
+    margin-left: 255px;
+}
+
+.ml-260 {
+    margin-left: 260px;
+}
+
+.ml-270 {
+    margin-left: 270px;
+}
+
 .ml-300 {
     margin-left: 300px;
+}
+
+.ml-400 {
+    margin-left: 400px;
 }
 
 .ml-570 {
@@ -18369,11 +18449,17 @@ ol {
     color: black !important;    
 }
 
+.textoubicacionproducto {
+    font-size: 16px !important;
+    color: #6C6DA8 !important;
+    padding-top: 10px !important;
+}
+
 .cajaadvertenciavehiculoscompatiblesproducto{
     border: solid #D5D6E6 !important;
     width: 640px !important;
     padding: 20px !important;
-    height: 150px !important;
+    height: 165px !important;
 }
 
 .tituloadvertenciaproductos {
@@ -18415,5 +18501,14 @@ ol {
     font-size: 16px !important;
     text-align: center !important;
     background-color: #F0F2F5 !important;
+    appearance:none;
+}
+
+.showcerrarabrir {
+    margin-left: 100px !important;
+    background-color: #F0F2F5 !important;
+    width: 40px !important;
+    font-size: 30px !important;
+    height: 40px !important;
 }
 

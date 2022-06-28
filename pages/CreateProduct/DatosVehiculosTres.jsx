@@ -108,16 +108,66 @@ function DatosVehiculosTres(props) {
     const datosDuplicar = JSON.parse(localStorage.getItem("duplicarvehiculo"));
 
     useEffect(() => {
-        setTipoVeh(datosDuplicar.tipoVeh);
-        setMarcaVeh(datosDuplicar.marcaVeh);
-        setAnnoVeh(datosDuplicar.annoVeh);
-        setModeloVeh(datosDuplicar.modeloVeh);
-        setCilindrajesVeh(datosDuplicar.cilindrajesVeh);
-        setCarroceriaVeh(datosDuplicar.carroceriaVeh);
-        setTransmisionVeh(datosDuplicar.transmisionVeh);
-        setCombustibleVeh(datosDuplicar.combustibleVeh);
-        setTraccionVeh(datosDuplicar.traccionVeh);
+        //console.log("VALOR DUPLICAR : ", duplicar);
 
+        if (duplicar) {
+            setTipoVeh(datosDuplicar.tipoVeh);
+            setMarcaVeh(datosDuplicar.marcaVeh);
+            setAnnoVeh(datosDuplicar.annoVeh);
+            setModeloVeh(datosDuplicar.modeloVeh);
+            setCilindrajesVeh(datosDuplicar.cilindrajesVeh);
+            setCarroceriaVeh(datosDuplicar.carroceriaVeh);
+            setTransmisionVeh(datosDuplicar.transmisionVeh);
+            setCombustibleVeh(datosDuplicar.combustibleVeh);
+            setTraccionVeh(datosDuplicar.traccionVeh);
+
+            const newDetMod = [];
+            datoscrearproductosmodelos &&
+                datoscrearproductosmodelos.forEach((row) => {
+                    if (
+                        Number.parseInt(row.marca) ===
+                        Number.parseInt(datosDuplicar.marcaVeh)
+                    ) {
+                        let item = {
+                            id: row.id,
+                            modelo: row.modelo,
+                            tipoVeh: row.tipovehiculo,
+                            marca: row.marca,
+                            carroceria: row.carroceria,
+                            estado: row.estado,
+                            value: row.id,
+                            label: row.modelo,
+                        };
+                        newDetMod.push(item);
+                    }
+                });
+            setModels(newDetMod);
+
+            const newDet = [];
+            datoscrearproductoscilindrajes &&
+                datoscrearproductoscilindrajes.forEach((row) => {
+                    if (
+                        Number.parseInt(row.modelo) ===
+                        Number.parseInt(datosDuplicar.modeloVeh)
+                    ) {
+                        let item = {
+                            id: row.id,
+                            carroceria: row.carroceria,
+                            tipoVeh: row.tipovehiculo,
+                            estado: row.estado,
+                            value: row.id,
+                            label: row.cilindraje,
+                            marca: row.marca,
+                            modelo: row.modelo,
+                        };
+                        newDet.push(item);
+                    }
+                });
+            setCilindrajes(newDet);
+        }
+
+        setListModelos(datoscrearproductosmodelos);
+        setListCilindrajes(datoscrearproductoscilindrajes);
         setVehiculos(JSON.parse(localStorage.getItem("datostiposvehiculos")));
 
         setListMarcas(JSON.parse(localStorage.getItem("datosmarcasvehiculos")));
@@ -129,49 +179,6 @@ function DatosVehiculosTres(props) {
         setCarrocerias(
             JSON.parse(localStorage.getItem("datoscarroceriasvehiculos"))
         );
-
-        setListModelos(datoscrearproductosmodelos);
-        const newDetMod = [];
-        datoscrearproductosmodelos &&
-            datoscrearproductosmodelos.forEach((row) => {
-                if (
-                    Number.parseInt(row.marca) ===
-                    Number.parseInt(datosDuplicar.marcaVeh)
-                ) {
-                    let item = {
-                        id: row.id,
-                        modelo: row.modelo,
-                        tipoVeh: row.tipovehiculo,
-                        marca: row.marca,
-                        carroceria: row.carroceria,
-                        estado: row.estado,
-                        value: row.id,
-                        label: row.modelo,
-                    };
-                    newDetMod.push(item);
-                }
-            });
-        setModels(newDetMod);
-
-        setListCilindrajes(datoscrearproductoscilindrajes);
-        const newDet = [];
-        datoscrearproductoscilindrajes &&
-            datoscrearproductoscilindrajes.forEach((row) => {
-                if (Number.parseInt(row.modelo) === Number.parseInt(datosDuplicar.modeloVeh)) {
-                    let item = {
-                        id: row.id,
-                        carroceria: row.carroceria,
-                        tipoVeh: row.tipovehiculo,
-                        estado: row.estado,
-                        value: row.id,
-                        label: row.cilindraje,
-                        marca: row.marca,
-                        modelo: row.modelo,
-                    };
-                    newDet.push(item);
-                }
-            });
-        setCilindrajes(newDet);
 
         setAnnos(JSON.parse(localStorage.getItem("datosannosvehiculos")));
         //setLoading(true);
@@ -467,9 +474,9 @@ function DatosVehiculosTres(props) {
             carroceriaVeh: carroceriaVeh,
             transmisionVeh: transmisionVeh,
             combustibleVeh: combustibleVeh,
-            traccionVeh: traccionVeh
+            traccionVeh: traccionVeh,
         };
-        localStorage.setItem('duplicarvehiculo', JSON.stringify(duplicar));
+        localStorage.setItem("duplicarvehiculo", JSON.stringify(duplicar));
     };
 
     const guardarDatosVehiculos = () => {
@@ -1087,7 +1094,7 @@ function DatosVehiculosTres(props) {
                     </div>
                 </Row>
             ) : vehiculoTresDuplicar ? (
-                <Row >
+                <Row>
                     <div className="ml-15">
                         <div>
                             <select
@@ -1166,7 +1173,7 @@ function DatosVehiculosTres(props) {
                         </Row>
                         <Row>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1">
+                                <div className="mt-1">
                                     <select
                                         value={annoVeh}
                                         //disabled="disabled"
@@ -1190,7 +1197,7 @@ function DatosVehiculosTres(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1 mlmenos21">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={modeloVeh}
                                         //disabled="disabled"
@@ -1216,7 +1223,7 @@ function DatosVehiculosTres(props) {
                         </Row>
                         <Row>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1">
+                                <div className="mt-1">
                                     <select
                                         value={cilindrajesVeh}
                                         //disabled="disabled"
@@ -1246,7 +1253,7 @@ function DatosVehiculosTres(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1 mlmenos21">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={transmisionVeh}
                                         //disabled="disabled"
@@ -1274,7 +1281,7 @@ function DatosVehiculosTres(props) {
                         </Row>
                         <Row>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1">
+                                <div className="mt-1">
                                     <select
                                         value={combustibleVeh}
                                         //disabled="disabled"
@@ -1300,7 +1307,7 @@ function DatosVehiculosTres(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                            <div className="mt-1 mlmenos21">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={traccionVeh}
                                         className="custom-selectcreateproductoitem redonderborinferiorderecho"
