@@ -17,33 +17,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { MultiSelect } from "react-multi-select-component";
 import shortid from "shortid";
 
-function DatosVehiculosSiete(props) {
+function DatosVehiculosDos(props) {
     const {
-        vehiculoSieteCrear,
-        setVehiculoSieteCrear,
-        vehiculoSieteEditar,
-        setVehiculoSieteEditar,
-        vehiculoSieteDuplicar,
-        setVehiculoSieteDuplicar,
-        vehiculoSieteSelecc,
-        setVehiculoSieteSelecc,
+        vehiculoDosCrear,
+        setVehiculoDosCrear,
+        vehiculoDosEditar,
+        setVehiculoDosEditar,
+        vehiculoDosDuplicar,
+        setVehiculoDosDuplicar,
+        vehiculoDosSelecc,
+        setVehiculoDosSelecc,
         agregarVehiculo,
         setAgregarVehiculo,
         setAgregarDatos,
         agregarDatos,
         setDuplicar,
         duplicar,
-        vehiculoSieteUbicar,
-        setVehiculoSieteUbicar,
-        setTipoVehSiete,
-        setMarcaVehSiete,
-        setAnnoVehSiete,
-        setModeloVehSiete,
-        setCarroceriaVehSiete,
-        setcilindrajeVehSiete,
-        settransmisionVehSiete,
-        setcombustibleVehSiete,
-        settraccionVehSiete
+        vehiculoDosUbicar,
+        setVehiculoDosUbicar,
+        setVehiculoDosNuevo,
+        vehiculoDosNuevo
     } = props;
 
     // Asignar nombre de las opciones seleccionadas en lo vehiculos
@@ -118,6 +111,7 @@ function DatosVehiculosSiete(props) {
 
     useEffect(() => {
         //console.log("VALOR DUPLICAR : ", duplicar);
+
         if (duplicar) {
             setTipoVeh(datosDuplicar.tipoVeh);
             setMarcaVeh(datosDuplicar.marcaVeh);
@@ -250,8 +244,6 @@ function DatosVehiculosSiete(props) {
     };
 
     const handleChangeCarroceria = (selectedOptions) => {
-        //console.log("SELECTED CARROCERIA : ",selectedOptions)
-
         setCarroceriaVeh(selectedOptions);
 
         listCarrocerias.forEach((row) => {
@@ -286,9 +278,11 @@ function DatosVehiculosSiete(props) {
     };
 
     const handleChangeBrand = (selectedOptions) => {
-        //console.log("SELECTED MARCA : ",selectedOptions)
-
-        //console.log("NEW MARCA : ",newMarca);
+        console.log("SELECTED MARCA : ",selectedOptions)
+        console.log("LISTA MODELOS : ",listModelos);
+        console.log("CARROCERIA : ",carroceriaVeh);
+        
+        
         setMarcaVeh(selectedOptions);
 
         listMarcas.forEach((row) => {
@@ -357,12 +351,12 @@ function DatosVehiculosSiete(props) {
         });
         /*
         if (
-            !localStorage.getItem("datosmodelosvehiculosSiete") ||
-            localStorage.getItem("datosmodelosvehiculosSiete") === undefined
+            !localStorage.getItem("datosmodelosvehiculosdos") ||
+            localStorage.getItem("datosmodelosvehiculosdos") === undefined
         ) {
             if (modelos.length > 0) {
                 localStorage.setItem(
-                    "datosmodelosvehiculosSiete",
+                    "datosmodelosvehiculosdos",
                     JSON.stringify(modelos)
                 );
             }
@@ -452,23 +446,13 @@ function DatosVehiculosSiete(props) {
         }
 
         setAgregarVehiculo(true);
-        setVehiculoSieteCrear(false);
-        setVehiculoSieteSelecc(true);
-
-        setTipoVehSiete(tipoVeh[0]);
-        setMarcaVehSiete(marcaVeh);
-        setAnnoVehSiete(annoVeh);
-        setModeloVehSiete(modeloVeh[0]);
-        setcilindrajeVehSiete(cilindrajesVeh);
-        setCarroceriaVehSiete(carroceriaVeh);
-        settransmisionVehSiete(transmisionVeh);
-        setcombustibleVehSiete(combustibleVeh);
-        settraccionVehSiete(traccionVeh);
+        setVehiculoDosCrear(false);
+        setVehiculoDosSelecc(true);
     };
 
     const editarDatosVehiculos = () => {
-        setVehiculoSieteEditar(true);
-        setVehiculoSieteSelecc(false);
+        setVehiculoDosEditar(true);
+        setVehiculoDosSelecc(false);
         setEditarTipoVeh(tipoVeh);
         setEditarMarcaVeh(marcaVeh);
         setEditarAnnoVeh(annoVeh);
@@ -492,29 +476,19 @@ function DatosVehiculosSiete(props) {
             carroceriaVeh: carroceriaVeh,
             transmisionVeh: transmisionVeh,
             combustibleVeh: combustibleVeh,
-            traccionVeh: traccionVeh
+            traccionVeh: traccionVeh,
         };
-        localStorage.setItem('duplicarvehiculo', JSON.stringify(duplicar));
+        localStorage.setItem("duplicarvehiculo", JSON.stringify(duplicar));
     };
 
     const guardarDatosVehiculos = () => {
-        setVehiculoSieteEditar(false);
-        setVehiculoSieteSelecc(true);
-
-        setTipoVehSiete(tipoVeh[0]);
-        setMarcaVehSiete(marcaVeh);
-        setAnnoVehSiete(annoVeh);
-        setModeloVehSiete(modeloVeh[0]);
-        setcilindrajeVehSiete(cilindrajesVeh);
-        setCarroceriaVehSiete(carroceriaVeh);
-        settransmisionVehSiete(transmisionVeh);
-        setcombustibleVehSiete(combustibleVeh);
-        settraccionVehSiete(traccionVeh);
+        setVehiculoDosEditar(false);
+        setVehiculoDosSelecc(true);
     };
 
     return (
         <div className="mt-4">
-            {vehiculoSieteCrear ? (
+            {vehiculoDosCrear ? (
                 <Row>
                     <div>
                         {" "}
@@ -580,7 +554,7 @@ function DatosVehiculosSiete(props) {
                                         </div>
                                     </Col>
                                     <Col xl={6} lg={6} md={6} xs={6}>
-                                        <div className="mt-1 mlmenos17">
+                                        <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
                                                 className="custom-selectcreateproductoitem"
@@ -640,7 +614,7 @@ function DatosVehiculosSiete(props) {
                                         </div>
                                     </Col>
                                     <Col xl={6} lg={6} md={6} xs={6}>
-                                        <div className="mt-1 mlmenos17">
+                                        <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
                                                 className="custom-selectcreateproductoitem"
@@ -702,7 +676,7 @@ function DatosVehiculosSiete(props) {
                                         </div>
                                     </Col>
                                     <Col xl={6} lg={6} md={6} xs={6}>
-                                        <div className="mt-1 mlmenos17">
+                                        <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
                                                 className="custom-selectcreateproductoitem"
@@ -766,7 +740,7 @@ function DatosVehiculosSiete(props) {
                                         </div>
                                     </Col>
                                     <Col xl={6} lg={6} md={6} xs={6}>
-                                        <div className="mt-1  mlmenos17">
+                                        <div className="mt-1 mlmenos21">
                                             <select
                                                 className="custom-selectcreateproductoitem redonderborinferiorderecho"
                                                 name="tipotraccion"
@@ -801,7 +775,7 @@ function DatosVehiculosSiete(props) {
                         </Col>
                     </div>
                 </Row>
-            ) : vehiculoSieteSelecc ? (
+            ) : vehiculoDosSelecc ? (
                 <div>
                     <Row>
                         <Col xl={8} lg={8} md={8} xs={8}>
@@ -876,7 +850,7 @@ function DatosVehiculosSiete(props) {
                         </Col>
                     </Row>
                 </div>
-            ) : vehiculoSieteEditar ? (
+            ) : vehiculoDosEditar ? (
                 <Row>
                     <div>
                         <div>
@@ -1121,17 +1095,15 @@ function DatosVehiculosSiete(props) {
                         {<h3>Guardar cambios</h3>}
                     </div>
                 </Row>
-            ) : vehiculoSieteDuplicar ? (
+            ) : vehiculoDosDuplicar ? (
                 <Row>
-                    <div>
+                    <div className="ml-15">
                         <div>
                             <select
                                 value={tipoVeh}
                                 //disabled="disabled"
                                 className="redonderbordescrearproducto custom-selectcreateproducto"
-                                onChange={(e) =>
-                                    handleChange(e.target.value)
-                                }>
+                                onChange={(e) => handleChange(e.target.value)}>
                                 <option selected>Tipo de Vehículo</option>
                                 {vehiculos &&
                                     vehiculos.map((itemselecttipo) => {
@@ -1147,7 +1119,7 @@ function DatosVehiculosSiete(props) {
                         </div>
                         <Row>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1">
+                                <div className="mt-1 ">
                                     <select
                                         value={carroceriaVeh}
                                         //disabled="disabled"
@@ -1177,7 +1149,7 @@ function DatosVehiculosSiete(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={marcaVeh}
                                         //disabled="disabled"
@@ -1227,7 +1199,7 @@ function DatosVehiculosSiete(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={modeloVeh}
                                         //disabled="disabled"
@@ -1283,7 +1255,7 @@ function DatosVehiculosSiete(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={transmisionVeh}
                                         //disabled="disabled"
@@ -1337,7 +1309,7 @@ function DatosVehiculosSiete(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1  mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
                                         value={traccionVeh}
                                         className="custom-selectcreateproductoitem redonderborinferiorderecho"
@@ -1361,17 +1333,17 @@ function DatosVehiculosSiete(props) {
                                 </div>
                             </Col>
                         </Row>
-                    </div>
-                    <div
-                        className="ps-form__input mt-3 botonagregarotrovehiculo"
-                        onClick={() => guardarDatosVehiculos()}>
-                        {<h3>Guardar cambios</h3>}
+                        <div
+                            className="ps-form__input mt-3 botonagregarotrovehiculo"
+                            onClick={() => guardarDatosVehiculos()}>
+                            {<h3>Guardar cambios</h3>}
+                        </div>
                     </div>
                 </Row>
-            ) : vehiculoSieteUbicar ? (
+            ) : vehiculoDosUbicar ? (
                 <div>
                     {console.log(
-                        "DATOS SIETE  : ",
+                        "DATOS DOS  : ",
                         nombreCarroceriaVeh,
                         nombreMarcaVeh,
                         nombreAnnoVeh,
@@ -1382,9 +1354,299 @@ function DatosVehiculosSiete(props) {
                         nombreTraccionVeh
                     )}
                 </div>
-            ) : null}
+            ) : vehiculoDosNuevo ? (
+                <Row>
+                    <div>
+                        {" "}
+                        <Col>
+                            <div>
+                                <div>
+                                    <select
+                                        //disabled="disabled"
+                                        className="redonderbordescrearproducto custom-selectcreateproducto"
+                                        onChange={(e) =>
+                                            handleChange(e.target.value)
+                                        }>
+                                        <option selected>
+                                            Tipo de Vehículo
+                                        </option>
+                                        {vehiculos &&
+                                            vehiculos.map((itemselecttipo) => {
+                                                return (
+                                                    <option
+                                                        value={
+                                                            itemselecttipo.id
+                                                        }>
+                                                        {itemselecttipo.icon +
+                                                            " " +
+                                                            itemselecttipo.text}
+                                                    </option>
+                                                );
+                                            })}
+                                    </select>
+                                </div>
+                                <Row>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeCarroceria(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>
+                                                    Carroceria
+                                                </option>
+                                                {carrocerias &&
+                                                    carrocerias.map(
+                                                        (
+                                                            itemselectcarroceria
+                                                        ) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselectcarroceria.value
+                                                                    }>
+                                                                    {
+                                                                        itemselectcarroceria.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1 mlmenos21">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeBrand(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>Marca</option>
+                                                {marcas &&
+                                                    marcas.map(
+                                                        (itemselectmarcas) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselectmarcas.id
+                                                                    }>
+                                                                    {
+                                                                        itemselectmarcas.text
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeAnno(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>Año</option>
+                                                {annos &&
+                                                    annos.map(
+                                                        (itemselectanno) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselectanno.value
+                                                                    }>
+                                                                    {
+                                                                        itemselectanno.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1 mlmenos21">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeModels(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>Modelo</option>
+                                                {modelos &&
+                                                    modelos.map(
+                                                        (itemselectmodelo) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselectmodelo.value
+                                                                    }>
+                                                                    {
+                                                                        itemselectmodelo.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeVersionMotor(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>
+                                                    Cilindraje
+                                                </option>
+                                                {cilindrajes &&
+                                                    cilindrajes.map(
+                                                        (itemcilindraje) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemcilindraje.value
+                                                                    }>
+                                                                    {
+                                                                        itemcilindraje.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1 mlmenos21">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem"
+                                                onChange={(e) =>
+                                                    handleChangeTransmision(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>
+                                                    Transmisión
+                                                </option>
+                                                {transmision &&
+                                                    transmision.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1">
+                                            <select
+                                                //disabled="disabled"
+                                                className="custom-selectcreateproductoitem  redonderborinferiorizquierdo"
+                                                onChange={(e) =>
+                                                    handleChangeCombustible(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>
+                                                    Combustible
+                                                </option>
+                                                {combustible &&
+                                                    combustible.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                    <Col xl={6} lg={6} md={6} xs={6}>
+                                        <div className="mt-1 mlmenos21">
+                                            <select
+                                                className="custom-selectcreateproductoitem redonderborinferiorderecho"
+                                                name="tipotraccion"
+                                                onChange={(e) =>
+                                                    handleChangeTraccion(
+                                                        e.target.value
+                                                    )
+                                                }>
+                                                <option selected>
+                                                    Tracción
+                                                </option>
+                                                {tipotraccion &&
+                                                    tipotraccion.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </Col>
+                    </div>
+                </Row>
+            ) :
+null            
+            
+            }
         </div>
     );
 }
 
-export default DatosVehiculosSiete;
+export default DatosVehiculosDos;

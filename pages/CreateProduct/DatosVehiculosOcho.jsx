@@ -35,6 +35,15 @@ function DatosVehiculosOcho(props) {
         duplicar,
         vehiculoOchoUbicar,
         setVehiculoOchoUbicar,
+        setTipoVehOcho,
+        setMarcaVehOcho,
+        setAnnoVehOcho,
+        setModeloVehOcho,
+        setCarroceriaVehOcho,
+        setcilindrajeVehOcho,
+        settransmisionVehOcho,
+        setcombustibleVehOcho,
+        settraccionVehOcho
     } = props;
 
     // Asignar nombre de las opciones seleccionadas en lo vehiculos
@@ -445,6 +454,16 @@ function DatosVehiculosOcho(props) {
         setAgregarVehiculo(true);
         setVehiculoOchoCrear(false);
         setVehiculoOchoSelecc(true);
+
+        setTipoVehOcho(tipoVeh[0]);
+        setMarcaVehOcho(marcaVeh);
+        setAnnoVehOcho(annoVeh);
+        setModeloVehOcho(modeloVeh[0]);
+        setcilindrajeVehOcho(cilindrajesVeh);
+        setCarroceriaVehOcho(carroceriaVeh);
+        settransmisionVehOcho(transmisionVeh);
+        setcombustibleVehOcho(combustibleVeh);
+        settraccionVehOcho(traccionVeh);
     };
 
     const editarDatosVehiculos = () => {
@@ -481,6 +500,16 @@ function DatosVehiculosOcho(props) {
     const guardarDatosVehiculos = () => {
         setVehiculoOchoEditar(false);
         setVehiculoOchoSelecc(true);
+
+        setTipoVehOcho(tipoVeh[0]);
+        setMarcaVehOcho(marcaVeh);
+        setAnnoVehOcho(annoVeh);
+        setModeloVehOcho(modeloVeh[0]);
+        setcilindrajeVehOcho(cilindrajesVeh);
+        setCarroceriaVehOcho(carroceriaVeh);
+        settransmisionVehOcho(transmisionVeh);
+        setcombustibleVehOcho(combustibleVeh);
+        settraccionVehOcho(traccionVeh);
     };
 
     return (

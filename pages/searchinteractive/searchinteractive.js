@@ -1062,7 +1062,7 @@ const SearchInteractive = () => {
                                                 </Col>
                                                 <Col lg={7}>
                                                     <div className="botonimagenesilustrativas">
-                                                        <h3 className="textoimagenesilustrativas">
+                                                        <h3 className="textobuscadorintecractivo">
                                                             ! Las imágenes a continuación son con
                                                             fines ilustrativos, por ello pueden no
                                                             corresponder exactamente con tu vehículo ¡

@@ -26,8 +26,11 @@ const WidgetProductPromotion = () => {
                     <strong>Entrega 100% segura </strong>sin llamar al transportador
                 </div>
                 <img
-                    className="ps-gif__thumbnail"
-                    src="/static/img/blue-white-ribbon-on-pink-box.jpg"
+                    //className="ps-gif__thumbnail"
+                    className="mt-90"
+                    width="200px"
+                    height="180px"
+                    src="/imgcarrusel/homepage/entrega.jpg"
                     alt=""
                 />
             </div>

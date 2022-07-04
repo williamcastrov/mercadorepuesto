@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Container from "~/components/layouts/Container";
 import PropTypes from "prop-types";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 import NumberFormat from "react-number-format";
 import { getSelectedVehicle } from "../../store/selectedvehicle/action";
 import {
@@ -105,6 +106,8 @@ const CreateProduct = () => {
     const [mostrarBotonDatosMotor, setMostrarBotonDatosMotor] = useState(false);
     const [agregarVehiculo, setAgregarVehiculo] = useState(false);
     const [showModalDatosProducto, setShowModalDatosProducto] = useState(false);
+    const [abrirCerrarCategoriasGenerico, setAbrirCerrarCategoriasGenerico] =
+        useState(true);
 
     const [mostrar, setMostrar] = useState(false);
     const [tamaño, setTamaño] = useState("col-12 col-md-6 ml-250");
@@ -148,14 +151,109 @@ const CreateProduct = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
 
-    const [tipoVeh, setTipoVeh] = useState([]);
-    const [marcaVeh, setMarcaVeh] = useState([]);
-    const [annoVeh, setAnnoVeh] = useState([]);
-    const [modeloVeh, setModeloVeh] = useState([]);
-    const [carroceriaVeh, setCarroceriaVeh] = useState([]);
+    const [tipoVehUno, setTipoVehUno] = useState([]);
+    const [marcaVehUno, setMarcaVehUno] = useState([]);
+    const [annoVehUno, setAnnoVehUno] = useState([]);
+    const [modeloVehUno, setModeloVehUno] = useState([]);
+    const [carroceriaVehUno, setCarroceriaVehUno] = useState([]);
+    const [cilindrajeVehUno, setcilindrajeVehUno] = useState([]);
+    const [transmisionVehUno, settransmisionVehUno] = useState([]);
+    const [combustibleVehUno, setcombustibleVehUno] = useState([]);
+    const [traccionVehUno, settraccionVehUno] = useState([]);
+
+    const [tipoVehDos, setTipoVehDos] = useState([]);
+    const [marcaVehDos, setMarcaVehDos] = useState([]);
+    const [annoVehDos, setAnnoVehDos] = useState([]);
+    const [modeloVehDos, setModeloVehDos] = useState([]);
+    const [carroceriaVehDos, setCarroceriaVehDos] = useState([]);
+    const [cilindrajeVehDos, setcilindrajeVehDos] = useState([]);
+    const [transmisionVehDos, settransmisionVehDos] = useState([]);
+    const [combustibleVehDos, setcombustibleVehDos] = useState([]);
+    const [traccionVehDos, settraccionVehDos] = useState([]);
+
+    const [tipoVehTres, setTipoVehTres] = useState([]);
+    const [marcaVehTres, setMarcaVehTres] = useState([]);
+    const [annoVehTres, setAnnoVehTres] = useState([]);
+    const [modeloVehTres, setModeloVehTres] = useState([]);
+    const [carroceriaVehTres, setCarroceriaVehTres] = useState([]);
+    const [cilindrajeVehTres, setcilindrajeVehTres] = useState([]);
+    const [transmisionVehTres, settransmisionVehTres] = useState([]);
+    const [combustibleVehTres, setcombustibleVehTres] = useState([]);
+    const [traccionVehTres, settraccionVehTres] = useState([]);
+
+    const [tipoVehCuatro, setTipoVehCuatro] = useState([]);
+    const [marcaVehCuatro, setMarcaVehCuatro] = useState([]);
+    const [annoVehCuatro, setAnnoVehCuatro] = useState([]);
+    const [modeloVehCuatro, setModeloVehCuatro] = useState([]);
+    const [carroceriaVehCuatro, setCarroceriaVehCuatro] = useState([]);
+    const [cilindrajeVehCuatro, setcilindrajeVehCuatro] = useState([]);
+    const [transmisionVehCuatro, settransmisionVehCuatro] = useState([]);
+    const [combustibleVehCuatro, setcombustibleVehCuatro] = useState([]);
+    const [traccionVehCuatro, settraccionVehCuatro] = useState([]);
+
+    const [tipoVehCinco, setTipoVehCinco] = useState([]);
+    const [marcaVehCinco, setMarcaVehCinco] = useState([]);
+    const [annoVehCinco, setAnnoVehCinco] = useState([]);
+    const [modeloVehCinco, setModeloVehCinco] = useState([]);
+    const [carroceriaVehCinco, setCarroceriaVehCinco] = useState([]);
+    const [cilindrajeVehCinco, setcilindrajeVehCinco] = useState([]);
+    const [transmisionVehCinco, settransmisionVehCinco] = useState([]);
+    const [combustibleVehCinco, setcombustibleVehCinco] = useState([]);
+    const [traccionVehCinco, settraccionVehCinco] = useState([]);
+
+    const [tipoVehSeis, setTipoVehSeis] = useState([]);
+    const [marcaVehSeis, setMarcaVehSeis] = useState([]);
+    const [annoVehSeis, setAnnoVehSeis] = useState([]);
+    const [modeloVehSeis, setModeloVehSeis] = useState([]);
+    const [carroceriaVehSeis, setCarroceriaVehSeis] = useState([]);
+    const [cilindrajeVehSeis, setcilindrajeVehSeis] = useState([]);
+    const [transmisionVehSeis, settransmisionVehSeis] = useState([]);
+    const [combustibleVehSeis, setcombustibleVehSeis] = useState([]);
+    const [traccionVehSeis, settraccionVehSeis] = useState([]);
+
+    const [tipoVehSiete, setTipoVehSiete] = useState([]);
+    const [marcaVehSiete, setMarcaVehSiete] = useState([]);
+    const [annoVehSiete, setAnnoVehSiete] = useState([]);
+    const [modeloVehSiete, setModeloVehSiete] = useState([]);
+    const [carroceriaVehSiete, setCarroceriaVehSiete] = useState([]);
+    const [cilindrajeVehSiete, setcilindrajeVehSiete] = useState([]);
+    const [transmisionVehSiete, settransmisionVehSiete] = useState([]);
+    const [combustibleVehSiete, setcombustibleVehSiete] = useState([]);
+    const [traccionVehSiete, settraccionVehSiete] = useState([]);
+
+    const [tipoVehOcho, setTipoVehOcho] = useState([]);
+    const [marcaVehOcho, setMarcaVehOcho] = useState([]);
+    const [annoVehOcho, setAnnoVehOcho] = useState([]);
+    const [modeloVehOcho, setModeloVehOcho] = useState([]);
+    const [carroceriaVehOcho, setCarroceriaVehOcho] = useState([]);
+    const [cilindrajeVehOcho, setcilindrajeVehOcho] = useState([]);
+    const [transmisionVehOcho, settransmisionVehOcho] = useState([]);
+    const [combustibleVehOcho, setcombustibleVehOcho] = useState([]);
+    const [traccionVehOcho, settraccionVehOcho] = useState([]);
+
+    const [tipoVehNueve, setTipoVehNueve] = useState([]);
+    const [marcaVehNueve, setMarcaVehNueve] = useState([]);
+    const [annoVehNueve, setAnnoVehNueve] = useState([]);
+    const [modeloVehNueve, setModeloVehNueve] = useState([]);
+    const [carroceriaVehNueve, setCarroceriaVehNueve] = useState([]);
+    const [cilindrajeVehNueve, setcilindrajeVehNueve] = useState([]);
+    const [transmisionVehNueve, settransmisionVehNueve] = useState([]);
+    const [combustibleVehNueve, setcombustibleVehNueve] = useState([]);
+    const [traccionVehNueve, settraccionVehNueve] = useState([]);
+
+    const [tipoVehDiez, setTipoVehDiez] = useState([]);
+    const [marcaVehDiez, setMarcaVehDiez] = useState([]);
+    const [annoVehDiez, setAnnoVehDiez] = useState([]);
+    const [modeloVehDiez, setModeloVehDiez] = useState([]);
+    const [carroceriaVehDiez, setCarroceriaVehDiez] = useState([]);
+    const [cilindrajeVehDiez, setcilindrajeVehDiez] = useState([]);
+    const [transmisionVehDiez, settransmisionVehDiez] = useState([]);
+    const [combustibleVehDiez, setcombustibleVehDiez] = useState([]);
+    const [traccionVehDiez, settraccionVehDiez] = useState([]);
 
     const [generico, setGenerico] = useState("No");
     const [duplicar, setDuplicar] = useState(false);
+    const [nuevoVehiculo, setNuevoVehiculo] = useState(false);
 
     const [showModalGenerico, setShowModalGenerico] = useState(false);
     const [showModalParaUnoVarios, setShowModalParaUnoVarios] = useState(false);
@@ -175,18 +273,21 @@ const CreateProduct = () => {
     const [vehiculoUnoEditar, setVehiculoUnoEditar] = useState(false);
     const [vehiculoUnoDuplicar, setVehiculoUnoDuplicar] = useState(false);
     const [vehiculoUnoUbicar, setVehiculoUnoUbicar] = useState(false);
+    const [vehiculoUnoNuevo, setVehiculoUnoNuevo] = useState(false);
 
     const [vehiculoDosCrear, setVehiculoDosCrear] = useState(false);
     const [vehiculoDosSelecc, setVehiculoDosSelecc] = useState(false);
     const [vehiculoDosEditar, setVehiculoDosEditar] = useState(false);
     const [vehiculoDosDuplicar, setVehiculoDosDuplicar] = useState(false);
     const [vehiculoDosUbicar, setVehiculoDosUbicar] = useState(false);
+    const [vehiculoDosNuevo, setVehiculoDosNuevo] = useState(false);
 
     const [vehiculoTresCrear, setVehiculoTresCrear] = useState(false);
     const [vehiculoTresSelecc, setVehiculoTresSelecc] = useState(false);
     const [vehiculoTresEditar, setVehiculoTresEditar] = useState(false);
     const [vehiculoTresDuplicar, setVehiculoTresDuplicar] = useState(false);
     const [vehiculoTresUbicar, setVehiculoTresUbicar] = useState(false);
+    const [vehiculoTresNuevo, setVehiculoTresNuevo] = useState(false);
 
     const [vehiculoCuatroCrear, setVehiculoCuatroCrear] = useState(false);
     const [vehiculoCuatroSelecc, setVehiculoCuatroSelecc] = useState(false);
@@ -245,6 +346,7 @@ const CreateProduct = () => {
     const [seleccionoUbicacionProducto, setSeleccionoUbicacionProducto] =
         useState(false);
     const [SelecDatosProducto, setSelecDatosProducto] = useState(false);
+    const [categoria, setCategoria] = useState(0);
 
     const productogenerico = [
         {
@@ -298,6 +400,7 @@ const CreateProduct = () => {
     useEffect(() => {
         if (agregarDatos) {
             let control = contador + 1;
+            console.log("VALOR CONTADOR: ", control);
             setContador(control);
             if (control === 1) {
                 setVehiculoUnoCrear(true);
@@ -305,6 +408,9 @@ const CreateProduct = () => {
             } else if (control === 2) {
                 if (duplicar) {
                     setVehiculoDosDuplicar(true);
+                }
+                if (nuevoVehiculo) {
+                    setVehiculoDosNuevo(true);
                 } else {
                     setVehiculoDosCrear(true);
                 }
@@ -380,6 +486,33 @@ const CreateProduct = () => {
         //alert("ENTRE")
         //console.log("OPCION GENERICOS : ", selectedOptions);
         //alert("GENERICO");
+        if (selectedOptions === "Si") {
+            const newDetUno = [];
+            const newDetDos = [];
+            let itemUno = {
+                tipoVehUno: 0,
+                marcaVehUno: 0,
+                annoVehUno: 0,
+                modeloVehUno: 0,
+                cilindrajeVehUno: 0,
+                carroceriaVehUno: 0,
+                transmisionVehUno: 0,
+                combustibleVehUno:0,
+                traccionVehUno: 0,
+            };
+            newDetUno.push(itemUno);
+            
+            localStorage.setItem("vehiculoscompatibles", JSON.stringify(newDetUno));
+
+            let itemDos = {
+                ubicacionProducto: 0,
+                posicionProducto: 0,
+            };
+            newDetDos.push(itemDos);
+            //setSistemaMotorSeleccionado(1);
+            localStorage.setItem("ubicacionposicionproducto", JSON.stringify(newDetDos));
+        }
+
         let control = contador + 1;
         setContador(control);
 
@@ -424,9 +557,16 @@ const CreateProduct = () => {
         setAgregarDatos(true);
     };
 
+    const crearVehiculos = () => {
+        //setMostrarDatosVehiculos(true);
+        setAgregarDatos(true);
+        setNuevoVehiculo(true);
+    };
+
     const agregarDatosLatoneria = () => {
         setShowIconoCerrarAbrir(true);
         setAgregarVehiculo(false);
+
         setCerrarDatos("");
         setCerrarDatosDos("mt-1 datoscerrados");
         setIconCerrarUno("showcerrarabrir");
@@ -497,14 +637,168 @@ const CreateProduct = () => {
         setVehiculoDiezEditar(false);
         setVehiculoDiezDuplicar(false);
         setVehiculoDiezUbicar(true);
+
+        const newDet = [];
+        if (vehiculoUno) {
+            let item = {
+                tipoVehUno: tipoVehUno,
+                marcaVehUno: marcaVehUno,
+                annoVehUno: annoVehUno,
+                modeloVehUno: modeloVehUno,
+                cilindrajeVehUno: cilindrajeVehUno,
+                carroceriaVehUno: carroceriaVehUno,
+                transmisionVehUno: transmisionVehUno,
+                combustibleVehUno: combustibleVehUno,
+                traccionVehUno: traccionVehUno,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoDos) {
+            let item = {
+                tipoVehDos: tipoVehDos,
+                marcaVehDos: marcaVehDos,
+                annoVehDos: annoVehDos,
+                modeloVehDos: modeloVehDos,
+                cilindrajeVehDos: cilindrajeVehDos,
+                carroceriaVehDos: carroceriaVehDos,
+                transmisionVehDos: transmisionVehDos,
+                combustibleVehDos: combustibleVehDos,
+                traccionVehDos: traccionVehDos,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoTres) {
+            let item = {
+                tipoVehTres: tipoVehTres,
+                marcaVehTres: marcaVehTres,
+                annoVehTres: annoVehTres,
+                modeloVehTres: modeloVehTres,
+                cilindrajeVehTres: cilindrajeVehTres,
+                carroceriaVehTres: carroceriaVehTres,
+                transmisionVehTres: transmisionVehTres,
+                combustibleVehTres: combustibleVehTres,
+                traccionVehTres: traccionVehTres,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoCuatro) {
+            let item = {
+                tipoVehCuatro: tipoVehCuatro,
+                marcaVehCuatro: marcaVehCuatro,
+                annoVehCuatro: annoVehCuatro,
+                modeloVehCuatro: modeloVehCuatro,
+                cilindrajeVehCuatro: cilindrajeVehCuatro,
+                carroceriaVehCuatro: carroceriaVehCuatro,
+                transmisionVehCuatro: transmisionVehCuatro,
+                combustibleVehCuatro: combustibleVehCuatro,
+                traccionVehCuatro: traccionVehCuatro,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoCinco) {
+            let item = {
+                tipoVehCinco: tipoVehCinco,
+                marcaVehCinco: marcaVehCinco,
+                annoVehCinco: annoVehCinco,
+                modeloVehCinco: modeloVehCinco,
+                cilindrajeVehCinco: cilindrajeVehCinco,
+                carroceriaVehCinco: carroceriaVehCinco,
+                transmisionVehCinco: transmisionVehCinco,
+                combustibleVehCinco: combustibleVehCinco,
+                traccionVehCinco: traccionVehCinco,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoSeis) {
+            let item = {
+                tipoVehSeis: tipoVehSeis,
+                marcaVehSeis: marcaVehSeis,
+                annoVehSeis: annoVehSeis,
+                modeloVehSeis: modeloVehSeis,
+                cilindrajeVehSeis: cilindrajeVehSeis,
+                carroceriaVehSeis: carroceriaVehSeis,
+                transmisionVehSeis: transmisionVehSeis,
+                combustibleVehSeis: combustibleVehSeis,
+                traccionVehSeis: traccionVehSeis,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoSiete) {
+            let item = {
+                tipoVehSiete: tipoVehSiete,
+                marcaVehSiete: marcaVehSiete,
+                annoVehSiete: annoVehSiete,
+                modeloVehSiete: modeloVehSiete,
+                cilindrajeVehSiete: cilindrajeVehSiete,
+                carroceriaVehSiete: carroceriaVehSiete,
+                transmisionVehSiete: transmisionVehSiete,
+                combustibleVehSiete: combustibleVehSiete,
+                traccionVehSiete: traccionVehSiete,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoOcho) {
+            let item = {
+                tipoVehOcho: tipoVehOcho,
+                marcaVehOcho: marcaVehOcho,
+                annoVehOcho: annoVehOcho,
+                modeloVehOcho: modeloVehOcho,
+                cilindrajeVehOcho: cilindrajeVehOcho,
+                carroceriaVehOcho: carroceriaVehOcho,
+                transmisionVehOcho: transmisionVehOcho,
+                combustibleVehOcho: combustibleVehOcho,
+                traccionVehOcho: traccionVehOcho,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoNueve) {
+            let item = {
+                tipoVehNueve: tipoVehNueve,
+                marcaVehNueve: marcaVehNueve,
+                annoVehNueve: annoVehNueve,
+                modeloVehNueve: modeloVehNueve,
+                cilindrajeVehNueve: cilindrajeVehNueve,
+                carroceriaVehNueve: carroceriaVehNueve,
+                transmisionVehNueve: transmisionVehNueve,
+                combustibleVehNueve: combustibleVehNueve,
+                traccionVehNueve: traccionVehNueve,
+            };
+            newDet.push(item);
+        }
+
+        if (vehiculoDiez) {
+            let item = {
+                tipoVehDiez: tipoVehDiez,
+                marcaVehDiez: marcaVehDiez,
+                annoVehDiez: annoVehDiez,
+                modeloVehDiez: modeloVehDiez,
+                cilindrajeVehDiez: cilindrajeVehDiez,
+                carroceriaVehDiez: carroceriaVehDiez,
+                transmisionVehDiez: transmisionVehDiez,
+                combustibleVehDiez: combustibleVehDiez,
+                traccionVehDiez: traccionVehDiez,
+            };
+            newDet.push(item);
+        }
+        localStorage.setItem("vehiculoscompatibles", JSON.stringify(newDet));
     };
 
     const agregarDatosGenerico = () => {
-        setShowIconoCerrarAbrir(true);
-        setAgregarVehiculo(false);
-        setCerrarDatos("");
+        location.reload();
+        setShowIconoCerrarAbrir(false);
+        setAgregarVehiculo(true);
+
         setCerrarDatosDos("mt-1 datoscerrados");
         setIconCerrarUno("showcerrarabrir");
+
         setIconCerrarDos("form-control ps-form__input ml-20");
         setGenericoUno("Si");
         setLabelGenericoUno("Es genérico, sirve para varios vehículos.");
@@ -639,6 +933,7 @@ const CreateProduct = () => {
                                                                                     ) => {
                                                                                         return (
                                                                                             <option
+                                                                                                className="licenciatura"
                                                                                                 value={
                                                                                                     itemselect.value
                                                                                                 }>
@@ -789,6 +1084,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoUnoUbicar={
                                                                                     setVehiculoUnoUbicar
                                                                                 }
+                                                                                setTipoVehUno={
+                                                                                    setTipoVehUno
+                                                                                }
+                                                                                setMarcaVehUno={
+                                                                                    setMarcaVehUno
+                                                                                }
+                                                                                setAnnoVehUno={
+                                                                                    setAnnoVehUno
+                                                                                }
+                                                                                setModeloVehUno={
+                                                                                    setModeloVehUno
+                                                                                }
+                                                                                setCarroceriaVehUno={
+                                                                                    setCarroceriaVehUno
+                                                                                }
+                                                                                setcilindrajeVehUno={
+                                                                                    setcilindrajeVehUno
+                                                                                }
+                                                                                settransmisionVehUno={
+                                                                                    settransmisionVehUno
+                                                                                }
+                                                                                setcombustibleVehUno={
+                                                                                    setcombustibleVehUno
+                                                                                }
+                                                                                settraccionVehUno={
+                                                                                    settraccionVehUno
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -841,6 +1163,33 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 setVehiculoDosUbicar={
                                                                                     setVehiculoDosUbicar
+                                                                                }
+                                                                                setTipoVehDos={
+                                                                                    setTipoVehDos
+                                                                                }
+                                                                                setMarcaVehDos={
+                                                                                    setMarcaVehDos
+                                                                                }
+                                                                                setAnnoVehDos={
+                                                                                    setAnnoVehDos
+                                                                                }
+                                                                                setModeloVehDos={
+                                                                                    setModeloVehDos
+                                                                                }
+                                                                                setCarroceriaVehDos={
+                                                                                    setCarroceriaVehDos
+                                                                                }
+                                                                                setcilindrajeVehDos={
+                                                                                    setcilindrajeVehDos
+                                                                                }
+                                                                                settransmisionVehDos={
+                                                                                    settransmisionVehDos
+                                                                                }
+                                                                                setcombustibleVehDos={
+                                                                                    setcombustibleVehDos
+                                                                                }
+                                                                                settraccionVehDos={
+                                                                                    settraccionVehDos
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -895,6 +1244,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoTresUbicar={
                                                                                     setVehiculoTresUbicar
                                                                                 }
+                                                                                setTipoVehTres={
+                                                                                    setTipoVehTres
+                                                                                }
+                                                                                setMarcaVehTres={
+                                                                                    setMarcaVehTres
+                                                                                }
+                                                                                setAnnoVehTres={
+                                                                                    setAnnoVehTres
+                                                                                }
+                                                                                setModeloVehTres={
+                                                                                    setModeloVehTres
+                                                                                }
+                                                                                setCarroceriaVehTres={
+                                                                                    setCarroceriaVehTres
+                                                                                }
+                                                                                setcilindrajeVehTres={
+                                                                                    setcilindrajeVehTres
+                                                                                }
+                                                                                settransmisionVehTres={
+                                                                                    settransmisionVehTres
+                                                                                }
+                                                                                setcombustibleVehTres={
+                                                                                    setcombustibleVehTres
+                                                                                }
+                                                                                settraccionVehTres={
+                                                                                    settraccionVehTres
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -947,6 +1323,33 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 setVehiculoCuatroUbicar={
                                                                                     setVehiculoCuatroUbicar
+                                                                                }
+                                                                                setTipoVehCuatro={
+                                                                                    setTipoVehCuatro
+                                                                                }
+                                                                                setMarcaVehCuatro={
+                                                                                    setMarcaVehCuatro
+                                                                                }
+                                                                                setAnnoVehCuatro={
+                                                                                    setAnnoVehCuatro
+                                                                                }
+                                                                                setModeloVehCuatro={
+                                                                                    setModeloVehCuatro
+                                                                                }
+                                                                                setCarroceriaVehCuatro={
+                                                                                    setCarroceriaVehCuatro
+                                                                                }
+                                                                                setcilindrajeVehCuatro={
+                                                                                    setcilindrajeVehCuatro
+                                                                                }
+                                                                                settransmisionVehCuatro={
+                                                                                    settransmisionVehCuatro
+                                                                                }
+                                                                                setcombustibleVehCuatro={
+                                                                                    setcombustibleVehCuatro
+                                                                                }
+                                                                                settraccionVehCuatro={
+                                                                                    settraccionVehCuatro
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1001,6 +1404,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoCincoUbicar={
                                                                                     setVehiculoCincoUbicar
                                                                                 }
+                                                                                setTipoVehCinco={
+                                                                                    setTipoVehCinco
+                                                                                }
+                                                                                setMarcaVehCinco={
+                                                                                    setMarcaVehCinco
+                                                                                }
+                                                                                setAnnoVehCinco={
+                                                                                    setAnnoVehCinco
+                                                                                }
+                                                                                setModeloVehCinco={
+                                                                                    setModeloVehCinco
+                                                                                }
+                                                                                setCarroceriaVehCinco={
+                                                                                    setCarroceriaVehCinco
+                                                                                }
+                                                                                setcilindrajeVehCinco={
+                                                                                    setcilindrajeVehCinco
+                                                                                }
+                                                                                settransmisionVehCinco={
+                                                                                    settransmisionVehCinco
+                                                                                }
+                                                                                setcombustibleVehCinco={
+                                                                                    setcombustibleVehCinco
+                                                                                }
+                                                                                settraccionVehCinco={
+                                                                                    settraccionVehCinco
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1053,6 +1483,33 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 setVehiculoSeisUbicar={
                                                                                     setVehiculoSeisUbicar
+                                                                                }
+                                                                                setTipoVehSeis={
+                                                                                    setTipoVehSeis
+                                                                                }
+                                                                                setMarcaVehSeis={
+                                                                                    setMarcaVehSeis
+                                                                                }
+                                                                                setAnnoVehSeis={
+                                                                                    setAnnoVehSeis
+                                                                                }
+                                                                                setModeloVehSeis={
+                                                                                    setModeloVehSeis
+                                                                                }
+                                                                                setCarroceriaVehSeis={
+                                                                                    setCarroceriaVehSeis
+                                                                                }
+                                                                                setcilindrajeVehSeis={
+                                                                                    setcilindrajeVehSeis
+                                                                                }
+                                                                                settransmisionVehSeis={
+                                                                                    settransmisionVehSeis
+                                                                                }
+                                                                                setcombustibleVehSeis={
+                                                                                    setcombustibleVehSeis
+                                                                                }
+                                                                                settraccionVehSeis={
+                                                                                    settraccionVehSeis
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1107,6 +1564,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoSieteUbicar={
                                                                                     setVehiculoSieteUbicar
                                                                                 }
+                                                                                setTipoVehSiete={
+                                                                                    setTipoVehSiete
+                                                                                }
+                                                                                setMarcaVehSiete={
+                                                                                    setMarcaVehSiete
+                                                                                }
+                                                                                setAnnoVehSiete={
+                                                                                    setAnnoVehSiete
+                                                                                }
+                                                                                setModeloVehSiete={
+                                                                                    setModeloVehSiete
+                                                                                }
+                                                                                setCarroceriaVehSiete={
+                                                                                    setCarroceriaVehSiete
+                                                                                }
+                                                                                setcilindrajeVehSiete={
+                                                                                    setcilindrajeVehSiete
+                                                                                }
+                                                                                settransmisionVehSiete={
+                                                                                    settransmisionVehSiete
+                                                                                }
+                                                                                setcombustibleVehSiete={
+                                                                                    setcombustibleVehSiete
+                                                                                }
+                                                                                settraccionVehSiete={
+                                                                                    settraccionVehSiete
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1159,6 +1643,33 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 setVehiculoOchoUbicar={
                                                                                     setVehiculoOchoUbicar
+                                                                                }
+                                                                                setTipoVehOcho={
+                                                                                    setTipoVehOcho
+                                                                                }
+                                                                                setMarcaVehOcho={
+                                                                                    setMarcaVehOcho
+                                                                                }
+                                                                                setAnnoVehOcho={
+                                                                                    setAnnoVehOcho
+                                                                                }
+                                                                                setModeloVehOcho={
+                                                                                    setModeloVehOcho
+                                                                                }
+                                                                                setCarroceriaVehOcho={
+                                                                                    setCarroceriaVehOcho
+                                                                                }
+                                                                                setcilindrajeVehOcho={
+                                                                                    setcilindrajeVehOcho
+                                                                                }
+                                                                                settransmisionVehOcho={
+                                                                                    settransmisionVehOcho
+                                                                                }
+                                                                                setcombustibleVehOcho={
+                                                                                    setcombustibleVehOcho
+                                                                                }
+                                                                                settraccionVehOcho={
+                                                                                    settraccionVehOcho
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1213,6 +1724,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoNueveUbicar={
                                                                                     setVehiculoNueveUbicar
                                                                                 }
+                                                                                setTipoVehNueve={
+                                                                                    setTipoVehNueve
+                                                                                }
+                                                                                setMarcaVehNueve={
+                                                                                    setMarcaVehNueve
+                                                                                }
+                                                                                setAnnoVehNueve={
+                                                                                    setAnnoVehNueve
+                                                                                }
+                                                                                setModeloVehNueve={
+                                                                                    setModeloVehNueve
+                                                                                }
+                                                                                setCarroceriaVehNueve={
+                                                                                    setCarroceriaVehNueve
+                                                                                }
+                                                                                setcilindrajeVehNueve={
+                                                                                    setcilindrajeVehNueve
+                                                                                }
+                                                                                settransmisionVehNueve={
+                                                                                    settransmisionVehNueve
+                                                                                }
+                                                                                setcombustibleVehNueve={
+                                                                                    setcombustibleVehNueve
+                                                                                }
+                                                                                settraccionVehNueve={
+                                                                                    settraccionVehNueve
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1266,6 +1804,33 @@ const CreateProduct = () => {
                                                                                 setVehiculoDiezUbicar={
                                                                                     setVehiculoDiezUbicar
                                                                                 }
+                                                                                setTipoVehDiez={
+                                                                                    setTipoVehDiez
+                                                                                }
+                                                                                setMarcaVehDiez={
+                                                                                    setMarcaVehDiez
+                                                                                }
+                                                                                setAnnoVehDiez={
+                                                                                    setAnnoVehDiez
+                                                                                }
+                                                                                setModeloVehDiez={
+                                                                                    setModeloVehDiez
+                                                                                }
+                                                                                setCarroceriaVehDiez={
+                                                                                    setCarroceriaVehDiez
+                                                                                }
+                                                                                setcilindrajeVehDiez={
+                                                                                    setcilindrajeVehDiez
+                                                                                }
+                                                                                settransmisionVehDiez={
+                                                                                    settransmisionVehDiez
+                                                                                }
+                                                                                setcombustibleVehDiez={
+                                                                                    setcombustibleVehDiez
+                                                                                }
+                                                                                settraccionVehDiez={
+                                                                                    settraccionVehDiez
+                                                                                }
                                                                             />
                                                                         ) : null}
                                                                     </div>
@@ -1274,7 +1839,15 @@ const CreateProduct = () => {
                                                         ) : (
                                                             <div>
                                                                 {
-                                                                    <div>
+                                                                    <div className="mt-25">
+                                                                        <h3 className="tituloadvertenciaproductos mtmenos30">
+                                                                            Identificación
+                                                                            de
+                                                                            los
+                                                                            vehículos
+                                                                            compatibles
+                                                                        </h3>
+                                                                        <br />
                                                                         <Row>
                                                                             <Col
                                                                                 xl={
@@ -1358,7 +1931,7 @@ const CreateProduct = () => {
                                                                                             {...props}>
                                                                                             <h3 className="tamañotextotooltipproducto">
                                                                                                 {" "}
-                                                                                                Ubicación
+                                                                                                Tipo
                                                                                                 de
                                                                                                 producto{" "}
                                                                                             </h3>
@@ -1390,9 +1963,22 @@ const CreateProduct = () => {
                                                                     </h3>
                                                                 }
                                                             </div>
+                                                            <div
+                                                                className="ps-form__input mt-3
+                                                                   botonagregarotrovehiculo"
+                                                                onClick={() =>
+                                                                    crearVehiculos()
+                                                                }>
+                                                                {
+                                                                    <h3>
+                                                                        Crear
+                                                                        vehículo
+                                                                    </h3>
+                                                                }
+                                                            </div>
 
                                                             <div
-                                                                className="ml-250 ps-btn botonazul mt-15"
+                                                                className="ml-220 ps-btn botonazul mt-15"
                                                                 onClick={() =>
                                                                     agregarDatosLatoneria()
                                                                 }>
@@ -1408,11 +1994,26 @@ const CreateProduct = () => {
 
                                                 {generico == "Si" ? (
                                                     <div className="cajavehiculoscompatiblesproducto">
-                                                        <h3 className="tituloadvertenciaproductos">
-                                                            Escoge la categoría
-                                                        </h3>
-                                                        <br/>
-                                                        <CategoriasProductosGenericos />
+                                                        <CategoriasProductosGenericos
+                                                            setShowDatosProductos={
+                                                                setShowDatosProductos
+                                                            }
+                                                            showDatosProductos={
+                                                                showDatosProductos
+                                                            }
+                                                            abrirCerrarCategoriasGenerico={
+                                                                abrirCerrarCategoriasGenerico
+                                                            }
+                                                            setAbrirCerrarCategoriasGenerico={
+                                                                setAbrirCerrarCategoriasGenerico
+                                                            }
+                                                            categoria={
+                                                                categoria
+                                                            }
+                                                            setCategoria={
+                                                                setCategoria
+                                                            }
+                                                        />
                                                     </div>
                                                 ) : null}
                                             </div>
@@ -1602,6 +2203,8 @@ const CreateProduct = () => {
                                 }
                                 showIngresoFotos={showIngresoFotos}
                                 setShowIngresoFotos={setShowIngresoFotos}
+                                categoria={categoria}
+                                setCategoria={setCategoria}
                             />
                         ) : SelecDatosProducto ? (
                             console.log("VERDADERO")
@@ -1611,6 +2214,7 @@ const CreateProduct = () => {
                             <RegistrarFotos
                                 showIngresoFotos={showIngresoFotos}
                                 setShowIngresoFotos={setShowIngresoFotos}
+                                generico={generico}
                             />
                         ) : SelecDatosProducto ? (
                             console.log("VERDADERO")
@@ -1907,8 +2511,22 @@ function DatosLatoneria(props) {
     const [showModalPosicionProductoMotor, setShowModalPosicionProductoMotor] =
         useState(false);
     const [sistemaMotorSeleccionado, setSistemaMotorSeleccionado] = useState(0);
+    const [ubicacionProducto, setUbicacionProducto] = useState(0);
+    const [posicionProducto, setPosicionProducto] = useState(0);
 
     const mostrarModalDatosProducto = () => {
+        const newDet = [];
+        let item = {
+            ubicacionProducto: ubicacionProducto,
+            posicionProducto: posicionProducto,
+        };
+        newDet.push(item);
+        //setSistemaMotorSeleccionado(1);
+        localStorage.setItem(
+            "ubicacionposicionproducto",
+            JSON.stringify(newDet)
+        );
+
         setShowModalLatoneria(true);
         setSeleccionoUbicacionProducto(true);
 
@@ -1918,8 +2536,6 @@ function DatosLatoneria(props) {
         setUbicarProductoMotor(false);
 
         setShowDatosProductos(true);
-        //setSelecDatosProducto(true);
-        //setShowModalDatosProducto(true);
     };
 
     const abrirDatosUbicacionProucto = () => {
@@ -1945,6 +2561,7 @@ function DatosLatoneria(props) {
     };
 
     const SelecUbicarProductoLatoneria = () => {
+        setUbicacionProducto(1);
         setUbicarProductoLatoneria(true);
         setUbicarProductoHabitaculo(false);
         setUbicarProductoMotor(false);
@@ -1970,6 +2587,7 @@ function DatosLatoneria(props) {
     };
 
     const SelecUbicarProductoHabitaculo = () => {
+        setUbicacionProducto(2);
         setUbicarProductoHabitaculo(true);
         setUbicarProductoLatoneria(false);
         setUbicarProductoMotor(false);
@@ -1995,6 +2613,7 @@ function DatosLatoneria(props) {
     };
 
     const SelecUbicarProductoMotor = () => {
+        setUbicacionProducto(3);
         setUbicarProductoMotor(true);
         setUbicarProductoHabitaculo(false);
         setUbicarProductoLatoneria(false);
@@ -2045,6 +2664,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccionePosicionProductoIzquierdo = () => {
+        setPosicionProducto(11);
         setPosicionProductoIzquierdo(true);
         setPosicionProductoCentro(false);
         setPosicionProductoDerecho(false);
@@ -2063,6 +2683,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccionePosicionProductoCentro = () => {
+        setPosicionProducto(12);
         setPosicionProductoIzquierdo(false);
         setPosicionProductoCentro(true);
         setPosicionProductoDerecho(false);
@@ -2083,6 +2704,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccionePosicionProductoDerecho = () => {
+        setPosicionProducto(13);
         setPosicionProductoIzquierdo(false);
         setPosicionProductoCentro(false);
         setPosicionProductoDerecho(true);
@@ -2103,6 +2725,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccioneConsola = () => {
+        setPosicionProducto(21);
         setPosicionProductoConsola(true);
         setPosicionProductoAsiento(false);
         setPosicionProductoTecho(false);
@@ -2112,6 +2735,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccioneAsiento = () => {
+        setPosicionProducto(22);
         setPosicionProductoConsola(false);
         setPosicionProductoAsiento(true);
         setPosicionProductoTecho(false);
@@ -2121,6 +2745,7 @@ function DatosLatoneria(props) {
     };
 
     const SeleccioneTecho = () => {
+        setPosicionProducto(23);
         setPosicionProductoConsola(false);
         setPosicionProductoAsiento(false);
         setPosicionProductoTecho(true);
@@ -2151,6 +2776,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaAireAcondicionado = () => {
         setSistemaMotorSeleccionado(1);
+        setPosicionProducto(313);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(true);
         setShowImagenArranque(false);
@@ -2171,6 +2797,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionaArranque = () => {
         setSistemaMotorSeleccionado(2);
+        setPosicionProducto(314);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(true);
@@ -2191,6 +2818,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionaCaja = () => {
         setSistemaMotorSeleccionado(3);
+        setPosicionProducto(310);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2211,6 +2839,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionaDireccion = () => {
         setSistemaMotorSeleccionado(4);
+        setPosicionProducto(309);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2232,6 +2861,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaEmbrague = () => {
         setSistemaMotorSeleccionado(5);
+        setPosicionProducto(307);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2253,6 +2883,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaEscape = () => {
         setSistemaMotorSeleccionado(6);
+        setPosicionProducto(315);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2274,6 +2905,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaFrenos = () => {
         setSistemaMotorSeleccionado(7);
+        setPosicionProducto(305);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2295,6 +2927,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaInyeccion = () => {
         setSistemaMotorSeleccionado(8);
+        setPosicionProducto(306);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2316,6 +2949,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaMotor = () => {
         setSistemaMotorSeleccionado(9);
+        setPosicionProducto(301);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2337,6 +2971,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaParabrisas = () => {
         setSistemaMotorSeleccionado(10);
+        setPosicionProducto(316);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2358,6 +2993,7 @@ function DatosLatoneria(props) {
 
     const SeleccionaRefrigeracion = () => {
         setSistemaMotorSeleccionado(11);
+        setPosicionProducto(308);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2369,8 +3005,8 @@ function DatosLatoneria(props) {
         setShowImagenInyeccion(false);
         setShowImagenMotor(false);
         setShowImagenParabrisas(false);
-        setShowImagenRefrigeracion(false);
-        setShowImagenRefrigeracionCaja(true);
+        setShowImagenRefrigeracion(true);
+        setShowImagenRefrigeracionCaja(false);
         setShowImagenSistemElectrico(false);
         setShowImagenSistemElectricoMotor(false);
         setShowImagensuspension(false);
@@ -2378,6 +3014,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionaRefrigeracionCaja = () => {
         setSistemaMotorSeleccionado(12);
+        setPosicionProducto(311);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2398,6 +3035,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionasistemaElectrico = () => {
         setSistemaMotorSeleccionado(13);
+        setPosicionProducto(304);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2418,6 +3056,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionasistemaElectricoMotor = () => {
         setSistemaMotorSeleccionado(14);
+        setPosicionProducto(302);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2436,8 +3075,9 @@ function DatosLatoneria(props) {
         setShowImagensuspension(false);
         setShowImagenTransmision(false);
     };
-    const SeleccionaAireSuspension = () => {
+    const SeleccionaSuspension = () => {
         setSistemaMotorSeleccionado(15);
+        setPosicionProducto(303);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -2458,6 +3098,7 @@ function DatosLatoneria(props) {
     };
     const SeleccionaTransmision = () => {
         setSistemaMotorSeleccionado(16);
+        setPosicionProducto(312);
         setShowImagenBaseMotorElectrico(false);
         setShowImagenAireacondicionado(false);
         setShowImagenArranque(false);
@@ -3016,6 +3657,119 @@ function DatosLatoneria(props) {
                                 <Col lg={8} xl={8} xs={8} md={8}>
                                     <Button
                                         className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaMotor}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/motor.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaDireccion}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/direccion.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={
+                                            SeleccionasistemaElectricoMotor
+                                        }>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectricomotor.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaCaja}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/caja.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaSuspension}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaRefrigeracionCaja}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracioncaja.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionasistemaElectrico}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaTransmision}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                            </Row>
+
+                            <Row>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaFrenos}>
+                                        <img
+                                            width={70}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
+                                <Col lg={4} xl={4} xs={4} md={4}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
                                         onClick={SeleccionaAireAcondicionado}
                                         onMouseOver={() =>
                                             SeleccionaAireAcondicionado()
@@ -3031,6 +3785,18 @@ function DatosLatoneria(props) {
                                         />
                                     </Button>
                                 </Col>
+                                <Col lg={8} xl={8} xs={8} md={8}>
+                                    <Button
+                                        className="iconomotorelectricocrearproducto"
+                                        onClick={SeleccionaInyeccion}>
+                                        <img
+                                            width={60}
+                                            height={55}
+                                            src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
+                                            alt="First slide"
+                                        />
+                                    </Button>
+                                </Col>
                                 <Col lg={4} xl={4} xs={4} md={4}>
                                     <Button
                                         className="iconomotorelectricocrearproducto"
@@ -3039,30 +3805,6 @@ function DatosLatoneria(props) {
                                             width={70}
                                             height={55}
                                             src="/imgcarrusel/createproducto/IconosInicial/arranque.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaCaja}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/caja.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaDireccion}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/direccion.png"
                                             alt="First slide"
                                         />
                                     </Button>
@@ -3094,37 +3836,11 @@ function DatosLatoneria(props) {
                                 <Col lg={8} xl={8} xs={8} md={8}>
                                     <Button
                                         className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaFrenos}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaInyeccion}>
+                                        onClick={SeleccionaRefrigeracion}>
                                         <img
                                             width={60}
                                             height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaMotor}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/motor.png"
+                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
                                             alt="First slide"
                                         />
                                     </Button>
@@ -3141,85 +3857,8 @@ function DatosLatoneria(props) {
                                         />
                                     </Button>
                                 </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaRefrigeracion}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaRefrigeracionCaja}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionasistemaElectrico}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectricomotor.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={
-                                            SeleccionasistemaElectricoMotor
-                                        }>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaAireSuspension}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/aireacondicionado.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaTransmision}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
                             </Row>
+
                             <Col xl={7} lg={7} md={7} xs={7}>
                                 <Card.Body className="ml-95 mtmenos500">
                                     {showImagenBaseMotorElectrico ? (
@@ -3324,7 +3963,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenRefrigeracionCaja ? (
                                         <div>
-                                            <h3>Sistema de caja</h3>
+                                            <h3>
+                                                Sistema de refrigeración caja
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3546,6 +4187,23 @@ function DatosProductos(props) {
     const [formError, setFormError] = useState({});
     const [loading, setLoading] = useState(false);
     const [informacionProducto, setInformacionProducto] = useState(true);
+    const [calificacionEstadoProducto, setCalificacionEstadoProducto] =
+        useState(true);
+    const [estadoUno, setEstadoUno] = useState(
+        "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
+    );
+    const [estadoDos, setEstadoDos] = useState(
+        "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
+    );
+    const [estadoTres, setEstadoTres] = useState(
+        "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
+    );
+    const [estadoCuatro, setEstadoCuatro] = useState(
+        "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
+    );
+    const [estadoCinco, setEstadoCinco] = useState(
+        "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
+    );
 
     const onChange = (e) => {
         setFormData({
@@ -3561,16 +4219,21 @@ function DatosProductos(props) {
     };
 
     const calificacionproducto = [
-        { label: "Mal estado (para reparar)", value: 1 },
-        { label: "Regular estado", value: 2 },
-        { label: "Buen estado", value: 3 },
-        { label: "Excelente estado (nuevo o casi nuevo)", value: 4 },
+        { label: "Baja", value: 1 },
+        { label: "Regular", value: 2 },
+        { label: "Buena", value: 3 },
+        { label: "Excelente", value: 4 },
     ];
 
     const condicionproducto = [
         { label: "Nuevo", value: 1 },
         { label: "Usado", value: 2 },
         { label: "Para repuesto", value: 3 },
+    ];
+
+    const porpartes = [
+        { label: "Si se vende por partes", value: 1 },
+        { label: "No, producto se vende completo", value: 2 },
     ];
 
     const grabardatosadicionales = async (e) => {
@@ -3602,6 +4265,18 @@ function DatosProductos(props) {
             );
             return;
             errors.marcarepuesto = true;
+            formOk = false;
+        }
+
+        if (!formData.vendeporpartes) {
+            swal(
+                "Información del producto",
+                "Debe ingresar si el producto se vende por partes Si o No!",
+                "warning",
+                { button: "Aceptar" }
+            );
+            return;
+            errors.condicion = true;
             formOk = false;
         }
 
@@ -3643,22 +4318,22 @@ function DatosProductos(props) {
             );
             return;
         }
-        datosProductoUno();
-    };
 
-    const datosProductoUno = () => {
-        const datosproductouno = {
-            titulonombre: formData.titulonombre,
-            marcarepuesto: formData.marcarepuesto,
+        const newDet = [];
+        let item = {
+            funcionalidad: formData.calificacionproducto,
             condicion: formData.condicion,
-            calificacionproducto: formData.calificacionproducto,
-            compatible: formData.compatible,
+            marcarepuesto: formData.marcarepuesto,
             numerodeparte: formData.numerodeparte,
+            titulonombre: formData.titulonombre,
+            vendeporpartes: formData.vendeporpartes,
+            estadoproducto: calificacionEstadoProducto,
         };
+        newDet.push(item);
+        //setSistemaMotorSeleccionado(1);
+        localStorage.setItem("informacionproducto", JSON.stringify(newDet));
 
-        //console.log("DATOS PRODUCTO UNO : ", datosproductouno);
-        //Asigna Caracteristicas del Veh Selecdo al state
-        //dispatch(getDatosProducto(datosproductouno));
+        //console.log("INFORMACION PRODUCTO : ", formData)
         onCloseModaDatosProductos();
     };
 
@@ -3672,6 +4347,52 @@ function DatosProductos(props) {
         setInformacionProducto(true);
     };
 
+    const calificacionEstadoUno = () => {
+        setCalificacionEstadoProducto(1);
+        setEstadoUno("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoDos("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoTres("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoCuatro("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoCinco("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+    };
+
+    const calificacionEstadoDos = () => {
+        setCalificacionEstadoProducto(2);
+        setEstadoUno("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoDos("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoTres("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoCuatro("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoCinco("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+    };
+
+    const calificacionEstadoTres = () => {
+        setCalificacionEstadoProducto(3);
+        setEstadoUno("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoDos("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoTres("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoCuatro("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+        setEstadoCinco("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+    };
+
+    const calificacionEstadoCuatro = () => {
+        setCalificacionEstadoProducto(4);
+        setEstadoUno("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoDos("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoTres("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoCuatro("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoCinco("ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog");
+    };
+
+    const calificacionEstadoCinco = () => {
+        setCalificacionEstadoProducto(5);
+        setEstadoUno("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoDos("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoTres("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoCuatro("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+        setEstadoCinco("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
+    };
+
+    //AQUI
     return (
         <div className="ps-page__header">
             {informacionProducto ? (
@@ -3681,43 +4402,109 @@ function DatosProductos(props) {
                     </h3>
                     <form onChange={onChange} className="ml-240">
                         <div className="ps-form--review">
-                            <div className="ps-form__group inputdatosproducto">
-                                <label className="ps-form__label">
-                                    * Titulo publicación
-                                </label>
-                                <input
-                                    className="form-control ps-form__input"
-                                    name="titulonombre"
-                                    onChange={(e) =>
-                                        tituloOnChange(e.target.value)
-                                    }
-                                    type="text"
-                                />
-                            </div>
-                            <div className="ps-form__group inputdatosproducto">
-                                <label className="ps-form__label">
-                                    * Marca del Repuesto
-                                </label>
-                                <input
-                                    className="form-control ps-form__input"
-                                    name="marcarepuesto"
-                                    type="text"
-                                />
-                            </div>
-                            <div className="ps-form__group inputdatosproducto">
-                                <label className="ps-form__label">
-                                    * Condición del Producto Nuevo o Usado
-                                </label>
-                                <div className="form-control ps-form__input">
-                                    <select
-                                        className="custom-select ps-form__labelselect"
-                                        name="condicion">
-                                        <option
-                                            selected
-                                            className="select-fontsize ps-form__label"></option>
-                                        {condicionproducto &&
-                                            condicionproducto.map(
-                                                (itemselect) => {
+                            <Row>
+                                <Col xl={12} lg={12} md={12} xs={12}>
+                                    <div className="ps-form__group inputdatosproducto">
+                                        <label className="ps-form__label">
+                                            * Titulo publicación
+                                        </label>
+                                        <input
+                                            className="form-control ps-form__input"
+                                            placeholder="Escribre el nombre del producto y las características más relevantes"
+                                            name="titulonombre"
+                                            onChange={(e) =>
+                                                tituloOnChange(e.target.value)
+                                            }
+                                            type="text"
+                                        />
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xl={4} lg={4} md={4} xs={4}>
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-3">
+                                        <label className="ps-form__label">
+                                            * Marca del Repuesto
+                                        </label>
+                                        <input
+                                            className="form-control ps-form__input"
+                                            placeholder="Ingresa la marca del producto"
+                                            name="marcarepuesto"
+                                            type="text"
+                                        />
+                                    </div>
+                                </Col>
+                                <Col xl={4} lg={4} md={4} xs={4}>
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-4">
+                                        <label className="ps-form__label">
+                                            * Condición
+                                        </label>
+                                        <div className="form-control ps-form__input">
+                                            <select
+                                                className="custom-select ps-form__labelselect"
+                                                name="condicion">
+                                                <option
+                                                    selected
+                                                    className="select-fontsize ps-form__label">
+                                                    Selecciona la condición de
+                                                    tu producto
+                                                </option>
+                                                {condicionproducto &&
+                                                    condicionproducto.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xl={4} lg={4} md={4} xs={4}>
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-3">
+                                        <label className="ps-form__label">
+                                            Numero de Parte
+                                        </label>
+                                        <input
+                                            className="form-control ps-form__input"
+                                            name="numerodeparte"
+                                            placeholder="Ingresa número de parte del producto"
+                                            type="text"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            InputProps={{
+                                                inputComponent:
+                                                    NumberFormatCelular,
+                                            }}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col xl={4} lg={4} md={4} xs={4}>
+                                    <label className="ps-form__label ml-4">
+                                        Vende por partes
+                                    </label>
+                                    <div className="form-control ps-form__input tamañoinputdatosproducto ml-4">
+                                        <select
+                                            className="custom-select ps-form__labelselect"
+                                            name="vendeporpartes">
+                                            <option
+                                                selected
+                                                className="select-fontsize ps-form__label">
+                                                Por partes Si o No
+                                            </option>
+                                            {porpartes &&
+                                                porpartes.map((itemselect) => {
                                                     return (
                                                         <option
                                                             value={
@@ -3726,55 +4513,136 @@ function DatosProductos(props) {
                                                             {itemselect.label}
                                                         </option>
                                                     );
-                                                }
-                                            )}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="ps-form__group inputdatosproducto">
-                                <label className="ps-form__label">
-                                    * Califica tu Producto
-                                </label>
-                                <div className="form-control ps-form__input">
-                                    <select
-                                        className="custom-select ps-form__labelselect"
-                                        name="calificacionproducto">
-                                        <option
-                                            selected
-                                            className="select-fontsize ps-form__label"></option>
-                                        {calificacionproducto &&
-                                            calificacionproducto.map(
-                                                (itemselect) => {
-                                                    return (
-                                                        <option
-                                                            value={
-                                                                itemselect.value
-                                                            }>
-                                                            {itemselect.label}
-                                                        </option>
-                                                    );
-                                                }
-                                            )}
-                                    </select>
-                                </div>
-                            </div>
-                            <div className="ps-form__group inputdatosproducto">
-                                <label className="ps-form__label">
-                                    Numero de Parte
-                                </label>
-                                <input
-                                    className="form-control ps-form__input"
-                                    name="numerodeparte"
-                                    type="text"
-                                    defaultValue={0}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    InputProps={{
-                                        inputComponent: NumberFormatCelular,
-                                    }}
-                                />
-                            </div>
+                                                })}
+                                        </select>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xl={4} lg={4} md={4} xs={4}>
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-3">
+                                        <label className="ps-form__label">
+                                            Escala de funcionalidad
+                                        </label>
+                                        <div className="form-control ps-form__input">
+                                            <select
+                                                className="custom-select ps-form__labelselect"
+                                                name="calificacionproducto">
+                                                <option
+                                                    selected
+                                                    className="select-fontsize ps-form__label">
+                                                    Selecciona
+                                                </option>
+                                                {calificacionproducto &&
+                                                    calificacionproducto.map(
+                                                        (itemselect) => {
+                                                            return (
+                                                                <option
+                                                                    value={
+                                                                        itemselect.value
+                                                                    }>
+                                                                    {
+                                                                        itemselect.label
+                                                                    }
+                                                                </option>
+                                                            );
+                                                        }
+                                                    )}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col xl={6} lg={6} md={6} xs={6}>
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-4">
+                                        <label className="ps-form__label">
+                                            Estado del producto
+                                        </label>
+                                        <div>
+                                            <Row>
+                                                <Col
+                                                    xl={2}
+                                                    lg={2}
+                                                    md={2}
+                                                    xs={2}>
+                                                    <i
+                                                        class={estadoUno}
+                                                        onMouseOver={() =>
+                                                            calificacionEstadoUno()
+                                                        }
+                                                        onClick={() =>
+                                                            calificacionEstadoUno()
+                                                        }></i>
+                                                </Col>
+                                                <Col
+                                                    xl={2}
+                                                    lg={2}
+                                                    md={2}
+                                                    xs={2}>
+                                                    <i
+                                                        class={estadoDos}
+                                                        onMouseOver={() =>
+                                                            calificacionEstadoDos(
+                                                                true
+                                                            )
+                                                        }
+                                                        onClick={() =>
+                                                            calificacionEstadoDos()
+                                                        }></i>
+                                                </Col>
+                                                <Col
+                                                    xl={2}
+                                                    lg={2}
+                                                    md={2}
+                                                    xs={2}>
+                                                    <i
+                                                        class={estadoTres}
+                                                        onMouseOver={() =>
+                                                            calificacionEstadoTres(
+                                                                true
+                                                            )
+                                                        }
+                                                        onClick={() =>
+                                                            calificacionEstadoTres()
+                                                        }></i>
+                                                </Col>
+                                                <Col
+                                                    xl={2}
+                                                    lg={2}
+                                                    md={2}
+                                                    xs={2}>
+                                                    <i
+                                                        class={estadoCuatro}
+                                                        onMouseOver={() =>
+                                                            calificacionEstadoCuatro(
+                                                                true
+                                                            )
+                                                        }
+                                                        onClick={() =>
+                                                            calificacionEstadoCuatro()
+                                                        }></i>
+                                                </Col>
+                                                <Col
+                                                    xl={2}
+                                                    lg={2}
+                                                    md={2}
+                                                    xs={2}>
+                                                    <i
+                                                        class={estadoCinco}
+                                                        onMouseOver={() =>
+                                                            calificacionEstadoCinco(
+                                                                true
+                                                            )
+                                                        }
+                                                        onClick={() =>
+                                                            calificacionEstadoCinco()
+                                                        }></i>
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+
                             {caracteristicasVeh.productogenerico === "Si" ? (
                                 <div className="ps-form__group">
                                     <label className="ps-form__label">
@@ -3812,16 +4680,16 @@ function DatosProductos(props) {
                 </div>
             ) : (
                 <div>
-                    <div className="mt-30">
+                    <div className="mtmenos50 ">
                         <h3 className="tituloadvertenciaproductosizquierda ml-250">
                             Datos del producto
                         </h3>
                     </div>
-                    <div className="mt-20 ml-190">
+                    <div className="mt-20 ml-240 cajainformacionprouctos">
                         <Row>
                             <Col xl={7} lg={7} md={7} xs={7}>
                                 <div
-                                    className="mt-1 ml-60 datoscerrados"
+                                    className="mt-1 datoscerrados"
                                     disabled={true}>
                                     <h3 className="textoubicacionproducto">
                                         Información sobre tu producto.
@@ -3833,7 +4701,7 @@ function DatosProductos(props) {
                                 lg={1}
                                 md={1}
                                 xs={1}
-                                className="mlmenos60 mtmenos2">
+                                className="ml-55 mtmenos2">
                                 <div className="showcerrarabrir">
                                     <i
                                         class="mt-2 fa fa-angle-down d-flex justify-content-center"
@@ -3880,6 +4748,8 @@ function DatosProductosAdicionales(props) {
         setShowDatosProductosAdicionales,
         showIngresoFotos,
         setShowIngresoFotos,
+        categoria,
+        setCategoria,
     } = props;
 
     const [showEdit, setShowEdit] = useState(false);
@@ -3888,6 +4758,8 @@ function DatosProductosAdicionales(props) {
     const [formData, setFormData] = useState(defaultValueForm());
     const [formError, setFormError] = useState({});
     const [loading, setLoading] = useState(false);
+    const [quantity, setQuantity] = useState(0);
+    const [textoDescripcion, setTextoDescripcion] = useState("");
 
     const onChange = (e) => {
         setFormData({
@@ -3896,10 +4768,59 @@ function DatosProductosAdicionales(props) {
         });
     };
 
-    const porpartes = [
-        { label: "Si se vende por partes", value: 1 },
-        { label: "No, producto se vende completo", value: 2 },
-    ];
+    useEffect(() => {
+        //console.log("CATEGORIA : 0, categoria")
+        if (categoria === 1) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes escribir para que sirve tu producto"
+            );
+        } else if (categoria === 2) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes escribir el material de tu producto, disponibilidad de colores, y medidas."
+            );
+        } else if (categoria === 3) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes escribir el material de tu producto, disponibilidad de colores, y medidas."
+            );
+        } else if (categoria === 4) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes escribir la potencia y especificaciones técnicas del producto."
+            );
+        } else if (categoria === 5) {
+            setTextoDescripcion(
+                "Aquí puedes escribir el voltaje, amperaje, lúmenes, referencia, entre otros elementos que consideres relevantes."
+            );
+        } else if (categoria === 6) {
+            setTextoDescripcion(
+                "Sugerencia: Puedes escribir la referencia del producto, como son: 5W30, 20W50, 15W40, 25W60, dot4, entre otros."
+            );
+        } else if (categoria === 7) {
+            setTextoDescripcion(
+                "Sugerencia: Puedes escribir el ancho (mm), alto (mm-%), rin, índice de carga, indice de velocidad."
+            );
+        } else if (categoria === 8) {
+            setTextoDescripcion(
+                "Sugerencia: Puedes escribir el amperaje, ancho, alto, y largo, y el tipo de vehículo para el cual sirve"
+            );
+        } else if (categoria === 9) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes escribir la longitud de las plumillas en pulgadas"
+            );
+        } else if (categoria === 10) {
+            setTextoDescripcion(
+                "Sugerencia: Aquí puedes describir el contenido del kit, las características o materiales del producto."
+            );
+        } else
+            setTextoDescripcion(
+                "Suegerencia: Aquí puedes ingresar información relacionada con tu producto."
+            );
+    }, [categoria]);
+
+    const comentarioEsteticos = () => {
+        setShowModalComentariosCategoria(true);
+        setCategoriaSeleccionada("Estéticos y cuidados del vehículo");
+        setCategoria(1);
+    };
 
     const datosAdicionalesProducto = async (e) => {
         e.preventDefault();
@@ -3933,6 +4854,39 @@ function DatosProductosAdicionales(props) {
             formOk = false;
         }
 
+        let validavalor = formData.precio;
+
+        let validarprecio;
+        let haycaracterid = false;
+        for (var i = 0; i < validavalor.length; i++) {
+            validarprecio = validavalor.substr(i, 1);
+            if (
+                validarprecio != 0 &&
+                validarprecio != 1 &&
+                validarprecio != 2 &&
+                validarprecio != 3 &&
+                validarprecio != 4 &&
+                validarprecio != 5 &&
+                validarprecio != 6 &&
+                validarprecio != 7 &&
+                validarprecio != 8 &&
+                validarprecio != 9
+            ) {
+                haycaracterid = true;
+                console.log("CARACTER", i, validarprecio);
+            } else console.log("ES UN NUMERO ", i, validarprecio);
+        }
+
+        if (haycaracterid) {
+            swal(
+                "Mercado Repuesto",
+                "Por favor ingresa el precio, sin separadores o caracteres especiales!",
+                "error",
+                { button: "Aceptar" }
+            );
+            return;
+        }
+
         if (!formData.descripcionproducto) {
             swal(
                 "Información del producto",
@@ -3942,18 +4896,6 @@ function DatosProductosAdicionales(props) {
             );
             return;
             errors.descripcionproducto = true;
-            formOk = false;
-        }
-
-        if (!formData.vendeporpartes) {
-            swal(
-                "Información del producto",
-                "Debe ingresar si el producto se vende por partes Si o No!",
-                "warning",
-                { button: "Aceptar" }
-            );
-            return;
-            errors.condicion = true;
             formOk = false;
         }
 
@@ -4019,23 +4961,25 @@ function DatosProductosAdicionales(props) {
             );
             return;
         }
-        datosProductoDos();
-    };
 
-    const datosProductoDos = () => {
-        const datosproductodos = {
-            numerodeunidades: formData.numerodeunidades,
-            precio: formData.precio,
-            descripcionproducto: formData.descripcionproducto,
-            vendeporpartes: formData.vendeporpartes,
-            peso: formData.peso,
-            largo: formData.largo,
-            ancho: formData.ancho,
+        //console.log("DATOS PUBLICACION : ", formData);
+        const newDet = [];
+        let item = {
             alto: formData.alto,
+            ancho: formData.ancho,
+            descripcionproducto: formData.descripcionproducto,
+            largo: formData.largo,
+            numerodeunidades: formData.numerodeunidades,
+            peso: formData.peso,
+            precio: formData.precio,
         };
+        newDet.push(item);
+        //setSistemaMotorSeleccionado(1);
+        localStorage.setItem(
+            "datospublicacionproducto",
+            JSON.stringify(newDet)
+        );
 
-        //Asigna Caracteristicas del Veh Selecdo al state
-        // dispatch(getDatosProductoUno(datosproductodos));
         onCloseModalDatosPublicacion();
     };
 
@@ -4049,8 +4993,65 @@ function DatosProductosAdicionales(props) {
         setDatosPublicacion(true);
     };
 
+    const IncrementItem = () => {
+        let contador = quantity + 1;
+        setQuantity(contador);
+    };
+    const DecreaseItem = () => {
+        if (quantity > 0) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const handleChange = (event) => {
+        //console.log("VALOR : ", variable);
+
+        if (isNaN(parseInt(event))) {
+            setQuantity(0);
+        } else setQuantity(parseInt(event));
+    };
+
+    const validaPrecio = (precio) => {
+        console.log("Precio : ", formData.precio);
+        //setInputControlTelefono("form-control ps-form__input");
+
+        let validavalor = formData.precio;
+
+        let validarprecio;
+        let haycaracterid = false;
+        for (var i = 0; i < validavalor.length; i++) {
+            validarprecio = validavalor.substr(i, 1);
+            if (
+                validarprecio != 0 &&
+                validarprecio != 1 &&
+                validarprecio != 2 &&
+                validarprecio != 3 &&
+                validarprecio != 4 &&
+                validarprecio != 5 &&
+                validarprecio != 6 &&
+                validarprecio != 7 &&
+                validarprecio != 8 &&
+                validarprecio != 9
+            ) {
+                haycaracterid = true;
+                console.log("CARACTER", i, validarprecio);
+            } else console.log("ES UN NUMERO ", i, validarprecio);
+        }
+
+        if (haycaracterid) {
+            swal(
+                "Mercado Repuesto",
+                "Por favor ingresa el precio, sin separadores o caracteres especiales!",
+                "error",
+                { button: "Aceptar" }
+            );
+            return;
+        }
+    };
+
     return (
         <div className="ps-page__header">
+            {console.log("TEXTO : ", textoDescripcion)}
             {datosPublicacion ? (
                 <div>
                     <div className="mt-30 ml-250">
@@ -4058,136 +5059,127 @@ function DatosProductosAdicionales(props) {
                             Datos de la publicación.
                         </h3>
                     </div>
-                    <form onChange={onChange} className="ml-240">
+                    <form onChange={onChange} className="ml-230">
                         <div className="ps-form--review">
                             <div className="ps-form__group inputdatosproductoadicional">
                                 <Row>
-                                    <Col xs lg={6}>
+                                    <Col lg={12} xl={12} md={12} xs={12}>
+                                        <div className="ps-form__group inputdatosproductoadicional mt-10">
+                                            <label className="ps-form__label">
+                                                Descripción del producto
+                                            </label>
+                                            <input
+                                                className="form-control ps-form__input"
+                                                placeholder={textoDescripcion}
+                                                name="descripcionproducto"
+                                                type="text"
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+
+                                <Row>
+                                    <Col lg={6} xl={6} md={6} xs={6}>
                                         <label className="ps-form__label">
                                             Número de Unidades
                                         </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input"
-                                            name="numerodeunidades"
-                                            placeholder="Ingrese número de unidades"
-                                            thousandSeparator={true}
-                                            prefix={""}
-                                        />
+                                        <div className="form-control ps-form__input tamañoinputpublicacion ml-10">
+                                            <button
+                                                className="eliminarborde"
+                                                type="button"
+                                                onClick={DecreaseItem}>
+                                                <i className="fa fa-minus"></i>
+                                            </button>
+
+                                            <NumberFormat
+                                                className="eliminarborde colordelfondo"
+                                                name="numerodeunidades"
+                                                value={quantity}
+                                                onChange={(e) =>
+                                                    handleChange(e.target.value)
+                                                }
+                                                placeholder="Ingrese número de unidades"
+                                                thousandSeparator={true}
+                                                prefix={""}
+                                            />
+
+                                            <button
+                                                className="eliminarborde"
+                                                type="button"
+                                                onClick={IncrementItem}>
+                                                <i className="fa fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </Col>
-                                    <Col xs lg={6}>
+                                    <Col lg={6} xl={6} md={6} xs={6}>
                                         <label className="ps-form__label">
                                             Precio del producto
                                         </label>
                                         <NumberFormat
-                                            className="form-control ps-form__input"
+                                            className="form-control ps-form__input tamañoinputpublicacion"
                                             name="precio"
+                                            onBlur={(e) =>
+                                                validaPrecio(e.target.value)
+                                            }
                                             placeholder="Ingrese precio del producto"
-                                            thousandSeparator={true}
-                                            prefix={"$"}
+                                            //thousandSeparator={true}
+                                            //prefix={"$"}
                                         />
                                     </Col>
                                 </Row>
-                            </div>
-                            <div className="ps-form__group inputdatosproductoadicional mt-10">
-                                <label className="ps-form__label">
-                                    Descripción del producto
-                                </label>
-                                <input
-                                    className="form-control ps-form__input"
-                                    name="descripcionproducto"
-                                    type="text"
-                                />
-                            </div>
-                            <div className="ps-form__group inputdatosproductoadicional mt-10">
-                                <Row>
-                                    <Col xs lg={6}>
-                                        <label className="ps-form__label">
-                                            Vende por partes
-                                        </label>
-                                        <div className="form-control ps-form__input">
-                                            <select
-                                                className="custom-select ps-form__labelselect"
-                                                name="vendeporpartes">
-                                                <option
-                                                    selected
-                                                    className="select-fontsize ps-form__label">
-                                                    Por partes Si o No
-                                                </option>
-                                                {porpartes &&
-                                                    porpartes.map(
-                                                        (itemselect) => {
-                                                            return (
-                                                                <option
-                                                                    value={
-                                                                        itemselect.value
-                                                                    }>
-                                                                    {
-                                                                        itemselect.label
-                                                                    }
-                                                                </option>
-                                                            );
-                                                        }
-                                                    )}
-                                            </select>
-                                        </div>
-                                    </Col>
-                                    <Col xs lg={6}>
-                                        <label className="ps-form__label">
-                                            Peso del producto
-                                        </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input"
-                                            name="peso"
-                                            placeholder="Ingrese peso del producto en kilogramos"
-                                            thousandSeparator={true}
-                                            prefix={""}
-                                        />
-                                    </Col>
-                                </Row>
-                            </div>
-                            <br />
-                            <div className="ps-form__group inputdatosproductoadicional">
-                                <label className="labeldimensionesproducto text-center">
-                                    Ingrese las dimensiones en centimetros
-                                </label>
-                                <Row>
-                                    <Col xs lg={4}>
-                                        <label className="ps-form__label">
-                                            Largo del producto
-                                        </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input"
-                                            name="largo"
-                                            placeholder="Dimensiones en cms"
-                                            thousandSeparator={true}
-                                            prefix={""}
-                                        />
-                                    </Col>
-                                    <Col xs lg={4}>
-                                        <label className="ps-form__label">
-                                            Ancho del producto
-                                        </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input"
-                                            name="ancho"
-                                            placeholder="Dimensiones en cms"
-                                            thousandSeparator={true}
-                                            prefix={""}
-                                        />
-                                    </Col>
-                                    <Col xs lg={4}>
-                                        <label className="ps-form__label">
-                                            Altura del producto
-                                        </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input"
-                                            name="alto"
-                                            placeholder="Dimensiones en cms"
-                                            thousandSeparator={true}
-                                            prefix={""}
-                                        />
-                                    </Col>
-                                </Row>
+
+                                <div className="ps-form__group inputdatosproductoadicional mt-10">
+                                    <Row>
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Peso del producto
+                                            </label>
+                                            <NumberFormat
+                                                className="form-control ps-form__input tamañoinputpublicacion"
+                                                name="peso"
+                                                placeholder="Ingrese peso del producto en kilogramos"
+                                                thousandSeparator={true}
+                                                prefix={""}
+                                            />
+                                        </Col>
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Largo del producto
+                                            </label>
+                                            <NumberFormat
+                                                className="form-control ps-form__input tamañoinputpublicacion mlmenos10"
+                                                name="largo"
+                                                placeholder="Dimensiones en centimetros"
+                                                thousandSeparator={true}
+                                                prefix={""}
+                                            />
+                                        </Col>
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Ancho del producto
+                                            </label>
+                                            <NumberFormat
+                                                className="form-control ps-form__input tamañoinputpublicacion"
+                                                name="ancho"
+                                                placeholder="Dimensiones en centimetros"
+                                                thousandSeparator={true}
+                                                prefix={""}
+                                            />
+                                        </Col>
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Altura del producto
+                                            </label>
+                                            <NumberFormat
+                                                className="form-control ps-form__input tamañoinputpublicacion mlmenos10"
+                                                name="alto"
+                                                placeholder="Dimensiones en centimetros"
+                                                thousandSeparator={true}
+                                                prefix={""}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -4213,12 +5205,10 @@ function DatosProductosAdicionales(props) {
                     </div>
                 </div>
             ) : (
-                <div className="mt-20 ml-190">
+                <div className="mt-20 ml-240 cajainformacionprouctos">
                     <Row>
                         <Col xl={7} lg={7} md={7} xs={7}>
-                            <div
-                                className="mt-1 ml-60 datoscerrados"
-                                disabled={true}>
+                            <div className="mt-1 datoscerrados" disabled={true}>
                                 <h3 className="textoubicacionproducto">
                                     Datos publicación.
                                 </h3>
@@ -4229,7 +5219,7 @@ function DatosProductosAdicionales(props) {
                             lg={1}
                             md={1}
                             xs={1}
-                            className="mlmenos60 mtmenos2">
+                            className="mtmenos2 ml-55">
                             <div className="showcerrarabrir">
                                 <i
                                     class="mt-2 fa fa-angle-down d-flex justify-content-center"
@@ -4266,8 +5256,9 @@ function DatosProductosAdicionales(props) {
 }
 
 function RegistrarFotos(props) {
-    const { showIngresoFotos, setShowIngresoFotos } = props;
+    const { showIngresoFotos, setShowIngresoFotos, generico } = props;
 
+    const router = useRouter();
     const [formData, setFormData] = useState(defaultValueForm());
     const [loading, setLoading] = useState(false);
     const [fileName, setFileName] = useState(false);
@@ -4323,7 +5314,9 @@ function RegistrarFotos(props) {
     };
 
     const generabase64 = async () => {
-        if (!fileName) {
+        console.log("FILE NAME : ", baseArchives);
+
+        if (!baseArchives) {
             Swal.fire({
                 html: `<h1>Información del producto</h1>
                 <hr/>
@@ -4335,10 +5328,10 @@ function RegistrarFotos(props) {
         }
 
         const recorreImagen = async () => {
-            let longitud = fileName.length;
+            let longitud = baseArchives.length;
             let arreglofotos = [];
             let contador = 0;
-            await Array.from(fileName).forEach((archivo) => {
+            await Array.from(baseArchives).forEach((archivo) => {
                 var reader = new FileReader();
                 reader.readAsDataURL(archivo);
                 reader.onload = function () {
@@ -4365,8 +5358,12 @@ function RegistrarFotos(props) {
         recorreImagen();
     };
 
+    useEffect(() => {
+        setLoading(false);
+    }, []);
+
     const grabarfoto = async (dato, ext) => {
-        //console.log("IMAGEN EN PRUEBA : ", dato[1]);
+        //console.log("IMAGEN EN PRUEBA : ", dato);
 
         let longitud = dato.length;
         let datoimagen;
@@ -4568,53 +5565,91 @@ function RegistrarFotos(props) {
     const creaProducto = async (datosimagenes) => {
         // POST request using axios with async/await
 
+        const ubicacionposiciones = JSON.parse(
+            localStorage.getItem("ubicacionposicionproducto")
+        );
+        const vehiculoscompatibles = JSON.parse(
+            localStorage.getItem("vehiculoscompatibles")
+        );
+        const informacionproducto = JSON.parse(
+            localStorage.getItem("informacionproducto")
+        );
+        const datospublicacion = JSON.parse(
+            localStorage.getItem("datospublicacionproducto")
+        );
+        //console.log("UBICACIONES: ", ubicacionposiciones);
+        //console.log("COMPATIBLES: ", vehiculoscompatibles);
+        //console.log("INFORMACION: ", informacionproducto);
+        //console.log("PUBLICACION: ", datospublicacion);
+
         //console.log("DATOS IMAGENES : ", datosimagenes);
+
+        //let preciosinseparadores = datospublicacion.precio.replace(/,/g, "");
+        //console.log("PRECIO : ", preciosinseparadores);
         //return;
+        //let anchosinseparadores = datosproductodos.ancho.replace(/,/g, "");
+        //let altosinseparadores = datosproductodos.alto.replace(/,/g, "");
+        //let largosinseparadores = datosproductodos.largo.replace(/,/g, "");
+        //let pesosinseparadores = datosproductodos.peso.replace(/,/g, "");
+
         const formdata = new FormData();
         formdata.append("id", 0);
-        formdata.append(
-            "productogenerico",
-            caracteristicasVeh.productogenerico
-        );
-        formdata.append("tipoVeh", caracteristicasVeh.tipoVeh);
-        formdata.append("carroceria", caracteristicasVeh.carroceria);
-        formdata.append("marca", caracteristicasVeh.marca);
-        formdata.append("anno", caracteristicasVeh.anno);
-        formdata.append("modelo", caracteristicasVeh.modelo);
+        formdata.append("productogenerico", generico);
+        formdata.append("tipovehiculo", vehiculoscompatibles[0].tipoVehUno);
+        formdata.append("carroceria", vehiculoscompatibles[0].carroceriaVehUno);
+        formdata.append("marca", vehiculoscompatibles[0].marcaVehUno);
+        formdata.append("anno", vehiculoscompatibles[0].annoVehUno);
+        formdata.append("modelo", vehiculoscompatibles[0].modeloVehUno);
         formdata.append(
             "cilindrajemotor",
-            caracteristicasmotor.cilindradamotor
+            vehiculoscompatibles[0].cilindrajeVehUno
         );
         formdata.append(
             "tipocombustible",
-            caracteristicasmotor.tipocombustible
+            vehiculoscompatibles[0].combustibleVehUno
         );
-        formdata.append("transmision", caracteristicasmotor.tipotransmision);
-        formdata.append("tipotraccion", caracteristicasmotor.traccionmotor);
-        formdata.append("turbocompresor", caracteristicasmotor.turbomotor);
-        formdata.append("posicionproducto", datosubicarproducto.ubicarPosicion);
-        formdata.append("partedelVeh", datosubicarproducto.ubicarProducto);
-        formdata.append("posicionproducto", datosubicarproducto.ubicarPosicion);
-        formdata.append("titulonombre", datosproductouno.titulonombre);
-        formdata.append("marcarepuesto", datosproductouno.marcarepuesto);
-        formdata.append("condicion", datosproductouno.condicion);
+        formdata.append(
+            "transmision",
+            vehiculoscompatibles[0].transmisionVehUno
+        );
+        formdata.append("tipotraccion", vehiculoscompatibles[0].traccionVehUno);
+        formdata.append("turbocompresor", 0);
+        formdata.append(
+            "posicionproducto",
+            ubicacionposiciones[0].posicionProducto
+        );
+        formdata.append(
+            "partedelvehiculo",
+            ubicacionposiciones[0].ubicacionProducto
+        );
+
+        formdata.append("titulonombre", informacionproducto[0].titulonombre);
+        formdata.append("marcarepuesto", informacionproducto[0].marcarepuesto);
+        formdata.append("condicion", informacionproducto[0].condicion);
         formdata.append(
             "estadoproducto",
-            datosproductouno.calificacionproducto
+            informacionproducto[0].estadoproducto
         );
-        formdata.append("numerodeunidades", datosproductodos.numerodeunidades);
-        formdata.append("precio", datosproductodos.precio);
-        formdata.append("numerodeparte", datosproductouno.numerodeparte);
-        formdata.append("compatible", datosproductouno.compatible);
+        formdata.append(
+            "vendeporpartes",
+            informacionproducto[0].vendeporpartes
+        );
+        formdata.append("numerodeparte", informacionproducto[0].numerodeparte);
+        formdata.append(
+            "numerodeunidades",
+            datospublicacion[0].numerodeunidades
+        );
+        formdata.append("precio", datospublicacion[0].precio);
+        formdata.append("compatible", "Compatible con");
         formdata.append(
             "descripcionproducto",
-            datosproductodos.descripcionproducto
+            datospublicacion[0].descripcionproducto
         );
-        formdata.append("vendeporpartes", datosproductodos.vendeporpartes);
-        formdata.append("peso", datosproductodos.peso);
-        formdata.append("largo", datosproductodos.largo);
-        formdata.append("ancho", datosproductodos.ancho);
-        formdata.append("lto", datosproductodos.alto);
+        formdata.append("peso", datospublicacion[0].peso);
+        formdata.append("alto", datospublicacion[0].alto);
+        formdata.append("ancho", datospublicacion[0].ancho);
+        formdata.append("largo", datospublicacion[0].largo);
+
         formdata.append("descuento", formData.descuento);
         formdata.append("usuario", usuariologueado.uid);
         formdata.append("moneda", formData.moneda);
@@ -4641,8 +5676,8 @@ function RegistrarFotos(props) {
         formdata.append("nombreimagen10", datosimagenes.nombreimagen10);
         formdata.append("imagen10", datosimagenes.imagen10);
 
-        console.log("FORM DATA : ", formdata);
-
+        //console.log("FORM DATA : ", formdata);
+        //return;
         //console.log("DATOS CREACION DE PRODUCTO : ", producto);
         let url = "https://sitbusiness.co/mrp/api";
 
@@ -4662,7 +5697,7 @@ function RegistrarFotos(props) {
                     );
                     console.log("VALOR QUE RETORNA 200 : ", response.status);
                     setLoading(false);
-                    router.push("/");
+                    //router.push("/");
                 } else {
                     swal(
                         "Mercado Repuesto",
@@ -4671,7 +5706,7 @@ function RegistrarFotos(props) {
                         { button: "Aceptar" }
                     );
                     setLoading(false);
-                    router.push("/");
+                    //router.push("/");
                 }
             } else {
                 console.log("RESPONSE INGRESO FOTOS : ", response);
@@ -5030,7 +6065,7 @@ function RegistrarFotos(props) {
                 </Row>
             </div>
             <br />
-            <form onChange={onChange} className="ml-10">
+            <form onChange={onChange} className="ml-3">
                 <div className="ps-form--review">
                     <div className="ps-form__group">
                         <Form.Group
@@ -5039,7 +6074,7 @@ function RegistrarFotos(props) {
                             <div className="ml-10">
                                 <Row>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5122,7 +6157,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5204,7 +6239,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5286,7 +6321,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5368,7 +6403,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5455,7 +6490,7 @@ function RegistrarFotos(props) {
                             <div className="mt-15 ml-10">
                                 <Row>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5537,7 +6572,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5619,7 +6654,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5701,7 +6736,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}
@@ -5783,7 +6818,7 @@ function RegistrarFotos(props) {
                                         </div>
                                     </Col>
                                     <Col
-                                        className="mr-50"
+                                        className="mr-60"
                                         xl={1}
                                         lg={1}
                                         sm={1}

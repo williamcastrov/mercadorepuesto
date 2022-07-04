@@ -3887,6 +3887,17 @@ body::after {
     color:  #2D2E83 !important;
 }
 
+.botoncategoriasgenerico {
+    border: solid white !important;
+    border-radius: 25px !important;
+    background-color: #f0f2f5 !important;
+    width: 440px !important;
+    text-align: left !important;
+    height: 48px !important;
+    font-size: 16px !important;
+    color:  #2D2E83 !important;
+}
+
 .colorseleccionboton {
     background-color: #D3D4E4 !important;
 }
@@ -4062,6 +4073,17 @@ body::after {
     font-size: 16px !important;
     color: #2D2E83 !important;
     margin-left: 30px !important;
+}
+
+.tamañotextotitulocategorias {
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    margin-left: 20px !important;
+}
+
+.textomodalinfpocategorias {
+    color: #6C99D0 !important;
+    /*text-align: center !important;*/
 }
 
 .tamañotextocrearproducto {
@@ -4540,7 +4562,7 @@ body::after {
     border: none !important;
     margin-left: 77px !important;
     width: 20px !important;
-    height: 40px !important;
+    height: 36px !important;
     font-size: 16px !important;
     color:  #2D2E83 !important;
 }
@@ -4573,7 +4595,16 @@ body::after {
     border: solid white !important;
     height: 45px !important;
     margin-left: 235px !important;
-    font-size: 14px !important;
+    font-size: 146px !important;
+    color:  #2D2E83 !important;
+}
+
+.textobuscadorintecractivo {
+    width: 400px !important;
+    border: solid white !important;
+    height: 45px !important;
+    margin-left: 150px !important;
+    font-size: 17px !important;
     color:  #2D2E83 !important;
 }
 
@@ -17703,6 +17734,14 @@ body::after {
     margin-left: 400px;
 }
 
+.ml-450 {
+    margin-left: 450px;
+}
+
+.ml-500 {
+    margin-left: 500px;
+}
+
 .ml-570 {
     margin-left: 570px;
 }
@@ -18347,7 +18386,7 @@ ol {
 
 .textomodalinfoproductos {
     color: #2D2E83 !important;
-    text-align: center !important;
+    /*text-align: center !important;*/
 }
 
 .tamañotextocrearprdoucto {
@@ -18493,6 +18532,15 @@ ol {
   
 }
 
+.cajainformacionprouctos{
+    border: solid #D5D6E6 !important;
+    width: 640px !important;
+    padding-top: 15px !important;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  
+}
+
 .datoscerrados {
     border: none;
     border-radius: 5px !important;
@@ -18510,5 +18558,49 @@ ol {
     width: 40px !important;
     font-size: 30px !important;
     height: 40px !important;
+}
+
+.select, option{ 
+    /*color:blue !important;*/
+}
+
+.option:hover { color:red; background-color:yellow; }
+
+.option > li > a:hover,
+.option > li > a:focus {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #f3969a;
+}
+
+.eliminarborde{
+    border: none !important;
+}
+
+.colordelfondo {
+    background-color: #F0F2F5;
+    text-align: center;
+}
+
+.tamañoinputdatosproducto{
+    width: 295px !important;
+}
+
+.tamañoinputpublicacion{
+    width: 285px !important;
+}
+
+.tamañoinputpublicacionmedidas{
+    width: 295px !important;
+}
+
+.tamañoiconoestadoproducto {
+    font-size: 35px !important;
+    color: #ACADCD ;
+}
+
+.selecticonoestadoproducto {
+    font-size: 35px !important;
+    color: #2D2E83 !important ;
 }
 
