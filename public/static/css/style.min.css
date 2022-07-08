@@ -359,7 +359,6 @@ iframe {
     pointer-events: none;
 }
 
-
 /*
  .ps-form--review .ps-form__input, .ps-form--review .ps-form__textarea{
     width:120% !important;
@@ -3914,12 +3913,12 @@ body::after {
 }
 
 .botongrabarproducto {
-   margin-left: 170px !important;
+   margin-left: 10px !important;
    margin-bottom: 20px !important;
 }
 
 .botongrabaradicionalproducto {
-    margin-left: 120px !important;
+    margin-left: 30px !important;
     margin-bottom: 20px !important;
  }
  
@@ -4347,6 +4346,7 @@ body::after {
     width: 30px !important;
     height: 32px !important;
     font-size: 20px !important;
+    border-radius: 5px !important;
 }
 
 .itemscategorias {
@@ -4560,7 +4560,7 @@ body::after {
 .botonpartesvehiculoinfo {
     background-color: #f0f2f5 !important;
     border: none !important;
-    margin-left: 77px !important;
+    margin-left: 139px !important;
     width: 20px !important;
     height: 36px !important;
     font-size: 16px !important;
@@ -4678,7 +4678,7 @@ body::after {
 
 .inputdatosproductoadicional {
     margin-left: 10px !important;
-    width: 570px !important;
+    width: 575px !important;
 }
 
 .inputdatosproductoadicionaluno {
@@ -7971,6 +7971,7 @@ body::after {
     width: 30px !important;
     height: 30px !important;
     border: none !important;
+    border-radius: 5px;
 }
 
 .posicionbotonborrararchivo {
@@ -7986,6 +7987,13 @@ body::after {
 
 .colorbotonsubirfotos {
     background-color: #2D2E83;
+}
+
+.inputtextobotofotos{
+    margin-top: 0px !important;
+    font-size: 16px !important;
+    color: #2D2E83;
+    text-align: center !important;
 }
 
 @media (min-width: 1280px) {
@@ -16738,6 +16746,18 @@ body::after {
     margin-left: -10px !important;
 }
 
+.mlmenos11 {
+    margin-left: -11px !important;
+}
+
+.mlmenos12 {
+    margin-left: -12px !important;
+}
+
+.mlmenos13 {
+    margin-left: -13px !important;
+}
+
 .mlmenos15 {
     margin-left: -15px !important;
 }
@@ -16794,10 +16814,52 @@ body::after {
     margin-left: -65px !important;
 }
 
+.mlmenos100 {
+    margin-left: -100px !important;
+}
+
+.mlmenos110 {
+    margin-left: -110px !important;
+}
 .mlmenos200 {
     margin-left: -200px !important;
 }
-
+.mlmenos210 {
+    margin-left: -210px !important;
+}
+.mlmenos220 {
+    margin-left: -220px !important;
+}
+.mlmenos230 {
+    margin-left: -230px !important;
+}
+.mlmenos240 {
+    margin-left: -240px !important;
+}
+.mlmenos250 {
+    margin-left: -250px !important;
+}
+.mlmenos260 {
+    margin-left: -260px !important;
+}
+.mlmenos270 {
+    margin-left: -270px !important;
+}
+.mlmenos280 {
+    margin-left: -20px !important;
+}
+.mlmenos290 {
+    margin-left: -295px !important;
+}
+.mlmenos300 {
+    margin-left: -300px !important;
+}
+.mlmenos350 {
+    margin-left: -380px !important;
+}
+.mlmenos700 {
+    margin-left: -700px !important;
+}
 .mlizquierda {
     margin-left: -30px !important;
 }
@@ -17003,6 +17065,21 @@ body::after {
 .ml-10 {
     margin-left: 10px;
 }
+.ml-11 {
+    margin-left: 11px;
+}
+.ml-12 {
+    margin-left: 12px;
+}
+.ml-13 {
+    margin-left: 13px;
+}
+.ml-14 {
+    margin-left: 14px;
+}
+.ml-15 {
+    margin-left: 15px;
+}
 
 .pt-10 {
     padding-top: 10px;
@@ -17096,6 +17173,22 @@ body::after {
     margin-top: 25px;
 }
 
+.mt-26 {
+    margin-top: 26px;
+}
+
+.mt-27 {
+    margin-top: 27px;
+}
+
+.mt-28 {
+    margin-top: 28px;
+}
+
+.mt-29 {
+    margin-top: 29px;
+}
+
 .mr-25 {
     margin-right: 25px;
 }
@@ -17179,7 +17272,12 @@ body::after {
 .ml-36 {
     margin-left: 36px;
 }
-
+.ml-37 {
+    margin-left: 37px;
+}
+.ml-38 {
+    margin-left: 38px;
+}
 .pt-35 {
     padding-top: 35px;
 }
@@ -17244,35 +17342,39 @@ body::after {
 .ml-45 {
     margin-left: 45px;
 }
-
 .pt-45 {
     padding-top: 45px;
 }
-
 .pr-45 {
     padding-right: 45px;
 }
-
 .pb-45 {
     padding-bottom: 45px;
 }
-
 .pl-45 {
     padding-left: 45px;
 }
-
+.mt-46 {
+    margin-top: 46px;
+}
+.mt-47 {
+    margin-top: 47px;
+}
+.mt-48 {
+    margin-top: 48px;
+}
+.mt-49 {
+    margin-top: 49px;
+}
 .mt-50 {
     margin-top: 50px;
 }
-
 .mr-50 {
     margin-right: 50px;
 }
-
 .mb-50 {
     margin-bottom: 50px;
 }
-
 .ml-50 {
     margin-left: 50px;
 }
@@ -17604,6 +17706,9 @@ body::after {
 .mt-200 {
     margin-top: 200px;
 }
+.mt-300 {
+    margin-top: 300px;
+}
 
 .mr-100 {
     margin-right: 100px;
@@ -17736,6 +17841,22 @@ body::after {
 
 .ml-450 {
     margin-left: 450px;
+}
+
+.ml-460 {
+    margin-left: 460px;
+}
+
+.ml-470 {
+    margin-left: 470px;
+}
+
+.ml-480 {
+    margin-left: 480px;
+}
+
+.ml-490 {
+    margin-left: 490px;
 }
 
 .ml-500 {
@@ -18353,6 +18474,7 @@ ol {
     margin-left: 30px !important;
     width: 65px !important;
     height: 65px !important;
+    filter: opacity(0.55) drop-shadow(0 0 0 blue); 
 }
 
 .tamañoimagenuploadproducto {
@@ -18496,6 +18618,7 @@ ol {
 
 .cajaadvertenciavehiculoscompatiblesproducto{
     border: solid #D5D6E6 !important;
+    border-radius: 10px !important;
     width: 640px !important;
     padding: 20px !important;
     height: 165px !important;
@@ -18520,11 +18643,13 @@ ol {
 
 .tamañoiconoadvertencia {
     font-size: 20px !important;
+    color: #2D2E83 !important;
 }
 
 .cajavehiculoscompatiblesproducto{
     margin-left: -10px;
     border: solid #D5D6E6 !important;
+    border-radius: 10px !important;
     width: 640px !important;
     padding-top: 15px !important;
     padding-left: 10px;
@@ -18534,6 +18659,7 @@ ol {
 
 .cajainformacionprouctos{
     border: solid #D5D6E6 !important;
+    border-radius: 10px !important;
     width: 640px !important;
     padding-top: 15px !important;
     padding-left: 10px;
@@ -18604,3 +18730,55 @@ ol {
     color: #2D2E83 !important ;
 }
 
+.sinborder {
+    border: none !important;
+}
+
+.colorbase {
+    color: #2D2E83 !important ;
+}
+
+.colorinput {
+    background-color: #E8F0FE !important;
+}
+
+.colortextoselect {
+    color: #2D2E83 !important ;
+}
+
+.textomedidas {
+    padding-left: 2px !important;
+    padding-top: 8px !important;
+    font-size: 14px !important;
+    color: #817590 !important;
+}
+
+.cuadropublicacionproducto {
+    width: 1110px !important;
+    height: 400px !important;
+    border: solid #D5D6E6 !important;
+    border-radius: 10px;
+}
+
+.textoterminapublicacion {
+    color: #2D2E83 !important;
+    font-size: 20px;
+}
+
+.tamañoiconoterminarpublicacion {
+    font-size: 40px !important;
+    color: #2D2E83 !important;
+}
+
+.cuadrointernopublicacionproducto {
+    width: 1000px !important;
+    height: 230px !important;
+    background-color: #F0F2F5 !important;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.spinnerpinon {
+    font-size: 90px !important;
+    color: #2D2E83 !important ;
+}

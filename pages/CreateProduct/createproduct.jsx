@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 import NumberFormat from "react-number-format";
+import shortid from "shortid";
 import { getSelectedVehicle } from "../../store/selectedvehicle/action";
 import {
     Button,
@@ -22,7 +23,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { MultiSelect } from "react-multi-select-component";
 import { getUbicarProducto } from "../../store/ubicarproducto/action";
 import { useRouter } from "next/router";
-import shortid from "shortid";
 import img from "../../public/imagesupload/uploadimage.png";
 import eliminar from "../../public/imagesupload/eliminar.png";
 
@@ -43,6 +43,7 @@ import DatosVehiculosEditar from "./DatosVehiculosEditar";
 import DatosVehiculosDuplicar from "./DatosVehiculosDuplicar";
 import ModalComentariosHabitaculo from "./ModalComentariosHabitaculo";
 import CategoriasProductosGenericos from "./CategoriasProductosGenericos";
+import ModalComentariosUbicacionProducto from "./ModalComentariosUbicacionProducto";
 
 function NumberFormatCustom(props) {
     const { inputRef, onChange, ...other } = props;
@@ -101,6 +102,7 @@ NumberFormatCelular.propTypes = {
 
 const CreateProduct = () => {
     const targetshow = useRef(null);
+    const router = useRouter();
     const [showEdit, setShowEdit] = useState(false);
     const [agregarDatos, setAgregarDatos] = useState(false);
     const [mostrarBotonDatosMotor, setMostrarBotonDatosMotor] = useState(false);
@@ -112,10 +114,10 @@ const CreateProduct = () => {
     const [mostrar, setMostrar] = useState(false);
     const [tamaño, setTamaño] = useState("col-12 col-md-6 ml-250");
     const [cerrarDatos, setCerrarDatos] = useState(
-        "ps-form__group cajavehiculoscompatiblesproducto"
+        "ps-form__group cajavehiculoscompatiblesproducto colorbase"
     );
     const [cerrarDatosDos, setCerrarDatosDos] = useState(
-        "custom-selectcreateproducto redondearbordegenerico"
+        "custom-selectcreateproducto redondearbordegenerico colorbase"
     );
     const [iconoCerrarUno, setIconCerrarUno] = useState(
         "ml-40 showcerrarabrir"
@@ -128,16 +130,16 @@ const CreateProduct = () => {
 
     const [genericoUno, setGenericoUno] = useState("Si");
     const [labelGenericoUno, setLabelGenericoUno] = useState(
-        "Si - Es Compatible con diferentes marcas y modelos de Vehículos."
+        "Si - Es compatible con diferentes marcas y modelos de Vehículos."
     );
 
     const [genericoDos, setGenericoDos] = useState("No");
     const [labelGenericoDos, setLabelGenericoDos] = useState(
-        "No - NO es Compatible con varias marcas y modelos de Vehículos"
+        "No - No es compatible con varias marcas y modelos de Vehículos."
     );
 
     const [showCreateProduct, setCreateProduct] = useState(true);
-    const [showModalLatoneria, setShowModalLatoneria] = useState(false);
+    const [showModalLatoneria, setShowModalLatoneria] = useState(true);
     const [showDatosProductos, setShowDatosProductos] = useState(false);
     const [showDatosProductosAdicionales, setShowDatosProductosAdicionales] =
         useState(false);
@@ -359,6 +361,8 @@ const CreateProduct = () => {
         },
     ];
 
+
+
     // Inicializamos el arrego de Tipos de Vehiculos
     const [vehiculos, setVehiculos] = useState([]);
     // Arreglo tipos de Marcas de Vehiculos
@@ -497,12 +501,15 @@ const CreateProduct = () => {
                 cilindrajeVehUno: 0,
                 carroceriaVehUno: 0,
                 transmisionVehUno: 0,
-                combustibleVehUno:0,
+                combustibleVehUno: 0,
                 traccionVehUno: 0,
             };
             newDetUno.push(itemUno);
-            
-            localStorage.setItem("vehiculoscompatibles", JSON.stringify(newDetUno));
+
+            localStorage.setItem(
+                "vehiculoscompatibles",
+                JSON.stringify(newDetUno)
+            );
 
             let itemDos = {
                 ubicacionProducto: 0,
@@ -510,7 +517,10 @@ const CreateProduct = () => {
             };
             newDetDos.push(itemDos);
             //setSistemaMotorSeleccionado(1);
-            localStorage.setItem("ubicacionposicionproducto", JSON.stringify(newDetDos));
+            localStorage.setItem(
+                "ubicacionposicionproducto",
+                JSON.stringify(newDetDos)
+            );
         }
 
         let control = contador + 1;
@@ -567,7 +577,7 @@ const CreateProduct = () => {
         setShowIconoCerrarAbrir(true);
         setAgregarVehiculo(false);
 
-        setCerrarDatos("");
+        //setCerrarDatos("");
         setCerrarDatosDos("mt-1 datoscerrados");
         setIconCerrarUno("showcerrarabrir");
         setIconCerrarDos("form-control ps-form__input ml-20");
@@ -810,22 +820,27 @@ const CreateProduct = () => {
     const mostrarVehiculos = () => {
         setAgregarVehiculo(true);
         setShowIconoCerrarAbrir(false);
-        setCerrarDatos("ps-form__group cajavehiculoscompatiblesproducto");
-        setCerrarDatosDos("custom-selectcreateproducto redondearbordegenerico");
+        setCerrarDatos(
+            "ps-form__group cajavehiculoscompatiblesproducto colorbase"
+        );
+        setCerrarDatosDos(
+            "custom-selectcreateproducto redondearbordegenerico colorbase"
+        );
 
         setIconCerrarUno(
-            "form-control ps-form__input textoeditardatosvehiculo"
+            "form-control ps-form__input textoeditardatosvehiculo colorbase"
         );
         setIconCerrarDos("form-control ps-form__input");
 
         setGenericoUno("Si");
         setLabelGenericoUno(
-            "Si - Es Compatible con diferentes marcas y modelos del Vehículos."
+            "Si - Es compatible con diferentes marcas y modelos del vehículos."
         );
         setGenericoDos("No");
         setLabelGenericoDos(
-            "No - NO es Compatible con varias marcas y modelos de Vehículos"
+            "No - NO es compatible con varias marcas y modelos de vehículos."
         );
+
         setMostrar(false);
 
         setVehiculoUnoSelecc(true);
@@ -845,7 +860,7 @@ const CreateProduct = () => {
         setSelecDatosProducto(true);
         setShowModalDatosProducto(true);
     };
-
+   
     //setMostrarDatosMotor(true);
     return (
         <Container title="Mi Cuenta">
@@ -932,8 +947,7 @@ const CreateProduct = () => {
                                                                                         itemselect
                                                                                     ) => {
                                                                                         return (
-                                                                                            <option
-                                                                                                className="licenciatura"
+                                                                                            <option className="mlmenos"
                                                                                                 value={
                                                                                                     itemselect.value
                                                                                                 }>
@@ -953,7 +967,7 @@ const CreateProduct = () => {
                                                                         lg={1}
                                                                         md={1}
                                                                         xs={1}
-                                                                        className="mlmenos40">
+                                                                        className="mlmenos110">
                                                                         <div
                                                                             className={
                                                                                 iconoCerrarUno
@@ -962,7 +976,7 @@ const CreateProduct = () => {
                                                                                 onClick={() =>
                                                                                     mostrarVehiculos()
                                                                                 }
-                                                                                class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                                                                class="mt-1 fa fa-angle-down d-flex justify-content-center"
                                                                                 aria-hidden="true"
                                                                                 ref={
                                                                                     targetshow
@@ -978,7 +992,6 @@ const CreateProduct = () => {
                                                                                     )
                                                                                 }></i>
                                                                         </div>
-
                                                                         <Overlay
                                                                             className=""
                                                                             target={
@@ -1978,7 +1991,7 @@ const CreateProduct = () => {
                                                             </div>
 
                                                             <div
-                                                                className="ml-220 ps-btn botonazul mt-15"
+                                                                className="ml-490 ps-btn botonazul mt-15"
                                                                 onClick={() =>
                                                                     agregarDatosLatoneria()
                                                                 }>
@@ -2028,7 +2041,7 @@ const CreateProduct = () => {
                                                         <div className="form-control ps-form__input">
                                                             <select
                                                                 //disabled="disabled"
-                                                                className="custom-select ps-form__labelselect"
+                                                                className="custom-select ps-form__labelselect colorbase"
                                                                 onChange={(e) =>
                                                                     handleChangeGenerico(
                                                                         e.target
@@ -2368,6 +2381,7 @@ function DatosLatoneria(props) {
         setShowDatosProductos,
         setSelecDatosProducto,
     } = props;
+
     const [showEdit, setShowEdit] = useState(false);
     const targetshow = useRef(null);
 
@@ -2471,7 +2485,11 @@ function DatosLatoneria(props) {
     const [ubicarProductoMotor, setUbicarProductoMotor] = useState(false);
     const [abrirCerarUbicarProducto, setAbrirCerarUbicarProducto] =
         useState(false);
-
+    const [
+        mostrarModalComentariosUbicacionProducto,
+        setMostrarModalComentariosUbicacionProducto,
+    ] = useState(true);
+    const [textoPosicionUbicacionProducto, setTextoPosicionUbicacionProducto] = useState(0);
     const [
         showModalPosicionProductoLatoneria,
         setShowModalPosicionProductoLatoneria,
@@ -2488,13 +2506,11 @@ function DatosLatoneria(props) {
         showModalComentariosPosicionDerecho,
         setShowModalComentariosPosicionDerecho,
     ] = useState(false);
-
     const [posicionProductoIzquierdo, setPosicionProductoIzquierdo] =
         useState(false);
     const [posicionProductoCentro, setPosicionProductoCentro] = useState(false);
     const [posicionProductoDerecho, setPosicionProductoDerecho] =
         useState(false);
-
     const [
         showModalPosicionProductoHabitaculo,
         setShowModalPosicionProductoHabitaculo,
@@ -2504,12 +2520,12 @@ function DatosLatoneria(props) {
     const [posicionProductoAsiento, setPosicionProductoAsiento] =
         useState(false);
     const [posicionProductoTecho, setPosicionProductoTecho] = useState(false);
-
     const [showModalComentariosHabitaculo, setShowModalComentariosHabitaculo] =
         useState(false);
 
     const [showModalPosicionProductoMotor, setShowModalPosicionProductoMotor] =
         useState(false);
+    
     const [sistemaMotorSeleccionado, setSistemaMotorSeleccionado] = useState(0);
     const [ubicacionProducto, setUbicacionProducto] = useState(0);
     const [posicionProducto, setPosicionProducto] = useState(0);
@@ -2549,15 +2565,18 @@ function DatosLatoneria(props) {
     };
 
     const mostrarComentariolatoneria = () => {
-        setShowModalComentariosLatoneria(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(1);
     };
 
     const mostrarComentariohabitaculo = () => {
-        setShowModalComentariosHabitaculo(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(2);
     };
 
     const mostrarComentariomotor = () => {
-        setShowModalComentariosMotor(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(3);
     };
 
     const SelecUbicarProductoLatoneria = () => {
@@ -2637,15 +2656,18 @@ function DatosLatoneria(props) {
     };
 
     const mostrarComentarioPosicionIzquierdo = () => {
-        setShowModalComentariosPosicionIzquierdo(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(4);
     };
 
     const mostrarComentarioPosicionCentro = () => {
-        setShowModalComentariosPosicionCentro(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(5);
     };
 
     const mostrarComentarioPosicionDerecho = () => {
-        setShowModalComentariosPosicionDerecho(true);
+        setMostrarModalComentariosUbicacionProducto(true);
+        setTextoPosicionUbicacionProducto(6);
     };
 
     const mostrarComentarioConsola = () => {
@@ -3119,10 +3141,10 @@ function DatosLatoneria(props) {
     };
 
     return (
-        <div className="ps-page__header ml-50">
+        <div className="ps-page__header mtmenos60 ml-100 cajavehiculoscompatiblesproducto">
             <div>
-                <div className="ml-60 mb-20">
-                    <h3 className="tituloadvertenciaproductosizquierda mtmenos50 mb-15">
+                <div className="mb-20">
+                    <h3 className="tituloadvertenciaproductosizquierda mb-15">
                         Ubicación del producto en tu vehículo
                     </h3>
                 </div>
@@ -3134,12 +3156,7 @@ function DatosLatoneria(props) {
                             </h3>
                         </div>
                         <Row>
-                            <Col
-                                xl={4}
-                                lg={4}
-                                md={4}
-                                xs={4}
-                                className="mlmenos5">
+                            <Col xl={4} lg={4} md={4} xs={4}>
                                 <Row>
                                     <Col xl={10} lg={10} md={10} xs={10}>
                                         <Button
@@ -3150,12 +3167,7 @@ function DatosLatoneria(props) {
                                             EXTERIOR
                                         </Button>
                                     </Col>
-                                    <Col
-                                        xl={1}
-                                        lg={1}
-                                        md={1}
-                                        xs={1}
-                                        className="mlmenos25">
+                                    <Col xl={1} lg={1} md={1} xs={1}>
                                         <Button
                                             className={
                                                 nombreUbicacionExteriorInfo
@@ -3185,12 +3197,7 @@ function DatosLatoneria(props) {
                                             INTERIOR
                                         </Button>
                                     </Col>
-                                    <Col
-                                        xl={1}
-                                        lg={1}
-                                        md={1}
-                                        xs={1}
-                                        className="mlmenos25">
+                                    <Col xl={1} lg={1} md={1} xs={1}>
                                         <Button
                                             className={
                                                 nombreUbicacionInteriorInfo
@@ -3220,12 +3227,7 @@ function DatosLatoneria(props) {
                                             TREN MOTRIZ
                                         </Button>
                                     </Col>
-                                    <Col
-                                        xl={1}
-                                        lg={1}
-                                        md={1}
-                                        xs={1}
-                                        className="mlmenos25">
+                                    <Col xl={1} lg={1} md={1} xs={1}>
                                         <Button
                                             className={
                                                 nombreUbicacionTrenMotrizInfo
@@ -3249,7 +3251,7 @@ function DatosLatoneria(props) {
                                 lg={5}
                                 md={5}
                                 xs={5}
-                                className="ml-60 mtmenos20">
+                                className="ml-150 mt-10">
                                 <Card.Body>
                                     {showImagenExterior ? (
                                         <Card.Img
@@ -3273,94 +3275,17 @@ function DatosLatoneria(props) {
                     </div>
                 ) : null}
             </div>
-
-            <div>
-                <Modal
-                    className="modalcomentarioslatoneriasedan"
-                    show={showModalComentariosLatoneria}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS LATONERIA </h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en la categoria latoneria
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Button
-                        onClick={() => setShowModalComentariosLatoneria(false)}>
-                        {" "}
-                        Cancelar{" "}
-                    </Button>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() =>
-                                setShowModalComentariosLatoneria(false)
-                            }>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
+            
+            <div className="App">
+                <ModalComentariosUbicacionProducto
+                    shown={mostrarModalComentariosUbicacionProducto}
+                    close={() => {
+                        setMostrarModalComentariosUbicacionProducto(false);
+                    }}
+                    texto={textoPosicionUbicacionProducto}
+                />
             </div>
-
-            <div>
-                <Modal size="sm" show={showModalComentariosHabitaculo}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS HABITACULO </h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en la categoria habitaculo
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() =>
-                                setShowModalComentariosHabitaculo(false)
-                            }>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
-            <div>
-                <Modal size="sm" show={showModalComentariosMotor}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS MOTOR/ELECTRICO </h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en la categoria
-                            Motor/Eléctrico XXXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() => setShowModalComentariosMotor(false)}>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
+        
             {showModalDatosProducto ? (
                 ubicarProductoLatoneria ? (
                     <div>
@@ -3377,7 +3302,7 @@ function DatosLatoneria(props) {
                         <Row className="mlmenos20">
                             <Col xl={4} lg={4} md={4} xs={4}>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
                                             className={nombreUbicacionIzquierda}
                                             onClick={
@@ -3407,7 +3332,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
                                             className={nombreUbicacionCentro}
                                             onClick={
@@ -3437,7 +3362,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
                                             className={nombreUbicacionDerecha}
                                             onClick={
@@ -3472,7 +3397,7 @@ function DatosLatoneria(props) {
                                 lg={5}
                                 md={5}
                                 xs={5}
-                                className="ml-60 mt-10">
+                                className="ml-150 mt-10">
                                 <Card.Body>
                                     {showImagenIzquierda ? (
                                         <Card.Img
@@ -3495,7 +3420,7 @@ function DatosLatoneria(props) {
                         </Row>
                         <br />
                         <hr />
-                        <div className="ml-400">
+                        <div className="ml-470">
                             <Row>
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <Button
@@ -4026,21 +3951,14 @@ function DatosLatoneria(props) {
                     </div>
                 ) : abrirCerarUbicarProducto ? (
                     <Row>
-                        <Col xl={7} lg={7} md={7} xs={7}>
-                            <div
-                                className="mt-1 ml-60 datoscerrados"
-                                disabled={true}>
-                                <h3 className="textoubicacionproducto">
+                        <Col xl={8} lg={8} md={8} xs={8}>
+                            <div className="mt-1 datoscerrados" disabled={true}>
+                                <h3 className="textoubicacionproducto mlmenos240">
                                     Ubicación del producto en el vehículo.
                                 </h3>
                             </div>
                         </Col>
-                        <Col
-                            xl={1}
-                            lg={1}
-                            md={1}
-                            xs={1}
-                            className="mlmenos60 mtmenos2">
+                        <Col xl={1} lg={1} md={1} xs={1} className="mtmenos2">
                             <div className="showcerrarabrir">
                                 <i
                                     class="mt-2 fa fa-angle-down d-flex justify-content-center"
@@ -4081,87 +3999,6 @@ function DatosLatoneria(props) {
                     }}
                     texto={textoPosicionHabitaculo}
                 />
-            </div>
-
-            <div>
-                <Modal size="sm" show={showModalComentariosPosicionIzquierdo}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS LADO IZQUIERDO DEL Veh</h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en la parte izquierda del
-                            Veh XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() =>
-                                setShowModalComentariosPosicionIzquierdo(false)
-                            }>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
-            <div>
-                <Modal size="sm" show={showModalComentariosPosicionCentro}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS CENTRO DEL Veh </h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en la parte central del Veh
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() =>
-                                setShowModalComentariosPosicionCentro(false)
-                            }>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
-
-            <div>
-                <Modal size="sm" show={showModalComentariosPosicionDerecho}>
-                    <Modal.Header closeButton>
-                        <h2>PRODUCTOS LADO DERECHO DEL Veh </h2>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <h2>
-                            {" "}
-                            En esta ventana se debe describir en que consisten
-                            los productos Incluidos en el lado derecho del Veh
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                            XXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXX
-                        </h2>
-                        <ButtonGroup vertical></ButtonGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button
-                            onClick={() =>
-                                setShowModalComentariosPosicionDerecho(false)
-                            }>
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         </div>
     );
@@ -4213,9 +4050,18 @@ function DatosProductos(props) {
     };
 
     const tituloOnChange = (e) => {
-        console.log("LONGITUD TITULO NOMBRE : ", e);
+        //console.log("LONGITUD TITULO NOMBRE : ", e);
         var strLength = e.length;
-        console.log("LONGITUD : ", strLength);
+        //console.log("LONGITUD : ", strLength);
+        if (strLength > 40) {
+            swal(
+                "Información del producto",
+                "Número de caracteres supera el maximo de 40 permitido!",
+                "warning",
+                { button: "Aceptar" }
+            );
+            return;
+        }
     };
 
     const calificacionproducto = [
@@ -4392,15 +4238,14 @@ function DatosProductos(props) {
         setEstadoCinco("ml-3 mt-2 selecticonoestadoproducto fa fa-cog");
     };
 
-    //AQUI
     return (
-        <div className="ps-page__header">
+        <div className="ml-250">
             {informacionProducto ? (
-                <div className="mt-40 ">
-                    <h3 className="tituloadvertenciaproductosizquierda ml-250">
+                <div className="ps-page__header cajavehiculoscompatiblesproducto mt-20">
+                    <h3 className="tituloadvertenciaproductosizquierda">
                         Información sobre tu producto.
                     </h3>
-                    <form onChange={onChange} className="ml-240">
+                    <form onChange={onChange}>
                         <div className="ps-form--review">
                             <Row>
                                 <Col xl={12} lg={12} md={12} xs={12}>
@@ -4435,17 +4280,17 @@ function DatosProductos(props) {
                                     </div>
                                 </Col>
                                 <Col xl={4} lg={4} md={4} xs={4}>
-                                    <div className="ps-form__group tamañoinputdatosproducto ml-4">
+                                    <div className="ps-form__group tamañoinputdatosproducto ml-95">
                                         <label className="ps-form__label">
                                             * Condición
                                         </label>
                                         <div className="form-control ps-form__input">
                                             <select
-                                                className="custom-select ps-form__labelselect"
+                                                className="custom-select ps-form__labelselect colortextoselect"
                                                 name="condicion">
                                                 <option
                                                     selected
-                                                    className="select-fontsize ps-form__label">
+                                                    className="select-fontsize ps-form__label colorbase">
                                                     Selecciona la condición de
                                                     tu producto
                                                 </option>
@@ -4454,6 +4299,7 @@ function DatosProductos(props) {
                                                         (itemselect) => {
                                                             return (
                                                                 <option
+                                                                    className="colorbase"
                                                                     value={
                                                                         itemselect.value
                                                                     }>
@@ -4470,7 +4316,7 @@ function DatosProductos(props) {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xl={4} lg={4} md={4} xs={4}>
+                                <Col xl={6} lg={6} md={6} xs={6}>
                                     <div className="ps-form__group tamañoinputdatosproducto ml-3">
                                         <label className="ps-form__label">
                                             Numero de Parte
@@ -4490,13 +4336,13 @@ function DatosProductos(props) {
                                         />
                                     </div>
                                 </Col>
-                                <Col xl={4} lg={4} md={4} xs={4}>
-                                    <label className="ps-form__label ml-4">
+                                <Col xl={6} lg={6} md={6} xs={6}>
+                                    <label className="mlmenos10 ps-form__label">
                                         Vende por partes
                                     </label>
-                                    <div className="form-control ps-form__input tamañoinputdatosproducto ml-4">
+                                    <div className="form-control ps-form__input tamañoinputdatosproducto mlmenos13">
                                         <select
-                                            className="custom-select ps-form__labelselect"
+                                            className="custom-select ps-form__labelselect colortextoselect"
                                             name="vendeporpartes">
                                             <option
                                                 selected
@@ -4507,6 +4353,7 @@ function DatosProductos(props) {
                                                 porpartes.map((itemselect) => {
                                                     return (
                                                         <option
+                                                            className="colorbase"
                                                             value={
                                                                 itemselect.value
                                                             }>
@@ -4519,18 +4366,18 @@ function DatosProductos(props) {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xl={4} lg={4} md={4} xs={4}>
+                                <Col xl={6} lg={6} md={6} xs={6}>
                                     <div className="ps-form__group tamañoinputdatosproducto ml-3">
                                         <label className="ps-form__label">
                                             Escala de funcionalidad
                                         </label>
                                         <div className="form-control ps-form__input">
                                             <select
-                                                className="custom-select ps-form__labelselect"
+                                                className="colortextoselect custom-select ps-form__labelselect "
                                                 name="calificacionproducto">
                                                 <option
                                                     selected
-                                                    className="select-fontsize ps-form__label">
+                                                    className="select-fontsize ps-form__label ">
                                                     Selecciona
                                                 </option>
                                                 {calificacionproducto &&
@@ -4538,6 +4385,7 @@ function DatosProductos(props) {
                                                         (itemselect) => {
                                                             return (
                                                                 <option
+                                                                    className="colorbase"
                                                                     value={
                                                                         itemselect.value
                                                                     }>
@@ -4553,7 +4401,7 @@ function DatosProductos(props) {
                                     </div>
                                 </Col>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <div className="ps-form__group tamañoinputdatosproducto ml-4">
+                                    <div className="ps-form__group tamañoinputdatosproducto">
                                         <label className="ps-form__label">
                                             Estado del producto
                                         </label>
@@ -4661,7 +4509,7 @@ function DatosProductos(props) {
                     <div className="botongrabarproducto mtmenos40">
                         <Row>
                             <Col xl={1} lg={1} md={1} xs={1}></Col>
-                            <Col xl={6} lg={6} md={6} xs={6}>
+                            <Col xl={8} lg={8} md={8} xs={8}>
                                 <div>
                                     <p className="ps-form__text ">
                                         * Datos Requeridos.
@@ -4679,20 +4527,20 @@ function DatosProductos(props) {
                     </div>
                 </div>
             ) : (
-                <div>
-                    <div className="mtmenos50 ">
-                        <h3 className="tituloadvertenciaproductosizquierda ml-250">
+                <div className="mlmenos10">
+                    <div className="mt-20">
+                        <h3 className="ml-10 tituloadvertenciaproductosizquierda">
                             Datos del producto
                         </h3>
                     </div>
-                    <div className="mt-20 ml-240 cajainformacionprouctos">
+                    <div className="mt-20 cajainformacionprouctos">
                         <Row>
                             <Col xl={7} lg={7} md={7} xs={7}>
                                 <div
                                     className="mt-1 datoscerrados"
                                     disabled={true}>
-                                    <h3 className="textoubicacionproducto">
-                                        Información sobre tu producto.
+                                    <h3 className="mlmenos290 textoubicacionproducto">
+                                        Información sobre tu producto
                                     </h3>
                                 </div>
                             </Col>
@@ -4760,6 +4608,8 @@ function DatosProductosAdicionales(props) {
     const [loading, setLoading] = useState(false);
     const [quantity, setQuantity] = useState(0);
     const [textoDescripcion, setTextoDescripcion] = useState("");
+    const [entre, setEntre] = useState(true);
+    const [ingresaPrecio, setIngresaPrecio] = useState(0);
 
     const onChange = (e) => {
         setFormData({
@@ -4816,12 +4666,6 @@ function DatosProductosAdicionales(props) {
             );
     }, [categoria]);
 
-    const comentarioEsteticos = () => {
-        setShowModalComentariosCategoria(true);
-        setCategoriaSeleccionada("Estéticos y cuidados del vehículo");
-        setCategoria(1);
-    };
-
     const datosAdicionalesProducto = async (e) => {
         e.preventDefault();
         //console.log("FORM DATA : ", formData);
@@ -4842,6 +4686,8 @@ function DatosProductosAdicionales(props) {
             formOk = false;
         }
 
+        console.log("PRECIO : ", formData.precio)
+
         if (!formData.precio) {
             swal(
                 "Información del producto",
@@ -4855,7 +4701,7 @@ function DatosProductosAdicionales(props) {
         }
 
         let validavalor = formData.precio;
-
+/*
         let validarprecio;
         let haycaracterid = false;
         for (var i = 0; i < validavalor.length; i++) {
@@ -4886,7 +4732,7 @@ function DatosProductosAdicionales(props) {
             );
             return;
         }
-
+*/
         if (!formData.descripcionproducto) {
             swal(
                 "Información del producto",
@@ -5009,11 +4855,32 @@ function DatosProductosAdicionales(props) {
         if (isNaN(parseInt(event))) {
             setQuantity(0);
         } else setQuantity(parseInt(event));
+
+        /* setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });*/
+    };
+
+    const descripcionOnChange = (e) => {
+        //console.log("LONGITUD DESCRIPCION : ", e);
+        var strLength = e.length;
+        //console.log("DESCRIPCION : ", strLength);
+        if (strLength > 180) {
+            swal(
+                "Descripción del producto",
+                "Número de caracteres supera el maximo de 180 permitido!",
+                "warning",
+                { button: "Aceptar" }
+            );
+            return;
+        }
     };
 
     const validaPrecio = (precio) => {
         console.log("Precio : ", formData.precio);
         //setInputControlTelefono("form-control ps-form__input");
+        setIngresaPrecio(formData.precio);
 
         let validavalor = formData.precio;
 
@@ -5049,17 +4916,20 @@ function DatosProductosAdicionales(props) {
         }
     };
 
+    const precioSinFormato = () => {
+        setEntre(false);
+    };
+
     return (
-        <div className="ps-page__header">
-            {console.log("TEXTO : ", textoDescripcion)}
+        <div className="ps-page__header ml-250 mt-20">
             {datosPublicacion ? (
-                <div>
-                    <div className="mt-30 ml-250">
+                <div className="cajavehiculoscompatiblesproducto">
+                    <div>
                         <h3 className="tituloadvertenciaproductosizquierda">
                             Datos de la publicación.
                         </h3>
                     </div>
-                    <form onChange={onChange} className="ml-230">
+                    <form onChange={onChange}>
                         <div className="ps-form--review">
                             <div className="ps-form__group inputdatosproductoadicional">
                                 <Row>
@@ -5072,6 +4942,11 @@ function DatosProductosAdicionales(props) {
                                                 className="form-control ps-form__input"
                                                 placeholder={textoDescripcion}
                                                 name="descripcionproducto"
+                                                onChange={(e) =>
+                                                    descripcionOnChange(
+                                                        e.target.value
+                                                    )
+                                                }
                                                 type="text"
                                             />
                                         </div>
@@ -5111,72 +4986,125 @@ function DatosProductosAdicionales(props) {
                                             </button>
                                         </div>
                                     </Col>
-                                    <Col lg={6} xl={6} md={6} xs={6}>
-                                        <label className="ps-form__label">
-                                            Precio del producto
-                                        </label>
-                                        <NumberFormat
-                                            className="form-control ps-form__input tamañoinputpublicacion"
-                                            name="precio"
-                                            onBlur={(e) =>
-                                                validaPrecio(e.target.value)
-                                            }
-                                            placeholder="Ingrese precio del producto"
-                                            //thousandSeparator={true}
-                                            //prefix={"$"}
-                                        />
-                                    </Col>
+                                    {entre ? (
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Precio del producto
+                                            </label>
+                                            <NumberFormat
+                                                className="form-control ps-form__input tamañoinputpublicacion"
+                                                onMouseOut={precioSinFormato}
+                                                name="precio"
+                                                onBlur={(e) =>
+                                                    validaPrecio(e.target.value)
+                                                }
+                                                placeholder="Ingrese precio del producto"
+                                                //thousandSeparator={true}
+                                                //prefix={"$"}
+                                            />
+                                        </Col>
+                                    ) : (
+                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                            <label className="ps-form__label">
+                                                Precio del producto
+                                            </label>
+                                            <NumberFormat
+                                                defaultValue={ingresaPrecio}
+                                                className="form-control ps-form__input tamañoinputpublicacion"
+                                                //onMouseClick={precioConFormato}
+                                                //onMouseOver={precioConFormato}
+                                                name="precio"
+                                                placeholder="Ingrese precio del producto"
+                                                thousandSeparator={true}
+                                                //prefix={"$"}
+                                            />
+                                        </Col>
+                                    )}
                                 </Row>
 
                                 <div className="ps-form__group inputdatosproductoadicional mt-10">
                                     <Row>
-                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                        <Col lg={5} xl={5} md={5} xs={5}>
                                             <label className="ps-form__label">
                                                 Peso del producto
                                             </label>
                                             <NumberFormat
                                                 className="form-control ps-form__input tamañoinputpublicacion"
                                                 name="peso"
-                                                placeholder="Ingrese peso del producto en kilogramos"
+                                                placeholder="Ingrese peso del producto en"
                                                 thousandSeparator={true}
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                        <Col lg={1} xl={1} md={1} xs={1}
+                                            className="ps-form__input mt-28 mlmenos4">
+                                            <h3 className=" textomedidas">
+                                                Kg
+                                            </h3>
+                                        </Col>
+                                        <Col lg={4} xl={4} md={4} xs={4}>
                                             <label className="ps-form__label">
                                                 Largo del producto
                                             </label>
                                             <NumberFormat
                                                 className="form-control ps-form__input tamañoinputpublicacion mlmenos10"
                                                 name="largo"
-                                                placeholder="Dimensiones en centimetros"
+                                                placeholder="Longitud del producto en"
                                                 thousandSeparator={true}
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                        <Col lg={1} xl={1} md={1} xs={1}
+                                            className="ml-38 ps-form__input mt-28">
+                                            <h3 className=" textomedidas">
+                                                Cm
+                                            </h3>
+                                        </Col>
+                                        <Col
+                                            lg={5}
+                                            xl={5}
+                                            md={5}
+                                            xs={5}
+                                            className="mt-20">
                                             <label className="ps-form__label">
                                                 Ancho del producto
                                             </label>
                                             <NumberFormat
                                                 className="form-control ps-form__input tamañoinputpublicacion"
                                                 name="ancho"
-                                                placeholder="Dimensiones en centimetros"
+                                                placeholder="Ancho del producto en"
                                                 thousandSeparator={true}
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={6} xl={6} md={6} xs={6}>
+                                        <Col lg={1} xl={1} md={1} xs={1}
+                                            className="ps-form__input mt-48">
+                                            <h3 className="textomedidas">
+                                                Cm
+                                            </h3>
+                                        </Col>
+                                        <Col
+                                            lg={4}
+                                            xl={4}
+                                            md={4}
+                                            xs={4}
+                                            className="mt-20">
                                             <label className="ps-form__label">
                                                 Altura del producto
                                             </label>
                                             <NumberFormat
                                                 className="form-control ps-form__input tamañoinputpublicacion mlmenos10"
                                                 name="alto"
-                                                placeholder="Dimensiones en centimetros"
+                                                placeholder="Altura del producto en"
                                                 thousandSeparator={true}
                                                 prefix={""}
                                             />
+                                        </Col>
+                                        <Col lg={1} xl={1} md={1} xs={1}
+                                            className="ps-form__input mt-48 ml-38">
+                                            <h3 className="textomedidas">
+                                                Cm
+                                            </h3>
                                         </Col>
                                     </Row>
                                 </div>
@@ -5186,8 +5114,7 @@ function DatosProductosAdicionales(props) {
 
                     <div className="botongrabaradicionalproducto mtmenos30">
                         <Row>
-                            <Col xl={2} lg={2} md={2} xs={2}></Col>
-                            <Col xl={2} lg={2} md={2} xs={2}>
+                            <Col xl={4} lg={4} md={4} xs={4}>
                                 <div>
                                     <p className="ps-form__text">
                                         * Datos Requeridos.
@@ -5196,7 +5123,7 @@ function DatosProductosAdicionales(props) {
                             </Col>
                             <Col xl={8} lg={8} md={8} xs={8}>
                                 <div
-                                    className="ps-btn"
+                                    className="ps-btn ml-30"
                                     onClick={datosAdicionalesProducto}>
                                     Vamos al ingreso de fotos del producto
                                 </div>
@@ -5205,11 +5132,11 @@ function DatosProductosAdicionales(props) {
                     </div>
                 </div>
             ) : (
-                <div className="mt-20 ml-240 cajainformacionprouctos">
+                <div className="mlmenos10 mt-25 cajainformacionprouctos">
                     <Row>
                         <Col xl={7} lg={7} md={7} xs={7}>
                             <div className="mt-1 datoscerrados" disabled={true}>
-                                <h3 className="textoubicacionproducto">
+                                <h3 className="mlmenos350 textoubicacionproducto">
                                     Datos publicación.
                                 </h3>
                             </div>
@@ -5359,7 +5286,7 @@ function RegistrarFotos(props) {
     };
 
     useEffect(() => {
-        setLoading(false);
+        //setLoading(false);
     }, []);
 
     const grabarfoto = async (dato, ext) => {
@@ -5592,6 +5519,31 @@ function RegistrarFotos(props) {
         //let largosinseparadores = datosproductodos.largo.replace(/,/g, "");
         //let pesosinseparadores = datosproductodos.peso.replace(/,/g, "");
 
+        /*
+      let fecha = new Date();
+        let numero = Date.parse(fecha);
+        console.log("VALOR FECHA NUMERO : ", numero)
+        */
+        let idvehiculoscompatible = shortid();
+        //console.log("PRECIO PRODUCTO: ", datospublicacion[0].precio);
+
+        const newDetDos = [];
+        let item = {
+            id: idvehiculoscompatible,
+            titulo: informacionproducto[0].titulonombre
+        };
+        //newDetUno.push(itemUno);
+
+        localStorage.setItem(
+            "idpublicacion",
+            JSON.stringify(item)
+        );
+
+        //Eliminar separadores en el precio
+        let precio = datospublicacion[0].precio;
+        let valorproducto = precio.replace(/,/g,"");
+        //console.log("PRECIO : ",valorproducto);
+        
         const formdata = new FormData();
         formdata.append("id", 0);
         formdata.append("productogenerico", generico);
@@ -5639,8 +5591,8 @@ function RegistrarFotos(props) {
             "numerodeunidades",
             datospublicacion[0].numerodeunidades
         );
-        formdata.append("precio", datospublicacion[0].precio);
-        formdata.append("compatible", "Compatible con");
+        formdata.append("precio", valorproducto);
+        formdata.append("compatible", idvehiculoscompatible);
         formdata.append(
             "descripcionproducto",
             datospublicacion[0].descripcionproducto
@@ -5679,6 +5631,7 @@ function RegistrarFotos(props) {
         //console.log("FORM DATA : ", formdata);
         //return;
         //console.log("DATOS CREACION DE PRODUCTO : ", producto);
+        let creoregistro = false;
         let url = "https://sitbusiness.co/mrp/api";
 
         await fetch(`${url}/16`, {
@@ -5689,6 +5642,7 @@ function RegistrarFotos(props) {
             if (response) {
                 console.log("VALOR RESPONSE : ", response);
                 if (response.status === 200) {
+                    creoregistro = true;
                     swal(
                         "Mercado Repuesto",
                         "Fotos productos grabadas de forma correcta!",
@@ -5698,6 +5652,7 @@ function RegistrarFotos(props) {
                     console.log("VALOR QUE RETORNA 200 : ", response.status);
                     setLoading(false);
                     //router.push("/");
+                    router.push("/CreateProduct/terminapublicacion");
                 } else {
                     swal(
                         "Mercado Repuesto",
@@ -5706,12 +5661,97 @@ function RegistrarFotos(props) {
                         { button: "Aceptar" }
                     );
                     setLoading(false);
-                    //router.push("/");
+                    router.push("/");
+                    //Router.push(`/search?keyword=${keyword}`);
+                    //router.push("/CreateProduct/terminapublicacion");
                 }
             } else {
                 console.log("RESPONSE INGRESO FOTOS : ", response);
             }
         });
+
+        if (creoregistro) {
+            setLoading(true);
+
+            const formdataveh = new FormData();
+            formdataveh.append("codigopublicacion", idvehiculoscompatible);
+            formdataveh.append(
+                "tipovehiculo",
+                vehiculoscompatibles[0].tipoVehUno
+            );
+            formdataveh.append(
+                "carroceria",
+                vehiculoscompatibles[0].carroceriaVehUno
+            );
+            formdataveh.append("marca", vehiculoscompatibles[0].marcaVehUno);
+            formdataveh.append("anno", vehiculoscompatibles[0].annoVehUno);
+            formdataveh.append("modelo", vehiculoscompatibles[0].modeloVehUno);
+            formdataveh.append(
+                "cilindrajemotor",
+                vehiculoscompatibles[0].cilindrajeVehUno
+            );
+            formdataveh.append(
+                "tipocombustible",
+                vehiculoscompatibles[0].combustibleVehUno
+            );
+            formdataveh.append(
+                "transmision",
+                vehiculoscompatibles[0].transmisionVehUno
+            );
+            formdataveh.append(
+                "partedelvehiculo",
+                ubicacionposiciones[0].ubicacionProducto
+            );
+            formdataveh.append(
+                "tipotraccion",
+                vehiculoscompatibles[0].traccionVehUno
+            );
+            formdataveh.append("turbocompresor", 0);
+            formdataveh.append(
+                "posicionproducto",
+                ubicacionposiciones[0].posicionProducto
+            );
+            formdataveh.append("usuario", usuariologueado.uid);
+
+            const grabaVehiculos = async () => {
+                let url = "https://sitbusiness.co/mrp/api";
+
+                await fetch(`${url}/24`, {
+                    method: "POST",
+                    body: formdataveh,
+                    //headers: headers,
+                }).then((response) => {
+                    if (response) {
+                        if (response.status === 200) {
+                            swal(
+                                "Mercado Repuesto",
+                                "Vehículos compatibles creados de forma correcta!",
+                                "success",
+                                { button: "Aceptar" }
+                            );
+
+                            setLoading(false);
+                            //router.push("/");
+                        } else {
+                            swal(
+                                "Mercado Repuesto",
+                                "Se presentaron inconvenientes al grabar hehículos compatibles!",
+                                "warning",
+                                { button: "Aceptar" }
+                            );
+                            setLoading(false);
+                            //router.push("/");
+                        }
+                    } else {
+                        console.log(
+                            "RESPONSE VEHICULOS COMPATIBLES : ",
+                            response
+                        );
+                    }
+                });
+            };
+            grabaVehiculos();
+        }
     };
 
     const onSelectFile = (event) => {
@@ -6118,7 +6158,10 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
+                                                                                       <h1 >
                                                                                         X
+                                                                                       </h1>
+                                                                                        
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6139,8 +6182,8 @@ function RegistrarFotos(props) {
                                                             src={imgUno.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6200,7 +6243,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                          X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6221,8 +6266,8 @@ function RegistrarFotos(props) {
                                                             src={imgDos.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6282,7 +6327,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                          X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6303,8 +6350,8 @@ function RegistrarFotos(props) {
                                                             src={imgTres.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6364,7 +6411,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                          X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6385,8 +6434,8 @@ function RegistrarFotos(props) {
                                                             src={imgCuatro.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6446,7 +6495,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6467,8 +6518,8 @@ function RegistrarFotos(props) {
                                                             src={imgCinco.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6533,7 +6584,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6554,8 +6607,8 @@ function RegistrarFotos(props) {
                                                             src={imgSeis.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6615,7 +6668,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6636,8 +6691,8 @@ function RegistrarFotos(props) {
                                                             src={imgSiete.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6697,7 +6752,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6718,8 +6775,8 @@ function RegistrarFotos(props) {
                                                             src={imgOcho.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6779,7 +6836,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6800,8 +6859,8 @@ function RegistrarFotos(props) {
                                                             src={imgNueve.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input
@@ -6861,7 +6920,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        X
+                                                                                        <h1 >
+                                                                                         X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6882,8 +6943,8 @@ function RegistrarFotos(props) {
                                                             src={imgDiez.src}
                                                             alt="Seleccione Archivo"
                                                         />
-                                                        <div className="inputtextobotondoctojuridica">
-                                                            Ingresar Documento
+                                                        <div className="ml-4 inputtextobotofotos">
+                                                            Ingresar foto
                                                         </div>
                                                     </label>
                                                     <input

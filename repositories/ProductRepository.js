@@ -68,6 +68,25 @@ class ProductRepository {
         return reponse;
     }
 
+    async getPublicationById(payload) {
+        //console.log("CODIGO PRODUCTO 1 : ", payload);
+        
+        const dat = {
+            idarticulo: "("+ '"'+ payload +'"'+")",
+        };
+        
+        //onsole.log("CODIGO PRODUCTO 0 : ", dat);
+
+        const reponse = await Repository.post(
+            `${baseDomain}/25/?${serializeQuery(dat)}`
+            //`${baseDomain}/18` //, dat
+        ).then((response) => {
+                return response.data;
+            })
+            .catch((error) => ({ error: JSON.stringify(error) }));
+        return reponse;
+    }
+
     async getProductsByIds(payload) {
         console.log("DATO QUERY PRODUCTO : ", payload);
         const dat = {

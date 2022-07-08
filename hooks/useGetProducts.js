@@ -102,6 +102,24 @@ export default function useGetProducts() {
             }
         },
 
+        getPublicatById: async (payload) => {
+            //console.log("PAYLOAD PRODUCTBYID : ", payload)
+            setLoading(true);
+            const responseData = await ProductRepository.getPublicationById(
+                payload
+            );
+            //console.log("RESPONSE DATA : ", responseData[0])
+            if (responseData) {
+                setProduct(responseData[0]);
+                setTimeout(
+                    function () {
+                        setLoading(false);
+                    }.bind(this),
+                    250
+                );
+            }
+        },
+
         getCategoryBySlug: async (payload) => {
             setLoading(true);
             const response = await ProductRepository.getPrductCategoryBySlug(

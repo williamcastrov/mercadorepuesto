@@ -35,7 +35,7 @@ const ModuleMenuHomepages = () => {
     );
 
     const data = datosgenerales[0];
-    console.log("DATOS GENERALES : ", data && data.vgl_pagedemos);
+    //console.log("DATOS GENERALES : ", data && data.vgl_pagedemos);
     
     useEffect(() => {    
         //localStorage.setItem('datosgenerales', JSON.stringify(datosgenerales[0]));

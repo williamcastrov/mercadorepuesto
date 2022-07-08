@@ -116,12 +116,12 @@ const CategoryMenu = (props) => {
       newDetImp.push(item);
     }
     setSubcategoriasSeleccionada(newDetImp);
-    //console.log("IMPRIMIR SUB CATEGORIAS : ", newDetImp)
+    console.log("IMPRIMIR SUB CATEGORIAS : ", newDetImp)
     setShowModalSubCategorias(true);
   }
 
   const activarsubcategoria = (id) => {
-    //console.log("ID SUBCATEGORIAS : ", id)
+    console.log("ID SUBCATEGORIAS : ", id)
     setItemSubCategoria(id)
   }
 
@@ -159,18 +159,12 @@ const CategoryMenu = (props) => {
     setShowModalEjemplos(false);
   }
 
-  const close = () => {
-    setShowModal(false);
-    setShowModalSubCategorias(false);
-  }
-
   return (
-    <div id="modal"
-      onClick={() => {
-        close();
-      }}
-    >
+    <div id="modal">
       <div className="container ">
+        {
+          //El CSS de la modal es modal-content
+        }
         <Modal className="modal-categorias" show={showModal}>
           <Modal.Body>
             <Row>
@@ -180,7 +174,7 @@ const CategoryMenu = (props) => {
               <Col xl={2} lg={2} md={2} sm={2}>
                 <button
                   type="button"
-                  className="cerrarmodal mt-1"
+                  className="cerrarmodal"
                   data-dismiss="modal"
                   onClick={onCloseModalCategorias}>
                   {" "}
@@ -217,7 +211,7 @@ const CategoryMenu = (props) => {
             </div>
           </Modal.Body>
         </Modal>
-
+        
         <Modal className="modal-subcatgegorias" show={showModalSubCategorias}>
           <Modal.Body>
             <Row>
@@ -234,7 +228,7 @@ const CategoryMenu = (props) => {
               <Col xl={2} lg={2} md={2} sm={2}>
                 <button
                   type="button"
-                  className="cerrarmodal mt-1 ml-5"
+                  className="cerrarmodal"
                   data-dismiss="modal"
                   onClick={onCloseModalCategorias}>
                   {" "}
@@ -322,9 +316,9 @@ const CategoryMenu = (props) => {
         <Modal className="modalejemplossubcatgegorias" show={showModalEjemplos}>
           <Modal.Body>
             <h2 className="textoejemplossubcategorias">
-              {textoEjemplos}
+               {textoEjemplos }
             </h2>
-
+           
           </Modal.Body>
         </Modal>
       </div>

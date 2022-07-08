@@ -758,6 +758,8 @@ const SearchInteractive = () => {
         leerAnuncio();
     };
 
+    // <i className="selecticonoestadoproducto fa fa-cog fa-spin"></i> SPINER PIÑON
+
     return (
         <Container title="Mi Cuenta">
             <div className="ps-page ps-page--inner">
@@ -808,7 +810,9 @@ const SearchInteractive = () => {
                                                                                 <option
                                                                                     value={
                                                                                         itemselect.id
-                                                                                    }>
+                                                                                    }
+                                                                                    
+                                                                                    >
                                                                                     {itemselect.icon +
                                                                                         " " +
                                                                                         itemselect.text}
@@ -816,8 +820,9 @@ const SearchInteractive = () => {
                                                                             );
                                                                         }
                                                                     )}
-                                                            </select>
+                                                            </select>    
                                                         </Col>
+
                                                         <Col xs lg={3}>
                                                             <select
                                                                 //disabled="disabled"

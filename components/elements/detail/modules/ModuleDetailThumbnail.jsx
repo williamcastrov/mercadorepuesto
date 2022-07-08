@@ -58,7 +58,7 @@ const ModuleDetailThumbnail = ({ product, vertical = true }) => {
     useEffect(() => {
         let images = [];
         //let datosimages = product[0].images;
-        //console.log("PROUDCTOTHUEMNAILS : ", datosimages);
+        console.log("PROUDCTOTHUEMNAILS : ", galleryCarousel);
         /*
         if (datosimages && datosimages > 0) {
             datosimages.map((item) => {
@@ -74,7 +74,9 @@ const ModuleDetailThumbnail = ({ product, vertical = true }) => {
             setProductImages(images);
         }
         
+        if(galleryCarousel)
         setGallery(galleryCarousel.current);
+        if(variantCarousel)
         setVariant(variantCarousel.current);
         
     }, [product]);

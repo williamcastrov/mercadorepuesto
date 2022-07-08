@@ -8,12 +8,12 @@ function Loading(props) {
         <div className="divPadre" >
             <div className="divHijo" >
                 <br />
-                <i className="spinnerpinon fa fa-cog fa-spin"></i>
+                <h1>AQUI </h1>
             </div>
         </div>
     );
 }
 
 //<Spinner color="primary" className="spinnerReactstrap" />
-
+//<i className="selecticonoestadoproducto fa fa-cog fa-spin"></i>
 export default Loading;

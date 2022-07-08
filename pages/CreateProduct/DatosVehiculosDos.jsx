@@ -526,7 +526,7 @@ function DatosVehiculosDos(props) {
                                 <div>
                                     <select
                                         //disabled="disabled"
-                                        className="redonderbordescrearproducto custom-selectcreateproducto"
+                                        className="redonderbordescrearproducto custom-selectcreateproducto colorbase"
                                         onChange={(e) =>
                                             handleChange(e.target.value)
                                         }>
@@ -553,7 +553,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeCarroceria(
                                                         e.target.value
@@ -586,7 +586,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeBrand(
                                                         e.target.value
@@ -617,7 +617,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeAnno(
                                                         e.target.value
@@ -646,7 +646,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeModels(
                                                         e.target.value
@@ -677,7 +677,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeVersionMotor(
                                                         e.target.value
@@ -708,7 +708,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1 mlmenos21">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem"
+                                                className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeTransmision(
                                                         e.target.value
@@ -741,7 +741,7 @@ function DatosVehiculosDos(props) {
                                         <div className="mt-1">
                                             <select
                                                 //disabled="disabled"
-                                                className="custom-selectcreateproductoitem  redonderborinferiorizquierdo"
+                                                className="custom-selectcreateproductoitem redonderborinferiorizquierdo colorbase"
                                                 onChange={(e) =>
                                                     handleChangeCombustible(
                                                         e.target.value
@@ -771,7 +771,7 @@ function DatosVehiculosDos(props) {
                                     <Col xl={6} lg={6} md={6} xs={6}>
                                         <div className="mt-1 mlmenos21">
                                             <select
-                                                className="custom-selectcreateproductoitem redonderborinferiorderecho"
+                                                className="custom-selectcreateproductoitem redonderborinferiorderecho colorbase"
                                                 name="tipotraccion"
                                                 onChange={(e) =>
                                                     handleChangeTraccion(

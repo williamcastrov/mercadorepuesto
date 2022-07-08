@@ -71,10 +71,12 @@ function App({ Component, pageProps }) {
             // Lee la función creada en repositories - DatosGenerales
             const DataGeneral =
                 await DataGeneralRepository.getReadDataGeneral(0);
-                console.log("DATA GENERAL : ", DataGeneral)
+                //console.log("DATA GENERAL : ", DataGeneral.vgl_categorias)
 
             // Coloca los datos en state arreglo de categorias
             dispatch(getDatosGenerales(DataGeneral));
+            localStorage.setItem('categorias', JSON.stringify(DataGeneral.vgl_categorias));
+            localStorage.setItem('subcategorias', JSON.stringify(DataGeneral.vgl_subcategorias));
         }
         datageneral(0);
     }, []);
