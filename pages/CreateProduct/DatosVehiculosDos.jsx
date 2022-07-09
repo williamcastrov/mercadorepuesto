@@ -115,11 +115,10 @@ function DatosVehiculosDos(props) {
         (state) => state.datosgenerales.datosgenerales.vgl_cilindrajesvehiculos
     );
 
-    // Lee modelos de los Vehiculos del state
-    const datosDuplicar = JSON.parse(localStorage.getItem("duplicarvehiculo"));
-
     useEffect(() => {
         //console.log("VALOR DUPLICAR : ", duplicar);
+        // Lee modelos de los Vehiculos del state
+        const datosDuplicar = JSON.parse(localStorage.getItem("duplicarvehiculo"));
 
         if (duplicar) {
             setTipoVeh(datosDuplicar.tipoVeh);

@@ -139,7 +139,7 @@ const CreateProduct = () => {
     );
 
     const [showCreateProduct, setCreateProduct] = useState(true);
-    const [showModalLatoneria, setShowModalLatoneria] = useState(true);
+    const [showModalLatoneria, setShowModalLatoneria] = useState(false);
     const [showDatosProductos, setShowDatosProductos] = useState(false);
     const [showDatosProductosAdicionales, setShowDatosProductosAdicionales] =
         useState(false);
@@ -2488,7 +2488,7 @@ function DatosLatoneria(props) {
     const [
         mostrarModalComentariosUbicacionProducto,
         setMostrarModalComentariosUbicacionProducto,
-    ] = useState(true);
+    ] = useState(false);
     const [textoPosicionUbicacionProducto, setTextoPosicionUbicacionProducto] = useState(0);
     const [
         showModalPosicionProductoLatoneria,
@@ -3775,7 +3775,7 @@ function DatosLatoneria(props) {
                                         className="iconomotorelectricocrearproducto"
                                         onClick={SeleccionaParabrisas}>
                                         <img
-                                            width={50}
+                                            width={60}
                                             height={55}
                                             src="/imgcarrusel/createproducto/IconosInicial/parabrisas.png"
                                             alt="First slide"
@@ -3784,15 +3784,15 @@ function DatosLatoneria(props) {
                                 </Col>
                             </Row>
 
-                            <Col xl={7} lg={7} md={7} xs={7}>
-                                <Card.Body className="ml-95 mtmenos500">
+                            <Col xl={9} lg={9} md={9} xs={9}>
+                                <Card.Body className="ml-45 mtmenos500">
                                     {showImagenBaseMotorElectrico ? (
                                         <div>
-                                            <h3 className="seccionesvehiculotext">
+                                            <h3 className="ml-60 seccionesvehiculotext">
                                                 Sistemas Motor Eléctrico
                                             </h3>
                                             <Card.Img
-                                                width="100px"
+                                                width="140px"
                                                 height="220px"
                                                 src="/static/img/createproducts/motorgeneral.jpg"
                                                 alt="Card image"
@@ -3800,15 +3800,19 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenAireacondicionado ? (
                                         <div>
-                                            <h3>Sistema acondicionado</h3>
-                                            <Card.Img
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema acondicionado
+                                            </h3>
+                                            <Card.Img   
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
                                             />
                                         </div>
                                     ) : showImagenArranque ? (
                                         <div>
-                                            <h3>Sistema de arranque</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de arranque
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3816,7 +3820,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenCaja ? (
                                         <div>
-                                            <h3>Sistema de caja</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de caja
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3824,7 +3830,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenDireccion ? (
                                         <div>
-                                            <h3>Sistema de dirección</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de dirección
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3832,7 +3840,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenEmbrague ? (
                                         <div>
-                                            <h3>Sistema de embrague</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de embrague
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3840,7 +3850,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenEscape ? (
                                         <div>
-                                            <h3>Sistema de escape</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de escape
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3848,7 +3860,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenFrenos ? (
                                         <div>
-                                            <h3>Sistema de frenos</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de frenos
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3856,7 +3870,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenInyeccion ? (
                                         <div>
-                                            <h3>Sistema de inyeccion</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de inyeccion
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3864,7 +3880,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenMotor ? (
                                         <div>
-                                            <h3>Sistema de motor</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de motor
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3872,7 +3890,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenParabrisas ? (
                                         <div>
-                                            <h3>Sistema parabrisas</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema parabrisas
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3880,7 +3900,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenRefrigeracion ? (
                                         <div>
-                                            <h3>Sistema de refrigeración</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de refrigeración
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3888,7 +3910,7 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenRefrigeracionCaja ? (
                                         <div>
-                                            <h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
                                                 Sistema de refrigeración caja
                                             </h3>
                                             <Card.Img
@@ -3898,7 +3920,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenSistemElectrico ? (
                                         <div>
-                                            <h3>Sistema Eléctrico</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema Eléctrico
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3906,7 +3930,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenSistemElectricoMotor ? (
                                         <div>
-                                            <h3>Sistema eléctrico motor</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema eléctrico motor
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
@@ -3914,7 +3940,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenSuspension ? (
                                         <div>
-                                            <h3>Sistema de suspensión</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistema de suspensión
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/uno.jpg"
                                                 alt="Card image"
@@ -3922,7 +3950,9 @@ function DatosLatoneria(props) {
                                         </div>
                                     ) : showImagenTransmision ? (
                                         <div>
-                                            <h3>Sistemas de Transmisión</h3>
+                                            <h3 className="ml-60 seccionesvehiculotext">
+                                                Sistemas de Transmisión
+                                            </h3>
                                             <Card.Img
                                                 src="/imgcarrusel/createproducto/dos.jpg"
                                                 alt="Card image"
