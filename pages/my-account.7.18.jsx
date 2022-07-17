@@ -138,7 +138,7 @@ const MyAccountScreen = () => {
                                 <form onChange={onChange}>
                                     <div className="ps-form--review">
                                         <h2 className="ps-form__title">
-                                            Ingresar a Mercado Repuesto
+                                            iniciar sesión
                                         </h2>
                                         <div className="ps-form__group">
                                             <label className="ps-form__label">

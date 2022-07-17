@@ -14,7 +14,7 @@ import ActivateUserRepository from "../repositories/ActivateUserRepository";
 import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
 import ReadUserEmail from "../repositories/ReadUserEmail";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Form, Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Modal, Form } from "react-bootstrap";
 import { getTokenRegistro } from "../store/tokenregistro/action";
 import Users from "~/repositories/Users";
 import Moment from "moment";
@@ -51,16 +51,23 @@ const LoginAccount = () => {
     const [idUid, setIdUid] = useState(0);
     const [recuperar, setRecuperar] = React.useState(false);
     const [usuario, setUsuario] = React.useState([]);
+    const [medioSeleccionado, setMedioSeleccionado] = useState(false);
 
     const [showModalMedio, setShowModalMedio] = useState(false);
     const [classNameverificar, setClassNameverificar] = useState(
         "textoverificardeotraforma"
     );
     const [classNameSMS, setClassNameSMS] = useState(
-        "cajaopcionesrecuperarcuenta"
+        "cajaopcionesrecuperarcuenta mb-20"
     );
     const [classNameWhatsapp, setClassNameWhatsapp] = useState(
-        "cajaopcionesrecuperarcuenta"
+        "cajaopcionesrecuperarcuenta mt-20"
+    );
+
+    const [classNamePassword, setClassNamePassword] = useState("password");
+
+    const [classNameEye, setClassNameEye] = useState(
+        "fa fa-eye-slash toogle-password colorinput"
     );
 
     // Asignamos Datos al arreglo de Usuarios desde el state
@@ -285,7 +292,7 @@ const LoginAccount = () => {
             const datosToken = {
                 token: tokenid,
                 email_cliente: formData.email,
-                nro_ws: telefono,
+                nro_ws: "3155337803", //telefono,
                 medio: dat,
             };
 
@@ -301,7 +308,7 @@ const LoginAccount = () => {
                         icon: "success",
                         button: "Aceptar",
                     });
-                    setShowModalPropietarioCuenta(true);
+                    set(true);
                 })
                 .catch((error) => {
                     swal({
@@ -326,6 +333,7 @@ const LoginAccount = () => {
     const tokenReenviar = async (medio) => {
         console.log("DATOS USUARIOS : ", datosusuarios);
         console.log("FORM DATA : ", formData);
+        console.log("MEDIO : ", medio)
 
         async function enviartoken(dat) {
             // Lee Web Service para enviar el token al usuario
@@ -373,12 +381,12 @@ const LoginAccount = () => {
                         const updateTokenUsuario =
                             await UpdateTokenRepository.getUpdateToken(datos)
                                 .then(() => {
-                                    setShowModal(true);
+                                    //setShowModal(true);
                                 })
                                 .catch((error) => {
                                     swal({
                                         title: "REENVIO TOKEN",
-                                        text: "Error enviando token al medio seleccionado!",
+                                        text: "Error reenviando token al medio seleccionado!",
                                         icon: "error",
                                         button: "Aceptar",
                                     });
@@ -391,7 +399,7 @@ const LoginAccount = () => {
                 .catch((error) => {
                     swal({
                         title: "REENVIO TOKEN",
-                        text: "Error enviando token al medio seleccionado!",
+                        text: "Error reenviando token al medio seleccionado!",
                         icon: "error",
                         button: "Aceptar",
                     });
@@ -447,6 +455,9 @@ const LoginAccount = () => {
         validarToken(datosusu);
     };
 
+    const crearCuenta = () => {
+        router.push("/my-account");
+    }
     const validarToken = (datosusu) => {
         //console.log("DATOS  USUARIO : ", datosusu);
         //console.log("VALIDAR TOKEN : ", formDataToken.token);
@@ -576,26 +587,34 @@ const LoginAccount = () => {
 
     const tokenmensajetexto = () => {
         let medio = "sms";
+        setMedioSeleccionado("sms");
         setShowModalMedio(false);
         token(medio);
     };
 
     const tokenemail = () => {
         let medio = "email";
+        setMedioSeleccionado("email");
         //setShowModalMedio(false);
         token(medio);
     };
 
     const llamadatelefonica = () => {
         let medio = "llamada";
+        setMedioSeleccionado("llamada");
         setShowModalLlamada(true);
         //token(medio);
     };
 
     const tokenwhatsapp = () => {
         let medio = "whatsapp";
+        setMedioSeleccionado("whatsapp");
         setShowModalMedio(false);
         token(medio);
+    };
+
+    const reenvioCodigo = () => {
+        tokenReenviar(medioSeleccionado);
     };
 
     const textoMedioToken = () => {
@@ -625,7 +644,7 @@ const LoginAccount = () => {
     };
 
     const pasarmousesms = () => {
-        setClassNameSMS("cajaopcionesrecuperarcuentados");
+        setClassNameSMS("cajaopcionesrecuperarcuentados mb-20");
     };
 
     const pasarmousewhatsapp = () => {
@@ -644,22 +663,36 @@ const LoginAccount = () => {
         setClassNameWhatsapp("cajaopcionesrecuperarcuenta");
     };
 
+    const mostrarContraseña = () => {
+        if (classNamePassword === "password") {
+            setClassNamePassword("text");
+            setClassNameEye("fa fa-eye toogle-password colorinput");
+        } else if (classNamePassword === "text") {
+            setClassNamePassword("password");
+            setClassNameEye("fa fa-eye-slash toogle-password colorinput");
+        }
+    };
+
+    const closeModalOlvidasteContraseña = () => {
+        setShowModalMedio(false);
+    };
+
     return (
         <Container title="Mi Cuenta">
             <div className="ps-page ps-page--inner ">
                 <div className="container">
                     <div className="ps-page__header"></div>
-                    <div className="ps-page__content ps-account">
+                    <div className="ps-page__content">
                         <div className="row">
                             <div className="col-12 col-md-6">
                                 <form onChange={onChange}>
                                     <div className="ps-form--review">
                                         <h2 className="ps-form__title">
-                                            Ingresar a Mercado Repuesto
+                                            Iniciar sesión
                                         </h2>
                                         <div className="ps-form__group">
                                             <label className="ps-form__label">
-                                                Dirección de Correo *
+                                                * Correo electrónico
                                             </label>
                                             <input
                                                 className={inputControlEmail}
@@ -669,24 +702,27 @@ const LoginAccount = () => {
                                         </div>
                                         <div className="ps-form__group">
                                             <label className="ps-form__label">
-                                                Contraseña *
+                                                * Contraseña
                                             </label>
                                             <div className="input-group">
                                                 <input
-                                                    className="form-control ps-form__input"
+                                                    className="contraseñainputiniciarsesion"
                                                     name="password"
-                                                    type="password"
+                                                    type={classNamePassword}
                                                 />
-                                                <div className="input-group-append">
+                                                <div>
                                                     <a
-                                                        className="fa fa-eye-slash toogle-password"
-                                                        href="#"></a>
+                                                        className={classNameEye}
+                                                        href="#"
+                                                        onClick={
+                                                            mostrarContraseña
+                                                        }></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="ps-form__submit">
                                             <div>
-                                                <p className="ps-form__text">
+                                                <p className="tamañotextocrearproductodos">
                                                     Sugerencia: Si no estas
                                                     registrado en Mercado
                                                     Repuesto, primero debes
@@ -696,40 +732,48 @@ const LoginAccount = () => {
                                                     sitio.
                                                 </p>
                                             </div>
-                                            <div
-                                                className="ps-btn"
-                                                onClick={login}>
-                                                Ingresar
-                                            </div>
-                                            <div className="form-check">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    id="remember"
-                                                />
-                                                <label
-                                                    className="form-check-label"
-                                                    htmlFor="remember">
-                                                    Recuérdame
-                                                </label>
-                                            </div>
-                                            <div
-                                                className="ps-btn-contraseña"
-                                                onClick={() =>
-                                                    textoMedioToken()
-                                                }>
-                                                ¿Olvidaste tu contraseña?
-                                            </div>
-                                            {user ? (
+
+                                            <Row>
                                                 <div
-                                                    className="ps-btn ps-btn--warning"
-                                                    href="/my-additionaldata">
-                                                    Datos Adicionales
+                                                    className="botoningresariniciarsesion"
+                                                    onClick={login}>
+                                                    Ingresar
                                                 </div>
-                                            ) : null}
+                                                <div className="mt-10 ml-3 form-check">
+                                                    <input
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id="remember"
+                                                    />
+                                                    <label
+                                                        className="form-check-label"
+                                                        htmlFor="remember">
+                                                        Recuérdame
+                                                    </label>
+                                                </div>
+                                                <div
+                                                    className="ml-35 botonovidastecontraseña"
+                                                    onClick={() =>
+                                                        textoMedioToken()
+                                                    }>
+                                                    ¿Olvidaste tu contraseña?
+                                                </div>
+                                                {user ? (
+                                                    <div
+                                                        className="ps-btn ps-btn--warning"
+                                                        href="/my-additionaldata">
+                                                        Datos Adicionales
+                                                    </div>
+                                                ) : null}
+                                            </Row>
                                         </div>
                                     </div>
                                 </form>
+                                <div
+                                    className="botoncrearcuenta mt-40"
+                                    onClick={() => crearCuenta()}>
+                                    Crear tu cuenta
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -775,88 +819,145 @@ const LoginAccount = () => {
                     </Row>
                 </div>
             </Modal>
-            <Modal className="modalrecuperarcuenta" show={showModalMedio}>
-                <Modal.Body>
-                    <Row>
-                        <Col xl={5} lg={5} md={5} sm={5}>
-                            {!recuperar ? (
-                                <h2 className="titulopasarela">
-                                    POR QUE MEDIO DESEA RECIBIR EL TOKEN
-                                </h2>
-                            ) : (
-                                <div>
-                                    <h2 className="ml-10">
-                                        Verifica que esta cuenta te pertenece
-                                    </h2>
-                                    <h2 className="ml-10 labeltexto">
-                                        Elige cómo recibir el código de
-                                        verificación.
-                                    </h2>
-                                </div>
-                            )}
-                        </Col>
-                        <Col xl={4} lg={4} md={4} sm={4}>
-                            <button
-                                type="button"
-                                className="cerrarmodal ml-80"
-                                data-dismiss="modal"
-                                onClick={onCloseModalMedioToken}>
-                                {" "}
-                                X{" "}
-                            </button>
-                        </Col>
-                    </Row>
-                    <hr className="ml-10 mr-450" />
-                    <br />
-                    <div className="ml-10 mr-450">
+
+            {showModalMedio ? (
+                <div
+                    className="mlmenos650 modal-fondo"
+                    onClick={() => {
+                        closeModalOlvidasteContraseña();
+                    }}>
+                    <div
+                        className="modal-contenido redondearmodal"
+                        onClick={(e) => {
+                            // do not close modal if anything inside modal content is clicked
+                            e.stopPropagation();
+                        }}>
                         <Row>
-                            <Col xl={12} lg={12} md={12} sm={12}>
-                                <div
-                                    onClick={tokenmensajetexto}
-                                    className={classNameSMS}
-                                    onMouseOver={pasarmousesms}
-                                    onMouseOut={salirmousesms}>
-                                    SMS - Mensaje de Texto
-                                </div>
-                                <hr />
+                            <Col xl={10} lg={10} md={10} sm={10}>
+                                {!recuperar ? (
+                                    <h2 className="titulopasarela">
+                                        POR QUE MEDIO DESEA RECIBIR EL TOKEN
+                                    </h2>
+                                ) : (
+                                    <div>
+                                        <h2 className="ml-10">
+                                            Para recuperar tu contraseña te
+                                            vamos a enviar un código de
+                                            verificación
+                                        </h2>
+                                        <h2 className="ml-10 mt-20 labeltexto mb-10">
+                                            ¿Por dónde quieres recibirlo?
+                                        </h2>
+                                    </div>
+                                )}
                             </Col>
-                            <Col xl={12} lg={12} md={12} sm={12}>
-                                <div
-                                    className={classNameWhatsapp}
-                                    onClick={tokenwhatsapp}
-                                    onMouseOver={pasarmousewhatsapp}
-                                    onMouseOut={salirmousewhatsapp}>
-                                    WhatsApp
-                                </div>
-                                <hr />
+                            <hr />
+                            <Col xl={2} lg={2} md={2} sm={2}>
+                                <h1
+                                    className="mtmenos10 ml-50"
+                                    data-dismiss="modal"
+                                    onClick={onCloseModalMedioToken}>
+                                    {" "}
+                                    X{" "}
+                                </h1>
                             </Col>
                         </Row>
+                        <hr />
+                        <div>
+                            <Row>
+                                <Col xl={12} lg={12} md={12} sm={12}>
+                                    <div
+                                        onClick={tokenmensajetexto}
+                                        className="cajaopcionesrecuperarcuentados"
+                                        onMouseOver={pasarmousesms}
+                                        onMouseOut={salirmousesms}>
+                                        <Row>
+                                            <Col
+                                                xl={1}
+                                                lg={1}
+                                                md={1}
+                                                sm={1}
+                                                className="ml-4 mt-2">
+                                                <i
+                                                    class="tamañoiconorecuperarcontraseña fa fa-commenting-o"
+                                                    aria-hidden="true"></i>
+                                            </Col>
+                                            <Col
+                                                xl={9}
+                                                lg={9}
+                                                md={9}
+                                                sm={9}
+                                                className="textotuproductoestaen">
+                                                SMS - Mensaje de Texto
+                                                <br />
+                                                Al número celular terminado en
+                                                XXXX
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <hr />
+                            <Row>
+                                <Col xl={12} lg={12} md={12} sm={12}>
+                                    <div
+                                        className="cajaopcionesrecuperarcuentados"
+                                        onClick={tokenwhatsapp}
+                                        onMouseOver={pasarmousewhatsapp}
+                                        onMouseOut={salirmousewhatsapp}>
+                                        <Row>
+                                            <Col
+                                                xl={1}
+                                                lg={1}
+                                                md={1}
+                                                sm={1}
+                                                className="ml-4 mt-3">
+                                                <i
+                                                    class="tamañoiconorecuperarcontraseña mlmenos1 fa fa-whatsapp"
+                                                    aria-hidden="true"></i>
+                                            </Col>
+                                            <Col
+                                                xl={9}
+                                                lg={9}
+                                                md={9}
+                                                sm={9}
+                                                className="textotuproductoestaen">
+                                                WhatsApp
+                                                <br />
+                                                Al número celular terminado en
+                                                XXXX
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <hr />
+                        </div>
+                        <div className="mb-20">
+                            <Row>
+                                <Col xs lg={8}>
+                                    <div className="botonimagenesilustrativas">
+                                        <h3
+                                            className="textoverificardeotraformados"
+                                            onClick={onCloseModalVerificar}
+                                            onMouseOver={
+                                                pasarmouseverificarotraforma
+                                            }
+                                            onMouseOut={
+                                                salirmouseverificarotraforma
+                                            }>
+                                            Verificar de otra forma
+                                        </h3>
+                                        <br />
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
                     </div>
-                </Modal.Body>
-                <div className="ml-10 mb-10">
-                    <Row>
-                        <Col xs lg={8}>
-                            <div className="botonimagenesilustrativas">
-                                <h3
-                                    className={classNameverificar}
-                                    onClick={onCloseModalVerificar}
-                                    onMouseOver={pasarmouseverificarotraforma}
-                                    onMouseOut={salirmouseverificarotraforma}>
-                                    Verificar de otra forma
-                                </h3>
-                            </div>
-                        </Col>
-                        <Col xs lg={4}>
-                            <Button
-                                className="ps-btn"
-                                onClick={() => setShowModalMedio(false)}>
-                                {" "}
-                                Cancelar{" "}
-                            </Button>
-                        </Col>
-                    </Row>
                 </div>
-            </Modal>
+            ) : null}
+
             <Modal
                 dialogClassName="modalmediotoken"
                 show={showModalMedioReenviar}>
@@ -897,79 +998,153 @@ const LoginAccount = () => {
                 </Modal.Body>
             </Modal>
 
-            <Modal
-                className="modalpropietario"
-                show={showModalPropietarioCuenta}>
-                <Modal.Body>
-                    <br/>
-                    <Row>
-                        <Col xl={4} lg={4} md={4} sm={4} className="mr-100">
-                            <h2>VALIDAR PROPIETARIO CUENTA</h2>
-                        </Col>
+            {showModalPropietarioCuenta ? (
+                <div
+                    className="mlmenos650 modal-fondo"
+                    onClick={() => {
+                        onCloseModalPropietario();
+                    }}>
+                    <div
+                        className="modal-contenido redondearmodal"
+                        onClick={(e) => {
+                            // do not close modal if anything inside modal content is clicked
+                            e.stopPropagation();
+                        }}>
+                        <br />
+                        <Row>
+                            <Col
+                                xl={10}
+                                lg={10}
+                                md={10}
+                                sm={10}
+                                className="textotuproductoestaen ml-2">
+                                <h3>Ingresa el codigo de verificación</h3>
+                            </Col>
 
-                        <Col xl={2} lg={2} md={2} sm={2}>
-                            <button
-                                type="button"
-                                className="cerrarmodal ml-95"
-                                data-dismiss="modal"
-                                onClick={onCloseModalPropietario}>
-                                {" "}
-                                X{" "}
-                            </button>
-                        </Col>
-                    </Row>
-                    <br/>
-                    <Row>
-                        <Col xl={7} lg={7} md={7} sm={7} className="ml-2">
-                            <form onChange={onChangeValidarToken}>
-                                <div className="ps-form__group mt-10 tamañotextotoken">
-                                    <label className="ps-form__label">
-                                        Ingresar Codigo :
-                                    </label>
-                                    <input
-                                        className="form-control ps-form__input tamañotextotoken"
-                                        name="tokenvalidar"
-                                        type="text"
-                                    />
-                                </div>
-                            </form>
-                        </Col>
-                    </Row>
+                            <Col xl={1} lg={1} md={1} sm={1} className="ml-50 mtmenos10">
+                                <h1 
+                                    data-dismiss="modal"
+                                    onClick={onCloseModalPropietario}>
+                                    {" "}
+                                    X{" "}
+                                </h1>
+                            </Col>
+                        </Row>
+                        <br />
+                        <Row>
+                            <Col xl={9} lg={9} md={9} sm={7} className="ml-2">
+                                <form onChange={onChangeValidarToken}>
+                                    <div className="ps-form__group tamañotextotoken">
+                                        <h3 className="textoenviocodigo">
+                                            Hemos enviado un código de 6 digitos
+                                            por XXXXX
+                                        </h3>
+                                        <div className="ml-200 mt-40">
+                                        <Row>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="ml-10 tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="ml-20 tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="ml-30 tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="ml-40 tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                            <Col xl={1} lg={1} md={1} sm={1}>
+                                                <input
+                                                    className="ml-50 tamañoinputtoken"
+                                                    name="tokenvalidar"
+                                                    type="text"
+                                                    size="1"
+                                                    minlength="1"
+                                                    maxlength="1"
+                                                />
+                                            </Col>
+                                        </Row>
+                                        </div>
+                                    </div>
+                                </form>
+                            </Col>
+                        </Row>
+                        <br />
+                        <br />
+                        <div className="ml-100 mt-10 mb-20">
+                            <Row>
+                            <Col xl={4} lg={4} md={4} sm={4}>
 
-                </Modal.Body>
-                <br/>
-                <br/>
-                <div className="ml-100 mt-10 mb-20">
-                    <Row>
-                        <Col xs lg={3}>
-                            <div
-                                className="ps-btn"
-                                onClick={validarPropietarioCuenta}>
-                                Validar Cuenta
-                            </div>
-                        </Col>
-                        <Col xs lg={3}>
-                            <Button
-                                className="ps-btn"
-                                onClick={() =>
-                                    setShowModalPropietarioCuenta(false)
-                                }>
-                                {" "}
-                                Cancelar{" "}
-                            </Button>
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col xl={5} lg={5} md={5} sm={5}>
+                                    <div
+                                        className="ps-btn"
+                                        onClick={reenvioCodigo}>
+                                        Reenviar código
+                                    </div>
+                                </Col>
+                                <Col xl={1} lg={1} md={1} sm={1}>
+                                    <Button
+                                        className="ps-btn"
+                                        onClick={() =>
+                                            setShowModalPropietarioCuenta(false)
+                                        }>
+                                        {" "}
+                                        Cancelar{" "}
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </div>
+                        <br />
+                    </div>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-            </Modal>
+            ) : null}
 
             <Modal className="modalrecuperarcuenta" show={showModalVerificar}>
                 <Modal.Body>
                     <Row>
                         <Col>
-                            <h2 className="seccionesvehiculotexto mt-10 ml-40">COMO DESEAS INGRESAR A TU CUENTA</h2>
+                            <h2 className="seccionesvehiculotexto mt-10 ml-40">
+                                COMO DESEAS INGRESAR A TU CUENTA
+                            </h2>
                         </Col>
                         <Col>
                             <button
@@ -992,16 +1167,15 @@ const LoginAccount = () => {
                     <div className="ml-30">
                         <Row>
                             <Col xl={3} lg={3} md={3} xs={3} className="ml-40">
-                                < Button className="botonotraformaverificar">
+                                <Button className="botonotraformaverificar">
                                     Ingresa con Google
                                 </Button>
                             </Col>
 
                             <Col xl={4} lg={4} md={4} xs={4}>
-                                <Button 
+                                <Button
                                     className="botonotraformaverificar"
-                                    onClick={tokenemail}
-                                >
+                                    onClick={tokenemail}>
                                     Ingresa con e-mail
                                 </Button>
                             </Col>

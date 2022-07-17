@@ -248,7 +248,7 @@ iframe {
 }
 
 .searchContainer {
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     width: 150%;
     color: #2D2E83 !important;
     /*max-width: 1440px;*/
@@ -270,7 +270,7 @@ iframe {
 .custom-select {
     background: transparent !important;
     border: none !important;
-    color: black !important;
+    color: #2D2E83 !important;
     font-size: 14px !important;
     height: 30px;
     padding: 5px;
@@ -289,15 +289,16 @@ iframe {
     background: transparent !important;
     background-color: #F0F2F5 !important;
     border: none !important;
-    color: black !important;
-    font-size: 14px !important;
+    color: #2D2E83 !important;
+    font-size: 16px !important;
     height: 40px;
     padding: 10px;
     width: 535px !important;
-    background-image: url("../../../public/static/img/flecha.png") !important;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 15px !important;
     /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
     background-repeat: no-repeat !important;
-    background-position: right center !important;
+    background-position: 505px center !important;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
@@ -3626,7 +3627,7 @@ body::after {
 .textoverificardeotraforma {
     margin-left: 100px !important;
     padding-top: 10px !important;
-    margin-top: 20px !important;
+    margin-top: 10px !important;
     color: #2D2E83 !important;
     width: 300px !important;
     height: 40px !important;
@@ -3634,15 +3635,14 @@ body::after {
 }
 
 .textoverificardeotraformados {
-    border-radius: 10px !important;
-    margin-left: 100px !important;
+    border-radius: 25px !important;
+    margin-left: 90px !important;
     padding-top: 10px !important;
-    margin-top: 20px !important;
     color: #2D2E83 !important;
     cursor: pointer !important;
-    width: 300px !important;
-    height: 40px !important;
-    background-color: #d5d6e6 !important;
+    width: 400px !important;
+    height: 45px !important;
+    background-color: #E8F0FE !important;
 }
 
 .botonotraformaverificar {
@@ -3895,6 +3895,7 @@ body::after {
     height: 48px !important;
     font-size: 16px !important;
     color:  #2D2E83 !important;
+    outline: none !important;
 }
 
 .colorseleccionboton {
@@ -3902,7 +3903,7 @@ body::after {
 }
 
 .labeltexto {
-    font-size: 14px !important;
+    font-size: 18px !important;
 }
 
 .contactnumber {
@@ -4040,6 +4041,12 @@ body::after {
     margin-top:100px !important;
     width: 640px !important;
     height: 800px !important;
+   
+}
+
+.redondearmodal {
+    width: 400px !important;
+    height: 800px !important;
 }
 
 .cajaopcionesrecuperarcuenta {
@@ -4053,14 +4060,15 @@ body::after {
 
 
 .cajaopcionesrecuperarcuentados {
-    border-radius: 10px !important;
+    border-radius: 25px !important;
     margin-left: 110px !important;
-    width: 300px !important;
-    height: 30px !important;
+    width: 400px !important;
+    height: 45px !important;
     font-size: 16px !important;
+    padding: 0px !important;
     text-align: center;
     cursor: pointer !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
 }
 
 .ancholinea {
@@ -4116,7 +4124,20 @@ body::after {
 }
 
 .tamañotextotoken{
-    font-size: 14px !important;
+    font-size: 16px !important;
+    color: #2D2E83 ;
+}
+.tamañoinputtoken{
+    width: 30px;
+    border-radius: 5px;
+    border-color: #8181b4;
+    padding-left: 8px;
+    padding-top: 2px;
+}
+
+.textoenviocodigo {
+    color: #8181b4 !important;
+    /*text-align: center !important;*/
 }
 
 .margenmoldarecuperarcontraseña {
@@ -4177,7 +4198,7 @@ body::after {
 
 .textocarrusel {
     font-size: 16px !important;
-    color: #000000 !important;
+    color: #2D2E83 !important;
 }
 
 .carousel-indicators {
@@ -4221,7 +4242,7 @@ body::after {
 
 .botoncarroceriasedan {
     border: 1px solid white !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     color: #000000 !important;
     /*font-weight: bold !important;*/
     border-radius: 5px !important;
@@ -4280,7 +4301,7 @@ body::after {
 
 .informacionbotoncarroceriasedanlatoneriaderecha {
     border: none !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     width: 20px !important;
     margin-left: 0px !important;
     height: 25px !important;
@@ -4507,7 +4528,7 @@ body::after {
 
 .informacionbotoncarroceriasedan {
     border: 1px solid white !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
     color: black !important;
@@ -4565,6 +4586,7 @@ body::after {
     height: 36px !important;
     font-size: 16px !important;
     color:  #2D2E83 !important;
+    outline: none !important;
 }
 
 .botonposicionproducto {
@@ -4711,7 +4733,6 @@ body::after {
 {
     color: #2D2E83 !important;
 }
-
 
 .imagenpasareladepago {
     height: auto;
@@ -16857,6 +16878,27 @@ body::after {
 .mlmenos350 {
     margin-left: -380px !important;
 }
+.mlmenos400 {
+    margin-left: -400px !important;
+}
+.mlmenos450 {
+    margin-left: -450px !important;
+}
+.mlmenos500 {
+    margin-left: -500px !important;
+}
+.mlmenos550 {
+    margin-left: -550px !important;
+}
+.mlmenos600 {
+    margin-left: -600px !important;
+}
+.mlmenos550 {
+    margin-left: -550px !important;
+}
+.mlmenos650 {
+    margin-left: -650px !important;
+}
 .mlmenos700 {
     margin-left: -700px !important;
 }
@@ -16937,6 +16979,10 @@ body::after {
     margin-top: -100px !important;
 }
 
+.mtmenos200 {
+    margin-top: -200px !important;
+}
+
 .mtmenos500 {
     margin-top: -400px !important;
 }
@@ -17009,23 +17055,27 @@ body::after {
 .mb-5 {
     margin-bottom: 5px;
 }
-
 .ml-2 {
     margin-left: 2px;
 }
-
 .ml-3 {
     margin-left: 3px;
 }
-
 .ml-4 {
     margin-left: 4px;
 }
-
 .ml-5 {
     margin-left: 5px;
 }
-
+.ml-6 {
+    margin-left: 6px;
+}
+.ml-7 {
+    margin-left: 7px;
+}
+.ml-8 {
+    margin-left: 8px;
+}
 .margeniz5 {
     margin-left: 5px !important;
 }
@@ -17116,7 +17166,9 @@ body::after {
 .ml-16 {
     margin-left: 16px;
 }
-
+.ml-17 {
+    margin-left: 17px;
+}
 .ml-13 {
     margin-left: 13px;
 }
@@ -17766,6 +17818,10 @@ body::after {
     margin-left: 150px;
 }
 
+.ml-155 {
+    margin-left: 155px;
+}
+
 .ml-160 {
     margin-left: 160px;
 }
@@ -17861,6 +17917,14 @@ body::after {
 
 .ml-500 {
     margin-left: 500px;
+}
+
+.ml-510 {
+    margin-left: 510px;
+}
+
+.ml-520 {
+    margin-left: 520px;
 }
 
 .ml-570 {
@@ -18449,6 +18513,7 @@ ol {
 
 .image-upload {
     border: solid black !important;
+    border-color: #2D2E83 !important;
     width: 130px !important;
     height: 120px !important;
     border-radius: 10px !important;
@@ -18500,8 +18565,8 @@ ol {
 .modal-contenido {
     margin-top: -220px !important;
     margin-left: 650px !important;
-    width: 600px !important;
-    height: 300px !important;
+    width: 700px !important;
+    height: 350px !important;
     background-color: white;
     padding: 25px;
 }
@@ -18556,15 +18621,16 @@ ol {
     background: transparent !important;
     background-color: #F0F2F5 !important;
     border: none !important;
-    color: black !important;
-    font-size: 14px !important;
+    color: #2D2E83 !important;
+    font-size: 16px !important;
     height: 40px;
     padding: 10px;
     width: 268px !important;
-    background-image: url("../../../public/static/img/flecha.png") !important;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
     /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
+    background-size: 15px !important;
     background-repeat: no-repeat !important;
-    background-position: right center !important;
+    background-position: 240px center !important;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
@@ -18617,7 +18683,7 @@ ol {
 }
 
 .cajaadvertenciavehiculoscompatiblesproducto{
-    border: solid #D5D6E6 !important;
+    border: solid #E8F0FE !important;
     border-radius: 10px !important;
     width: 640px !important;
     padding: 20px !important;
@@ -18648,7 +18714,7 @@ ol {
 
 .cajavehiculoscompatiblesproducto{
     margin-left: -10px;
-    border: solid #D5D6E6 !important;
+    border: solid #E8F0FE !important;
     border-radius: 10px !important;
     width: 640px !important;
     padding-top: 15px !important;
@@ -18658,7 +18724,7 @@ ol {
 }
 
 .cajainformacionprouctos{
-    border: solid #D5D6E6 !important;
+    border: solid #E8F0FE !important;
     border-radius: 10px !important;
     width: 640px !important;
     padding-top: 15px !important;
@@ -18681,13 +18747,10 @@ ol {
 .showcerrarabrir {
     margin-left: 100px !important;
     background-color: #F0F2F5 !important;
+    border-radius: 5px !important;
     width: 40px !important;
     font-size: 30px !important;
     height: 40px !important;
-}
-
-.select, option{ 
-    /*color:blue !important;*/
 }
 
 .option:hover { color:red; background-color:yellow; }
@@ -18722,7 +18785,12 @@ ol {
 
 .tamañoiconoestadoproducto {
     font-size: 35px !important;
-    color: #ACADCD ;
+    color: #ACADCD;
+}
+
+.tamañoiconorecuperarcontraseña {
+    font-size: 30px !important;
+    color: #2D2E83;
 }
 
 .selecticonoestadoproducto {
@@ -18740,6 +18808,42 @@ ol {
 
 .colorinput {
     background-color: #E8F0FE !important;
+    font-size: 16px;
+    border-radius: 10px !important;
+    margin-left: -30px;
+    margin-top: 15px;
+}
+
+.contraseñainputiniciarsesion {
+    width: 538px !important;
+    font-size: 15px;
+    padding: 15px;
+    height: 45px;
+    border: none;
+    border-radius: 25px;
+}
+
+.botoningresariniciarsesion {
+    background-color:  #2D2E83 !important ;
+    color: white;
+    width: 100px;
+    height: 45px;
+    margin-left: 15px;
+    font-size: 16px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
+}
+
+.botonovidastecontraseña {
+    background-color:  #E8F0FE !important ;
+    color: #2D2E83;
+    width: 250px;
+    height: 45px;
+    font-size: 16px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
 }
 
 .colortextoselect {
@@ -18756,13 +18860,13 @@ ol {
 .cuadropublicacionproducto {
     width: 1110px !important;
     height: 400px !important;
-    border: solid #D5D6E6 !important;
+    border: solid #E8F0FE !important;
     border-radius: 10px;
 }
 
 .textoterminapublicacion {
     color: #2D2E83 !important;
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .tamañoiconoterminarpublicacion {
@@ -18781,4 +18885,36 @@ ol {
 .spinnerpinon {
     font-size: 90px !important;
     color: #2D2E83 !important ;
+}
+ 
+.botoncrearcuenta {
+    width: 520px !important;
+    font-size: 18px;
+    background-color:  #2D2E83 !important ;
+    color: white;
+    width: 250px;
+    height: 45px;
+    font-size: 18px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
+    text-align: center;    
+}
+
+.redondearmodal {
+    border-radius: 10px !important;
+}
+
+.select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+}
+.descripcionproducto {
+    width: 580px !important;
+    height: 100px !important;
+    border-radius: 10px !important;
 }

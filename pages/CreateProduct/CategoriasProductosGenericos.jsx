@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { useRouter } from "next/router";
 import {
     Button,
     Row,
@@ -23,7 +23,7 @@ function CategoriasProductosGenericos(props) {
         categoria,
         setCategoria,
     } = props;
-
+    const router = useRouter();
     const [showEdit, setShowEdit] = useState(false);
     const targetshow = useRef(null);
 
@@ -72,6 +72,7 @@ function CategoriasProductosGenericos(props) {
     const [modalInterior, setmodalInterior] = useState(false);
     const [modalExterior, setmodalExterior] = useState(false);
     const [modalSonido, setmodalSonido] = useState(false);
+    const [habilitaSiguiente, setHabilitaSiguiente] = useState(true);
 
     const [lubricantesFluidos, setLubricantesFluidos] = useState(false);
 
@@ -86,7 +87,6 @@ function CategoriasProductosGenericos(props) {
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
 
     useEffect(() => {
-        console.log("CATEGORIA : ", categoria);
         if (categoria == 1) {
             setCategoriaSeleccionada("Estéticos y cuidados del vehículo");
         } else if (categoria == 2) {
@@ -116,6 +116,10 @@ function CategoriasProductosGenericos(props) {
             );
     }, [categoria]);
 
+    useEffect(() => {
+        router.push("/CreateProduct/createproduct#categorias");
+    }, []);
+
     const comentarioEsteticos = () => {
         setShowModalComentariosCategoria(true);
         setCategoriaSeleccionada("Estéticos y cuidados del vehículo");
@@ -133,6 +137,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+        setHabilitaSiguiente(false);;
         setCategoria(1);
     };
 
@@ -153,6 +158,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(2);
     };
 
@@ -173,6 +179,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(3);
     };
 
@@ -193,6 +200,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(4);
     };
 
@@ -215,6 +223,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(5);
     };
 
@@ -235,6 +244,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(6);
     };
 
@@ -255,6 +265,7 @@ function CategoriasProductosGenericos(props) {
         setnombreBaterias("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(7);
     };
 
@@ -275,6 +286,7 @@ function CategoriasProductosGenericos(props) {
         setnombreEstetico("botoncategoriasgenerico");
         setnombrePlumillas("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(8);
     };
 
@@ -295,6 +307,7 @@ function CategoriasProductosGenericos(props) {
         setnombreInterior("botoncategoriasgenerico");
         setnombreEstetico("botoncategoriasgenerico");
         setnombreKit("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(9);
     };
 
@@ -302,6 +315,19 @@ function CategoriasProductosGenericos(props) {
         setShowModalComentariosCategoria(true);
         setCategoria(10);
         setCategoriaSeleccionada("Herramientas y kit de carreteras");
+    };
+
+    const Out = () => {
+        setnombreKit("botoncategoriasgenerico");
+        setnombrePlumillas("botoncategoriasgenerico");
+        setnombreBaterias("botoncategoriasgenerico");
+        setnombreLlantas("botoncategoriasgenerico");
+        setnombreLubricantes("botoncategoriasgenerico");
+        setnombreIluminacion("botoncategoriasgenerico");
+        setnombreSonido("botoncategoriasgenerico");
+        setnombreExterior("botoncategoriasgenerico");
+        setnombreInterior("botoncategoriasgenerico");
+        setnombreEstetico("botoncategoriasgenerico");
     };
 
     const onKitCarretera = () => {
@@ -315,6 +341,7 @@ function CategoriasProductosGenericos(props) {
         setnombreExterior("botoncategoriasgenerico");
         setnombreInterior("botoncategoriasgenerico");
         setnombreEstetico("botoncategoriasgenerico");
+         setHabilitaSiguiente(false);;
         setCategoria(10);
     };
 
@@ -453,8 +480,9 @@ function CategoriasProductosGenericos(props) {
         setnombreEstetico("botoncategoriasgenerico");
     };
 
+
     return (
-        <div>
+        <div id="categorias">
             {abrirCerrarCategoriasGenerico ? (
                 <div>
                     <h3 className="tituloadvertenciaproductos">
@@ -464,15 +492,16 @@ function CategoriasProductosGenericos(props) {
                         <Col xl={12} lg={12} md={12} xs={12}>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreEstetico}
-                                        onClick={onEsteticos}
-                                        onMouseOver={onEsteticosOver}>
+                                        onClick={() => onEsteticos()}
+                                        onMouseOver={onEsteticosOver}
+                                        onMouseOut={Out}>
                                         Estéticos y cuidados del vehículo
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreUbicacionInteriorInfo}
                                         onClick={comentarioEsteticos}>
                                         {!modalEsteticos ? (
@@ -489,15 +518,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreInterior}
                                         onClick={onInterior}
-                                        onMouseOver={onInteriorOver}>
+                                        onMouseOver={onInteriorOver}
+                                        onMouseOut={Out}>
                                         Accesorios interior
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -516,15 +546,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreExterior}
                                         onClick={onExterior}
-                                        onMouseOver={onExteriorOver}>
+                                        onMouseOver={onExteriorOver}
+                                        onMouseOut={Out}>
                                         Accesorios exterior
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -543,15 +574,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreSonido}
                                         onClick={onSonido}
-                                        onMouseOver={onSonidoOver}>
+                                        onMouseOver={onSonidoOver}
+                                        onMouseOut={Out}>
                                         Sistemas de sonido y entretenimiento
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -570,16 +602,17 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreIluminacion}
                                         onClick={onIluminacion}
-                                        onMouseOver={onIluminacionOver}>
+                                        onMouseOver={onIluminacionOver}
+                                        onMouseOut={Out}>
                                         Iluminación, exploradoras y partes
                                         eléctricas genéricas
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -598,15 +631,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreLubricantes}
                                         onClick={onLubricantesFluidos}
-                                        onMouseOver={onLubricantesFluidosOver}>
+                                        onMouseOver={onLubricantesFluidosOver}
+                                        onMouseOut={Out}>
                                         Lubricantes y fluidos
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreUbicacionExteriorInfo}
                                         onClick={comentarioLubricantesFluidos}>
                                         {!modalLubricantesFluidos ? (
@@ -623,15 +657,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreLlantas}
                                         onClick={onLlantasRines}
-                                        onMouseOver={onLlantasRinesOver}>
+                                        onMouseOver={onLlantasRinesOver}
+                                        onMouseOut={Out}>
                                         Llantas y rines
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -650,15 +685,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreBaterias}
                                         onClick={onBaterias}
-                                        onMouseOver={onBateriasOver}>
+                                        onMouseOver={onBateriasOver}
+                                        onMouseOut={Out}>
                                         Baterías
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -677,15 +713,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombrePlumillas}
                                         onClick={onPlumillas}
-                                        onMouseOver={onPlumillasOver}>
+                                        onMouseOver={onPlumillasOver}
+                                        onMouseOut={Out}>
                                         Plumillas
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -704,15 +741,16 @@ function CategoriasProductosGenericos(props) {
                             </Row>
                             <Row>
                                 <Col xl={6} lg={6} md={6} xs={6}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={nombreKit}
                                         onClick={onKitCarretera}
-                                        onMouseOver={onKitCarreteraOver}>
+                                        onMouseOver={onKitCarreteraOver}
+                                        onMouseOut={Out}>
                                         Herramientas y kit de carreteras
                                     </Button>
                                 </Col>
                                 <Col xl={1} lg={1} md={1} xs={1}>
-                                    <Button
+                                    <Button variant="outline-light"
                                         className={
                                             nombreUbicacionTrenMotrizInfo
                                         }
@@ -736,6 +774,7 @@ function CategoriasProductosGenericos(props) {
                             <Col xl={4} lg={4} md={4} xs={4}>
                                 <Button
                                     className="ps-btn"
+                                    disabled={habilitaSiguiente}
                                     onClick={() => mostrarModalDatosProducto()}>
                                     {" "}
                                     Siguiente

@@ -43,7 +43,11 @@ function DatosVehiculosDiez(props) {
         setcilindrajeVehDiez,
         settransmisionVehDiez,
         setcombustibleVehDiez,
-        settraccionVehDiez
+        settraccionVehDiez,
+        tipoVehUno,
+        showTraccion,
+        showTransmision,
+        setShowTransmision
     } = props;
 
     // Asignar nombre de las opciones seleccionadas en lo vehiculos
@@ -55,15 +59,20 @@ function DatosVehiculosDiez(props) {
     const [listCilindrajes, setListCilindrajes] = useState([]);
 
     // Caracteristicas seleccionadas por vehiculo
-    const [tipoVeh, setTipoVeh] = useState([]);
-    const [marcaVeh, setMarcaVeh] = useState([]);
-    const [annoVeh, setAnnoVeh] = useState([]);
-    const [modeloVeh, setModeloVeh] = useState([]);
-    const [cilindrajesVeh, setCilindrajesVeh] = useState([]);
-    const [carroceriaVeh, setCarroceriaVeh] = useState([]);
-    const [transmisionVeh, setTransmisionVeh] = useState([]);
-    const [combustibleVeh, setCombustibleVeh] = useState([]);
-    const [traccionVeh, setTraccionVeh] = useState([]);
+    const [editarTipo, setEditarTipo] = useState(false);
+    const [editarCarroceria, setEditarCarroceria] = useState(false);
+    const [editarMarca, setEditarMarca] = useState(false);
+    const [editarModelo, setEditarModelo] = useState(false);
+
+    const [tipoVeh, setTipoVeh] = useState(null);
+    const [marcaVeh, setMarcaVeh] = useState(null);
+    const [annoVeh, setAnnoVeh] = useState(null);
+    const [modeloVeh, setModeloVeh] = useState(null);
+    const [cilindrajesVeh, setCilindrajesVeh] = useState(null);
+    const [carroceriaVeh, setCarroceriaVeh] = useState(null);
+    const [transmisionVeh, setTransmisionVeh] = useState(null);
+    const [combustibleVeh, setCombustibleVeh] = useState(null);
+    const [traccionVeh, setTraccionVeh] = useState(null);
 
     // Caracteristicas seleccionadas por vehiculo
     const [editarTipoVeh, setEditarTipoVeh] = useState([]);
@@ -174,6 +183,8 @@ function DatosVehiculosDiez(props) {
             setCilindrajes(newDet);
         }
 
+        const list = JSON.parse(localStorage.getItem("datoscarroceriasvehiculos"));
+
         setListModelos(datoscrearproductosmodelos);
         setListCilindrajes(datoscrearproductoscilindrajes);
         setVehiculos(JSON.parse(localStorage.getItem("datostiposvehiculos")));
@@ -184,35 +195,207 @@ function DatosVehiculosDiez(props) {
         setListCarrocerias(
             JSON.parse(localStorage.getItem("datoscarroceriasvehiculos"))
         );
-        setCarrocerias(
-            JSON.parse(localStorage.getItem("datoscarroceriasvehiculos"))
-        );
+        //setCarrocerias(
+        //    JSON.parse(localStorage.getItem("datoscarroceriasvehiculos"))
+        //);
 
         setAnnos(JSON.parse(localStorage.getItem("datosannosvehiculos")));
+        const newDetTipo = [];
+        setTipoVeh(tipoVehUno);
+        list.forEach((row) => {
+            if (
+                Number.parseInt(row.tipovehiculo) ===
+                Number.parseInt(tipoVehUno)
+            ) {
+                let item = {
+                    id: row.id,
+                    carroceria: row.carroceria,
+                    tipoVeh: row.tipovehiculo,
+                    estado: row.estado,
+                    value: row.id,
+                    label: row.carroceria,
+                };
+                newDetTipo.push(item);
+            }
+        });
+   	    setCarrocerias(newDetTipo);
+        
         //setLoading(true);
         //setCambia(true);
     }, []);
 
-    const transmision = [
+    useEffect(() => {
+        if (editarTipo) {
+            setMarcas([]);
+            setCarrocerias([]);
+            setCilindrajes([]);
+            setModels([]);
+            transmision = [];
+            tipotraccion = [];
+            setEditarMarcaVeh("");
+            setEditarAnnoVeh("");
+            setEditarModeloVeh("");
+            setEditarCilindrajesVeh("");
+            setEditarCarroceriaVeh("");
+            setEditarTransmisionVeh("");
+
+            const newDet = [];
+            listCarrocerias.forEach((row) => {
+                if (
+                    Number.parseInt(row.tipovehiculo) ===
+                    Number.parseInt(tipoVeh[0])
+                ) {
+                    //console.log("TIPO DE PRODUCTO SelecDO ES : ", row.tipodeproducto)
+                    let item = {
+                        id: row.id,
+                        carroceria: row.carroceria,
+                        tipoVeh: row.tipovehiculo,
+                        estado: row.estado,
+                        value: row.id,
+                        label: row.carroceria,
+                    };
+                    newDet.push(item);
+                }
+            });
+            setCarrocerias(newDet);
+            console.log("DATOS : ", newDet);
+
+            setEditarTipo(false);
+        }
+    }, [editarTipo]);
+
+    useEffect(() => {
+        if (editarCarroceria) {
+            setMarcas([]);
+            setCilindrajes([]);
+            setModels([]);
+            transmision = [];
+            tipotraccion = [];
+            setEditarMarcaVeh("");
+            setEditarAnnoVeh("");
+            setEditarModeloVeh("");
+            setEditarCilindrajesVeh("");
+            setEditarCarroceriaVeh("");
+            setEditarTransmisionVeh("");
+
+            const newDet = [];
+            listMarcas &&
+                listMarcas.forEach((row) => {
+                    if (
+                        Number.parseInt(row.tipovehiculo) ===
+                            Number.parseInt(tipoVeh) &&
+                        Number.parseInt(row.carroceria) ===
+                            Number.parseInt(carroceriaVeh)
+                    ) {
+                        //console.log("TIPO DE PRODUCTO SelecDO ES : ", row.tipodeproducto)
+                        let item = {
+                            id: row.id,
+                            text: row.text,
+                            tipoVeh: row.tipovehiculo,
+                            carroceria: row.carroceria,
+                            estado: row.estado,
+                            url: row.url,
+                        };
+                        newDet.push(item);
+                    }
+                });
+            setMarcas(newDet);
+            console.log("MARCAS : ", newDet);
+
+            setEditarCarroceria(false);
+        }
+    }, [editarCarroceria]);
+
+    useEffect(() => {
+        if (editarMarca) {
+            setCilindrajes([]);
+            setModels([]);
+            transmision = [];
+            tipotraccion = [];
+            //setEditarMarcaVeh(0);
+
+            const newDetMod = [];
+            listModelos &&
+                listModelos.forEach((row) => {
+                    if (
+                        Number.parseInt(row.marca) ===
+                            Number.parseInt(marcaVeh) &&
+                        Number.parseInt(row.carroceria) ===
+                            Number.parseInt(carroceriaVeh)
+                    ) {
+                        //console.log("TIPO DE PRODUCTO SelecDO ES : ", row.tipodeproducto)
+                        let item = {
+                            id: row.id,
+                            modelo: row.modelo,
+                            tipoVeh: row.tipovehiculo,
+                            marca: row.marca,
+                            carroceria: row.carroceria,
+                            estado: row.estado,
+                            value: row.id,
+                            label: row.modelo,
+                        };
+                        newDetMod.push(item);
+                    }
+                });
+            setModels(newDetMod);
+            setEditarMarca(false);
+        }
+    }, [editarMarca]);
+
+    useEffect(() => {
+        if (editarModelo) {
+            setCilindrajes([]);
+            transmision = [];
+            tipotraccion = [];
+            setEditarCilindrajesVeh(0);
+
+            const newDet = [];
+            listCilindrajes &&
+                listCilindrajes.forEach((row) => {
+                    if (
+                        Number.parseInt(row.modelo) ===
+                        Number.parseInt(modeloVeh)
+                    ) {
+                        //console.log("TIPO DE PRODUCTO SelecDO ES : ", row.tipodeproducto)
+                        let item = {
+                            id: row.id,
+                            carroceria: row.carroceria,
+                            tipoVeh: row.tipovehiculo,
+                            estado: row.estado,
+                            value: row.id,
+                            label: row.cilindraje,
+                            marca: row.marca,
+                            modelo: row.modelo,
+                        };
+                        newDet.push(item);
+                    }
+                });
+            //console.log("CILINDRAJE : ", newDet);
+            setCilindrajes(newDet);
+            setEditarModelo(false);
+        }
+    }, [editarModelo]);
+
+    let transmision = [
         { label: "Automática", value: 1 },
         { label: "Manual", value: 2 },
     ];
 
-    const combustible = [
+    let combustible = [
         { label: "Gasolina", value: 1 },
         { label: "Diesel", value: 2 },
         { label: "Gasolina – Gas", value: 3 },
         { label: "Gasolina – Eléctrico", value: 4 },
     ];
 
-    const tipotraccion = [
+    let tipotraccion = [
         { label: "Tracción Delantera", value: 1 },
         { label: "Tracción Trasera", value: 2 },
         { label: "Tracción 4x4", value: 3 },
         { label: "No Aplica", value: 4 },
     ];
 
-    const turbocompresor = [
+    let turbocompresor = [
         { label: "Turbo Sencillo", value: 1 },
         { label: "Turbo Doble", value: 2 },
         { label: "Turbo de Doble Entrada", value: 3 },
@@ -227,6 +410,8 @@ function DatosVehiculosDiez(props) {
     const handleChange = (selectedOptions) => {
         //console.log("SELECTED OPTION : ",selectedOptions)
         setTipoVeh(selectedOptions);
+
+        setEditarTipo(true);
 
         const newDet = [];
         listCarrocerias.forEach((row) => {
@@ -253,6 +438,7 @@ function DatosVehiculosDiez(props) {
         //console.log("SELECTED CARROCERIA : ",selectedOptions)
 
         setCarroceriaVeh(selectedOptions);
+        setEditarCarroceriaVeh(selectedOptions);
 
         listCarrocerias.forEach((row) => {
             if (Number.parseInt(row.id) === Number.parseInt(selectedOptions)) {
@@ -260,6 +446,8 @@ function DatosVehiculosDiez(props) {
                 //console.log("NOMBRE CARROCERIA SELECCIONADA : ", row.carroceria);
             }
         });
+
+        setEditarCarroceria(true);
 
         const newDet = [];
         listMarcas &&
@@ -290,6 +478,7 @@ function DatosVehiculosDiez(props) {
 
         //console.log("NEW MARCA : ",newMarca);
         setMarcaVeh(selectedOptions);
+        setEditarMarcaVeh(selectedOptions);
 
         listMarcas.forEach((row) => {
             if (Number.parseInt(row.id) === Number.parseInt(selectedOptions)) {
@@ -297,6 +486,8 @@ function DatosVehiculosDiez(props) {
                 //console.log("NOMBRE CARROCERIA SELECCIONADA : ", row.carroceria);
             }
         });
+
+        setEditarMarca(true);
 
         const newDetMod = [];
         listModelos &&
@@ -333,6 +524,7 @@ function DatosVehiculosDiez(props) {
     const handleChangeAnno = (selectedOptions) => {
         //console.log("AÑO VEHICULO : ", selectedOptions);
         setAnnoVeh(selectedOptions);
+        setEditarAnnoVeh(selectedOptions);
 
         annos.forEach((row) => {
             if (Number.parseInt(row.id) === Number.parseInt(selectedOptions)) {
@@ -348,6 +540,7 @@ function DatosVehiculosDiez(props) {
         newModelo.push(selectedOptions);
         //console.log("NEW MODELO : ", newModelo);
         setModeloVeh(newModelo);
+        setEditarModeloVeh(selectedOptions);
 
         listModelos.forEach((row) => {
             if (Number.parseInt(row.id) === Number.parseInt(selectedOptions)) {
@@ -355,19 +548,9 @@ function DatosVehiculosDiez(props) {
                 //console.log("NOMBRE CARROCERIA SELECCIONADA : ", row.carroceria);
             }
         });
-        /*
-        if (
-            !localStorage.getItem("datosmodelosvehiculosDiez") ||
-            localStorage.getItem("datosmodelosvehiculosDiez") === undefined
-        ) {
-            if (modelos.length > 0) {
-                localStorage.setItem(
-                    "datosmodelosvehiculosDiez",
-                    JSON.stringify(modelos)
-                );
-            }
-        }
-*/
+
+        setEditarModelo(true);
+
         if (selectedOptions > 0) {
             //console.log("VALOR SelecDO : ", selectedOptions)
             let modelo = selectedOptions;
@@ -401,6 +584,7 @@ function DatosVehiculosDiez(props) {
     const handleChangeVersionMotor = (selectedOptions) => {
         //console.log("VERSION MOTOR SelecDO : ", selectedOptions);
         setCilindrajesVeh(selectedOptions);
+        setEditarCilindrajesVeh(selectedOptions);
 
         listCilindrajes.forEach((row) => {
             if (Number.parseInt(row.id) === Number.parseInt(selectedOptions)) {
@@ -412,6 +596,7 @@ function DatosVehiculosDiez(props) {
 
     const handleChangeTransmision = (selectedOptions) => {
         setTransmisionVeh(selectedOptions);
+        setEditarTransmisionVeh(selectedOptions);
 
         if (selectedOptions == 1) {
             setNombreTransmisionVeh("Automática");
@@ -424,6 +609,7 @@ function DatosVehiculosDiez(props) {
 
     const handleChangeCombustible = (selectedOptions) => {
         setCombustibleVeh(selectedOptions);
+        setEditarCombustibleVeh(selectedOptions);
 
         if (selectedOptions == 1) {
             setNombreCombustibleVeh("Gasolina");
@@ -436,10 +622,47 @@ function DatosVehiculosDiez(props) {
         } else {
             setNombreCombustibleVeh("NA");
         }
+
+        if (tipoVehUno == 1 || tipoVehUno == 3 || tipoVehUno == 6) {
+            setNombreTraccionVeh("NA");
+            setAgregarVehiculo(true);
+            setVehiculoDiezCrear(false);
+            setVehiculoDiezSelecc(true);
+
+            setTipoVehDiez(tipoVeh[0]);
+            setMarcaVehDiez(marcaVeh);
+            setAnnoVehDiez(annoVeh);
+            setModeloVehDiez(modeloVeh[0]);
+            setcilindrajeVehDiez(cilindrajesVeh);
+            setCarroceriaVehDiez(carroceriaVeh);
+            settransmisionVehDiez(transmisionVeh);
+            setcombustibleVehDiez(selectedOptions);
+            settraccionVehDiez(4);
+        }
     };
 
     const handleChangeTraccion = (selectedOptions) => {
         setTraccionVeh(selectedOptions);
+        setEditarTraccionVeh(selectedOptions);
+
+        if (
+            !tipoVeh ||
+            !marcaVeh ||
+            !annoVeh ||
+            !modeloVeh ||
+            !cilindrajesVeh ||
+            !carroceriaVeh ||
+            !transmisionVeh ||
+            !combustibleVeh
+        ) {
+            swal(
+                "Identificación del vehículo",
+                "Recuerda, todos los datos son obligatorios!",
+                "warning",
+                { button: "Aceptar" }
+            );
+            return;
+        }
 
         if (selectedOptions == 1) {
             setNombreTraccionVeh("Tracción Delantera");
@@ -523,6 +746,8 @@ function DatosVehiculosDiez(props) {
                                 <div>
                                     <select
                                         //disabled="disabled"
+                                        value={tipoVehUno}
+                                        disabled={true}
                                         className="redonderbordescrearproducto custom-selectcreateproducto colorbase"
                                         onChange={(e) =>
                                             handleChange(e.target.value)
@@ -704,7 +929,7 @@ function DatosVehiculosDiez(props) {
                                     <Col xl={6} lg={6} md={6} xs={6}>
                                         <div className="mt-1 mlmenos20">
                                             <select
-                                                //disabled="disabled"
+                                                disabled={showTransmision}
                                                 className="custom-selectcreateproductoitem colorbase"
                                                 onChange={(e) =>
                                                     handleChangeTransmision(
@@ -770,6 +995,7 @@ function DatosVehiculosDiez(props) {
                                             <select
                                                 className="custom-selectcreateproductoitem redonderborinferiorderecho colorbase"
                                                 name="tipotraccion"
+                                                disabled={showTraccion}
                                                 onChange={(e) =>
                                                     handleChangeTraccion(
                                                         e.target.value
@@ -819,7 +1045,7 @@ function DatosVehiculosDiez(props) {
                             </div>
                         </Col>
                         <Col xl={1} lg={1} md={1} xs={1}>
-                            <div className="form-control ps-form__input textoeditardatosvehiculo ml-110">
+                            <div className="form-control ps-form__input textoeditardatosvehiculo botonazul textocolorblanco ml-110">
                                 <i
                                     onClick={() => editarDatosVehiculos()}
                                     class="ml-1 mt-1 fa fa-edit d-flex justify-content-center"
@@ -848,7 +1074,7 @@ function DatosVehiculosDiez(props) {
                             </Overlay>
                         </Col>
                         <Col xl={1} lg={1} md={1} xs={1}>
-                            <div className="form-control ps-form__input textoeditardatosvehiculo ml-95">
+                            <div className="form-control ps-form__input textoeditardatosvehiculo botonazul textocolorblanco ml-95">
                                 <i
                                     onClick={() => duplicarDatosVehiculos()}
                                     class="mt-1 fa fa-copy d-flex justify-content-center"
@@ -878,7 +1104,7 @@ function DatosVehiculosDiez(props) {
                 </div>
             ) : vehiculoDiezEditar ? (
                 <Row>
-                    <div>
+                    <div className="ml-17">
                         <div>
                             <select
                                 defaultValue={editarTipoVeh}
@@ -902,7 +1128,7 @@ function DatosVehiculosDiez(props) {
                             <Col xl={6} lg={6} md={6} xs={6}>
                                 <div className="mt-1">
                                     <select
-                                        defaultValue={editarCarroceriaVeh}
+                                        value={editarCarroceriaVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
@@ -930,9 +1156,9 @@ function DatosVehiculosDiez(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
-                                        defaultValue={editarMarcaVeh}
+                                       value={editarMarcaVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
@@ -958,7 +1184,7 @@ function DatosVehiculosDiez(props) {
                             <Col xl={6} lg={6} md={6} xs={6}>
                                 <div className="mt-1">
                                     <select
-                                        defaultValue={editarAnnoVeh}
+                                        value={editarAnnoVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
@@ -980,9 +1206,9 @@ function DatosVehiculosDiez(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
-                                        defaultValue={editarModeloVeh}
+                                        value={editarModeloVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
@@ -1008,7 +1234,7 @@ function DatosVehiculosDiez(props) {
                             <Col xl={6} lg={6} md={6} xs={6}>
                                 <div className="mt-1">
                                     <select
-                                        defaultValue={editarCilindrajesVeh}
+                                        value={editarCilindrajesVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
@@ -1036,10 +1262,10 @@ function DatosVehiculosDiez(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1 mlmenos17">
+                                <div className="mt-1 mlmenos21">
                                     <select
-                                        defaultValue={editarTransmisionVeh}
-                                        //disabled="disabled"
+                                        value={editarTransmisionVeh}
+                                        disabled={showTransmision}
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
                                             handleChangeTransmision(
@@ -1066,7 +1292,7 @@ function DatosVehiculosDiez(props) {
                             <Col xl={6} lg={6} md={6} xs={6}>
                                 <div className="mt-1">
                                     <select
-                                        defaultValue={editarCombustibleVeh}
+                                        value={editarCombustibleVeh}
                                         //disabled="disabled"
                                         className="custom-selectcreateproductoitem  redonderborinferiorizquierdo"
                                         onChange={(e) =>
@@ -1090,11 +1316,12 @@ function DatosVehiculosDiez(props) {
                                 </div>
                             </Col>
                             <Col xl={6} lg={6} md={6} xs={6}>
-                                <div className="mt-1  mlmenos17">
+                                <div className="mt-1  mlmenos21">
                                     <select
-                                        defaultValue={editarTraccionVeh}
+                                        value={editarTraccionVeh}
                                         className="custom-selectcreateproductoitem redonderborinferiorderecho"
                                         name="tipotraccion"
+                                        disabled={showTraccion}
                                         onChange={(e) =>
                                             handleChangeTraccion(e.target.value)
                                         }>
@@ -1116,7 +1343,7 @@ function DatosVehiculosDiez(props) {
                         </Row>
                     </div>
                     <div
-                        className="ps-form__input mt-3 botonagregarotrovehiculo"
+                        className="ps-form__input mt-3 botonagregarotrovehiculo ml-17"
                         onClick={() => guardarDatosVehiculos()}>
                         {<h3>Guardar cambios</h3>}
                     </div>
@@ -1286,7 +1513,7 @@ function DatosVehiculosDiez(props) {
                                 <div className="mt-1 mlmenos17">
                                     <select
                                         value={transmisionVeh}
-                                        //disabled="disabled"
+                                        disabled={showTransmision}
                                         className="custom-selectcreateproductoitem"
                                         onChange={(e) =>
                                             handleChangeTransmision(
@@ -1342,6 +1569,7 @@ function DatosVehiculosDiez(props) {
                                         value={traccionVeh}
                                         className="custom-selectcreateproductoitem redonderborinferiorderecho"
                                         name="tipotraccion"
+                                        disabled={showTraccion}
                                         onChange={(e) =>
                                             handleChangeTraccion(e.target.value)
                                         }>

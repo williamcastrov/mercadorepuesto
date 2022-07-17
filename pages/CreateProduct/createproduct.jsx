@@ -257,6 +257,8 @@ const CreateProduct = () => {
     const [duplicar, setDuplicar] = useState(false);
     const [nuevoVehiculo, setNuevoVehiculo] = useState(false);
 
+    const [showTraccion, setShowTraccion] = useState(false);
+    const [showTransmision, setShowTransmision] = useState(false);
     const [showModalGenerico, setShowModalGenerico] = useState(false);
     const [showModalParaUnoVarios, setShowModalParaUnoVarios] = useState(false);
 
@@ -352,6 +354,10 @@ const CreateProduct = () => {
 
     const productogenerico = [
         {
+            label: "Seleccione tipo de producto",
+            value: "",
+        },
+        {
             label: labelGenericoUno,
             value: genericoUno,
         },
@@ -360,8 +366,6 @@ const CreateProduct = () => {
             value: genericoDos,
         },
     ];
-
-
 
     // Inicializamos el arrego de Tipos de Vehiculos
     const [vehiculos, setVehiculos] = useState([]);
@@ -490,7 +494,11 @@ const CreateProduct = () => {
         //alert("ENTRE")
         //console.log("OPCION GENERICOS : ", selectedOptions);
         //alert("GENERICO");
+
         if (selectedOptions === "Si") {
+            setAgregarDatos(false);
+            setNuevoVehiculo(false);
+            setAgregarVehiculo(false);
             const newDetUno = [];
             const newDetDos = [];
             let itemUno = {
@@ -802,8 +810,8 @@ const CreateProduct = () => {
     };
 
     const agregarDatosGenerico = () => {
-        location.reload();
-        setShowIconoCerrarAbrir(false);
+        setCreateProduct(true);
+        setShowIconoCerrarAbrir(true);
         setAgregarVehiculo(true);
 
         setCerrarDatosDos("mt-1 datoscerrados");
@@ -860,7 +868,7 @@ const CreateProduct = () => {
         setSelecDatosProducto(true);
         setShowModalDatosProducto(true);
     };
-   
+
     //setMostrarDatosMotor(true);
     return (
         <Container title="Mi Cuenta">
@@ -947,7 +955,8 @@ const CreateProduct = () => {
                                                                                         itemselect
                                                                                     ) => {
                                                                                         return (
-                                                                                            <option className="mlmenos"
+                                                                                            <option
+                                                                                                className="mlmenos"
                                                                                                 value={
                                                                                                     itemselect.value
                                                                                                 }>
@@ -976,7 +985,7 @@ const CreateProduct = () => {
                                                                                 onClick={() =>
                                                                                     mostrarVehiculos()
                                                                                 }
-                                                                                class="mt-1 fa fa-angle-down d-flex justify-content-center"
+                                                                                class="colortextoselect mt-1 fa fa-angle-down d-flex justify-content-center"
                                                                                 aria-hidden="true"
                                                                                 ref={
                                                                                     targetshow
@@ -1124,6 +1133,18 @@ const CreateProduct = () => {
                                                                                 settraccionVehUno={
                                                                                     settraccionVehUno
                                                                                 }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1203,6 +1224,21 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 settraccionVehDos={
                                                                                     settraccionVehDos
+                                                                                }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1284,6 +1320,21 @@ const CreateProduct = () => {
                                                                                 settraccionVehTres={
                                                                                     settraccionVehTres
                                                                                 }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1363,6 +1414,21 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 settraccionVehCuatro={
                                                                                     settraccionVehCuatro
+                                                                                }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1444,6 +1510,21 @@ const CreateProduct = () => {
                                                                                 settraccionVehCinco={
                                                                                     settraccionVehCinco
                                                                                 }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1523,6 +1604,21 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 settraccionVehSeis={
                                                                                     settraccionVehSeis
+                                                                                }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1604,6 +1700,21 @@ const CreateProduct = () => {
                                                                                 settraccionVehSiete={
                                                                                     settraccionVehSiete
                                                                                 }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1683,6 +1794,21 @@ const CreateProduct = () => {
                                                                                 }
                                                                                 settraccionVehOcho={
                                                                                     settraccionVehOcho
+                                                                                }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
                                                                                 }
                                                                             />
                                                                         ) : null}
@@ -1764,6 +1890,21 @@ const CreateProduct = () => {
                                                                                 settraccionVehNueve={
                                                                                     settraccionVehNueve
                                                                                 }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
 
@@ -1844,6 +1985,21 @@ const CreateProduct = () => {
                                                                                 settraccionVehDiez={
                                                                                     settraccionVehDiez
                                                                                 }
+                                                                                tipoVehUno={
+                                                                                    tipoVehUno
+                                                                                }
+                                                                                showTraccion={
+                                                                                    showTraccion
+                                                                                }
+                                                                                setShowTraccion={
+                                                                                    setShowTraccion
+                                                                                }
+                                                                                showTransmision={
+                                                                                    showTransmision
+                                                                                }
+                                                                                setShowTransmision={
+                                                                                    setShowTransmision
+                                                                                }
                                                                             />
                                                                         ) : null}
                                                                     </div>
@@ -1906,7 +2062,7 @@ const CreateProduct = () => {
                                                                                 className="ml-53 mtmenos2">
                                                                                 <div className="showcerrarabrir">
                                                                                     <i
-                                                                                        class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                                                                        class="colortextoselect mt-2 fa fa-angle-down d-flex justify-content-center"
                                                                                         onClick={
                                                                                             agregarDatosGenerico
                                                                                         }
@@ -2147,6 +2303,7 @@ const CreateProduct = () => {
                                     setSelecDatosProducto={
                                         setSelecDatosProducto
                                     }
+                                    tipoVehUno={tipoVehUno}
                                 />
                             ) : seleccionoUbicacionProducto ? (
                                 <div className="ml-40">
@@ -2380,6 +2537,7 @@ function DatosLatoneria(props) {
         showModalDatosProducto,
         setShowDatosProductos,
         setSelecDatosProducto,
+        tipoVehUno,
     } = props;
 
     const [showEdit, setShowEdit] = useState(false);
@@ -2418,13 +2576,13 @@ function DatosLatoneria(props) {
     const [nombreUbicacionDerechaInfo, setnombreUbicacionDerechaInfo] =
         useState("botonpartesvehiculoinfo mlmenos1 mt-2");
 
-    const [nombreUbicacionConsola, setnombreUbicacionConsola] = useState(
+    const [seleccionoUbicacionConsola, setSeleccionoUbicacionConsola] = useState(
         "botonpartesvehiculo"
     );
-    const [nombreUbicacionAsiento, setnombreUbicacionAsiento] = useState(
+    const [seleccionoUbicacionAsiento, setSeleccionoUbicacionAsiento] = useState(
         "botonpartesvehiculo"
     );
-    const [nombreUbicacionTecho, setnombreUbicacionTecho] = useState(
+    const [seleccionoUbicacionTecho, setSeleccionoUbicacionTecho] = useState(
         "botonpartesvehiculo"
     );
 
@@ -2432,7 +2590,8 @@ function DatosLatoneria(props) {
     const [showImagenInterior, setShowImagenInterior] = useState(false);
     const [showImagenTrenMotriz, setShowImagenTrenMotriz] = useState(false);
 
-    const [showImagenIzquierda, setShowImagenIzquierda] = useState(true);
+    const [showExteriorBase, setShowExteriorBase] = useState(true);
+    const [showImagenIzquierda, setShowImagenIzquierda] = useState(false);
     const [showImagenCentro, setShowImagenCentro] = useState(false);
     const [showImagenDerecha, setShowImagenDerecha] = useState(false);
 
@@ -2489,7 +2648,8 @@ function DatosLatoneria(props) {
         mostrarModalComentariosUbicacionProducto,
         setMostrarModalComentariosUbicacionProducto,
     ] = useState(false);
-    const [textoPosicionUbicacionProducto, setTextoPosicionUbicacionProducto] = useState(0);
+    const [textoPosicionUbicacionProducto, setTextoPosicionUbicacionProducto] =
+        useState(0);
     const [
         showModalPosicionProductoLatoneria,
         setShowModalPosicionProductoLatoneria,
@@ -2525,7 +2685,7 @@ function DatosLatoneria(props) {
 
     const [showModalPosicionProductoMotor, setShowModalPosicionProductoMotor] =
         useState(false);
-    
+
     const [sistemaMotorSeleccionado, setSistemaMotorSeleccionado] = useState(0);
     const [ubicacionProducto, setUbicacionProducto] = useState(0);
     const [posicionProducto, setPosicionProducto] = useState(0);
@@ -2555,13 +2715,23 @@ function DatosLatoneria(props) {
     };
 
     const abrirDatosUbicacionProucto = () => {
-        setShowModalLatoneria(true);
-        setSeleccionoUbicacionProducto(true);
-        setAbrirCerarUbicarProducto(false);
-        setUbicarProductoLatoneria(true);
-        setUbicarProductoHabitaculo(false);
-        setUbicarProductoMotor(false);
-        setShowDatosProductos(false);
+        if (tipoVehUno != 1) {
+            setShowModalLatoneria(true);
+            setSeleccionoUbicacionProducto(true);
+            setAbrirCerarUbicarProducto(false);
+            setUbicarProductoLatoneria(true);
+            setUbicarProductoHabitaculo(false);
+            setUbicarProductoMotor(false);
+            setShowDatosProductos(false);
+        } else {
+            setShowModalLatoneria(true);
+            setSeleccionoUbicacionProducto(true);
+            setAbrirCerarUbicarProducto(false);
+            setUbicarProductoLatoneria(false);
+            setUbicarProductoHabitaculo(false);
+            setUbicarProductoMotor(false);
+            setShowDatosProductos(false);
+        }
     };
 
     const mostrarComentariolatoneria = () => {
@@ -2580,17 +2750,25 @@ function DatosLatoneria(props) {
     };
 
     const SelecUbicarProductoLatoneria = () => {
-        setUbicacionProducto(1);
-        setUbicarProductoLatoneria(true);
-        setUbicarProductoHabitaculo(false);
-        setUbicarProductoMotor(false);
-        setShowImagenExterior(true);
-        setShowImagenInterior(false);
-        setShowImagenTrenMotriz(false);
+        if (tipoVehUno != 1) {
+            setUbicacionProducto(1);
+            setUbicarProductoLatoneria(true);
+            setUbicarProductoHabitaculo(false);
+            setUbicarProductoMotor(false);
+            setShowImagenExterior(true);
+            setShowImagenInterior(false);
+            setShowImagenTrenMotriz(false);
 
-        setShowModalPosicionProductoLatoneria(true);
-        setUbicarProducto(1);
-        setShowModalDatosProducto(true);
+            setShowModalPosicionProductoLatoneria(true);
+            setUbicarProducto(1);
+            setShowModalDatosProducto(true);
+        } else {
+            mostrarModalDatosProducto();
+            setShowModalDatosProducto(true);
+            setPosicionProductoIzquierdo(false);
+            setPosicionProductoCentro(false);
+            setPosicionProductoDerecho(false);
+        }
 
         setnombreUbicacionExterior("botonpartesvehiculo colorseleccionboton");
         setnombreUbicacionInterior("botonpartesvehiculo");
@@ -2632,6 +2810,7 @@ function DatosLatoneria(props) {
     };
 
     const SelecUbicarProductoMotor = () => {
+        //if (tipoVehUno != 1) {
         setUbicacionProducto(3);
         setUbicarProductoMotor(true);
         setUbicarProductoHabitaculo(false);
@@ -2690,6 +2869,8 @@ function DatosLatoneria(props) {
         setPosicionProductoIzquierdo(true);
         setPosicionProductoCentro(false);
         setPosicionProductoDerecho(false);
+
+        setShowExteriorBase(false);
         setShowImagenIzquierda(true);
         setShowImagenCentro(false);
         setShowImagenDerecha(false);
@@ -2709,6 +2890,8 @@ function DatosLatoneria(props) {
         setPosicionProductoIzquierdo(false);
         setPosicionProductoCentro(true);
         setPosicionProductoDerecho(false);
+
+        setShowExteriorBase(false);
         setShowImagenIzquierda(false);
         setShowImagenCentro(true);
         setShowImagenDerecha(false);
@@ -2730,6 +2913,8 @@ function DatosLatoneria(props) {
         setPosicionProductoIzquierdo(false);
         setPosicionProductoCentro(false);
         setPosicionProductoDerecho(true);
+
+        setShowExteriorBase(false);
         setShowImagenIzquierda(false);
         setShowImagenCentro(false);
         setShowImagenDerecha(true);
@@ -2752,6 +2937,9 @@ function DatosLatoneria(props) {
         setPosicionProductoAsiento(false);
         setPosicionProductoTecho(false);
         setShowImagenConsola(true);
+        setSeleccionoUbicacionConsola("botonpartesvehiculo colorseleccionboton");
+        setSeleccionoUbicacionAsiento("botonpartesvehiculo");
+        setSeleccionoUbicacionTecho("botonpartesvehiculo");
         setShowImagenAsiento(false);
         setShowImagenTecho(false);
     };
@@ -2763,6 +2951,9 @@ function DatosLatoneria(props) {
         setPosicionProductoTecho(false);
         setShowImagenConsola(false);
         setShowImagenAsiento(true);
+        setSeleccionoUbicacionAsiento("botonpartesvehiculo colorseleccionboton");
+        setSeleccionoUbicacionConsola("botonpartesvehiculo");
+        setSeleccionoUbicacionTecho("botonpartesvehiculo");
         setShowImagenTecho(false);
     };
 
@@ -2774,6 +2965,9 @@ function DatosLatoneria(props) {
         setShowImagenConsola(false);
         setShowImagenAsiento(false);
         setShowImagenTecho(true);
+        setSeleccionoUbicacionTecho("botonpartesvehiculo colorseleccionboton");
+        setSeleccionoUbicacionAsiento("botonpartesvehiculo");
+        setSeleccionoUbicacionConsola("botonpartesvehiculo");
     };
 
     const SeleccionBaseMotorElectrico = () => {
@@ -3142,6 +3336,7 @@ function DatosLatoneria(props) {
 
     return (
         <div className="ps-page__header mtmenos60 ml-100 cajavehiculoscompatiblesproducto">
+            {console.log("VALOR UBICAR PRODUCTO : ", abrirCerarUbicarProducto)}
             <div>
                 <div className="mb-20">
                     <h3 className="tituloadvertenciaproductosizquierda mb-15">
@@ -3160,6 +3355,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col xl={10} lg={10} md={10} xs={10}>
                                         <Button
+                                            variant="outline-light"
                                             className={nombreUbicacionExterior}
                                             onClick={
                                                 SelecUbicarProductoLatoneria
@@ -3169,6 +3365,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col xl={1} lg={1} md={1} xs={1}>
                                         <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionExteriorInfo
                                             }
@@ -3187,39 +3384,46 @@ function DatosLatoneria(props) {
                                         </Button>
                                     </Col>
                                 </Row>
+                                {tipoVehUno != 1 ? (
+                                    <Row>
+                                        <Col xl={10} lg={10} md={10} xs={10}>
+                                            <Button
+                                                variant="outline-light"
+                                                className={
+                                                    nombreUbicacionInterior
+                                                }
+                                                onClick={
+                                                    SelecUbicarProductoHabitaculo
+                                                }>
+                                                INTERIOR
+                                            </Button>
+                                        </Col>
+                                        <Col xl={1} lg={1} md={1} xs={1}>
+                                            <Button
+                                                variant="outline-light"
+                                                className={
+                                                    nombreUbicacionInteriorInfo
+                                                }
+                                                onClick={
+                                                    mostrarComentariohabitaculo
+                                                }>
+                                                {!ubicarProductoHabitaculo ? (
+                                                    <i
+                                                        class="fa fa-info d-flex justify-content-center"
+                                                        aria-hidden="true"></i>
+                                                ) : (
+                                                    <i
+                                                        class="fa fa-check-square-o d-flex justify-content-center"
+                                                        aria-hidden="true"></i>
+                                                )}
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                ) : null}
                                 <Row>
                                     <Col xl={10} lg={10} md={10} xs={10}>
                                         <Button
-                                            className={nombreUbicacionInterior}
-                                            onClick={
-                                                SelecUbicarProductoHabitaculo
-                                            }>
-                                            INTERIOR
-                                        </Button>
-                                    </Col>
-                                    <Col xl={1} lg={1} md={1} xs={1}>
-                                        <Button
-                                            className={
-                                                nombreUbicacionInteriorInfo
-                                            }
-                                            onClick={
-                                                mostrarComentariohabitaculo
-                                            }>
-                                            {!ubicarProductoHabitaculo ? (
-                                                <i
-                                                    class="fa fa-info d-flex justify-content-center"
-                                                    aria-hidden="true"></i>
-                                            ) : (
-                                                <i
-                                                    class="fa fa-check-square-o d-flex justify-content-center"
-                                                    aria-hidden="true"></i>
-                                            )}
-                                        </Button>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xl={10} lg={10} md={10} xs={10}>
-                                        <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionTrenMotriz
                                             }
@@ -3229,6 +3433,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col xl={1} lg={1} md={1} xs={1}>
                                         <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionTrenMotrizInfo
                                             }
@@ -3246,36 +3451,63 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col
-                                xl={5}
-                                lg={5}
-                                md={5}
-                                xs={5}
-                                className="ml-150 mt-10">
-                                <Card.Body>
-                                    {showImagenExterior ? (
-                                        <Card.Img
-                                            src="/imgcarrusel/createproducto/exteriorbase.jpg"
-                                            alt="Card image"
-                                        />
-                                    ) : showImagenInterior ? (
-                                        <Card.Img
-                                            src="/imgcarrusel/createproducto/interior.jpg"
-                                            alt="Card image"
-                                        />
-                                    ) : showImagenTrenMotriz ? (
-                                        <Card.Img
-                                            src="/imgcarrusel/createproducto/trenmotrizbase.jpg"
-                                            alt="Card image"
-                                        />
-                                    ) : null}
-                                </Card.Body>
-                            </Col>
+                            {tipoVehUno != 1 ? (
+                                <Col
+                                    xl={5}
+                                    lg={5}
+                                    md={5}
+                                    xs={5}
+                                    className="ml-150 mt-10">
+                                    <Card.Body>
+                                        {showImagenExterior ? (
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/exteriorbase.jpg"
+                                                alt="Card image"
+                                            />
+                                        ) : showImagenInterior ? (
+                                            <Card.Img
+                                                width={60}
+                                                height={110}
+                                                src="/imgcarrusel/createproducto/interior.jpg"
+                                                alt="Card image"
+                                            />
+                                        ) : showImagenTrenMotriz ? (
+                                            <Card.Img
+                                                width={60}
+                                                height={120}
+                                                src="/imgcarrusel/createproducto/trenmotrizbase.jpg"
+                                                alt="Card image"
+                                            />
+                                        ) : null}
+                                    </Card.Body>
+                                </Col>
+                            ) : (
+                                <Col
+                                    xl={5}
+                                    lg={5}
+                                    md={5}
+                                    xs={5}
+                                    className="ml-150 mtmenos35">
+                                    <Card.Body>
+                                        {showImagenExterior ? (
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/motocicletas/basemotocicleta5.jpg"
+                                                alt="Card image"
+                                            />
+                                        ) : showImagenTrenMotriz ? (
+                                            <Card.Img
+                                                src="/imgcarrusel/createproducto/motocicletas/basemotocicleta3.jpg"
+                                                alt="Card image"
+                                            />
+                                        ) : null}
+                                    </Card.Body>
+                                </Col>
+                            )}
                         </Row>
                     </div>
                 ) : null}
             </div>
-            
+
             <div className="App">
                 <ModalComentariosUbicacionProducto
                     shown={mostrarModalComentariosUbicacionProducto}
@@ -3285,7 +3517,7 @@ function DatosLatoneria(props) {
                     texto={textoPosicionUbicacionProducto}
                 />
             </div>
-        
+
             {showModalDatosProducto ? (
                 ubicarProductoLatoneria ? (
                     <div>
@@ -3293,17 +3525,18 @@ function DatosLatoneria(props) {
                             <Row>
                                 <Col xl={10} lg={10} md={10} sm={10}>
                                     <h3 className="tituloadvertenciaproductosizquierda">
-                                        Escoge la posicion en que se encuentra
+                                        Escoge la posición en que se encuentra
                                         tu producto:
                                     </h3>
                                 </Col>
                             </Row>
                         </div>
-                        <Row className="mlmenos20">
+                        <Row>
                             <Col xl={4} lg={4} md={4} xs={4}>
                                 <Row>
                                     <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
+                                            variant="outline-light"
                                             className={nombreUbicacionIzquierda}
                                             onClick={
                                                 SeleccionePosicionProductoIzquierdo
@@ -3313,6 +3546,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionIzquierdaInfo
                                             }
@@ -3334,6 +3568,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
+                                            variant="outline-light"
                                             className={nombreUbicacionCentro}
                                             onClick={
                                                 SeleccionePosicionProductoCentro
@@ -3343,6 +3578,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionCentroInfo
                                             }
@@ -3364,6 +3600,7 @@ function DatosLatoneria(props) {
                                 <Row>
                                     <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
+                                            variant="outline-light"
                                             className={nombreUbicacionDerecha}
                                             onClick={
                                                 SeleccionePosicionProductoDerecho
@@ -3373,6 +3610,7 @@ function DatosLatoneria(props) {
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className={
                                                 nombreUbicacionDerechaInfo
                                             }
@@ -3399,7 +3637,12 @@ function DatosLatoneria(props) {
                                 xs={5}
                                 className="ml-150 mt-10">
                                 <Card.Body>
-                                    {showImagenIzquierda ? (
+                                    {showExteriorBase ? (
+                                        <Card.Img
+                                            src="/imgcarrusel/createproducto/exteriorbase.jpg"
+                                            alt="Card image"
+                                        />
+                                    ) : showImagenIzquierda ? (
                                         <Card.Img
                                             src="/imgcarrusel/createproducto/izquierda.jpg"
                                             alt="Card image"
@@ -3444,9 +3687,9 @@ function DatosLatoneria(props) {
                                     lg={10}
                                     md={10}
                                     sm={10}
-                                    className="mb-10">
+                                    className="mb-20 mt-20">
                                     <h3 className="tituloadvertenciaproductosizquierda">
-                                        Escoge la posicion en que se encuentra
+                                        Escoge la posición en que se encuentra
                                         tu producto:
                                     </h3>
                                 </Col>
@@ -3455,15 +3698,17 @@ function DatosLatoneria(props) {
                         <Row>
                             <Col xl={4} lg={4} md={4} xs={4}>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            variant="outline-light"
+                                            className={seleccionoUbicacionConsola}
                                             onClick={SeleccioneConsola}>
                                             CONSOLA
                                         </Button>
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className="botonpartesvehiculoinfo mt-2"
                                             onClick={mostrarComentarioConsola}>
                                             {!posicionProductoConsola ? (
@@ -3479,15 +3724,17 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            variant="outline-light"
+                                            className={seleccionoUbicacionAsiento}
                                             onClick={SeleccioneAsiento}>
                                             ASIENTO
                                         </Button>
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className="botonpartesvehiculoinfo mt-2"
                                             onClick={mostrarComentarioAsiento}>
                                             {!posicionProductoAsiento ? (
@@ -3503,15 +3750,17 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col lg={9} xl={9} xs={9} md={9}>
+                                    <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
-                                            className="botonpartesvehiculo"
+                                            variant="outline-light"
+                                            className={seleccionoUbicacionTecho}
                                             onClick={SeleccioneTecho}>
                                             TECHO
                                         </Button>
                                     </Col>
                                     <Col lg={1} xl={1} xs={1} md={1}>
                                         <Button
+                                            variant="outline-light"
                                             className="botonpartesvehiculoinfo mt-2"
                                             onClick={mostrarComentarioTecho}>
                                             {!posicionProductoTecho ? (
@@ -3527,12 +3776,12 @@ function DatosLatoneria(props) {
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xl={6} lg={6} md={6} xs={6} className="ml-45">
-                                <Card.Body className="mtmenos25">
+                            <Col xl={5} lg={5} md={5} xs={5} className="ml-150">
+                                <Card.Body>
                                     {showImagenConsola ? (
                                         <Card.Img
-                                            width={100}
-                                            height={180}
+                                            width={60}
+                                            height={110}
                                             src="/imgcarrusel/createproducto/consola.jpg"
                                             alt="Card image"
                                         />
@@ -3552,7 +3801,7 @@ function DatosLatoneria(props) {
                         </Row>
                         <br />
                         <hr />
-                        <div className="ml-400">
+                        <div className="ml-470">
                             <Row>
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <Button
@@ -3569,399 +3818,795 @@ function DatosLatoneria(props) {
                     </div>
                 ) : ubicarProductoMotor ? (
                     <div className="ml-55">
-                        <Row>
-                            <Col xl={10} lg={10} md={10} sm={10}>
-                                <h3 className="tituloadvertenciaproductosizquierda mt-10 mb-20">
-                                    Escoge el sistema en que se encuentra tu
-                                    producto:
-                                </h3>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Row>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaMotor}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/motor.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaDireccion}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/direccion.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={
-                                            SeleccionasistemaElectricoMotor
-                                        }>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectricomotor.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaCaja}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/caja.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaSuspension}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaRefrigeracionCaja}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracioncaja.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionasistemaElectrico}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaTransmision}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                            </Row>
+                        {tipoVehUno != 1 ? (
+                            <div>
+                                <Row>
+                                    <Col xl={10} lg={10} md={10} sm={10}>
+                                        <h3 className="tituloadvertenciaproductosizquierda mt-10 mb-20">
+                                            Escoge el sistema en que se
+                                            encuentra tu producto:
+                                        </h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Row>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaMotor}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/motor.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaDireccion}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/direccion.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionasistemaElectricoMotor
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/sistemaelectricomotor.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaCaja}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/caja.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaSuspension}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionaRefrigeracionCaja
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/refrigeracioncaja.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionasistemaElectrico
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaTransmision}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                    </Row>
 
-                            <Row>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaFrenos}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaAireAcondicionado}
-                                        onMouseOver={() =>
-                                            SeleccionaAireAcondicionado()
-                                        }
-                                        onMouseOut={() =>
-                                            SeleccionBaseMotorElectrico()
-                                        }>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/aireacondicionado.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaInyeccion}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaArranque}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/arranque.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaEmbrague}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/embrague.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaEscape}>
-                                        <img
-                                            width={70}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/escape.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={8} xl={8} xs={8} md={8}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaRefrigeracion}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                                <Col lg={4} xl={4} xs={4} md={4}>
-                                    <Button
-                                        className="iconomotorelectricocrearproducto"
-                                        onClick={SeleccionaParabrisas}>
-                                        <img
-                                            width={60}
-                                            height={55}
-                                            src="/imgcarrusel/createproducto/IconosInicial/parabrisas.png"
-                                            alt="First slide"
-                                        />
-                                    </Button>
-                                </Col>
-                            </Row>
+                                    <Row>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaFrenos}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionaAireAcondicionado
+                                                }
+                                                onMouseOver={() =>
+                                                    SeleccionaAireAcondicionado()
+                                                }
+                                                onMouseOut={() =>
+                                                    SeleccionBaseMotorElectrico()
+                                                }>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/aireacondicionado.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaInyeccion}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaArranque}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/arranque.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaEmbrague}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/embrague.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaEscape}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/escape.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionaRefrigeracion
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaParabrisas}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/parabrisas.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                    </Row>
 
-                            <Col xl={9} lg={9} md={9} xs={9}>
-                                <Card.Body className="ml-45 mtmenos500">
-                                    {showImagenBaseMotorElectrico ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistemas Motor Eléctrico
-                                            </h3>
-                                            <Card.Img
-                                                width="140px"
-                                                height="220px"
-                                                src="/static/img/createproducts/motorgeneral.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenAireacondicionado ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema acondicionado
-                                            </h3>
-                                            <Card.Img   
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenArranque ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de arranque
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenCaja ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de caja
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenDireccion ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de dirección
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenEmbrague ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de embrague
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenEscape ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de escape
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenFrenos ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de frenos
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenInyeccion ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de inyeccion
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenMotor ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de motor
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenParabrisas ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema parabrisas
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenRefrigeracion ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de refrigeración
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenRefrigeracionCaja ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de refrigeración caja
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenSistemElectrico ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema Eléctrico
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenSistemElectricoMotor ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema eléctrico motor
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenSuspension ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistema de suspensión
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/uno.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : showImagenTransmision ? (
-                                        <div>
-                                            <h3 className="ml-60 seccionesvehiculotext">
-                                                Sistemas de Transmisión
-                                            </h3>
-                                            <Card.Img
-                                                src="/imgcarrusel/createproducto/dos.jpg"
-                                                alt="Card image"
-                                            />
-                                        </div>
-                                    ) : null}
-                                </Card.Body>
-                            </Col>
-                        </Row>
+                                    <Col xl={9} lg={9} md={9} xs={9}>
+                                        <Card.Body className="ml-45 mtmenos500">
+                                            {showImagenBaseMotorElectrico ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistemas Motor Eléctrico
+                                                    </h3>
+                                                    <Card.Img
+                                                        width="140px"
+                                                        height="220px"
+                                                        src="/static/img/createproducts/motorgeneral.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenAireacondicionado ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema acondicionado
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenArranque ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de arranque
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenCaja ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de caja
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenDireccion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de dirección
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenEmbrague ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de embrague
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenEscape ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de escape
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenFrenos ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de frenos
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenInyeccion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de inyeccion
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenMotor ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de motor
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenParabrisas ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema parabrisas
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenRefrigeracion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de refrigeración
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenRefrigeracionCaja ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de refrigeración
+                                                        caja
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSistemElectrico ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema Eléctrico
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSistemElectricoMotor ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema eléctrico motor
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSuspension ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de suspensión
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/uno.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenTransmision ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistemas de Transmisión
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/dos.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </Card.Body>
+                                    </Col>
+                                </Row>
+                            </div>
+                        ) : (
+                            <div>
+                                <Row>
+                                    <Col xl={10} lg={10} md={10} sm={10}>
+                                        <h3 className="tituloadvertenciaproductosizquierda mt-10 mb-20">
+                                            Escoge el sistema en que se
+                                            encuentra tu producto:
+                                        </h3>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Row>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaMotor}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/motor.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaCaja}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/caja.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaSuspension}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/suspension.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionaRefrigeracionCaja
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/refrigeracioncaja.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionasistemaElectrico
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/sistemaelectrico.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaTransmision}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/transmision.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaFrenos}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/frenos.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaInyeccion}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/inyeccion.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaArranque}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/arranque.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaEmbrague}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/embrague.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaEscape}>
+                                                <img
+                                                    width={70}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/escape.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={8} xl={8} xs={8} md={8}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={
+                                                    SeleccionaRefrigeracion
+                                                }>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/refrigeracion.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                        <Col lg={4} xl={4} xs={4} md={4}>
+                                            <Button
+                                                variant="outline-light"
+                                                className="iconomotorelectricocrearproducto"
+                                                onClick={SeleccionaParabrisas}>
+                                                <img
+                                                    width={60}
+                                                    height={55}
+                                                    src="/imgcarrusel/createproducto/IconosInicial/parabrisas.png"
+                                                    alt="First slide"
+                                                />
+                                            </Button>
+                                        </Col>
+                                    </Row>
+
+                                    <Col
+                                        xl={8}
+                                        lg={8}
+                                        md={8}
+                                        xs={8}
+                                        className="ml-20">
+                                        <Card.Body className="ml-60 mtmenos500">
+                                            {showImagenBaseMotorElectrico ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistemas Motor Eléctrico
+                                                    </h3>
+                                                    <Card.Img
+                                                        width="100px"
+                                                        height="220px"
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta6.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenArranque ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de arranque
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenCaja ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de caja
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenDireccion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de dirección
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenEmbrague ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de embrague
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenEscape ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de escape
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenFrenos ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de frenos
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenInyeccion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de inyeccion
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenMotor ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de motor
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenParabrisas ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema parabrisas
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenRefrigeracion ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de refrigeración
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenRefrigeracionCaja ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de refrigeración
+                                                        caja
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSistemElectrico ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema Eléctrico
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSistemElectricoMotor ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema eléctrico motor
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenSuspension ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistema de suspensión
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta1.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : showImagenTransmision ? (
+                                                <div>
+                                                    <h3 className="ml-60 seccionesvehiculotext">
+                                                        Sistemas de Transmisión
+                                                    </h3>
+                                                    <Card.Img
+                                                        src="/imgcarrusel/createproducto/motocicletas/basemotocicleta2.jpg"
+                                                        alt="Card image"
+                                                    />
+                                                </div>
+                                            ) : null}
+                                        </Card.Body>
+                                    </Col>
+                                </Row>
+                            </div>
+                        )}
                         <br />
                         <hr />
                         <div className="ml-400">
@@ -3991,7 +4636,7 @@ function DatosLatoneria(props) {
                         <Col xl={1} lg={1} md={1} xs={1} className="mtmenos2">
                             <div className="showcerrarabrir">
                                 <i
-                                    class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                    class="colortextoselect mt-2 fa fa-angle-down d-flex justify-content-center"
                                     onClick={abrirDatosUbicacionProucto}
                                     aria-hidden="true"
                                     ref={targetshow}
@@ -4072,6 +4717,8 @@ function DatosProductos(props) {
         "ml-3 mt-2 tamañoiconoestadoproducto fa fa-cog"
     );
 
+    const [contarLetrasTitulo, setcontarLetrasTitulo] = useState(0);
+
     const onChange = (e) => {
         setFormData({
             ...formData,
@@ -4083,10 +4730,12 @@ function DatosProductos(props) {
         //console.log("LONGITUD TITULO NOMBRE : ", e);
         var strLength = e.length;
         //console.log("LONGITUD : ", strLength);
-        if (strLength > 40) {
+        setcontarLetrasTitulo(strLength);
+
+        if (strLength > 70) {
             swal(
                 "Información del producto",
-                "Número de caracteres supera el maximo de 40 permitido!",
+                "Número de caracteres supera el maximo de 70 permitido!",
                 "warning",
                 { button: "Aceptar" }
             );
@@ -4292,10 +4941,13 @@ function DatosProductos(props) {
                                             }
                                             type="text"
                                         />
+                                        <h4 className="ml-510 mt-1">
+                                            {contarLetrasTitulo} {"/"} 70
+                                        </h4>
                                     </div>
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row className="mtmenos20">
                                 <Col xl={4} lg={4} md={4} xs={4}>
                                     <div className="ps-form__group tamañoinputdatosproducto ml-3">
                                         <label className="ps-form__label">
@@ -4582,7 +5234,7 @@ function DatosProductos(props) {
                                 className="ml-55 mtmenos2">
                                 <div className="showcerrarabrir">
                                     <i
-                                        class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                        class="colortextoselect mt-2 fa fa-angle-down d-flex justify-content-center"
                                         onClick={onOpenModaDatosProductos}
                                         aria-hidden="true"
                                         ref={targetshow}
@@ -4640,6 +5292,7 @@ function DatosProductosAdicionales(props) {
     const [textoDescripcion, setTextoDescripcion] = useState("");
     const [entre, setEntre] = useState(true);
     const [ingresaPrecio, setIngresaPrecio] = useState(0);
+    const [contadorLetrasDescripcion, setContadorLetrasDescripcion] = useState(0);
 
     const onChange = (e) => {
         setFormData({
@@ -4716,7 +5369,7 @@ function DatosProductosAdicionales(props) {
             formOk = false;
         }
 
-        console.log("PRECIO : ", formData.precio)
+        //console.log("PRECIO : ", formData.precio);
 
         if (!formData.precio) {
             swal(
@@ -4731,7 +5384,7 @@ function DatosProductosAdicionales(props) {
         }
 
         let validavalor = formData.precio;
-/*
+        /*
         let validarprecio;
         let haycaracterid = false;
         for (var i = 0; i < validavalor.length; i++) {
@@ -4896,6 +5549,8 @@ function DatosProductosAdicionales(props) {
         //console.log("LONGITUD DESCRIPCION : ", e);
         var strLength = e.length;
         //console.log("DESCRIPCION : ", strLength);
+        setContadorLetrasDescripcion(strLength);
+
         if (strLength > 180) {
             swal(
                 "Descripción del producto",
@@ -4968,8 +5623,8 @@ function DatosProductosAdicionales(props) {
                                             <label className="ps-form__label">
                                                 Descripción del producto
                                             </label>
-                                            <input
-                                                className="form-control ps-form__input"
+                                            <textarea
+                                                className="form-control ps-form__input descripcionproducto"
                                                 placeholder={textoDescripcion}
                                                 name="descripcionproducto"
                                                 onChange={(e) =>
@@ -4979,13 +5634,16 @@ function DatosProductosAdicionales(props) {
                                                 }
                                                 type="text"
                                             />
+                                            <h4 className="ml-500 mt-1">
+                                                {contadorLetrasDescripcion} {"/"} 180
+                                            </h4>
                                         </div>
                                     </Col>
                                 </Row>
 
-                                <Row>
+                                <Row className="mtmenos10">
                                     <Col lg={6} xl={6} md={6} xs={6}>
-                                        <label className="ps-form__label">
+                                        <label className="ml-12 ps-form__label">
                                             Número de Unidades
                                         </label>
                                         <div className="form-control ps-form__input tamañoinputpublicacion ml-10">
@@ -5066,7 +5724,11 @@ function DatosProductosAdicionales(props) {
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={1} xl={1} md={1} xs={1}
+                                        <Col
+                                            lg={1}
+                                            xl={1}
+                                            md={1}
+                                            xs={1}
                                             className="ps-form__input mt-28 mlmenos4">
                                             <h3 className=" textomedidas">
                                                 Kg
@@ -5084,7 +5746,11 @@ function DatosProductosAdicionales(props) {
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={1} xl={1} md={1} xs={1}
+                                        <Col
+                                            lg={1}
+                                            xl={1}
+                                            md={1}
+                                            xs={1}
                                             className="ml-38 ps-form__input mt-28">
                                             <h3 className=" textomedidas">
                                                 Cm
@@ -5107,11 +5773,13 @@ function DatosProductosAdicionales(props) {
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={1} xl={1} md={1} xs={1}
+                                        <Col
+                                            lg={1}
+                                            xl={1}
+                                            md={1}
+                                            xs={1}
                                             className="ps-form__input mt-48">
-                                            <h3 className="textomedidas">
-                                                Cm
-                                            </h3>
+                                            <h3 className="textomedidas">Cm</h3>
                                         </Col>
                                         <Col
                                             lg={4}
@@ -5130,11 +5798,13 @@ function DatosProductosAdicionales(props) {
                                                 prefix={""}
                                             />
                                         </Col>
-                                        <Col lg={1} xl={1} md={1} xs={1}
+                                        <Col
+                                            lg={1}
+                                            xl={1}
+                                            md={1}
+                                            xs={1}
                                             className="ps-form__input mt-48 ml-38">
-                                            <h3 className="textomedidas">
-                                                Cm
-                                            </h3>
+                                            <h3 className="textomedidas">Cm</h3>
                                         </Col>
                                     </Row>
                                 </div>
@@ -5179,7 +5849,7 @@ function DatosProductosAdicionales(props) {
                             className="mtmenos2 ml-55">
                             <div className="showcerrarabrir">
                                 <i
-                                    class="mt-2 fa fa-angle-down d-flex justify-content-center"
+                                    class="colortextoselect mt-2 fa fa-angle-down d-flex justify-content-center"
                                     onClick={onOpenModalDatosPublicacion}
                                     aria-hidden="true"
                                     ref={targetshow}
@@ -5560,20 +6230,17 @@ function RegistrarFotos(props) {
         const newDetDos = [];
         let item = {
             id: idvehiculoscompatible,
-            titulo: informacionproducto[0].titulonombre
+            titulo: informacionproducto[0].titulonombre,
         };
         //newDetUno.push(itemUno);
 
-        localStorage.setItem(
-            "idpublicacion",
-            JSON.stringify(item)
-        );
+        localStorage.setItem("idpublicacion", JSON.stringify(item));
 
         //Eliminar separadores en el precio
         let precio = datospublicacion[0].precio;
-        let valorproducto = precio.replace(/,/g,"");
+        let valorproducto = precio.replace(/,/g, "");
         //console.log("PRECIO : ",valorproducto);
-        
+
         const formdata = new FormData();
         formdata.append("id", 0);
         formdata.append("productogenerico", generico);
@@ -6188,10 +6855,9 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                       <h1 >
-                                                                                        X
-                                                                                       </h1>
-                                                                                        
+                                                                                        <h1>
+                                                                                            X
+                                                                                        </h1>
                                                                                     </button>
                                                                                 </div>
                                                                             </div>
@@ -6273,8 +6939,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                          X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6357,8 +7023,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                          X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6441,8 +7107,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                          X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6525,8 +7191,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6614,8 +7280,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6698,8 +7364,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6782,8 +7448,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6866,8 +7532,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
@@ -6950,8 +7616,8 @@ function RegistrarFotos(props) {
                                                                                                 )
                                                                                             )
                                                                                         }>
-                                                                                        <h1 >
-                                                                                         X
+                                                                                        <h1>
+                                                                                            X
                                                                                         </h1>
                                                                                     </button>
                                                                                 </div>
