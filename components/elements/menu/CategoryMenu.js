@@ -61,8 +61,8 @@ const CategoryMenu = (props) => {
   useEffect(() => {
     let categorias = JSON.parse(localStorage.getItem("categorias"));
     let subcategorias = JSON.parse(localStorage.getItem("subcategorias"));
-    console.log("CATEGORIAS : ", categorias);
-    console.log("SUB CATEGORIAS : ", subcategorias);
+    //console.log("CATEGORIAS : ", categorias);
+    //console.log("SUB CATEGORIAS : ", subcategorias);
 
     if (categorias) {
       setCategorias(categorias);

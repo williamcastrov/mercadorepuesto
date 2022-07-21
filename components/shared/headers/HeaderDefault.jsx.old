@@ -54,9 +54,6 @@ function HeaderDefault(props) {
         <header
             className={`header--desktop header--one ${classes}`}
             id="header-sticky">
-            {
-                //<ModuleHeaderNotice />
-            }
             <div className="header__top">
                 <div className="container">
                     <div className="header__left">
@@ -77,39 +74,24 @@ function HeaderDefault(props) {
                     <div className="contactnumber">
                         <ModuleHeaderContactNumber />
                     </div>
-                    {
-                        //<div className="header__left">
-                        //    <ModuleHeaderSwichers />
-                        //    <ModuleHeaderActions />
-                        //</div>
-                    }
+                </div>
+
+                <div className={`header__bottom ${showNav ? "active" : ""}`}>
+                    <div>
+                        {categorias ? (
+                            <NavigationPrimary
+                                categorias={categorias}
+                                setCategorias={setCategorias}
+                            />
+                        ) : (
+                            <NavigationPrimary
+                                categorias={categorias}
+                                setCategorias={setCategorias}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
-            {categorias ? (
-                <div
-                    className={`header__bottom ${
-                        showNav ? "active" : ""
-                    }`}>
-                    <NavigationPrimary
-                        categorias={categorias}
-                        setCategorias={setCategorias}
-                    />
-                </div>
-
-
-
-
-            ) : (
-                <div
-                    className={`header__bottom ${
-                        showNav ? "active" : ""
-                    }`}>
-                    <NavigationPrimary
-                        categorias={categorias}
-                        setCategorias={setCategorias}
-                    />
-                </div>
-            )}
         </header>
     );
 }

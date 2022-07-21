@@ -12,6 +12,7 @@ const Container = ({
     footer = <FooterDefault />,
 }) => {
     let titleView;
+
     if (title !== undefined) {
         //titleView = process.env.title + " | " + title;
         titleView = title;

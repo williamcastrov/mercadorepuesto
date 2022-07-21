@@ -16,6 +16,17 @@ const ModuleHeaderVender = () => {
     const [loading, setLoading] = useState(true);
     const [datosUsuario, setDatosUsuario] = useState([]);
 
+    const [classVender, setClassVender] = useState("header__categories-toggle");
+
+    const onSelecciono = () =>{
+        setClassVender("header__categories-toggle subrayartexto")
+    }
+
+    const outSelecciono = () =>{
+        setClassVender("header__categories-toggle")
+    }
+
+
     // Seteamos la variable para iniciar o reiniciar el UseEffect
     const [stateInf, setStateInf] = useState(Math.random());
     // Declaramos el Setter para los tipos de Vehiculos
@@ -119,7 +130,10 @@ const ModuleHeaderVender = () => {
 
     return (
         <div className="header__supplies ps-dropdown--fullscreen">
-            <button className="header__categories-toggle">
+            <button className={classVender}
+             onMouseOver={onSelecciono}
+             onMouseOut={outSelecciono}
+            >
                 <span onClick={vender}>Vender</span>
             </button>
         </div>

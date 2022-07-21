@@ -191,7 +191,7 @@ iframe {
 
 .navigation {
     flex-grow: 1;
-
+    
     &>ul {
         &>li {
             position: relative;
@@ -248,7 +248,7 @@ iframe {
 }
 
 .searchContainer {
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     width: 150%;
     color: #2D2E83 !important;
     /*max-width: 1440px;*/
@@ -270,7 +270,7 @@ iframe {
 .custom-select {
     background: transparent !important;
     border: none !important;
-    color: black !important;
+    color: #2D2E83 !important;
     font-size: 14px !important;
     height: 30px;
     padding: 5px;
@@ -289,15 +289,16 @@ iframe {
     background: transparent !important;
     background-color: #F0F2F5 !important;
     border: none !important;
-    color: black !important;
-    font-size: 14px !important;
+    color: #2D2E83 !important;
+    font-size: 16px !important;
     height: 40px;
-    padding: 5px;
+    padding: 10px;
     width: 535px !important;
-    background-image: url("../../../public/static/img/flecha.png") !important;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 15px !important;
     /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
     background-repeat: no-repeat !important;
-    background-position: right center !important;
+    background-position: 505px center !important;
     -webkit-appearance: none;
     -moz-appearance: none;
     -o-appearance: none;
@@ -311,72 +312,6 @@ iframe {
     padding-top: 7px !important;
     width: 30px !important;
     height: 40px !important;
-    background-color: black !important;
-    position: absolute !important;
-    top: 0 !important;
-    right: 0px !important;
-    pointer-events: none;
-}
-
-.custom-selectcreateproductouno {
-    background: transparent !important;
-    background-color: #F0F2F5 !important;
-    border: none !important;
-    color: black !important;
-    font-size: 14px !important;
-    height: 40px;
-    padding: 5px;
-    width: 268px !important;
-    background-image: url("../../../public/static/img/flecha.png") !important;
-    /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
-    background-repeat: no-repeat !important;
-    background-position: right center !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-}
-
-.custom-selectcreateproductouno::after {
-    content: "\025be" !important;
-    display: table-cell !important;
-    text-align: center !important;
-    padding-top: 7px !important;
-    width: 30px !important;
-    height: 30px !important;
-    background-color: black !important;
-    position: absolute !important;
-    top: 0 !important;
-    right: 0px !important;
-    pointer-events: none;
-}
-
-.custom-selectcreateproductodos {
-    background: transparent !important;
-    background-color: #F0F2F5 !important;
-    border: none !important;
-    color: black !important;
-    font-size: 14px !important;
-    height: 30px;
-    padding: 5px;
-    width: 268px !important;
-    background-image: url("../../../public/static/img/flecha.png") !important;
-    /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
-    background-repeat: no-repeat !important;
-    background-position: right center !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-}
-
-.custom-selectcreateproductodos::after {
-    content: "\025be" !important;
-    display: table-cell !important;
-    text-align: center !important;
-    padding-top: 7px !important;
-    width: 30px !important;
-    height: 30px !important;
     background-color: black !important;
     position: absolute !important;
     top: 0 !important;
@@ -424,7 +359,6 @@ iframe {
     right: 0px !important;
     pointer-events: none;
 }
-
 
 /*
  .ps-form--review .ps-form__input, .ps-form--review .ps-form__textarea{
@@ -587,7 +521,7 @@ body {
 }
 
 .ps-list--social li a.facebook {
-    background-color: #3b5998;
+    background-color: #2d2e83;
 }
 
 .ps-list--social li a.facebook i {
@@ -595,7 +529,7 @@ body {
 }
 
 .ps-list--social li a.twitter {
-    background-color: #0084b4;
+    background-color: #2d2e83;
 }
 
 .ps-list--social li a.twitter i {
@@ -666,19 +600,19 @@ body {
 }
 
 .ps-list--social-color li a.facebook {
-    background-color: #1b4e9b;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.facebook:hover {
-    background-color: #296fda;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.twitter {
-    background-color: #00aeef;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.twitter:hover {
-    background-color: #3dcaff;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.google-plus {
@@ -690,11 +624,11 @@ body {
 }
 
 .ps-list--social-color li a.linkedin {
-    background-color: #2d567f;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.linkedin:hover {
-    background-color: #417cb7;
+    background-color: #2d2e83;
 }
 
 .ps-list--social-color li a.feed {
@@ -2498,7 +2432,7 @@ textarea.form-control {
     margin-bottom: 30px;
 }
 
-.ps-section--mask-info .ps-btn {
+.ps-section--mask-info .tituloadvertenciaproductos {
     width: auto;
     margin: auto;
     font-size: 14px;
@@ -3682,10 +3616,6 @@ body::after {
     /*background-color: #F0F2F5 !important;*/
 }
 
-.textoimagenesilustrativas {
-    color: black !important;
-}
-
 .textovehiculoseleccioncrearproducto {
     color: black !important;
     text-align: center;
@@ -3697,7 +3627,7 @@ body::after {
 .textoverificardeotraforma {
     margin-left: 100px !important;
     padding-top: 10px !important;
-    margin-top: 20px !important;
+    margin-top: 10px !important;
     color: #2D2E83 !important;
     width: 300px !important;
     height: 40px !important;
@@ -3705,15 +3635,14 @@ body::after {
 }
 
 .textoverificardeotraformados {
-    border-radius: 10px !important;
-    margin-left: 100px !important;
+    border-radius: 25px !important;
+    margin-left: 90px !important;
     padding-top: 10px !important;
-    margin-top: 20px !important;
     color: #2D2E83 !important;
     cursor: pointer !important;
-    width: 300px !important;
-    height: 40px !important;
-    background-color: #d5d6e6 !important;
+    width: 400px !important;
+    height: 45px !important;
+    background-color: #E8F0FE !important;
 }
 
 .botonotraformaverificar {
@@ -3760,8 +3689,9 @@ body::after {
 
 /*modal-lg*/
 .modal-categorias {
-    margin-top: 185px !important;
+    margin-top: 300px !important;
     margin-left: 210px !important;
+    position: fixed !important; 
     width: 300px !important;
     height: 600px !important;
     /*border: none !important*/
@@ -3769,9 +3699,9 @@ body::after {
 }
 
 .modal-subcatgegorias {
-    margin-top: 185px !important;
-    margin-left: 259px !important;
-    width: 1000px !important;
+    margin-top: 300px !important;
+    margin-left: 59px !important;
+    width: 1100px !important;
     height: 600px !important;
     /*overflow: hidden !important;*/
 }
@@ -3800,7 +3730,15 @@ body::after {
 }
 
 .alturamodalcategorias {
-    width: 1000px !important;
+    margin-top: 30px;
+    width: 300px !important;
+    height: 340px !important;
+    border: none !important;
+}
+
+.alturamodalsubcategorias {
+    margin-top: 30px;
+    width: 700px !important;
     height: 340px !important;
     border: none !important;
 }
@@ -3948,14 +3886,33 @@ body::after {
 
 .botonpartesvehiculo {
     margin-left: 56px !important;
-    background-color: #2D2E83 !important;
-    width: 500px !important;
-    height: 40px !important;
+    border: solid white !important;
+    border-radius: 25px !important;
+    background-color: #f0f2f5 !important;
+    width: 300px !important;
+    height: 48px !important;
     font-size: 14px !important;
+    color:  #2D2E83 !important;
+}
+
+.botoncategoriasgenerico {
+    border: solid white !important;
+    border-radius: 25px !important;
+    background-color: #f0f2f5 !important;
+    width: 440px !important;
+    text-align: left !important;
+    height: 48px !important;
+    font-size: 16px !important;
+    color:  #2D2E83 !important;
+    outline: none !important;
+}
+
+.colorseleccionboton {
+    background-color: #D3D4E4 !important;
 }
 
 .labeltexto {
-    font-size: 14px !important;
+    font-size: 18px !important;
 }
 
 .contactnumber {
@@ -3966,12 +3923,12 @@ body::after {
 }
 
 .botongrabarproducto {
-   margin-left: 170px !important;
+   margin-left: 10px !important;
    margin-bottom: 20px !important;
 }
 
 .botongrabaradicionalproducto {
-    margin-left: 120px !important;
+    margin-left: 30px !important;
     margin-bottom: 20px !important;
  }
  
@@ -4093,6 +4050,12 @@ body::after {
     margin-top:100px !important;
     width: 640px !important;
     height: 800px !important;
+   
+}
+
+.redondearmodal {
+    width: 400px !important;
+    height: 800px !important;
 }
 
 .cajaopcionesrecuperarcuenta {
@@ -4106,14 +4069,15 @@ body::after {
 
 
 .cajaopcionesrecuperarcuentados {
-    border-radius: 10px !important;
+    border-radius: 25px !important;
     margin-left: 110px !important;
-    width: 300px !important;
-    height: 30px !important;
+    width: 400px !important;
+    height: 45px !important;
     font-size: 16px !important;
+    padding: 0px !important;
     text-align: center;
     cursor: pointer !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
 }
 
 .ancholinea {
@@ -4125,6 +4089,17 @@ body::after {
     font-size: 16px !important;
     color: #2D2E83 !important;
     margin-left: 30px !important;
+}
+
+.tamañotextotitulocategorias {
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    margin-left: 20px !important;
+}
+
+.textomodalinfpocategorias {
+    color: #6C99D0 !important;
+    /*text-align: center !important;*/
 }
 
 .tamañotextocrearproducto {
@@ -4158,7 +4133,20 @@ body::after {
 }
 
 .tamañotextotoken{
-    font-size: 14px !important;
+    font-size: 16px !important;
+    color: #2D2E83 ;
+}
+.tamañoinputtoken{
+    width: 30px;
+    border-radius: 5px;
+    border-color: #8181b4;
+    padding-left: 8px;
+    padding-top: 2px;
+}
+
+.textoenviocodigo {
+    color: #8181b4 !important;
+    /*text-align: center !important;*/
 }
 
 .margenmoldarecuperarcontraseña {
@@ -4219,7 +4207,7 @@ body::after {
 
 .textocarrusel {
     font-size: 16px !important;
-    color: #000000 !important;
+    color: #2D2E83 !important;
 }
 
 .carousel-indicators {
@@ -4263,7 +4251,7 @@ body::after {
 
 .botoncarroceriasedan {
     border: 1px solid white !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     color: #000000 !important;
     /*font-weight: bold !important;*/
     border-radius: 5px !important;
@@ -4322,7 +4310,7 @@ body::after {
 
 .informacionbotoncarroceriasedanlatoneriaderecha {
     border: none !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     width: 20px !important;
     margin-left: 0px !important;
     height: 25px !important;
@@ -4388,6 +4376,7 @@ body::after {
     width: 30px !important;
     height: 32px !important;
     font-size: 20px !important;
+    border-radius: 5px !important;
 }
 
 .itemscategorias {
@@ -4431,9 +4420,9 @@ body::after {
 }
 
 .tamañoflechacategorias {
-    width: 18px !important;
-    height: 18px !important;
-    color: black;
+    font-size: 18px !important;
+    margin-left: 56px !important;
+    color: #2d2e83 !important
 }
 
 .tamañoimagenmotorelectricobase {
@@ -4548,7 +4537,7 @@ body::after {
 
 .informacionbotoncarroceriasedan {
     border: 1px solid white !important;
-    background-color: #d5d6e6 !important;
+    background-color: #E8F0FE !important;
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
     color: black !important;
@@ -4599,29 +4588,60 @@ body::after {
 }
 
 .botonpartesvehiculoinfo {
-    background-color: #2D2E83 !important;
-    margin-left: 77px !important;
+    background-color: #f0f2f5 !important;
+    border: none !important;
+    margin-left: 139px !important;
     width: 20px !important;
-    height: 40px !important;
+    height: 36px !important;
     font-size: 16px !important;
+    color:  #2D2E83 !important;
+    outline: none !important;
 }
 
 .botonposicionproducto {
-    background-color: #2D2E83 !important;
+    background-color: #F0F2F5 !important;
     width: 250px !important;
-    height: 50px !important;
-    font-size: 12px !important;
+    border: solid white !important;
+    height: 45px !important;
+    font-size: 14px !important;
+    color:  #2D2E83 !important;
+}
+
+.iconomotorelectricocrearproducto {
+    background-color: white !important;
+    width: 75px !important;
+    border: solid white !important;
+    height: 65px !important;
+    font-size: 14px !important;
+  
 }
 
 .seccionesvehiculotexto {
-    text-align: center;
+    text-align: center !important;
 }
 
-.botonposicionproductoinfo {
-    background-color: #2D2E83 !important;
-    width: 20px !important;
-    height: 50px !important;
-    margin-left: 240px !important;
+.textoimagenesilustrativas {
+    background-color: #F0F2F5 !important;
+    width: 25px !important;
+    border: solid white !important;
+    height: 45px !important;
+    margin-left: 235px !important;
+    font-size: 146px !important;
+    color:  #2D2E83 !important;
+}
+
+.textobuscadorintecractivo {
+    width: 400px !important;
+    border: solid white !important;
+    height: 45px !important;
+    margin-left: 150px !important;
+    font-size: 17px !important;
+    color:  #2D2E83 !important;
+}
+
+.textotuproductoestaen {
+    font-size: 16px !important;
+    color:  #2D2E83 !important;
 }
 
 .cardvenderinfo {
@@ -4665,7 +4685,7 @@ body::after {
 .modaldatosproductos {
     margin-top: 40px !important;
     margin-left: -10px !important;
-    width: 1100px !important;
+    width: 100px !important;
     height: 600px !important;
 }
 
@@ -4684,12 +4704,12 @@ body::after {
 
 .inputdatosproducto {
     margin-left: 10px !important;
-    width: 760px !important;
+    width: 600px !important;
 }
 
 .inputdatosproductoadicional {
     margin-left: 10px !important;
-    width: 760px !important;
+    width: 575px !important;
 }
 
 .inputdatosproductoadicionaluno {
@@ -4713,11 +4733,15 @@ body::after {
     background-color: #2D2E83 !important;
 }
 
+.textocolorblanco
+{
+    color: white !important;
+}
+
 .textocolor
 {
     color: #2D2E83 !important;
 }
-
 
 .imagenpasareladepago {
     height: auto;
@@ -7977,6 +8001,7 @@ body::after {
     width: 30px !important;
     height: 30px !important;
     border: none !important;
+    border-radius: 5px;
 }
 
 .posicionbotonborrararchivo {
@@ -7992,6 +8017,13 @@ body::after {
 
 .colorbotonsubirfotos {
     background-color: #2D2E83;
+}
+
+.inputtextobotofotos{
+    margin-top: 0px !important;
+    font-size: 16px !important;
+    color: #2D2E83;
+    text-align: center !important;
 }
 
 @media (min-width: 1280px) {
@@ -12639,11 +12671,11 @@ body::after {
 }
 
 .ps-social__link.facebook .ps-tooltip {
-    background-color: #3B5998;
+    background-color: #2d2e83;
 }
 
 .ps-social__link.facebook .ps-tooltip::before {
-    border-top-color: #3B5998;
+    border-top-color: #2d2e83;
 }
 
 .ps-social__link.instagram .ps-tooltip {
@@ -12717,7 +12749,7 @@ body::after {
 }
 
 .ps-social__link:hover.facebook {
-    color: #3B5998;
+    color: #2d2e83;
 }
 
 .ps-social__link:hover.instagram {
@@ -12760,7 +12792,7 @@ body::after {
 }
 
 .ps-social--color .ps-social__link.facebook {
-    background-color: #3B5998;
+    background-color: #2d2e83;
 }
 
 .ps-social--color .ps-social__link.pinterest {
@@ -16732,12 +16764,28 @@ body::after {
     margin-left: -5px !important;
 }
 
+.mlmenos6 {
+    margin-left: -6px !important;
+}
+
+.mlmenos7 {
+    margin-left: -7px !important;
+}
+
 .mlmenos10 {
     margin-left: -10px !important;
 }
 
+.mlmenos11 {
+    margin-left: -11px !important;
+}
+
 .mlmenos12 {
     margin-left: -12px !important;
+}
+
+.mlmenos13 {
+    margin-left: -13px !important;
 }
 
 .mlmenos15 {
@@ -16752,6 +16800,26 @@ body::after {
     margin-left: -20px !important;
 }
 
+.mlmenos21 {
+    margin-left: -21px !important;
+}
+
+.mlmenos22 {
+    margin-left: -22px !important;
+}
+
+.mlmenos23 {
+    margin-left: -23px !important;
+}
+
+.mlmenos24 {
+    margin-left: -24px !important;
+}
+
+.mlmenos25 {
+    margin-left: -25px !important;
+}
+
 .mlmenos30 {
     margin-left: -30px !important;
 }
@@ -16760,33 +16828,156 @@ body::after {
     margin-left: -40px !important;
 }
 
+.mlmenos50 {
+    margin-left: -50px !important;
+}
+
+.mlmenos55 {
+    margin-left: -55px !important;
+}
+
+.mlmenos60 {
+    margin-left: -60px !important;
+}
+
+.mlmenos65 {
+    margin-left: -65px !important;
+}
+
+.mlmenos100 {
+    margin-left: -100px !important;
+}
+
+.mlmenos110 {
+    margin-left: -110px !important;
+}
 .mlmenos200 {
     margin-left: -200px !important;
 }
-
+.mlmenos210 {
+    margin-left: -210px !important;
+}
+.mlmenos220 {
+    margin-left: -220px !important;
+}
+.mlmenos230 {
+    margin-left: -230px !important;
+}
+.mlmenos240 {
+    margin-left: -240px !important;
+}
+.mlmenos250 {
+    margin-left: -250px !important;
+}
+.mlmenos260 {
+    margin-left: -260px !important;
+}
+.mlmenos270 {
+    margin-left: -270px !important;
+}
+.mlmenos280 {
+    margin-left: -20px !important;
+}
+.mlmenos290 {
+    margin-left: -295px !important;
+}
+.mlmenos300 {
+    margin-left: -300px !important;
+}
+.mlmenos350 {
+    margin-left: -380px !important;
+}
+.mlmenos400 {
+    margin-left: -400px !important;
+}
+.mlmenos450 {
+    margin-left: -450px !important;
+}
+.mlmenos500 {
+    margin-left: -500px !important;
+}
+.mlmenos550 {
+    margin-left: -550px !important;
+}
+.mlmenos600 {
+    margin-left: -600px !important;
+}
+.mlmenos550 {
+    margin-left: -550px !important;
+}
+.mlmenos650 {
+    margin-left: -650px !important;
+}
+.mlmenos700 {
+    margin-left: -700px !important;
+}
 .mlizquierda {
     margin-left: -30px !important;
 }
 
 /*5. HELPERS */
+.mtmenos1 {
+    margin-top: -1px !important;
+}
+.mtmenos2 {
+    margin-top: -2px !important;
+}
+.mtmenos3 {
+    margin-top: -3px !important;
+}
+.mtmenos4 {
+    margin-top: -4px !important;
+}
+.mtmenos5 {
+    margin-top: -5px !important;
+}
+.mtmenos6 {
+    margin-top: -6px !important;
+}
+.mtmenos7 {
+    margin-top: -7px !important;
+}
+.mtmenos8 {
+    margin-top: -8px !important;
+}
+.mtmenos9 {
+    margin-top: -9px !important;
+}
 .mtmenos10 {
     margin-top: -10px !important;
 }
-
 .mtmenos20 {
     margin-top: -20px !important;
 }
-
+.mtmenos25 {
+    margin-top: -25px !important;
+}
 .mtmenos30 {
     margin-top: -30px !important;
+}
+
+.mtmenos35 {
+    margin-top: -35px !important;
 }
 
 .mtmenos40 {
     margin-top: -40px !important;
 }
 
+.mtmenos45 {
+    margin-top: -45px !important;
+}
+
 .mtmenos50 {
     margin-top: -50px !important;
+}
+
+.mtmenos60 {
+    margin-top: -60px !important;
+}
+
+.mtmenos70 {
+    margin-top: -70px !important;
 }
 
 .mtmenos80 {
@@ -16794,7 +16985,15 @@ body::after {
 }
 
 .mtmenos100 {
-    margin-top: -80px !important;
+    margin-top: -100px !important;
+}
+
+.mtmenos200 {
+    margin-top: -200px !important;
+}
+
+.mtmenos500 {
+    margin-top: -400px !important;
 }
 
 .mlmenos10 {
@@ -16865,21 +17064,29 @@ body::after {
 .mb-5 {
     margin-bottom: 5px;
 }
-
 .ml-2 {
     margin-left: 2px;
 }
-
 .ml-3 {
     margin-left: 3px;
 }
-
 .ml-4 {
     margin-left: 4px;
 }
-
 .ml-5 {
     margin-left: 5px;
+}
+.ml-6 {
+    margin-left: 6px;
+}
+.ml-7 {
+    margin-left: 7px;
+}
+.ml-8 {
+    margin-left: 8px;
+}
+.margeniz5 {
+    margin-left: 5px !important;
 }
 
 .pt-5 {
@@ -16917,6 +17124,21 @@ body::after {
 .ml-10 {
     margin-left: 10px;
 }
+.ml-11 {
+    margin-left: 11px;
+}
+.ml-12 {
+    margin-left: 12px;
+}
+.ml-13 {
+    margin-left: 13px;
+}
+.ml-14 {
+    margin-left: 14px;
+}
+.ml-15 {
+    margin-left: 15px;
+}
 
 .pt-10 {
     padding-top: 10px;
@@ -16950,6 +17172,12 @@ body::after {
     margin-left: 15px;
 }
 
+.ml-16 {
+    margin-left: 16px;
+}
+.ml-17 {
+    margin-left: 17px;
+}
 .ml-13 {
     margin-left: 13px;
 }
@@ -17004,6 +17232,22 @@ body::after {
 
 .mt-25 {
     margin-top: 25px;
+}
+
+.mt-26 {
+    margin-top: 26px;
+}
+
+.mt-27 {
+    margin-top: 27px;
+}
+
+.mt-28 {
+    margin-top: 28px;
+}
+
+.mt-29 {
+    margin-top: 29px;
 }
 
 .mr-25 {
@@ -17089,7 +17333,12 @@ body::after {
 .ml-36 {
     margin-left: 36px;
 }
-
+.ml-37 {
+    margin-left: 37px;
+}
+.ml-38 {
+    margin-left: 38px;
+}
 .pt-35 {
     padding-top: 35px;
 }
@@ -17154,35 +17403,39 @@ body::after {
 .ml-45 {
     margin-left: 45px;
 }
-
 .pt-45 {
     padding-top: 45px;
 }
-
 .pr-45 {
     padding-right: 45px;
 }
-
 .pb-45 {
     padding-bottom: 45px;
 }
-
 .pl-45 {
     padding-left: 45px;
 }
-
+.mt-46 {
+    margin-top: 46px;
+}
+.mt-47 {
+    margin-top: 47px;
+}
+.mt-48 {
+    margin-top: 48px;
+}
+.mt-49 {
+    margin-top: 49px;
+}
 .mt-50 {
     margin-top: 50px;
 }
-
 .mr-50 {
     margin-right: 50px;
 }
-
 .mb-50 {
     margin-bottom: 50px;
 }
-
 .ml-50 {
     margin-left: 50px;
 }
@@ -17217,6 +17470,18 @@ body::after {
 
 .ml-55 {
     margin-left: 55px;
+}
+
+.ml-54 {
+    margin-left: 54px;
+}
+
+.ml-53 {
+    margin-left: 53px;
+}
+
+.ml-52 {
+    margin-left: 52px;
 }
 
 .pt-55 {
@@ -17502,6 +17767,12 @@ body::after {
 .mt-200 {
     margin-top: 200px;
 }
+.mt-300 {
+    margin-top: 300px;
+}
+.mt-500 {
+    margin-top: 500px;
+}
 
 .mr-100 {
     margin-right: 100px;
@@ -17521,6 +17792,10 @@ body::after {
 
 .mb-100 {
     margin-bottom: 100px;
+}
+
+.mb-400 {
+    margin-bottom: 400px;
 }
 
 .ml-100 {
@@ -17557,6 +17832,10 @@ body::after {
 
 .ml-150 {
     margin-left: 150px;
+}
+
+.ml-155 {
+    margin-left: 155px;
 }
 
 .ml-160 {
@@ -17596,8 +17875,76 @@ body::after {
     margin-left: 230px;
 }
 
+.ml-235 {
+    margin-left: 235px;
+}
+
+.ml-240 {
+    margin-left: 240px;
+}
+
+.ml-245 {
+    margin-left: 245px;
+}
+
 .ml-250 {
+    margin-left: 250px;
+}
+
+.ml-255 {
+    margin-left: 255px;
+}
+
+.ml-260 {
+    margin-left: 260px;
+}
+
+.ml-270 {
+    margin-left: 270px;
+}
+
+.ml-300 {
     margin-left: 300px;
+}
+
+.ml-400 {
+    margin-left: 400px;
+}
+
+.ml-450 {
+    margin-left: 450px;
+}
+
+.ml-460 {
+    margin-left: 460px;
+}
+
+.ml-470 {
+    margin-left: 470px;
+}
+
+.ml-480 {
+    margin-left: 480px;
+}
+
+.ml-490 {
+    margin-left: 490px;
+}
+
+.ml-500 {
+    margin-left: 500px;
+}
+
+.ml-510 {
+    margin-left: 510px;
+}
+
+.ml-520 {
+    margin-left: 520px;
+}
+
+.ml-570 {
+    margin-left: 570px;
 }
 
 .pt-100 {
@@ -18182,6 +18529,7 @@ ol {
 
 .image-upload {
     border: solid black !important;
+    border-color: #2D2E83 !important;
     width: 130px !important;
     height: 120px !important;
     border-radius: 10px !important;
@@ -18207,6 +18555,7 @@ ol {
     margin-left: 30px !important;
     width: 65px !important;
     height: 65px !important;
+    filter: opacity(0.55) drop-shadow(0 0 0 blue); 
 }
 
 .tamañoimagenuploadproducto {
@@ -18232,15 +18581,15 @@ ol {
 .modal-contenido {
     margin-top: -220px !important;
     margin-left: 650px !important;
-    width: 600px !important;
-    height: 300px !important;
+    width: 700px !important;
+    height: 350px !important;
     background-color: white;
     padding: 25px;
 }
 
 .textomodalinfoproductos {
     color: #2D2E83 !important;
-    text-align: center !important;
+    /*text-align: center !important;*/
 }
 
 .tamañotextocrearprdoucto {
@@ -18262,6 +18611,12 @@ ol {
     height: 45px !important;
 }
 
+.redondearbordegenerico {
+    border-radius: 30px !important;
+    height: 45px;
+    padding-left: 10px !important;
+}
+
 .redonderbordescrearproducto {
     border-top-left-radius: 20px !important;
     border-top-right-radius: 20px !important;
@@ -18269,14 +18624,47 @@ ol {
 
 .mostrarvehiculoseleccionado{
     width: 536px !important;
-    height: 40px !important;
+    height: 45px !important;
     text-align: center !important;
-    font-size: 16px !important;
 }
 
 .textoeditardatosvehiculo {
     font-size: 15px !important;
     cursor: pointer;
+}
+
+.custom-selectcreateproductoitem {
+    background: transparent !important;
+    background-color: #F0F2F5 !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    font-size: 16px !important;
+    height: 40px;
+    padding: 10px;
+    width: 268px !important;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
+    background-size: 15px !important;
+    background-repeat: no-repeat !important;
+    background-position: 240px center !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
+.custom-selectcreateproductoitem::after {
+    content: "\025be" !important;
+    display: table-cell !important;
+    text-align: center !important;
+    padding-top: 7px !important;
+    width: 30px !important;
+    height: 30px !important;
+    background-color: black !important;
+    position: absolute !important;
+    top: 0 !important;
+    right: 0px !important;
+    pointer-events: none;
 }
 
 .redonderborinferiorderecho {
@@ -18287,29 +18675,274 @@ ol {
     border-bottom-left-radius: 20px !important ;
 }
 
-.botosdos{
-    width: 536px !important;
-    height: 40px !important;
-    font-size: 14px !important;
+.tamañospinner {
+    margin-left: 900px !important;
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.ubicartooltipproducto {
+    margin-bottom: 10px !important;
+    margin-left: 15px !important;
     color: black !important;
 }
 
-.redonderbordesderechodos {
-    border-top-right-radius: 20px !important;
-    border-bottom-right-radius: 20px !important;
-}
-
-.redonderbordesizquierdodos {
-    border-top-left-radius: 20px !important;
-    border-bottom-left-radius: 20px !important;
-}
-
-.altura {
-    height: 41px !important;
-    color: black !important;
+.tamañotextotooltipproducto {
     font-size: 14px !important;
+    color: black !important;    
 }
 
+.textoubicacionproducto {
+    font-size: 16px !important;
+    color: #6C6DA8 !important;
+    padding-top: 10px !important;
+}
 
+.cajaadvertenciavehiculoscompatiblesproducto{
+    border: solid #E8F0FE !important;
+    border-radius: 10px !important;
+    width: 640px !important;
+    padding: 20px !important;
+    height: 165px !important;
+}
+
+.tituloadvertenciaproductos {
+    color: #2D2E83 !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.tituloadvertenciaproductosizquierda {
+    color: #2D2E83 !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+.textoadvertenciaproductos {
+    color: #2D2E83 !important;
+    font-size: 16px !important;
+}
+
+.tamañoiconoadvertencia {
+    font-size: 20px !important;
+    color: #2D2E83 !important;
+}
+
+.cajavehiculoscompatiblesproducto{
+    margin-left: -10px;
+    border: solid #E8F0FE !important;
+    border-radius: 10px !important;
+    width: 640px !important;
+    padding-top: 15px !important;
+    padding-left: 10px;
+    padding-bottom: 10px;
   
+}
 
+.cajainformacionprouctos{
+    border: solid #E8F0FE !important;
+    border-radius: 10px !important;
+    width: 640px !important;
+    padding-top: 15px !important;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  
+}
+
+.datoscerrados {
+    border: none;
+    border-radius: 5px !important;
+    width: 530px !important;
+    height: 42px !important;   
+    font-size: 16px !important;
+    text-align: center !important;
+    background-color: #F0F2F5 !important;
+    appearance:none;
+}
+
+.showcerrarabrir {
+    margin-left: 100px !important;
+    background-color: #F0F2F5 !important;
+    border-radius: 5px !important;
+    width: 40px !important;
+    font-size: 30px !important;
+    height: 40px !important;
+}
+
+.option:hover { color:red; background-color:yellow; }
+
+.option > li > a:hover,
+.option > li > a:focus {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #f3969a;
+}
+
+.eliminarborde{
+    border: none !important;
+}
+
+.colordelfondo {
+    background-color: #F0F2F5;
+    text-align: center;
+}
+
+.tamañoinputdatosproducto{
+    width: 295px !important;
+}
+
+.tamañoinputpublicacion{
+    width: 285px !important;
+}
+
+.tamañoinputpublicacionmedidas{
+    width: 295px !important;
+}
+
+.tamañoiconoestadoproducto {
+    font-size: 35px !important;
+    color: #ACADCD;
+}
+
+.tamañoiconorecuperarcontraseña {
+    font-size: 30px !important;
+    color: #2D2E83;
+}
+
+.selecticonoestadoproducto {
+    font-size: 35px !important;
+    color: #2D2E83 !important ;
+}
+
+.sinborder {
+    border: none !important;
+}
+
+.colorbase {
+    color: #2D2E83 !important ;
+}
+
+.colorinput {
+    background-color: #E8F0FE !important;
+    font-size: 16px;
+    border-radius: 10px !important;
+    margin-left: -30px;
+    margin-top: 15px;
+}
+
+.contraseñainputiniciarsesion {
+    width: 538px !important;
+    font-size: 15px;
+    padding: 15px;
+    height: 45px;
+    border: none;
+    border-radius: 25px;
+}
+
+.botoningresariniciarsesion {
+    background-color:  #2D2E83 !important ;
+    color: white;
+    width: 100px;
+    height: 45px;
+    margin-left: 15px;
+    font-size: 16px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
+}
+
+.botonovidastecontraseña {
+    background-color:  #E8F0FE !important ;
+    color: #2D2E83;
+    width: 250px;
+    height: 45px;
+    font-size: 16px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
+}
+
+.colortextoselect {
+    color: #2D2E83 !important ;
+}
+
+.textomedidas {
+    padding-left: 2px !important;
+    padding-top: 8px !important;
+    font-size: 14px !important;
+    color: #817590 !important;
+}
+
+.cuadropublicacionproducto {
+    width: 1110px !important;
+    height: 400px !important;
+    border: solid #E8F0FE !important;
+    border-radius: 10px;
+}
+
+.textoterminapublicacion {
+    color: #2D2E83 !important;
+    font-size: 20px !important;
+}
+
+.tamañoiconoterminarpublicacion {
+    font-size: 40px !important;
+    color: #2D2E83 !important;
+}
+
+.cuadrointernopublicacionproducto {
+    width: 1000px !important;
+    height: 230px !important;
+    background-color: #F0F2F5 !important;
+    border-radius: 10px;
+    padding: 20px;
+    position: absolute;
+}
+
+.spinnerpinon {
+    font-size: 90px !important;
+    color: #2D2E83 !important ;
+}
+ 
+.botoncrearcuenta {
+    width: 520px !important;
+    font-size: 18px;
+    background-color:  #2D2E83 !important ;
+    color: white;
+    width: 250px;
+    height: 45px;
+    font-size: 18px;
+    padding-left: 25px;
+    padding-top: 10px;
+    border-radius: 25px;
+    text-align: center;    
+}
+
+.redondearmodal {
+    border-radius: 10px !important;
+}
+
+.select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+}
+.descripcionproducto {
+    width: 580px !important;
+    height: 100px !important;
+    border-radius: 10px !important;
+}
+
+.modal-backdrop.show {
+    opacity: 0.2 !important;
+    margin-top: 300px !important;
+    height: 400px !important;
+}
+
+.posicion{
+    position: sticky;
+    top: 20px;
+}
