@@ -3625,24 +3625,27 @@ body::after {
 }
 
 .textoverificardeotraforma {
-    margin-left: 100px !important;
+    margin-left: 110px !important;
     padding-top: 10px !important;
     margin-top: 10px !important;
     color: #2D2E83 !important;
-    width: 300px !important;
-    height: 40px !important;
+    width: 400px !important;
+    height: 45px !important;
+    text-align: center;
     cursor: pointer !important;
 }
 
 .textoverificardeotraformados {
     border-radius: 25px !important;
-    margin-left: 90px !important;
+    margin-left: 110px !important;
+    margin-top: 10px !important;
     padding-top: 10px !important;
     color: #2D2E83 !important;
     cursor: pointer !important;
     width: 400px !important;
     height: 45px !important;
-    background-color: #E8F0FE !important;
+    text-align: center;
+    background-color:  #E8F0FE !important;
 }
 
 .botonotraformaverificar {
@@ -3720,6 +3723,13 @@ body::after {
     height: 132px !important;
     font-size: 16px !important;
 }
+
+.textocategorias {
+    width: 700px !important;
+    height: 60px !important;
+    font-size: 16px !important;
+}
+
 
 .modal-dialog {
     width: 1060px !important;
@@ -4386,13 +4396,18 @@ body::after {
 }
 
 .divubicaejemplosuno {
-    margin-top: -90px !important;
-    margin-left: 270px !important;
+    margin-top: 20px;
+    width: 1000px !important;
+    height:150px !important;
+    background-color: white !important;
 }
 
 .divubicaejemplosdos {
-    margin-top: -90px !important;
+    margin-top: 15px;
+    width: 700px !important;
+    height: 75px !important;
     margin-left: 270px !important;
+    background-color: white !important;
 }
 
 
@@ -12245,7 +12260,7 @@ body::after {
 .titulodetaildescription {
     color: #2D2E83;
     font-weight: 600;
-    font-size: 24px;
+    font-size: 23px;
 }
 
 .subtitulodetaildescription {
@@ -16950,14 +16965,32 @@ body::after {
 .mtmenos10 {
     margin-top: -10px !important;
 }
+.mtmenos13 {
+    margin-top: -13px !important;
+}
+.mtmenos14 {
+    margin-top: -14px !important;
+}
+.mtmenos15 {
+    margin-top: -15px !important;
+}
+.mtmenos19 {
+    margin-top: -19px !important;
+}
 .mtmenos20 {
     margin-top: -20px !important;
 }
 .mtmenos25 {
     margin-top: -25px !important;
 }
+.mtmenos29 {
+    margin-top: -29px !important;
+}
 .mtmenos30 {
     margin-top: -30px !important;
+}
+.mtmenos31 {
+    margin-top: -31px !important;
 }
 
 .mtmenos35 {
@@ -17775,7 +17808,18 @@ body::after {
 .mt-100 {
     margin-top: 100px;
 }
-
+.mt-110 {
+    margin-top: 110px;
+}
+.mt-120 {
+    margin-top: 120px;
+}
+.mt-130 {
+    margin-top: 130px;
+}
+.mt-140 {
+    margin-top: 140px;
+}
 .mt-150 {
     margin-top: 150px;
 }
@@ -17911,11 +17955,12 @@ body::after {
 .ml-270 {
     margin-left: 270px;
 }
-
 .ml-300 {
     margin-left: 300px;
 }
-
+.ml-350 {
+    margin-left: 350px;
+}
 .ml-400 {
     margin-left: 400px;
 }
@@ -18825,6 +18870,7 @@ ol {
 
 .sinborder {
     border: none !important;
+    outline: none !important;
 }
 
 .colorbase {
@@ -18843,6 +18889,7 @@ ol {
     width: 538px !important;
     font-size: 15px;
     padding: 15px;
+    background-color: #E8F0FE;
     height: 45px;
     border: none;
     border-radius: 25px;
@@ -18930,6 +18977,20 @@ ol {
     border-radius: 10px !important;
 }
 
+.redondearventamensajes {
+    border-radius: 20px !important;
+}
+
+.textoventanamensajes {
+    color: #E8F0FE;
+    text-align: center;
+}
+
+.iconoventanamensajes {
+    font-size: 40px !important;
+    color: #2D2E83 !important ;
+}
+
 .select {
     background: transparent;
     border: none;
@@ -18951,20 +19012,28 @@ ol {
 }
 
 .visualizacioncategorias {
-    width: 1600px !important;
-    height: 450px !important;
+    width: 1000px !important;
+    height: 300px !important;
 }
 
 .opacidadcategorias {
-    background-color:rgba(0, 0, 0, 0.7) !important;
+    background-color:rgba(0, 0, 0, 0.4) !important;
 }
 
 .linea {
     border-top: 1px solid #2D2E83;
     height: 2px;
-    width: 268px;
+    width: 800px;
 }
 
 .subrayartexto {
     text-decoration: underline;
+}
+
+.basecolorinput {
+    background-color: #E8F0FE !important;
+}
+
+.apuntador{
+    cursor: pointer;
 }

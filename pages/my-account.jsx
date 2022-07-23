@@ -89,29 +89,29 @@ const MyAccountScreen = () => {
     const [inicio, setInicio] = useState(false);
 
     const [inputControlIdentificacion, setInputControlIdentificacion] =
-        useState("form-control ps-form__input");
+        useState("form-control ps-form__input basecolorinput");
     const [inputControlTelefono, setInputControlTelefono] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlEmail, setInputControlEmail] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlConfirmarEmail, setInputControlConfirmarEmail] =
-        useState("form-control ps-form__input");
+        useState("form-control ps-form__input basecolorinput");
     const [inputControlClave, setInputControlClave] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlConfirmeClave, setInputControlConfirmeClave] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlRazonSocial, setInputControlRazonSocial] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlNombres, setInputControlNombres] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlApellidos, setInputControlApellidos] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput"
     );
     const [inputControlTerminos, setInputControlTerminos] = useState("");
     const [mensajeTerminos, setMensajeTerminos] = useState(false);
@@ -166,7 +166,7 @@ const MyAccountScreen = () => {
             setMensajeIdentificacion("Ingresa tu número de identificación!");
             setActivaMensajeIdentificacion(true);
             setInputControlIdentificacion(
-                "form-control ps-form__input alertboton"
+                "form-control ps-form__input alertboton  basecolorinput"
             );
             formOk = false;
         }
@@ -174,7 +174,7 @@ const MyAccountScreen = () => {
         if (!formData.telefono) {
             setMensajePhone("Ingresa un número de teléfono valido!");
             setActivaMensajePhone(true);
-            setInputControlTelefono("form-control ps-form__input alertboton");
+            setInputControlTelefono("form-control ps-form__input alertboton  basecolorinput");
             formOk = false;
         }
 
@@ -183,7 +183,7 @@ const MyAccountScreen = () => {
                 setMensajeRazonSocial("Ingresa razón socia!");
                 setActivaMensajeRazonSocial(true);
                 setInputControlRazonSocial(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 formOk = false;
             }
@@ -742,7 +742,7 @@ const MyAccountScreen = () => {
                 );
                 setActivaMensajeIdentificacion(true);
                 setInputControlIdentificacion(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 errors.identificacion = true;
                 formOk = false;
@@ -754,7 +754,7 @@ const MyAccountScreen = () => {
                 formData.identificacion.length > 10
             ) {
                 setInputControlIdentificacion(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 setMensajeIdentificacion(
                     "Recuerda, El nit debe contener solo números, longitud minima de 6 y maximo de 10"
@@ -794,7 +794,7 @@ const MyAccountScreen = () => {
                     "Recuerda, La identificación solo debe contener números!"
                 );
                 setInputControlIdentificacion(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 errors.identificacion = true;
                 formOk = false;
@@ -802,13 +802,13 @@ const MyAccountScreen = () => {
             }
 
             if (formOk) {
-                setInputControlIdentificacion("form-control ps-form__input");
+                setInputControlIdentificacion("form-control ps-form__input  basecolorinput");
             }
         }
     };
 
     const resetTelefono = () => {
-        setInputControlTelefono("form-control ps-form__input");
+        setInputControlTelefono("form-control ps-form__input  basecolorinput");
         setActivaMensajePhone(false);
     };
 
@@ -858,7 +858,7 @@ const MyAccountScreen = () => {
                 setMensajePhone("Ingresa un número de teléfono!");
                 setActivaMensajePhone(true);
                 setInputControlTelefono(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 errors.telefono = true;
                 formOk = false;
@@ -873,7 +873,7 @@ const MyAccountScreen = () => {
                 (indicativo = "+57" && longitudtelefono != 10 && !haycaracter)
             ) {
                 setInputControlTelefono(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 setActivaMensajePhone(true);
                 setMensajePhone(
@@ -886,7 +886,7 @@ const MyAccountScreen = () => {
 
             if (haycaracter) {
                 setInputControlTelefono(
-                    "form-control ps-form__input alertboton"
+                    "form-control ps-form__input alertboton  basecolorinput"
                 );
                 setActivaMensajePhone(true);
                 setMensajePhone(
@@ -901,7 +901,7 @@ const MyAccountScreen = () => {
         }
 
         if (formOk) {
-            setInputControlTelefono("form-control ps-form__input");
+            setInputControlTelefono("form-control ps-form__input  basecolorinput");
         }
     };
 
@@ -1022,7 +1022,7 @@ const MyAccountScreen = () => {
     };
 
     const resetNumeroIdentificacion = () => {
-        setInputControlIdentificacion("form-control ps-form__input");
+        setInputControlIdentificacion("form-control ps-form__input  basecolorinput");
         setActivaMensajeIdentificacion(false);
     };
 
@@ -1220,7 +1220,7 @@ const MyAccountScreen = () => {
                                                     <label className="ps-form__label">
                                                         Tipo Identificación
                                                     </label>
-                                                    <div className="form-control ps-form__input">
+                                                    <div className="form-control ps-form__input basecolorinput">
                                                         <select
                                                             className="custom-select ps-form__labelselect"
                                                             onChange={(e) =>

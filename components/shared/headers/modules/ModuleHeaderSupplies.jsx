@@ -11,6 +11,7 @@ import { Row, Col, Modal, Button, ButtonGroup, Table } from "react-bootstrap";
 import Link from "next/link";
 import MenuDropdown from "~/components/elements/menu/MenuDropdown";
 import MegaMenu from "~/components/elements/menu/MegaMenu";
+import InfoIcon from "@material-ui/icons/Info";
 import ModuleMenuHomepages from "~/components/elements/menu/modules/ModuleMenuHomepages";
 import img1 from "../../../../public/imagescategorias/categorias1.jpg";
 import img2 from "../../../../public/imagescategorias/categorias2.jpg";
@@ -20,7 +21,9 @@ import img5 from "../../../../public/imagescategorias/categorias5.jpg";
 import img6 from "../../../../public/imagescategorias/categorias6.jpg";
 
 const ModuleHeaderSupplies = (props) => {
-    const [classCategorias, setClassCategorias] = useState("header__categories-toggle");
+    const [classCategorias, setClassCategorias] = useState(
+        "header__categories-toggle sinborder"
+    );
     const { product, getProductById } = useGetProducts();
     const [categorias, setCategorias] = useState([]);
     const [subcategorias, setSubcategorias] = useState([]);
@@ -48,8 +51,8 @@ const ModuleHeaderSupplies = (props) => {
     useEffect(() => {
         let categorias = JSON.parse(localStorage.getItem("categorias"));
         let subcategorias = JSON.parse(localStorage.getItem("subcategorias"));
-        console.log("CATEGORIAS : ", categorias);
-        console.log("SUB CATEGORIAS : ", subcategorias);
+        //console.log("CATEGORIAS : ", categorias);
+        //console.log("SUB CATEGORIAS : ", subcategorias);
 
         if (categorias) {
             setCategorias(categorias);
@@ -57,10 +60,10 @@ const ModuleHeaderSupplies = (props) => {
         }
     }, []);
 
-    console.log("DATOS : ", header_supplies.header_supplies);
+    //console.log("DATOS : ", header_supplies.header_supplies);
 
     const activar = (categoria) => {
-        console.log("CATEGORIA SELECCIONADA : ", categoria);
+        //console.log("CATEGORIA SELECCIONADA : ", categoria);
         setNombreCategoria(categoria.nombre);
         setItemCategoria(categoria.id);
         setTextoEjemplos(categoria.descripcion);
@@ -89,15 +92,30 @@ const ModuleHeaderSupplies = (props) => {
         let longitud = newDet.length;
         for (var i = 0; i < longitud; i = i + 2) {
             let siguiente = i + 1;
-            let item = {
-                id1: newDet[i].id,
-                id2: newDet[siguiente].id,
-                nombre1: newDet[i].nombre,
-                nombre2: newDet[siguiente].nombre,
-                palabraclaveuna: newDet[i].palabraclave,
-                palabraclavedos: newDet[siguiente].palabraclave,
-            };
-            newDetImp.push(item);
+            if (newDet[i].id_categorias > 2) {
+                let item = {
+                    id1: newDet[i].id,
+                    id2: newDet[siguiente].id,
+                    nombre1: newDet[i].nombre,
+                    nombre2: newDet[siguiente].nombre,
+                    palabraclaveuna: newDet[i].palabraclave,
+                    palabraclavedos: newDet[siguiente].palabraclave,
+                };
+                newDetImp.push(item);
+            } else {
+                let itemuno = {
+                    id1: newDet[i].id,
+                    nombre1: newDet[i].nombre,
+                    palabraclaveuna: newDet[i].palabraclave,
+                };
+                newDetImp.push(itemuno);
+                let itemdos = {
+                    id1: newDet[siguiente].id,
+                    nombre1: newDet[siguiente].nombre,
+                    palabraclaveuna: newDet[siguiente].palabraclave,
+                };
+                newDetImp.push(itemdos);
+            }
         }
         setSubcategoriasSeleccionada(newDetImp);
         //console.log("IMPRIMIR SUB CATEGORIAS : ", newDetImp)
@@ -152,38 +170,38 @@ const ModuleHeaderSupplies = (props) => {
         setShowModalSubCategorias(false);
     };
 
-    const onSelecciono = () =>{
-        setClassCategorias("header__categories-toggle subrayartexto")
-    }
+    const onSelecciono = () => {
+        setClassCategorias("header__categories-toggle subrayartexto sinborder");
+    };
 
-    const outSelecciono = () =>{
-        setClassCategorias("header__categories-toggle")
-    }
+    const outSelecciono = () => {
+        setClassCategorias("header__categories-toggle sinborder");
+    };
 
     return (
-        <div className="header__supplies ps-dropdown--fullscreen">
+        <div className="header__supplies ps-dropdown__fullscreen">
             <button className={classCategorias}>
-                <span onClick={abrirCerrarCategorias}
-                 onMouseOver={onSelecciono}
-                 onMouseOut={outSelecciono}
-                >
+                <span
+                    onClick={abrirCerrarCategorias}
+                    onMouseOver={onSelecciono}
+                    onMouseOut={outSelecciono}>
                     Categorías <IoIosArrowForward />{" "}
                 </span>
             </button>
             <div className={classContent}>
-                <div className="container">
-                    <div className="mega-menu__row visualizacioncategorias mtmenos20">
+                <div className="visualizacioncategorias">
+                    <div className="mega-menu__row  mtmenos31">
                         <div className="mega-menu__column col-12 col-sm-3 mt-1">
                             {categorias &&
                                 categorias.map((item, id) => (
                                     <Row>
                                         {item.id == itemCategoria ? (
                                             <Col
-                                                xl={4}
-                                                lg={4}
-                                                md={4}
-                                                sm={4}
-                                                className="resaltaitemmodalcategoria mt-1"
+                                                xl={6}
+                                                lg={6}
+                                                md={6}
+                                                sm={6}
+                                                className="resaltaitemmodalcategoria mt-2"
                                                 onMouseOver={(e) =>
                                                     activar(item)
                                                 }>
@@ -191,11 +209,11 @@ const ModuleHeaderSupplies = (props) => {
                                             </Col>
                                         ) : (
                                             <Col
-                                                xl={4}
-                                                lg={4}
-                                                md={4}
-                                                sm={4}
-                                                className="itemscategorias mt-1"
+                                                xl={6}
+                                                lg={6}
+                                                md={6}
+                                                sm={6}
+                                                className="itemscategorias mt-2"
                                                 onMouseOver={(e) =>
                                                     activar(item)
                                                 }>
@@ -214,24 +232,23 @@ const ModuleHeaderSupplies = (props) => {
                         <div className="mega-menu__column col-sm-6 col-md-10 mlmenos150 mt-2">
                             <div className="textoadvertenciaproductos">
                                 <Row>
+                                    <Col xl={9} lg={9} md={9} sm={9}>
+                                        {nombreCategoria}
+                                    </Col>
                                     <Col
                                         xl={2}
                                         lg={2}
                                         md={2}
                                         sm={2}
-                                    >
-                                        {nombreCategoria}
-                                    </Col>
-                                    <Col xl={3} lg={3} md={3} sm={3} className="ml-38">
-                                        <i
+                                        className="ml-38">
+                                        <InfoIcon
                                             onMouseOver={(e) =>
                                                 activarEjemplos()
                                             }
                                             onMouseOut={(e) =>
                                                 desactivarEjemplos()
                                             }
-                                            class="fa fa-info d-flex infosubcategorias"
-                                            aria-hidden="true"></i>
+                                            style={{ fontSize: 30 }}></InfoIcon>
                                     </Col>
                                 </Row>
                             </div>
@@ -241,20 +258,20 @@ const ModuleHeaderSupplies = (props) => {
                                 subcategoriasSeleccionada.map((item) => (
                                     <Row>
                                         <Col
-                                            xl={4}
-                                            lg={4}
-                                            md={4}
-                                            sm={4}
+                                            xl={6}
+                                            lg={6}
+                                            md={6}
+                                            sm={6}
                                             className="itemssubcategorias"
                                             onMouseOver={(e) =>
                                                 activarsubcategoria(item.id1)
                                             }>
                                             <Row>
                                                 <Col
-                                                    xl={7}
-                                                    lg={7}
-                                                    md={7}
-                                                    sm={7}
+                                                    xl={8}
+                                                    lg={8}
+                                                    md={8}
+                                                    sm={8}
                                                     onClick={(e) =>
                                                         buscarProductos(
                                                             item.palabraclaveuna
@@ -274,19 +291,20 @@ const ModuleHeaderSupplies = (props) => {
                                                     onMouseOut={cerrarEjemplos}>
                                                     {item.id1 ==
                                                     itemSubCategoria ? (
-                                                        <i
-                                                            class="mt-3 fa fa-info d-flex justify-content-center"
-                                                            aria-hidden="true"></i>
+                                                        <InfoIcon
+                                                            style={{
+                                                                fontSize: 30,
+                                                            }}></InfoIcon>
                                                     ) : null}
                                                 </Col>
                                             </Row>
                                         </Col>
                                         <Col
-                                            xl={4}
-                                            lg={4}
-                                            md={4}
-                                            sm={4}
-                                            className="itemssubcategorias mlmenos100"
+                                            xl={6}
+                                            lg={6}
+                                            md={6}
+                                            sm={6}
+                                            className="itemssubcategorias"
                                             onMouseOver={(e) =>
                                                 activarsubcategoria(item.id2)
                                             }>
@@ -315,9 +333,10 @@ const ModuleHeaderSupplies = (props) => {
                                                     onMouseOut={cerrarEjemplos}>
                                                     {item.id2 ==
                                                     itemSubCategoria ? (
-                                                        <i
-                                                            class="mt-3 fa fa-info d-flex justify-content-center"
-                                                            aria-hidden="true"></i>
+                                                        <InfoIcon
+                                                            style={{
+                                                                fontSize: 30,
+                                                            }}></InfoIcon>
                                                     ) : null}
                                                 </Col>
                                             </Row>
@@ -340,8 +359,9 @@ const ModuleHeaderSupplies = (props) => {
                         */}
                     </div>
                     {ejemplos ? (
-                        <div className={classUbicaEjemplos}>
+                        <div className="divubicaejemplosuno">
                             <Row>
+                                <Col xl={2} lg={2} md={2} sm={2}></Col>
                                 <Col xl={2} lg={2} md={2} sm={2}>
                                     <img
                                         src={img1.src}
@@ -377,13 +397,10 @@ const ModuleHeaderSupplies = (props) => {
                             </Row>
                         </div>
                     ) : null}
-
-                    {showModalEjemplos ? (
-                        <h2 className="textoejemplossubcategorias">
-                            {textoEjemplos}
-                        </h2>
-                    ) : null}
                 </div>
+                {showModalEjemplos ? (
+                    <h2 className="ml-170 textocategorias">{textoEjemplos}</h2>
+                ) : null}
             </div>
         </div>
     );

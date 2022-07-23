@@ -175,7 +175,7 @@ const CategoryMenu = (props) => {
           <Modal.Body>
             <Row>
               <Col xl={3} lg={3} md={3} sm={3}>
-                <h2> Categorías </h2>
+                <h2 className="sinborder"> Categorías </h2>
               </Col>
               <Col xl={2} lg={2} md={2} sm={2}>
                 <button

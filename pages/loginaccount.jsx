@@ -28,6 +28,7 @@ import {
 } from "firebase/auth";
 import { format } from "prettier";
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
+import { async } from "@firebase/util";
 
 const LoginAccount = () => {
     const router = useRouter();
@@ -52,7 +53,9 @@ const LoginAccount = () => {
     const [recuperar, setRecuperar] = React.useState(false);
     const [usuario, setUsuario] = React.useState([]);
     const [medioSeleccionado, setMedioSeleccionado] = useState(false);
-
+    const [telefonoRecupear, setTelefonoRecupear] = useState(0);
+    const [cortartelefono, setCortarTelefono] = useState(0);
+    
     const [showModalMedio, setShowModalMedio] = useState(false);
     const [classNameverificar, setClassNameverificar] = useState(
         "textoverificardeotraforma"
@@ -74,7 +77,7 @@ const LoginAccount = () => {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const [inputControlEmail, setInputControlEmail] = useState(
-        "form-control ps-form__input"
+        "form-control ps-form__input basecolorinput eliminarborde"
     );
 
     const onCloseModalMedioToken = () => {
@@ -252,8 +255,8 @@ const LoginAccount = () => {
     };
 
     const token = async (medio) => {
-        console.log("DATOS USUARIOS : ", datosusuarios);
-        console.log("FORM DATA : ", formData);
+        //console.log("DATOS USUARIOS : ", datosusuarios);
+        //console.log("FORM DATA : ", formData);
 
         const emailusuario = {
             email: formData.email,
@@ -266,7 +269,7 @@ const LoginAccount = () => {
             emailusuario
         ).then((response) => {
             if (response) {
-                console.log("RESPONSE DATA : ", response);
+                //console.log("RESPONSE DATA : ", response);
                 telefono = response[0].celular;
                 console.log("TELEFONO USER : ", telefono);
             } else {
@@ -320,20 +323,14 @@ const LoginAccount = () => {
                     setShowModalPropietarioCuenta(false);
                     router.push("/");
                 });
-
-            //console.log("TOKEN USUARIO : ", TokenUsuario);
-
-            //setCarrocerias(BodiesVehicles);
-            // Coloca los datos en state arreglo de modelos de vehiculos segun marca
-            //dispatch(getBodiesVehicles(BodiesVehicles));
         }
         enviartoken(medio);
     };
 
     const tokenReenviar = async (medio) => {
-        console.log("DATOS USUARIOS : ", datosusuarios);
-        console.log("FORM DATA : ", formData);
-        console.log("MEDIO : ", medio)
+        //console.log("DATOS USUARIOS : ", datosusuarios);
+        //console.log("FORM DATA : ", formData);
+        //console.log("MEDIO : ", medio);
 
         async function enviartoken(dat) {
             // Lee Web Service para enviar el token al usuario
@@ -457,7 +454,7 @@ const LoginAccount = () => {
 
     const crearCuenta = () => {
         router.push("/my-account");
-    }
+    };
     const validarToken = (datosusu) => {
         //console.log("DATOS  USUARIO : ", datosusu);
         //console.log("VALIDAR TOKEN : ", formDataToken.token);
@@ -618,8 +615,48 @@ const LoginAccount = () => {
     };
 
     const textoMedioToken = () => {
+        console.log("TELEFONO : ", formData.email);
+
         if (!formData.email) {
-            setInputControlEmail("form-control ps-form__input alertboton");
+            swal(
+                "RECUPERAR CONTRASEÑA",
+                "Por favor ingresa el email de recuperación!",
+                "warning",
+                { button: "Aceptar" }
+            );
+            return
+        }
+
+        const emailusuario = {
+            email: formData.email,
+        };
+
+        let telefono = "";
+
+        //Consulta en la BD datos del usuario asociados al Email
+        const leerTelefono = async () => {
+            const respuestauser = await ReadUserEmail.getReadUsersEmail(
+                emailusuario
+            ).then((response) => {
+                if (response) {
+                    //console.log("RESPONSE DATA : ", response);
+                    telefono = response[0].celular;
+                    //console.log("TELEFONO USER : ", telefono);
+                    setTelefonoRecupear(telefono);
+                    let cortar = telefono.substr(9, 4)
+                    setCortarTelefono(cortar);
+                    //console.log("CORTAR : ", cortar);
+                } else {
+                    console.log("RESPONSE DATA : ", "FALSO");
+                }
+            });
+        };
+        leerTelefono();
+
+        if (!formData.email) {
+            setInputControlEmail(
+                "form-control ps-form__input alertboton basecolorinput"
+            );
 
             swal(
                 "RECUPERAR CONTRASEÑA",
@@ -735,7 +772,7 @@ const LoginAccount = () => {
 
                                             <Row>
                                                 <div
-                                                    className="botoningresariniciarsesion"
+                                                    className="botoningresariniciarsesion apuntador"
                                                     onClick={login}>
                                                     Ingresar
                                                 </div>
@@ -752,7 +789,7 @@ const LoginAccount = () => {
                                                     </label>
                                                 </div>
                                                 <div
-                                                    className="ml-35 botonovidastecontraseña"
+                                                    className="ml-35 botonovidastecontraseña apuntador"
                                                     onClick={() =>
                                                         textoMedioToken()
                                                     }>
@@ -769,8 +806,11 @@ const LoginAccount = () => {
                                         </div>
                                     </div>
                                 </form>
+                                <br />
+                                <h3 className="ml-250 mt-10"> Ó </h3>
+
                                 <div
-                                    className="botoncrearcuenta mt-40"
+                                    className="botoncrearcuenta mt-20 apuntador"
                                     onClick={() => crearCuenta()}>
                                     Crear tu cuenta
                                 </div>
@@ -862,7 +902,7 @@ const LoginAccount = () => {
                                 </h1>
                             </Col>
                         </Row>
-                        <hr />
+                        <br />
                         <div>
                             <Row>
                                 <Col xl={12} lg={12} md={12} sm={12}>
@@ -891,14 +931,13 @@ const LoginAccount = () => {
                                                 SMS - Mensaje de Texto
                                                 <br />
                                                 Al número celular terminado en
-                                                XXXX
+                                                {" "}{cortartelefono}
                                             </Col>
                                         </Row>
                                     </div>
                                 </Col>
                             </Row>
-
-                            <hr />
+                            <br />
                             <Row>
                                 <Col xl={12} lg={12} md={12} sm={12}>
                                     <div
@@ -925,21 +964,21 @@ const LoginAccount = () => {
                                                 className="textotuproductoestaen">
                                                 WhatsApp
                                                 <br />
-                                                Al número celular terminado en
-                                                XXXX
+                                                Al número celular terminado en {" "}
+                                                {cortartelefono}
                                             </Col>
                                         </Row>
                                     </div>
                                 </Col>
                             </Row>
-                            <hr />
+                            <br />
                         </div>
                         <div className="mb-20">
                             <Row>
                                 <Col xs lg={8}>
-                                    <div className="botonimagenesilustrativas">
+                                    <div>
                                         <h3
-                                            className="textoverificardeotraformados"
+                                            className={classNameverificar}
                                             onClick={onCloseModalVerificar}
                                             onMouseOver={
                                                 pasarmouseverificarotraforma
@@ -1021,8 +1060,13 @@ const LoginAccount = () => {
                                 <h3>Ingresa el codigo de verificación</h3>
                             </Col>
 
-                            <Col xl={1} lg={1} md={1} sm={1} className="ml-50 mtmenos10">
-                                <h1 
+                            <Col
+                                xl={1}
+                                lg={1}
+                                md={1}
+                                sm={1}
+                                className="ml-50 mtmenos10">
+                                <h1
                                     data-dismiss="modal"
                                     onClick={onCloseModalPropietario}>
                                     {" "}
@@ -1040,68 +1084,92 @@ const LoginAccount = () => {
                                             por XXXXX
                                         </h3>
                                         <div className="ml-200 mt-40">
-                                        <Row>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="ml-10 tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="ml-20 tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="ml-30 tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="ml-40 tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                            <Col xl={1} lg={1} md={1} sm={1}>
-                                                <input
-                                                    className="ml-50 tamañoinputtoken"
-                                                    name="tokenvalidar"
-                                                    type="text"
-                                                    size="1"
-                                                    minlength="1"
-                                                    maxlength="1"
-                                                />
-                                            </Col>
-                                        </Row>
+                                            <Row>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-10 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-20 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-30 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-40 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-50 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                            </Row>
                                         </div>
                                     </div>
                                 </form>
@@ -1111,10 +1179,8 @@ const LoginAccount = () => {
                         <br />
                         <div className="ml-100 mt-10 mb-20">
                             <Row>
-                            <Col xl={4} lg={4} md={4} sm={4}>
-
-                            </Col>
-                            <Col xl={5} lg={5} md={5} sm={5}>
+                                <Col xl={4} lg={4} md={4} sm={4}></Col>
+                                <Col xl={5} lg={5} md={5} sm={5}>
                                     <div
                                         className="ps-btn"
                                         onClick={reenvioCodigo}>

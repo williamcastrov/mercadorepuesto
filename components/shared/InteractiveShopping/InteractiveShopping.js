@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function InteractiveShopping(props) {
     const router = useRouter();
-    const [classBuscador, setClassBuscador] = useState("header__categories-toggle");
+    const [classBuscador, setClassBuscador] = useState("header__categories-toggle sinborder");
 
     const datosbuscarproductos = useSelector(
         //(state) => state.datafindproducts.datafindproducts
@@ -12,11 +12,11 @@ function InteractiveShopping(props) {
     );
     //console.log("DATOS BUSCAR PRODUCTOS : ", datosbuscarproductos);
     const onSelecciono = () =>{
-        setClassBuscador("header__categories-toggle subrayartexto")
+        setClassBuscador("header__categories-toggle subrayartexto sinborder")
     }
 
     const outSelecciono = () =>{
-        setClassBuscador("header__categories-toggle")
+        setClassBuscador("header__categories-toggle sinborder")
     }
 
     const enviadatoslocalstorage = () => {

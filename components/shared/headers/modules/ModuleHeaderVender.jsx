@@ -16,14 +16,14 @@ const ModuleHeaderVender = () => {
     const [loading, setLoading] = useState(true);
     const [datosUsuario, setDatosUsuario] = useState([]);
 
-    const [classVender, setClassVender] = useState("header__categories-toggle");
+    const [classVender, setClassVender] = useState("header__categories-toggle sinborder");
 
     const onSelecciono = () =>{
-        setClassVender("header__categories-toggle subrayartexto")
+        setClassVender("header__categories-toggle subrayartexto sinborder")
     }
 
     const outSelecciono = () =>{
-        setClassVender("header__categories-toggle")
+        setClassVender("header__categories-toggle sinborder")
     }
 
 

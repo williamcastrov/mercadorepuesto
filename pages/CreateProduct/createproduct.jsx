@@ -2422,6 +2422,83 @@ function ModalInformacionGenericos({ shown, close }) {
                 close();
             }}>
             <div
+                className="modal-contenido redondearventamensajes"
+                onClick={(e) => {
+                    // do not close modal if anything inside modal content is clicked
+                    e.stopPropagation();
+                }}>
+                <div>
+                    <Row>
+                        <Col xl={1} lg={1} md={1} sm={1}>
+                            <div className="iconoventanamensajes mtmenos14">
+                                <i
+                                    class="fa fa-exclamation-circle"
+                                    aria-hidden="true"></i>
+                            </div>
+                        </Col>
+                        <Col xl={10} lg={10} md={10} sm={10}>
+                            <div className="titulodetaildescription">
+                                Texto sobre lo que que queremos indicar al
+                                usuario
+                            </div>
+                        </Col>
+                        <Col xl={1} lg={1} md={1} sm={1}>
+                            <button
+                                type="button"
+                                className="cerrarmodal ml-10"
+                                data-dismiss="modal"
+                                onClick={close}>
+                                {" "}
+                                X{" "}
+                            </button>
+                        </Col>
+                    </Row>
+                </div>
+                <div className="mt-50 textoventanamensajes">
+                    <h2>
+                        {" "}
+                        Contenido, o explicación, o opciones para selección
+                    </h2>
+                    <hr />
+                    <h2>
+                        Información adiciona, explicando sobre lo que debe
+                        realizar.
+                    </h2>
+                </div>
+                <div className="ml-350 mt-90">
+                    <Row>
+                        <Col xl={6} lg={6} md={6} xs={6}>
+                            <Button  
+                                variant="outline-light"
+                                className="ps-btn basecolorinput colortextoselect"
+                                onClick={() => mostrarModalDatosProducto()}>
+                                {" "}
+                                Cerrar o Volver
+                            </Button>
+                        </Col>
+                        <Col xl={4} lg={4} md={4} xs={4}>
+                            <Button
+                                className="ps-btn"
+                                onClick={() => mostrarModalDatosProducto()}>
+                                {" "}
+                                Siguiente
+                            </Button>
+                        </Col>
+                    </Row>
+                </div>
+            </div>
+        </div>
+    ) : null;
+}
+/*
+function ModalInformacionGenericos({ shown, close }) {
+    return shown ? (
+        <div
+            className="modal-fondo"
+            onClick={() => {
+                close();
+            }}>
+            <div
                 className="modal-contenido"
                 onClick={(e) => {
                     // do not close modal if anything inside modal content is clicked
@@ -2471,7 +2548,7 @@ function ModalInformacionGenericos({ shown, close }) {
         </div>
     ) : null;
 }
-
+*/
 function ModalInformacionPorUnoVarios({ shown, close }) {
     return shown ? (
         <div
@@ -2576,12 +2653,10 @@ function DatosLatoneria(props) {
     const [nombreUbicacionDerechaInfo, setnombreUbicacionDerechaInfo] =
         useState("botonpartesvehiculoinfo mlmenos1 mt-2");
 
-    const [seleccionoUbicacionConsola, setSeleccionoUbicacionConsola] = useState(
-        "botonpartesvehiculo"
-    );
-    const [seleccionoUbicacionAsiento, setSeleccionoUbicacionAsiento] = useState(
-        "botonpartesvehiculo"
-    );
+    const [seleccionoUbicacionConsola, setSeleccionoUbicacionConsola] =
+        useState("botonpartesvehiculo");
+    const [seleccionoUbicacionAsiento, setSeleccionoUbicacionAsiento] =
+        useState("botonpartesvehiculo");
     const [seleccionoUbicacionTecho, setSeleccionoUbicacionTecho] = useState(
         "botonpartesvehiculo"
     );
@@ -2937,7 +3012,9 @@ function DatosLatoneria(props) {
         setPosicionProductoAsiento(false);
         setPosicionProductoTecho(false);
         setShowImagenConsola(true);
-        setSeleccionoUbicacionConsola("botonpartesvehiculo colorseleccionboton");
+        setSeleccionoUbicacionConsola(
+            "botonpartesvehiculo colorseleccionboton"
+        );
         setSeleccionoUbicacionAsiento("botonpartesvehiculo");
         setSeleccionoUbicacionTecho("botonpartesvehiculo");
         setShowImagenAsiento(false);
@@ -2951,7 +3028,9 @@ function DatosLatoneria(props) {
         setPosicionProductoTecho(false);
         setShowImagenConsola(false);
         setShowImagenAsiento(true);
-        setSeleccionoUbicacionAsiento("botonpartesvehiculo colorseleccionboton");
+        setSeleccionoUbicacionAsiento(
+            "botonpartesvehiculo colorseleccionboton"
+        );
         setSeleccionoUbicacionConsola("botonpartesvehiculo");
         setSeleccionoUbicacionTecho("botonpartesvehiculo");
         setShowImagenTecho(false);
@@ -3701,7 +3780,9 @@ function DatosLatoneria(props) {
                                     <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
                                             variant="outline-light"
-                                            className={seleccionoUbicacionConsola}
+                                            className={
+                                                seleccionoUbicacionConsola
+                                            }
                                             onClick={SeleccioneConsola}>
                                             CONSOLA
                                         </Button>
@@ -3727,7 +3808,9 @@ function DatosLatoneria(props) {
                                     <Col lg={10} xl={10} xs={10} md={10}>
                                         <Button
                                             variant="outline-light"
-                                            className={seleccionoUbicacionAsiento}
+                                            className={
+                                                seleccionoUbicacionAsiento
+                                            }
                                             onClick={SeleccioneAsiento}>
                                             ASIENTO
                                         </Button>
@@ -5292,7 +5375,8 @@ function DatosProductosAdicionales(props) {
     const [textoDescripcion, setTextoDescripcion] = useState("");
     const [entre, setEntre] = useState(true);
     const [ingresaPrecio, setIngresaPrecio] = useState(0);
-    const [contadorLetrasDescripcion, setContadorLetrasDescripcion] = useState(0);
+    const [contadorLetrasDescripcion, setContadorLetrasDescripcion] =
+        useState(0);
 
     const onChange = (e) => {
         setFormData({
@@ -5635,7 +5719,8 @@ function DatosProductosAdicionales(props) {
                                                 type="text"
                                             />
                                             <h4 className="ml-500 mt-1">
-                                                {contadorLetrasDescripcion} {"/"} 180
+                                                {contadorLetrasDescripcion}{" "}
+                                                {"/"} 180
                                             </h4>
                                         </div>
                                     </Col>
