@@ -1,0 +1,177 @@
+import React, { useEffect, useState } from "react";
+import ModalLocationResult from "../../../pages/mensajes/ModalLocationResult";
+import { Button, Row, Col, Modal, Form } from "react-bootstrap";
+import ModalMensajesCity from "../../../pages/mensajes/ModalMensajesCity";
+import { Box, Grid } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { getCitySelect } from "../../../store/cityselect/action";
+
+let ciudadesAlt = [];
+let ciudadesselAlt = [];
+
+function WidgetShopByLocationSearch(props) {
+    const {
+        dataCitySelect,
+        setDataCitySelect
+    } = props;
+
+    const dispatch = useDispatch();
+    const [cantidadCiudades, setCantidadCiudades] = useState(0);
+    const [mostrarMas, setMostrarMas] = useState(false);
+    const [showModalMensajes, setShowModalMensajes] = useState(false);
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+
+    const [showModalMensajesCity, setShowModalMensajesCity] = useState(false);
+    const [tituloMensajesCity, setTituloMensajesCity] = useState("");
+    const [textoMensajesCity, setTextoMensajesCity] = useState("");
+    const [textoBoton, setTextoBoton] = useState("Cerrar");
+
+    const [cambia, setCambia] = useState(false);
+    const [activarCity, setActivarCity] = useState(false);
+    const [abrirModal, setAbrirModal] = useState(false);
+    const [ciudades, setCiudades] = useState([]);
+    const [ciudadesSel, setCiudadesSel] = useState([]);
+    const [classCity, setClassCity] = useState("form-group");
+
+    const [itemSel, setitemSel] = useState(null);
+    const [marcaSelected, setmarcaSelected] = useState("");
+
+    const dataciudad = useSelector(
+        (state) => state.datacityprd.datacityprd
+    );
+
+    const SelectCity = (item, ciudad, nombreciu) => {
+        if (ciudades.includes(ciudad)) {
+        } else {
+            setitemSel(item);
+            setmarcaSelected("subrayartexto");
+            //setActivaCiudad(!activaCiudad);
+            ciudadesAlt.push(item);
+            setCiudades(ciudadesAlt);
+
+            //setActCiy(true);
+            let row = {
+                id: item,
+                idciu: ciudad,
+                nombreciu: nombreciu,
+            };
+            ciudadesselAlt.push(row);
+            setDataCitySelect(ciudadesselAlt);
+          
+            //dispatch(getCitySelect(ciudadesselAlt));
+            //console.log("CUDA : ", ciudadesselAlt);
+            //setCitySelected(ciudadesselAlt);
+            //setCiudadesSel(ciudadesselAlt);
+        }
+    };
+    
+    console.log("ITEM CIUD : ", dataCitySelect);
+
+    return (
+        <div className="widget widget_shop widget_rating">
+            <div className="tamañotextotitulolocation">Por ubicación</div>
+            <div className="widget__content tamañotextofiltroresultlocation">
+                {dataciudad &&
+                    dataciudad.map((item, index) => {
+                        return (
+                            <div className={classCity}>
+                                {index < 5 ? (
+                                    <div
+                                        //onMouseEnter={() => control()}
+                                        className="mt-3"
+                                        onClick={() =>
+                                            SelectCity(
+                                                index,
+                                                item.ciudad,
+                                                item.nombre_ciu
+                                            )
+                                        }>
+                                        {cambia || !cambia ? (
+                                            ciudades.includes(index) ? (
+                                                <Row className="mtmenos25">
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={1}
+                                                        lg={1}>
+                                                        <i
+                                                            className="iconochecklocation fa fa-check-square-o"
+                                                            aria-hidden="true"></i>
+                                                    </Col>
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={7}
+                                                        lg={7}>
+                                                        <div className="tamañoletra11search">
+                                                            {
+                                                                item.nombre_ciu
+                                                            }{" "}
+                                                        </div>
+                                                    </Col>
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={1}
+                                                        lg={1}>
+                                                        <div className="tamañoletra11search">
+                                                            (
+                                                            {
+                                                                item.cantidad
+                                                            }
+                                                            )
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            ) : (
+                                                <Row className="mtmenos25">
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={1}
+                                                        lg={1}>
+                                                        <div
+                                                            className="iconochecklocation fa fa-square-o"
+                                                            aria-hidden="true"></div>
+                                                    </Col>
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={7}
+                                                        lg={7}>
+                                                        <div className="tamañoletra11search">
+                                                            {
+                                                                item.nombre_ciu
+                                                            }{" "}
+                                                        </div>
+                                                    </Col>
+                                                    <Col
+                                                        item
+                                                        xs={12}
+                                                        md={1}
+                                                        lg={1}>
+                                                        <div className="tamañoletra11search">
+                                                            (
+                                                            {
+                                                                item.cantidad
+                                                            }
+                                                            )
+                                                        </div>
+                                                    </Col>
+                                                </Row>
+                                            )
+                                        ) : null}
+                                    </div>
+                                ) : null}
+                            </div>
+                        );
+                    })}
+
+            </div>
+
+        </div>
+    );
+}
+
+export default WidgetShopByLocationSearch;
