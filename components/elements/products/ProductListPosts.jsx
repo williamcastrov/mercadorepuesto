@@ -89,7 +89,7 @@ const ProductListPosts = ({ product }) => {
     }, [login]);
 
     useEffect(() => {
-        if (product.estadopublicacion == 0 || estadoMyPosts == 0) {
+        if (product.estadopublicacion == 0 || estadoMyPosts == 0  || estadoMyPosts == 20) {
             setTextoEstado("Inactiva");
         } else {
             setTextoEstado("Activa");
@@ -819,7 +819,7 @@ const ProductListPosts = ({ product }) => {
                                                     md={12}
                                                     lg={12}>
                                                     <div className="textopublicaciones">
-                                                        {estadoMyPosts == 0 ? (
+                                                        {estadoMyPosts == 0 || estadoMyPosts == 20? (
                                                             <div>
                                                                 Publicación esta
                                                                 Inactiva

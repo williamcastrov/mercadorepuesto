@@ -13,12 +13,13 @@ import HomeOneTopBanners from "~/components/partials/homepages/home-1/HomeOneTop
 //import HomeOnePromotionsTwo from "~/components/partials/homepages/home-1/HomeOnePromotionsTwo";
 //import Testimonials from "~/components/shared/sections/Testimonials";
 import HeaderDefault from "~/components/shared/headers/HeaderDefault";
-import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
+//import * as Sentry from "@sentry/react";
+//import { Integrations } from "@sentry/tracing";
 import { useDispatch, useSelector } from "react-redux";
 import { getVariablesGeneralesMrp } from "../store/variablesgeneralesmrp/action";
 import Header from "../components/elements/header/Header";
 
+/*
 Sentry.init({
     dsn: "https://1a85abd0b2d24ff2a23301268e18ca91@o427912.ingest.sentry.io/6112792",
     integrations: [new Integrations.BrowserTracing()],
@@ -28,6 +29,7 @@ Sentry.init({
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
 });
+*/
 
 const HomeDefaultPage = () => {
     const dispatch = useDispatch();

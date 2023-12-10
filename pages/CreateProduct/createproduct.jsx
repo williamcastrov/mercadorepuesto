@@ -219,9 +219,7 @@ const CreateProduct = () => {
     const [showDatosProductosAdicionales, setShowDatosProductosAdicionales] =
         useState(false);
     const [showIngresoFotos, setShowIngresoFotos] = useState(false);
-
     const [pageAcount, setPageAcount] = useState("ps-page__content ps-account");
-
     const [mostrarDatosVehiculos, setMostrarDatosVehiculos] = useState(false);
 
     /* Adiciona esta variable para control cuando se muestran o no vehículos agregados  */
@@ -331,6 +329,7 @@ const CreateProduct = () => {
     const [cilindrajeCodigo, setCilindrajeCodigo] = useState(0);
     const [userLogged, setuserLogged] = useState(false);
     const [confirmarMensaje, setconfirmarMensaje] = useState(false);
+    const [tituloVender, setTituloVender] = useState("Crear Producto");
 
     const datosgenerales = useSelector(
         (state) => state.datosgenerales.datosgenerales
@@ -357,9 +356,21 @@ const CreateProduct = () => {
     }, [userlogged]);
 
     useEffect(() => {
+        let accion = JSON.parse(localStorage.getItem("accion"));
+        if (accion == "editar") {
+            setTituloVender("Editar Producto");
+        } else if (accion == "duplicar") {
+            setTituloVender("Duplicar Producto");
+        } else setTituloVender("Crear Producto");
+
         if (duplicarprd == 2) {
             let datosprducto = JSON.parse(localStorage.getItem("duplicarprd"));
             let vehproductos = JSON.parse(localStorage.getItem("vehproductos"));
+            let idvehcompduplicar = shortid();
+            localStorage.setItem(
+                "idvehcompduplicar",
+                JSON.stringify(idvehcompduplicar)
+            );
             setArrayVehiculosTemporal(vehproductos);
             handleChangeGenerico("No");
             mostrarVehiculos();
@@ -826,6 +837,65 @@ const CreateProduct = () => {
             return;
         }
 
+        if (duplicarprd == 2) {
+            let idvehcompduplicar = JSON.parse(
+                localStorage.getItem("idvehcompduplicar")
+            );
+            //setArrayVehiculosTemporal(vehproductos);
+            arrayVehiculosTemporal &&
+                arrayVehiculosTemporal.map((items) => {
+                   
+                    const params = {
+                        id: idvehcompduplicar,
+                        idtipoproducto: idvehcompduplicar,
+                        tipovehiculo: items.tipovehiculo,
+                        carroceria: items.carroceria,
+                        marca: items.marca,
+                        anno: items.anno,
+                        modelo: items.modelo,
+                        cilindraje: items.cilindraje,
+                        transmision: items.transmision,
+                        combustible: items.combustible,
+                        traccion: items.traccion,
+                        selecttipo: items.selecttipo,
+                        selectcarroceria: items.selectcarroceria,
+                        selectmarca: items.selecttipo,
+                        selectanno: items.selectmarca,
+                        selectmodelo: items.selectmodelo,
+                        selectcilindraje: items.selectcilindraje,
+                        selecttransmision: items.selecttransmision,
+                        selectcombustible: items.selectcombustible,
+                        selecttraccion: items.selecttraccion,
+                        estado: items.estado,
+                        comparar: items.comparar,
+                        fecha: items.fecha,
+                    };
+
+                    const grabarVehTemp = async () => {
+                        await axios({
+                            method: "post",
+                            url: "https://gimcloud.com.co/mrp/api/32",
+                            params,
+                        })
+                            .then((res) => {
+                                console.log(
+                                    "Producto Temporal OK: ",
+                                    res.data
+                                );
+                            })
+                            .catch(function (error) {
+                                console.log(
+                                    "Producto Temporal Error: ",
+                                    res.data
+                                );
+                            });
+                    };
+                    grabarVehTemp();
+
+                    console.log("VEH DUPLICAR : ", params);
+                });
+        }
+
         setShowIconoCerrarAbrir(true);
         setAgregarVehiculo(false);
         setbotonCrearVehiculo(false);
@@ -931,7 +1001,7 @@ const CreateProduct = () => {
                         <Row className="mt-5">
                             <Col xl={2} lg={2} md={2} xs={2}>
                                 <h2 className="titulocrearproducto">
-                                    Crear Producto
+                                    {tituloVender}
                                 </h2>
                             </Col>
 
@@ -3523,13 +3593,13 @@ function DatosProductosAdicionales(props) {
         "form-control ps-form__input baseinput tamañoinputpublicacion eliminarborde"
     );
     const [inputLargo, setInputLargo] = useState(
-        "mt-10 form-control ps-form__input baseinput tamañoinputpublicacion eliminarborde"
+        "form-control ps-form__input baseinput tamañoinputpublicacion eliminarborde"
     );
     const [inputAncho, setInputAncho] = useState(
         "form-control ps-form__input baseinput tamañoinputpublicacion eliminarborde"
     );
     const [inputAltura, setInputAltura] = useState(
-        "mt-10 form-control ps-form__input baseinput tamañoinputpublicacion mlmenos10 eliminarborde"
+        "form-control ps-form__input baseinput tamañoinputpublicacion mlmenos10 eliminarborde"
     );
 
     const [tituloDescripcion, setTituloDescripcion] = useState(null);
@@ -4308,6 +4378,9 @@ function DatosProductosAdicionales(props) {
                                                 </button>
                                             </div>
                                         </Col>
+                                        {
+                                            console.log("PRECIO EDITAR : ", precioEditar)
+                                        }
                                         {entre ? (
                                             <Col lg={6} xl={6} md={6} xs={6}>
                                                 <div className="mlmenos15 textodatospublicacion">
@@ -4397,10 +4470,7 @@ function DatosProductosAdicionales(props) {
                                                     Kg
                                                 </div>
                                             </Col>
-                                            {console.log(
-                                                "LARGO : ",
-                                                largoEditar
-                                            )}
+                                          
                                             <Col
                                                 lg={4}
                                                 xl={4}

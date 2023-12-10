@@ -93,6 +93,7 @@ function MostrarVehiculos(props) {
         (state) => state.datosgenerales.datosgenerales.vgl_cilindrajesvehiculos
     );
     const duplicarprd = useSelector((state) => state.duplicarprd.duplicarprd);
+    
 
     useEffect(() => {
         if (editarProducto && !duplicarProducto)

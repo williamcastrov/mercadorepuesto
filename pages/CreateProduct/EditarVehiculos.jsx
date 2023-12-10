@@ -738,6 +738,9 @@ function EditarVehiculos(props) {
             setNuevoVehiculo(false);
 
             const actualizarTemporal = async () => {
+                let idvehcompduplicar = JSON.parse(
+                    localStorage.getItem("idvehcompduplicar")
+                );
                 if (!marcaVehUno || marcaVehUno == 0) {
                     setAlertMarca("ml-2 alinearizquierda textoalert");
                     setShowModalMensajes(true);
@@ -772,33 +775,33 @@ function EditarVehiculos(props) {
                     combustibleVehUno +
                     traccionVehUno;
 
-                const params = {
-                    id: arraySelectEdit[0].id,
-                    idtipoproducto: arraySelectEdit[0].idtipoproducto,
-                    tipovehiculo: tipoVeh,
-                    carroceria: carroceriaVehUno,
-                    marca: marcaVehUno,
-                    anno: annoVehUno,
-                    modelo: modeloVehUno,
-                    cilindraje: cilindrajeVehUno,
-                    transmision: transmisionVehUno,
-                    combustible: combustibleVehUno,
-                    traccion: traccionVehUno,
-                    selecttipo: tipoVehSelec,
-                    selectcarroceria: carroceriaVehSelec,
-                    selectmarca: marcaVehSelec,
-                    selectanno: annoVehSelec,
-                    selectmodelo: modeloVehSelec,
-                    selectcilindraje: cilindrajeVehSelec,
-                    selecttransmision: transmisionVehSelec,
-                    selectcombustible: combustibleVehSelec,
-                    selecttraccion: traccionVehSelec,
-                    estado: 1,
-                    comparar: comparar,
-                    fecha: fechaactual,
-                };
-
                 if (duplicarprd == 0) {
+                    const params = {
+                        id: arraySelectEdit[0].id,
+                        idtipoproducto: arraySelectEdit[0].idtipoproducto,
+                        tipovehiculo: tipoVeh,
+                        carroceria: carroceriaVehUno,
+                        marca: marcaVehUno,
+                        anno: annoVehUno,
+                        modelo: modeloVehUno,
+                        cilindraje: cilindrajeVehUno,
+                        transmision: transmisionVehUno,
+                        combustible: combustibleVehUno,
+                        traccion: traccionVehUno,
+                        selecttipo: tipoVehSelec,
+                        selectcarroceria: carroceriaVehSelec,
+                        selectmarca: marcaVehSelec,
+                        selectanno: annoVehSelec,
+                        selectmodelo: modeloVehSelec,
+                        selectcilindraje: cilindrajeVehSelec,
+                        selecttransmision: transmisionVehSelec,
+                        selectcombustible: combustibleVehSelec,
+                        selecttraccion: traccionVehSelec,
+                        estado: 1,
+                        comparar: comparar,
+                        fecha: fechaactual,
+                    };
+
                     await axios({
                         method: "post",
                         url: "https://gimcloud.com.co/mrp/api/34",
@@ -818,20 +821,87 @@ function EditarVehiculos(props) {
                                 res.data
                             );
                         });
-                } else if (duplicarprd == 2 ) {
+                } else if (duplicarprd == 2) {
                     let nvoarray = [];
                     arrayVehiculosTemporal &&
                         arrayVehiculosTemporal.map((items) => {
-                            if(items.id == params.id){
+                            if (items.id == arraySelectEdit[0].id) {
+                                const params = {
+                                    id: arraySelectEdit[0].id,
+                                    idtipoproducto: idvehcompduplicar,
+                                    tipovehiculo: tipoVeh,
+                                    carroceria: carroceriaVehUno,
+                                    marca: marcaVehUno,
+                                    anno: annoVehUno,
+                                    modelo: modeloVehUno,
+                                    cilindraje: cilindrajeVehUno,
+                                    transmision: transmisionVehUno,
+                                    combustible: combustibleVehUno,
+                                    traccion: traccionVehUno,
+                                    selecttipo: tipoVehSelec,
+                                    selectcarroceria: carroceriaVehSelec,
+                                    selectmarca: marcaVehSelec,
+                                    selectanno: annoVehSelec,
+                                    selectmodelo: modeloVehSelec,
+                                    selectcilindraje: cilindrajeVehSelec,
+                                    selecttransmision: transmisionVehSelec,
+                                    selectcombustible: combustibleVehSelec,
+                                    selecttraccion: traccionVehSelec,
+                                    estado: 1,
+                                    comparar: comparar,
+                                    fecha: fechaactual,
+                                };
+
+                                console.log(
+                                    "ID VEH111: ",
+                                    items.id,
+                                    " - ",
+                                    arraySelectEdit[0].id
+                                );
+                                console.log("PARAMS111: ", params);
                                 nvoarray.push(params);
-                            }else
-                            {
-                                nvoarray.push(items);
+                            } else {
+                                const params = {
+                                    id: items.id,
+                                    idtipoproducto: idvehcompduplicar,
+                                    tipovehiculo: items.tipovehiculo,
+                                    carroceria: items.carroceria,
+                                    marca: items.marca,
+                                    anno: items.anno,
+                                    modelo: items.modelo,
+                                    cilindraje: items.cilindraje,
+                                    transmision: items.transmision,
+                                    combustible: items.combustible,
+                                    traccion: items.traccion,
+                                    selecttipo: items.selecttipo,
+                                    selectcarroceria: items.selectcarroceria,
+                                    selectmarca: items.selectmarca,
+                                    selectanno: items.selectanno,
+                                    selectmodelo: items.selectmodelo,
+                                    selectcilindraje: items.selectcilindraje,
+                                    selecttransmision: items.selecttransmision,
+                                    selectcombustible: items.selectcombustible,
+                                    selecttraccion: items.selecttraccion,
+                                    estado: items.estado,
+                                    comparar: items.comparar,
+                                    fecha: items.fecha,
+                                };
+                            
+                                console.log(
+                                    "ID VEH222: ",
+                                    items.id,
+                                    " - ",
+                                    arraySelectEdit[0].id
+                                );
+
+                                console.log("ITEMS2222: ", params);
+                                nvoarray.push(params);
                             }
                         });
-                        setArrayVehiculosTemporal(nvoarray);
-                        setEditarProducto(false);
-                        setMarcarItem(0);
+
+                    setArrayVehiculosTemporal(nvoarray);
+                    setEditarProducto(false);
+                    setMarcarItem(0);
                 }
             };
             actualizarTemporal();

@@ -803,6 +803,11 @@ function CategoriasProductosGenericos(props) {
         );
     };
 
+    const iramispublicaciones = () => {
+        router.push("/publication");
+    };
+
+
     const mostrarModalDatosProducto = () => {
         setShowDatosProductos(true);
         setAbrirCerrarCategoriasGenerico(!abrirCerrarCategoriasGenerico);
@@ -1305,9 +1310,26 @@ function CategoriasProductosGenericos(props) {
                             </Col>
                         </Row>
                     </div>
-                    <div className="mt-20 ml-605">
+                    <div className="mt-20">
                         <Row>
-                            <Col xl={4} lg={4} md={4} xs={4}>
+                        <Col xl={5} lg={5} md={5} xs={5}
+                        className=" mr-28"
+                        >
+
+                        </Col>
+                        <Col xl={3} lg={3} md={3} xs={3}
+                        className="ml-30 mr-20"
+                        >
+                                <Button
+                                    variant="outline-light"
+                                    className="ps-btn  redondearborde baseinputdos colortextoselect"
+                                    disabled={habilitaSiguiente}
+                                    onClick={() => iramispublicaciones()}>
+                                    {" "}
+                                    Ir a mis publicaciones
+                                </Button>
+                            </Col>
+                            <Col xl={2} lg={2} md={2} xs={2}>
                                 <Button
                                     variant="outline-light"
                                     className={classHabilitaSiguiente}

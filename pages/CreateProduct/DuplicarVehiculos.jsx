@@ -934,6 +934,7 @@ function DuplicarVehiculos(props) {
 
                 const params = {
                     id: idVehiculosProducto,
+                    idtipoproducto: idVehiculosProducto,
                     tipovehiculo: tipoVehUno,
                     carroceria: carroceriaVehUno,
                     marca: marcaVehUno,

@@ -20488,6 +20488,9 @@ cursor: pointer;
 .mt-34 {
     margin-top: 34px;
 }
+.mr-28 {
+    margin-right: 28px;
+}
 .mr-30 {
     margin-right: 30px;
 }
@@ -23516,11 +23519,18 @@ ol {
     color: #2D2E83 !important;
     border-radius: 10px !important;
 }
-
 .baseinput::placeholder{
     color: #ABACCD !important;
 }
 
+.baseinputdos{
+    background-color: #F1F2F6 !important;
+    color: #2D2E83 !important;
+    border-radius: 10px !important;
+}
+.baseinputdos::placeholder{
+    color: #ABACCD !important;
+}
 .colorfonoazulbase {
      background-color: #2D2E83 !important;
 }

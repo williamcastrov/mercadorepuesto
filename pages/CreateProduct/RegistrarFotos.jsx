@@ -410,6 +410,19 @@ function RegistrarFotos(props) {
 
             setDatPrd(datosprducto);
             let vehproductos = JSON.parse(localStorage.getItem("vehproductos"));
+        } else {
+            let imgload = [];
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            imgload.push(img);
+            setImagenesLoad(imgload);
         }
     }, [duplicarprd]);
 
@@ -470,9 +483,18 @@ function RegistrarFotos(props) {
         if (generico == "No") {
             let params;
             const leeVehiculosTemporal = async () => {
-                params = {
-                    codigo: idVehiculosProducto,
-                };
+                if (duplicarprd == 2) {
+                    let idvehcompduplicar = JSON.parse(
+                        localStorage.getItem("idvehcompduplicar")
+                    );
+                    params = {
+                        codigo: idvehcompduplicar,
+                    };
+                } else {
+                    params = {
+                        codigo: idVehiculosProducto,
+                    };
+                }
 
                 await axios({
                     method: "post",
@@ -1175,6 +1197,7 @@ function RegistrarFotos(props) {
         }
 
         // Datos vehículos no genericos - compatibles
+
         if (generico == "No") {
             vehCompatibles &&
                 vehCompatibles.map((veh) => {
@@ -2034,8 +2057,6 @@ function RegistrarFotos(props) {
         for (var i = 0; i < longnvo; i++) {
             array.push(img);
         }
-
-        alert(array.length);
         console.log("ARRAY NVO CC : ", array);
         setImagenesLoad(array);
 
