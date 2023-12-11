@@ -1507,7 +1507,7 @@ function RegistrarFotos(props) {
         formdata.append("nombreimagen10", nombreimagen10);
         formdata.append("imagen10", imagen10);
         formdata.append("loadimage", loadimage);
-/*
+        /*
         let row = {
             id: idPublication,
             productogenerico: generico,
@@ -2400,14 +2400,14 @@ function RegistrarFotos(props) {
 
     const showSuggestionsImg = () => {
         setresultImgLoad(false);
-        /*
-mostrarErrores,
-        resultImgLoad,
-        showControlUnError
-        */
+
         if (mostrarErrores && !resultImgLoad && showControlUnError)
             setCajaFotos("cajafotosproductosampliadados ps-page__header mt-25");
         else setCajaFotos("cajafotosproductosampliada ps-page__header mt-25");
+    };
+
+    const iramispublicaciones = () => {
+        router.push("/publication");
     };
 
     useEffect(() => {
@@ -3697,15 +3697,25 @@ mostrarErrores,
                     </Col>
                 </Row>
                 <Row>
-                    <Col xl={7} lg={7} xs={7} md={7}></Col>
-                    <Col xl={2} lg={2} xs={2} md={2}>
-                        <Button
-                            variant="outline-light"
-                            onClick={cancelar}
-                            className="ml-20 mtmenos10 colortextoselect ps-btn baseinput redondearborde">
-                            {" "}
-                            Cancelar{" "}
-                        </Button>
+                    <Col xl={6} lg={6} xs={6} md={6}></Col>
+                    <Col xl={3} lg={3} xs={3} md={3}>
+                        {duplicarprd == 1 || duplicarprd == 2 ? (
+                            <Button
+                                variant="outline-light"
+                                className="ps-btn mtmenos10 redondearborde baseinputdos colortextoselect"
+                                onClick={() => iramispublicaciones()}>
+                                {" "}
+                                Ir a mis publicaciones
+                            </Button>
+                        ) : (
+                            <Button
+                                variant="outline-light"
+                                onClick={cancelar}
+                                className="ml-20 mtmenos10 colortextoselect ps-btn baseinput redondearborde">
+                                {" "}
+                                Cancelar{" "}
+                            </Button>
+                        )}
                     </Col>
                     <Col xl={2} lg={2} xs={2} md={2}>
                         <div

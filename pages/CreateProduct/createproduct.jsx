@@ -2773,8 +2773,9 @@ function DatosProductos(props) {
         setBordeCondicion("");
     };
 
-    const seleccionarTipoCondicion = (e) => {
+    const seleccionarTipoCondicion = (e, value) => {
         setTipoCondicion(e);
+        setCondicionEditar(value);
         setClassTipoCondicion("mlmenos275");
     };
 
@@ -2829,8 +2830,8 @@ function DatosProductos(props) {
         let porpartes = 0;
 
         if (duplicarprd == 1 || duplicarprd == 2) {
-            funcionalidad = datosprducto.funcionalidad;
-            condicion = datosprducto.condicion;
+            funcionalidad = funcionalidadEditar;
+            condicion = condicionEditar;
             marcarepuesto = marcaEditar;
             numerodeparte = numeroparteEditar;
             titulonombre = tituloProducto;
@@ -3204,7 +3205,7 @@ function DatosProductos(props) {
                                                                     className="itemsdropdowncustom"
                                                                     onClick={() =>
                                                                         seleccionarTipoCondicion(
-                                                                            item.label
+                                                                            item.label, item.value
                                                                         )
                                                                     }
                                                                     eventKey={

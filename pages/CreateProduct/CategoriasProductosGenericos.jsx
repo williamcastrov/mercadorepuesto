@@ -807,7 +807,6 @@ function CategoriasProductosGenericos(props) {
         router.push("/publication");
     };
 
-
     const mostrarModalDatosProducto = () => {
         setShowDatosProductos(true);
         setAbrirCerrarCategoriasGenerico(!abrirCerrarCategoriasGenerico);
