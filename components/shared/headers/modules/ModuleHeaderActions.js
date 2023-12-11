@@ -163,8 +163,9 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                                 }
                             </Dropdown.Toggle>
                             <Dropdown.Menu className="datainfousuario">
-                                <Dropdown.Item className="datainfousuario" href="/my-account">Mis Datos</Dropdown.Item>
+                                <Dropdown.Item className="datainfousuario" href="/EditUsers/CompSMS">Mis Datos</Dropdown.Item>
                                 <Dropdown.Item className="datainfousuario" href="/publication">Mis Publicaciones</Dropdown.Item>
+                                <Dropdown.Item className="datainfousuario" href="/MisCompras/misCompras">Mis Compras</Dropdown.Item>
                                 <Dropdown.Item className="datainfousuario" onClick={Salir} >Cerrar Sesión</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

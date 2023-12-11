@@ -1507,7 +1507,7 @@ function RegistrarFotos(props) {
         formdata.append("nombreimagen10", nombreimagen10);
         formdata.append("imagen10", imagen10);
         formdata.append("loadimage", loadimage);
-
+/*
         let row = {
             id: idPublication,
             productogenerico: generico,
@@ -1567,7 +1567,7 @@ function RegistrarFotos(props) {
             nombreimagen10: nombreimagen10,
             imagen10: imagen10,
         };
-
+*/
         //console.log("PRDDDSDD : ", row);
         //return;
 

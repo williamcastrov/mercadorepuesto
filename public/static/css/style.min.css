@@ -28101,3 +28101,1246 @@ background-color: #F1F2F6 !important;
     background-color:#D4D6E5 !important;
     color: white !important;
   }
+
+
+
+
+
+
+
+
+/*Styles Juan Pablo*/
+/*Parte Domicilio*/
+.titlesDomicilio{
+    font-size: 30px;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.titlesDomicilio2{
+    font-size: 28px;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.titleHaveNothing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #f1f2f4;
+    border-radius: 8px;
+    padding: 1rem;
+}
+.titleHaveNothing h3{
+    font-size: 16px; 
+}
+.inputsDomicilio{
+    background-color: #f1f2f6;
+    border-radius: 10px; 
+    height: 43px;
+    padding: 10px 25px;
+}
+.titlesinputsDomicilio{
+    color: #2d2e83;
+    margin-bottom: 5px;
+}
+.direcsCreadas{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    border: 4px solid #f1f2f4;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+}
+.direcsCreadasButtons{
+    display: flex;
+    flex-direction: column;
+}
+.info1dom{
+    color: #2C2E82;
+    font-family: "Jost", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+.iconsDomic{
+    font-size: 1.8rem;
+    margin: 5px;
+    cursor: pointer;
+    color: #2d2e83;
+}
+.locationIcon{
+    font-size: 3rem;
+    color: #2d2e83;
+}
+.infodirecccreada{
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+}
+.iconfirstdiccreada{ 
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-right: 2rem;
+}
+.iconfirstdiccreada:first-child{
+    font-size: 1.3rem;
+}
+.containerFormDireccion{
+    border: 4px solid #f1f2f4;
+    border-radius: 8px;
+    padding: 1rem;
+}
+.inputsDomicilioRef{
+    background-color: #f1f2f6;
+    border-radius: 10px; 
+    height: 5em;
+    padding: 10px 25px;
+    width: 100%;
+    padding: 16px;
+    overflow-y: auto;
+}
+.referLenght{
+    text-align: right;
+    color: #2C2E82;
+    font-size: 16px;
+    margin-right: 5px;
+}
+.buttonDom{
+    width: 100%;
+    margin-left: 0px !important;  
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    color: white !important;
+    background-color: #2D2E83 !important;
+    height: 40px !important;
+    cursor: pointer;
+}
+ 
+/*Titles Forms*/
+
+.titlesformsUsers p{
+    margin-bottom: 3rem;
+    margin-top: -3rem;  
+    font-size: 24px !important;
+    color: #2D2E83;  
+    font-weight: 600; 
+    font-family: "Jost", sans-serif; 
+} 
+ 
+.textodireccionesdos{
+    margin-top: 20px !important;
+    margin-left: 357px !important;
+    width: 200px !important;
+    border: none !important;
+    color: white !important;
+    padding-top: 7px !important;
+    text-align: center;
+    border-radius: 10px !important;
+    background-color: #2D2E83 !important;
+    height: 40px !important;
+    cursor: pointer;
+}
+
+/*inputsAndForms*/
+
+
+ /*comp sms*/
+
+ .titlescompSMS{
+    font-size: 24px; 
+    color: #2C2E82;
+    font-family: "Jost", sans-serif; 
+    font-weight: 600;
+ }
+
+
+
+/*fin compsms*/
+
+
+.itemsdropdownTdocPersona {
+    color: #2D2E83 !important;
+    height: 35px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+.tamañocajaoptionsTdocPersona {
+    margin-left: 5px !important;
+    width: 250px !important;
+    font-size: 16px !important;  
+}
+
+.dropdowncustomTdocPersButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 44px !important;
+    background-color: #F0F2F5 !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 16px !important;
+    padding-left: 13px; /* Ajusta este valor según tus necesidades */
+    padding-right: 13px; /* Ajusta este valor según tus necesidades */
+  }
+  
+  .dropdowncustomTdocPersButton::after {
+    content: '';
+    width: 10px; 
+    height: 10px;  
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
+  
+  .itemsdropdownTdocPersona {
+    color: #2D2E83 !important;
+    height: 35px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+  }
+/*
+.dropdowncustomTdocPersonaAlertButton {
+    width: 170px !important;
+    margin-top: -5px !important;
+    padding-left: -100px !important;
+    border-radius: 10px !important;
+    border: 1px solid red !important;
+    height: 44px !important;
+    background-color: #F0F2F5 !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 16px !important;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 10px !important;
+     aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable 
+    background-repeat: no-repeat !important;
+    background-position: 145px center !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}*/
+
+/*Popup Datos guardados*/
+ 
+  .dialogtitleDtsGUardados {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: none;
+  }
+  
+  .DialogDatsGuardadsIcon {
+    color: #00BF15;
+    margin-right: 2px;
+    font-size: 5rem;
+    margin-left: -23px;
+  }
+  
+  .dialogtituloP {
+    color: #2C2E82;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .dialogContentDatsGuardados {
+    background-color: #F4F5F7;
+    color: #2C2E82; 
+    border-radius: 12px;
+    padding: 2rem;
+    padding-top: 2.5rem;
+  }
+  
+  .PdialogContent {
+    color: #2C2E82;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 1.5rem;
+  }
+  
+  .DialogActionsDatsGuardados {
+    width: 70%;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 1.3rem;
+  }
+  
+  .div1buttonDialog {
+    width: 50%;
+  }
+  
+  .button1DialogDatsGuardados {
+    width: 100%;
+    background-color: #2C2E82;
+    font-size: 16px;
+    border-radius: 10px;
+    color: white;
+    height: 40px;
+  }
+  
+  .button2DialogDatsGuardados {
+    width: 100%;
+    background-color: #f4f5f7;
+    font-size: 16px;
+    border-radius: 10px;
+    color: #2C2E82;
+    height: 40px;
+  }
+
+  /*ButtonsCancelarGuardarForms*/
+
+  .CancelarFormButton {
+    width: 49%;
+    background-color: #f4f5f7;
+    color: #2D2E83; 
+    border-radius: 10px;
+    font-size: 16px; 
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 40px !important;
+  }
+  .CancelarFormButton:hover{
+    color: #F0F2F5 !important;
+    background-color: #2D2E83 !important;
+}
+
+  .GuardarFormButton {
+    width: 49%;
+    background-color: #2D2E83;
+    color: white; 
+    border-radius: 10px;
+    font-size: 16px; 
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 40px !important;
+  }
+
+  .InputFormsUsers{
+    background-color: #f1f2f6;
+    border-radius: 10px;
+    width: 100%;
+    height: 44px;
+    padding: 10px 25px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .titlesFormsUsers2{
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 600;
+    margin-bottom: .5rem;
+  }
+  
+  /*ContainersFormulariosuSERS*/
+
+  .contDataUsers{
+    margin-top: 3rem;
+    display: flex;
+    margin: 0;
+    padding: .5rem;
+    margin: 0 auto;
+    
+  }
+
+  /*Container mis datos my-account jsx*/
+.SubcontainerMisDatos{
+    border-radius: 10px;
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5;
+    padding: 2.1rem;
+    font-size: 24px;
+    font-weight: 200;
+    cursor: pointer;
+    font-family: "Jost", sans-serif; 
+}
+.titleSubContMisD{
+    font-size: 21px;
+    color: #2C2E82;
+    font-family: "Jost", sans-serif; 
+
+}
+.subtitleSubContMisD{
+    font-size: 21px;
+    color: #2C2E82; 
+    font-family: "Jost", sans-serif; 
+}
+.titlemisD{
+    font-size: 24px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif; 
+}
+.titlePJuridicaMisDatos{
+    font-size: 24px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif; 
+}
+.modal-text {
+    text-transform: none; /* Esto evita que el texto esté en mayúsculas */
+}
+
+
+/*Mis compras*/
+.TopContMisCompras{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdowncustomMiscomprasPersButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 44px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 20px !important;
+    padding-left: 13px; /* Ajusta este valor según tus necesidades */ 
+  }
+  
+  .dropdowncustomMiscomprasPersButton::after {
+    content: '';
+    width: 10px; 
+    height: 10px;  
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
+
+  .contProdcOMPR{
+    margin-top: 3rem;
+    display: flex; 
+    margin: 0 auto;
+  }
+
+
+  .productComprado{
+    display: flex;
+    border: 5px solid #EBEBEB;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  /**/
+    /*Container mis datos my-account jsx*/
+.ContVendedor{
+    border-radius: 10px;
+    margin-bottom: .6rem; 
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5; 
+    font-size: 24px;
+    font-weight: 200; 
+    font-family: "Jost", sans-serif; 
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+    margin: 0 auto;
+    margin-top: 7rem;
+
+}
+.titlecontVend1{
+    font-size: 20px;
+    color: #2C2E82; 
+    font-weight: 700;
+}
+.ContVendedor2 {
+    margin-top: 4rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0; /* Sin redondeo en la esquina inferior izquierda */
+    border-bottom-right-radius: 0; /* Sin redondeo en la esquina inferior derecha */
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5;
+    font-size: 24px;
+    font-weight: 200;
+    font-family: jost, sans-serif;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    flex-direction: column;
+}
+.titlecontVend2{
+    font-size: 20px;
+    color: #2C2E82; 
+    font-weight: 700;
+}
+.subContVendedor2{  
+    margin: 0 auto;
+
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5; 
+    font-size: 24px;
+    font-weight: 200; 
+    font-family: "Jost", sans-serif; 
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    flex-direction: column;
+}
+.UltsubContVendedor2{  
+     margin: 0 auto;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5; 
+    font-size: 24px;
+    font-weight: 200; 
+    font-family: jost, sans-serif; 
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    flex-direction: column;
+
+}
+.ContPsubtitlesvercompra{
+    border-right: 3px solid #EBEBEB;
+    height: 21rem;
+
+}
+.detallesypagovercompra{
+    width: 100%;
+    margin-bottom: 3rem;
+}
+.detallesypagovercompra p{
+    font-size: 24px;
+    color: #2D2E83;
+    font-weight: 700;
+}
+ 
+
+
+.ContVendedor3 {
+    margin: 0 auto;
+    margin-top: 4rem;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0; /* Sin redondeo en la esquina inferior izquierda */
+    border-bottom-right-radius: 0; /* Sin redondeo en la esquina inferior derecha */
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    
+    color: #2C2E82;
+    background-color: #F0F1F5;
+    font-size: 24px;
+    font-weight: 200;
+    font-family: jost, sans-serif;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    flex-direction: column;
+}
+
+
+.ContVendedor4 { 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0; /* Sin redondeo en la esquina inferior izquierda */
+    border-bottom-right-radius: 0; /* Sin redondeo en la esquina inferior derecha */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #2C2E82;
+    background-color: #F0F1F5;
+    font-size: 18px;
+    font-weight: 200;
+    font-family: jost, sans-serif;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem; 
+    flex-direction: column;
+    padding-top: 1rem;   
+}
+.titlecontVend3{
+    font-size: 18px;
+    color: #2C2E82; 
+    font-weight: 700;
+}
+.titlecontvendBottom{
+    font-weight: 400;
+    font-size: 20px;
+    color: #2C2E82;
+}
+.containerTitlecontvendBottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.subContVendedor3{  
+    cursor: pointer;
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5;  
+    font-weight: 200; 
+    font-family: jost, sans-serif; 
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    flex-direction: column;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    height: 50px;
+}
+.titlesproblemas{
+    font-size: 18px;
+    color: #2C2E82; 
+    font-weight: 500;
+}
+.cajasProblemas{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+.subContVendedor4{  
+    cursor: pointer;
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5;  
+    font-weight: 200; 
+    font-family: jost, sans-serif; 
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    flex-direction: column;
+    padding-bottom: 1.1rem;
+    padding-top: 1.5rem; 
+}
+.subContVendedorUlt{  
+    cursor: pointer;
+    margin-bottom: .6rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #2C2E82;
+    background-color: #F0F1F5;  
+    font-weight: 200; 
+    font-family: jost, sans-serif; 
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    flex-direction: column;
+    padding-bottom: 1.1rem;
+    padding-top: 1.5rem; 
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.ContTengoProblema1{ 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 0; /* Sin redondeo en la esquina inferior izquierda */
+    border-bottom-right-radius: 0; /* Sin redondeo en la esquina inferior derecha */
+ 
+    display: flex;
+    align-items: center;
+    color: #2C2E82;
+    background-color: #F0F1F5;
+    font-size: 18px; 
+    font-family: jost, sans-serif;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem; 
+    flex-direction: column;
+    padding-top: 1rem;   
+}
+.titleTproblema p{ 
+    margin-top: -2rem;  
+    font-size: 24px !important;
+    color: #2D2E83;  
+    font-weight: 600;  
+} 
+.titleTproblema{
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+
+.subtitlesvercompra {
+    display: flex;
+}
+.subtitlesvercompra p{
+    margin-right: 5px;
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
+}
+.direccionsubtcompraver{
+    display: flex;
+    flex-direction: column;
+}
+/*enviar mensaje buttons*/
+.EnviarmMsjVercompra{
+    display: flex;
+    align-items: center;
+    width: 25%;
+}
+.EnviarmMsjVercompra button{
+    background-color: #2C2E82;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    padding: 0.6rem;
+    margin: 0 auto;
+    width: 100%;
+    height: 40px;
+
+}
+.subtitlecontVend1{
+    font-weight: 500;
+    font-size: 20px;
+    color: #2C2E82;
+}
+/*rastriar mi envio ver compra*/
+
+
+.RastrMiEnvVerCompraButton{
+    background-color: #2C2E82;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    padding: .6rem;
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 2.5rem;
+    height: 40px;
+}
+
+/*calificar vendedor*/
+
+
+.GuardarFormButtonvendedor {
+    width: 30%;
+    background-color: #2D2E83;
+    color: white; 
+    border-radius: 10px;
+    font-size: 16px; 
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 40px !important;
+  }
+  .titlecalifVended p{ 
+    margin-top: -2rem;  
+    font-size: 24px !important;
+    color: #2D2E83;  
+    font-weight: 600;  
+} 
+.titlecalifVended{
+    width: 100%; 
+}
+
+/*Tengo un problema*/
+
+.subcPrincipTengoUnProblema{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+ .ConttitlecontVend3{
+    width: 100%;
+ }
+.ContPrinctextareatengounproblema{
+    display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+}
+.SubContPrinctextareatengounproblema textarea{
+    padding: 2rem;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #F0F1F5;
+    height: 20rem;
+    color: #2D2E83;
+    font-size: 20px;
+    font-weight: 400;
+    resize: none;
+}
+.subcontImgTengoProblema{
+    border-left: 3px solid #E1E2EC;
+    height: 27%;
+    padding-left: 2rem;
+    display: flex;
+}
+.contImgTengoProblema{
+    border: 4px solid #EBEBEB;
+    border-radius: 12px;
+    height: 16rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.contImgTengoProblema img{
+    width: 150px;
+    height: 150px;
+}
+ 
+.contTengoProblemadatos{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 600;
+}
+.contdatosprobls{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    padding-left: 2.5rem;
+}
+.contImg1TengounPrblema{
+    border-left: 3px solid #E1E2EC;
+    height: 50%;
+    padding: 2rem;
+    display: flex;
+}
+.contAGGFotosTengoProblema{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 9rem;
+    margin-bottom: 5rem;
+}
+.contSendImgsTengoProblema{
+    border: 4px solid #EBEBEB;
+    border-radius: 12px;
+    min-height: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aggfotosubcaja{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.aggfotosubcaja input{
+    display: none;
+}  
+.buttonquitarIMG{
+    display: block;
+    margin: 5px auto;
+    background: transparent;
+    border: none;
+    color: #2D2E83;
+}
+.icCam{
+    color: #2d2e83;
+    position: absolute;
+    top: 30px;
+
+}
+.rectextprobl{
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.rectextprobl p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+
+/*calificaciones producto y vendedor*/
+.calificSubC textarea{
+    padding: 2rem;
+    width: 100%;
+    border-radius: 15px;
+    background-color: #F0F1F5;
+    height: 20rem;
+    color: #2D2E83;
+    font-size: 20px;
+    font-weight: 400;
+    resize: none;
+}
+.calificSubC p{
+font-size: 18px;
+font-weight: 500;
+color: #2D2E83;
+}
+.SubContcalificSubC{
+    display: flex;
+    margin-top: 3rem;
+    width: 100%;
+} 
+.textmiddlecalific{
+    width: 100%;
+}
+.textmiddlecalific p{
+    font-size: 18px;
+    font-weight: 500;
+    color: #2D2E83;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.notanumero p{
+    font-size: 28px;
+    margin-right: 2rem;
+    color: #2D2E83;
+}
+.iconsConfig{
+    display: flex;
+    gap: 1rem;
+}
+.contImgRighCalif{
+    border: 4px solid #EBEBEB;
+    border-radius: 12px;
+    height: 16rem;
+    display: flex;
+    justify-content: center; 
+}
+.contImgRighCalif img{
+    height: 150px;
+    width: 150px;
+}
+.continfocalifimg{
+    display: flex; 
+    margin-top: 2rem;
+    padding: 2.5rem;
+}
+.pNameProductCalif{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 600;
+}
+.contInfoProdComprCalif{
+    border-left: 3px solid #E1E2EC;
+    height: 27%;
+    padding-left: 2rem;
+    display: flex; 
+}
+.subcprinccalific{
+    display: flex;
+    justify-content: flex-start;
+}
+.calificSubC{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.btnsendcls{
+    margin-top: 3rem;
+}
+
+/*Enviar mensaje vendedor*/
+ 
+.contPrincMsjVend{
+    background-color: #F0F1F5;
+    border-radius: 16px;
+}
+.fstdivmsjV{
+    width: 100%;
+    padding-left: 2rem;
+    border-bottom: 3px solid #E1E2EC; 
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+}
+.fstdivmsjV p{
+    font-size: 20px;
+    font-weight: 500;
+}
+.diaMsj{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    background-color: transparent;
+}
+.contMensajesVendedor{
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+ 
+
+.msjVendedor {  
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 12px;
+    height: auto;   
+    flex-direction: column;
+}
+
+.msjVendedor2 {  
+    display: flex;
+    justify-content: flex-end;
+    color: #2D2E83;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem; 
+    padding: 1.5rem;
+    background-color: #ABACCD;
+    border-radius: 12px;
+    height: auto;   
+    flex-direction: column;
+}
+.namevendedor{
+    width: 10%; 
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.BallNamEv{
+    background-color: #ABACCD;
+    color: blue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin-left: 1rem;
+    align-items: center;
+    margin-bottom: 1.7rem; 
+}
+.BallNamEv p{
+    font-size: 18px;
+}
+
+.contMensajes {
+    display: flex;
+    flex-direction: column;
+    height: 40rem;
+    width: 100%; 
+    overflow-y: auto; /* Agrega esta línea para habilitar el desplazamiento vertical */
+  }
+  
+  .inputandsendMsjVendedor {
+    display: flex;
+    padding-left: 1.5rem; 
+    align-items: flex-end; /* Ajusta según tus necesidades */
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    display: flex;
+    padding-left: 1.5rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #2D2E83; 
+  }
+  .unblocktext{
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: underline;
+  }
+  .msjsVend{
+    width: 98%;
+    display: flex;
+    align-items: flex-end;
+    padding-left: 1.5rem;
+    justify-content: flex-end;
+  }
+  .contComment{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+  }
+  .contDateMSJ{
+    margin-top: -1.5rem;
+    display: flex;
+    width: 100%;
+  }  
+ 
+  .contInputYimgSend{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contButtonImg{
+    width: 10%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    color: #2D2E83;
+  }
+  .contButtonImg input{
+    display: none;
+  }
+  .contButtonImg button{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    cursor: pointer;
+  }
+  .contImgandInput{
+    width: 80%;
+    position: relative;
+  }
+  .contImgandInput input{
+    width: 100%;
+    border-radius: 12px;
+    font-size: 14px;
+    padding: 1rem;
+    background-color: white;
+  }
+  .contImgSelected{
+    position: absolute;
+    top: -300px;
+    left: 0;
+    width: 100%;
+  }
+  .contImgSelected img{
+    width: 100%;
+    height: 300px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+  }
+  .contImgSelected button{
+    position: absolute;
+    top: -17px;
+    left: -17px;
+    color: #2D2E83;
+  }
+  .contSendMessage{
+    width: 10%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+  }
+  .contSendMessage button{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    color: #2D2E83;
+  }
+
+
+  /*buttons tengoproblema container ver mas*/
+  .contButtonVermasomenos{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .contButtonVermasomenos button{
+    color: #A0AFD0;
+    text-decoration: underline;
+    margin-left: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  .imageContainerChat{ 
+    display: flex;
+    justify-content:center;
+    align-items: flex-end; 
+  }
+  .imageContainerChat img{
+    display: flex;
+    justify-content: flex-end;  
+    border-radius: 12px;
+    border: 5px solid white;
+  }
+  .SubcontimageContainerChat{
+    width: 80%; 
+    margin-right: 7rem;
+  }
+
+  .imgmensajescompras {
+    margin-top: 4px !important;
+    margin-left: 2px !important;
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: scale-down !important;
+  }
+
+
+
+  /*seguridad*/
+
+  .ButtonCloseSession {
+    width: 150px;
+    background-color: #2D2E83;
+    color: white; 
+    border-radius: 10px;
+    font-size: 16px; 
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 40px !important;
+  }
+  .subtitdispvinc{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif; 
+}
+.contDispVincSubTitle{
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+}
+.inpustEyes{
+    position: relative;
+}
+.inpustEyes input{
+    background-color: #f1f2f6;
+    border-radius: 10px;
+    width: 100%;
+    height: 44px;
+    padding: 10px 25px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-size: 16px;
+}
+.inpustEyes div{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #2D2E83;
+}
