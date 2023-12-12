@@ -844,7 +844,10 @@ const CreateProduct = () => {
             //setArrayVehiculosTemporal(vehproductos);
             arrayVehiculosTemporal &&
                 arrayVehiculosTemporal.map((items) => {
-                   
+
+            //console.log("VEH TEMP : ", arrayVehiculosTemporal);
+            //return
+
                     const params = {
                         id: idvehcompduplicar,
                         idtipoproducto: idvehcompduplicar,
@@ -977,6 +980,9 @@ const CreateProduct = () => {
 
     return (
         <Container title="Mi Cuenta">
+            {
+                console.log("ARRAY VEH TEMPO : ", arrayVehiculosTemporal)
+            }
             <ModalMensajes
                 shown={showModalMensajes}
                 close={setShowModalMensajes}
@@ -2618,18 +2624,17 @@ function DatosProductos(props) {
 
             let condicion = "";
             if (datosprducto.condicion == 1) condicion = "Nuevo";
-            else if (datosprducto.condicion == 1) condicion = "Usado";
+            else if (datosprducto.condicion == 2) condicion = "Usado";
             setClassTipoCondicion("mlmenos275");
             setTipoCondicion(condicion);
-            setCondicionEditar(condicion);
+            setCondicionEditar(datosprducto.condicion);
             setNumeroParteEditar(datosprducto.numerodeparte);
             let vendepartes = "";
             if (datosprducto.vendeporpartes == 1)
                 vendepartes = "Si, se vende por partes";
-            else if (datosprducto.condicion == 1)
+            else if (datosprducto.vendeporpartes == 2)
                 vendepartes = "No, se vende completo";
             else vendepartes = "No, se vende completo";
-
             setVendePorPartes(vendepartes);
             setTipoFuncionalidad(datosprducto.funcionalidad);
             setEstadoEditar(datosprducto.estadoproducto);
@@ -2835,7 +2840,7 @@ function DatosProductos(props) {
             marcarepuesto = marcaEditar;
             numerodeparte = numeroparteEditar;
             titulonombre = tituloProducto;
-            vendeporpartes = vendePorPartes;
+            vendeporpartes = vendeparteEditar;
             estadoproducto = calificacionEstadoProducto;
         } else if (valores.length > 0 && !formData.titulonombre) {
             if (valores[0].vendeporpartes == "Producto se vende por partes")
@@ -3183,6 +3188,7 @@ function DatosProductos(props) {
                                                 className={
                                                     inputCondicionProducto
                                                 }
+
                                                 name="condicion"
                                                 variant="outline-light"
                                                 id="dropdown-basic">

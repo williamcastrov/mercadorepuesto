@@ -89,7 +89,7 @@ const ProductListPosts = ({ product }) => {
     }, [login]);
 
     useEffect(() => {
-        if (product.estadopublicacion == 0 || estadoMyPosts == 0  || estadoMyPosts == 20) {
+        if (product.estadopublicacion == 0 || estadoMyPosts == 0) {
             setTextoEstado("Inactiva");
         } else {
             setTextoEstado("Activa");
@@ -118,7 +118,7 @@ const ProductListPosts = ({ product }) => {
             estadopublicacion = 31;
             setEstadoMyPosts(31);
         } else if (id == 4) {
-            estadopublicacion = 20;
+            estadopublicacion = 0;
             setEstadoMyPosts(0);
         } else if (id == 6) {
             estadopublicacion = 10;
@@ -622,7 +622,7 @@ const ProductListPosts = ({ product }) => {
             />
             <Grid container spacing={1}>
                 <Grid item xs={9} md={9} lg={9}>
-                    {estadoMyPosts == 20 || estadoMyPosts == 0 ? (
+                    {estadoMyPosts == 0 ? (
                         <div className="deshabilitar">
                             <Grid container spacing={1}>
                                 <Grid item xs={3} md={3} lg={3}>
@@ -761,8 +761,7 @@ const ProductListPosts = ({ product }) => {
                                         </Grid>
                                         <Grid item xs={1} md={1} lg={1}>
                                             <div className="ubicarmenupost">
-                                                {estadoMyPosts != 20 &&
-                                                estadoMyPosts != 0 ? (
+                                                {estadoMyPosts != 0 ? (
                                                     <MenuPost
                                                         selectOptions={
                                                             selectOptions
@@ -819,7 +818,7 @@ const ProductListPosts = ({ product }) => {
                                                     md={12}
                                                     lg={12}>
                                                     <div className="textopublicaciones">
-                                                        {estadoMyPosts == 0 || estadoMyPosts == 20? (
+                                                        {estadoMyPosts == 0 ? (
                                                             <div>
                                                                 Publicación esta
                                                                 Inactiva

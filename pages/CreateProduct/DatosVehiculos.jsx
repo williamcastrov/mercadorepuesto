@@ -998,6 +998,7 @@ function DatosVehiculos(props) {
 
                     const params = {
                         id: arrayVehiculosTemporal[0].idproductovehiculo,
+                        tipovehiculo: tipoVeh,
                         carroceria: carroceriaVeh,
                         marca: marcaVeh,
                         anno: annoVeh,

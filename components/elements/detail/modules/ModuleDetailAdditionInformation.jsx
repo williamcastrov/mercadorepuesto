@@ -59,6 +59,9 @@ const ModuleDetailDescription = ({ product }) => {
                     )}
                 </Grid>
             </Grid>
+            {
+                console.log("VENDE PARTES : ", product)
+            }
             <Grid container alignItems="center" spacing={1}>
                 <Grid item xs={3} md={3} lg={3}>
                     <div className="rowinformacionadicional">
@@ -66,13 +69,13 @@ const ModuleDetailDescription = ({ product }) => {
                     </div>
                 </Grid>
                 <Grid item xs={9} md={9} lg={9}>
-                    {product.vendeporpartes == 0 ? (
+                    {product.vendeporpartes == 1 ? (
                         <div className="rowinformacionadicionaldos">
-                            Se vende por partes
+                            Si, se vende por partes
                         </div>
-                    ) : product.vendeporpartes == 1 ? (
+                    ) : product.vendeporpartes == 2 ? (
                         <div className="rowinformacionadicionaldos">
-                            Se vende por partes
+                            No, se vende completo
                         </div>
                     ) : (
                         <div className="condicionnoaplica">N/A</div>

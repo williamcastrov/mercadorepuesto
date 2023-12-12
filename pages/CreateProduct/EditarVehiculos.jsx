@@ -851,14 +851,6 @@ function EditarVehiculos(props) {
                                     comparar: comparar,
                                     fecha: fechaactual,
                                 };
-
-                                console.log(
-                                    "ID VEH111: ",
-                                    items.id,
-                                    " - ",
-                                    arraySelectEdit[0].id
-                                );
-                                console.log("PARAMS111: ", params);
                                 nvoarray.push(params);
                             } else {
                                 const params = {
@@ -886,15 +878,6 @@ function EditarVehiculos(props) {
                                     comparar: items.comparar,
                                     fecha: items.fecha,
                                 };
-                            
-                                console.log(
-                                    "ID VEH222: ",
-                                    items.id,
-                                    " - ",
-                                    arraySelectEdit[0].id
-                                );
-
-                                console.log("ITEMS2222: ", params);
                                 nvoarray.push(params);
                             }
                         });
