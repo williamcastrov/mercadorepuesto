@@ -5,12 +5,14 @@ import { Box, Grid, Button } from "@mui/material";
 import { myNumber, nameMonth } from "../../../utilities/ArrayFunctions";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useSelector } from "react-redux";
 //Constantes
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../../helpers/Constants";
 
 const ProductListSearchInteractive = ({ product }) => {
     const router = useRouter();
     const { price, badges } = useProductInteractive();
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const optionsIrA = () =>{
         localStorage.setItem("ira",JSON.stringify(6));
@@ -19,7 +21,7 @@ const ProductListSearchInteractive = ({ product }) => {
         const addItemVisita = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
@@ -43,7 +45,7 @@ const ProductListSearchInteractive = ({ product }) => {
         const addItemHistoryPrd = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 

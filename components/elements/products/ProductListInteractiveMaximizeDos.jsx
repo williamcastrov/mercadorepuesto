@@ -4,17 +4,19 @@ import useProductInteractive from "~/hooks/useProductInteractive";
 import { myNumber } from "../../../utilities/ArrayFunctions";
 import { Box, Grid, Button } from "@mui/material";
 import axios from "axios";
+import { useSelector } from "react-redux";
 //Constantes
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../../helpers/Constants";
 
 const ProductListInteractiveMaximizeDos = ({ product }) => {
     const { price, badges, iditem } = useProductInteractive();
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const onClickImagen = () => {
         const addItemVisita = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
@@ -38,7 +40,7 @@ const ProductListInteractiveMaximizeDos = ({ product }) => {
         const addItemHistoryPrd = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 

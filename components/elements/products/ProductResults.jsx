@@ -15,6 +15,7 @@ const ProductResults = ({ product }) => {
     const router = useRouter();
     const { price, badges } = useProduct();
     const dispatch = useDispatch();
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const onClickImagen = () => {
         dispatch(getLeeIra(6));
@@ -24,7 +25,7 @@ const ProductResults = ({ product }) => {
         const addItemVisita = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
@@ -49,7 +50,7 @@ const ProductResults = ({ product }) => {
         const addItemHistoryPrd = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 

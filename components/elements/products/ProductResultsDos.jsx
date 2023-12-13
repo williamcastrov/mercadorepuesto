@@ -2,18 +2,20 @@ import React from "react";
 import Link from "next/link";
 import useProduct from "~/hooks/useProduct";
 import axios from "axios";
+import { useSelector } from "react-redux";
 //Constantes
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../../helpers/Constants";
 import ModuleProductImagesResultsDos from "~/components/elements/products/modules/ModuleProductImagesResultsDos";
 
 const ProductResultsDos = ({ product }) => {
     const { price, badges } = useProduct();
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const onClickImagen = () => {
         const addItemVisita = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
@@ -37,7 +39,7 @@ const ProductResultsDos = ({ product }) => {
         const addItemHistoryPrd = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 

@@ -5,6 +5,7 @@ import useProductInteractive from "~/hooks/useProductInteractive";
 import ModuleProductRating from "~/components/elements/products/modules/ModuleProductRating";
 import ModuleProductImages from "~/components/elements/products/modules/ModuleProductImages";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import axios from "axios";
 //Constantes
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../../helpers/Constants";
@@ -12,6 +13,7 @@ import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../../helpers/Constants";
 const ProductPhotoInteractive = ({ product }) => {
     const router = useRouter();
     const { price, badges, pricephoto } = useProductInteractive();
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const optionsIrA = () => {
         localStorage.setItem("ira", JSON.stringify(6));
@@ -20,7 +22,7 @@ const ProductPhotoInteractive = ({ product }) => {
         const addItemVisita = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
@@ -44,7 +46,7 @@ const ProductPhotoInteractive = ({ product }) => {
         const addItemHistoryPrd = async () => {
             let params = {
                 idproducto: product.id,
-                usuario: product.usuario,
+                usuario: datosusuarios.uid,
                 compatible: product.compatible,
             };
 
