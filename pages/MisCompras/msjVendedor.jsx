@@ -478,6 +478,29 @@ export default function msjVendedor() {
                                                 <div
                                                     className="contMensajes"
                                                     ref={messagesRef}>
+                                                        <div className="ContMsjsVendedor">
+                                                        <div className="msjsVend1">
+                                                            <div className="namevendedor2">
+                                                                <div className="BallNamEv2">
+                                                                    <p>JP</p>
+                                                                </div>
+                                                            </div>
+                                                            <div className="contComment">
+                                                                <div className="msjVendedor1">
+                                                                    Comentario del vendedor
+                                                                </div>
+                                                            </div> 
+                                                        </div>
+                                                        <div className="contDateMSJ">
+                                                            <div style={{ width: '81%' }}></div>
+                                                            <div style={{ width: '19%' }}>
+                                                                <div style={{ width: '88%' }}>
+                                                                    <p style={{ fontSize: '16px' }}>11:17</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     {Array.isArray(messages) &&
                                                     messages.length > 0 ? (
                                                         messages

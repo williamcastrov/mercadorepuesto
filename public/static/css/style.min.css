@@ -29181,12 +29181,7 @@ color: #2D2E83;
     flex-direction: column;
     justify-content: flex-end; 
   }
-  .contDateMSJ{
-    margin-top: -1.5rem;
-    display: flex;
-    width: 100%;
-  }  
- 
+   
   .contInputYimgSend{
     width: 100%;
     display: flex;
@@ -29216,7 +29211,11 @@ color: #2D2E83;
   .contImgandInput{
     width: 80%;
     position: relative;
+    display: flex;
+    justify-content: center;
   }
+
+
   .contImgandInput input{
     width: 100%;
     border-radius: 12px;
@@ -29226,15 +29225,21 @@ color: #2D2E83;
   }
   .contImgSelected{
     position: absolute;
-    top: -300px;
+    top: -250px;
     left: 0;
-    width: 100%;
+    width: auto;
+    display: flex;margin: 0 auto;
+    justify-content: flex-end;
   }
   .contImgSelected img{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
     width: 100%;
-    height: 300px;
+    height: 250px;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
   }
+
   .contImgSelected button{
     position: absolute;
     top: -17px;
@@ -29257,6 +29262,59 @@ color: #2D2E83;
     width: 40px;
     color: #2D2E83;
   }
+
+  .ContMsjsVendedor{
+    width: 100%;
+}
+
+.msjsVend1{
+    width: 98%;
+    display: flex;
+    align-items: flex-end;
+    padding-right: 1.5rem;
+    justify-content: flex-start;
+  }
+
+.namevendedor2{
+    width: 10%; 
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.BallNamEv2{
+    background-color: white;
+    color: blue;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin-left: 1rem;
+    align-items: center;
+    margin-bottom: 1.7rem; 
+}
+
+  .msjVendedor1 {  
+    display: flex;
+    justify-content: flex-end;
+    color: #2D2E83;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem; 
+    padding: 1.5rem;
+    background-color: white;
+    border-radius: 12px;
+    height: auto;   
+    flex-direction: column;
+}
+
+.contDateMSJ{
+    margin-top: -1.5rem;
+    display: flex;
+    width: 100%;
+}
 
 
   /*buttons tengoproblema container ver mas*/

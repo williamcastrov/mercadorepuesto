@@ -33,6 +33,30 @@ const ProductResultsDos = ({ product }) => {
                 });
         };
         addItemVisita();
+
+        const addItemHistoryPrd = async () => {
+            let params = {
+                idproducto: product.id,
+                usuario: product.usuario,
+                compatible: product.compatible,
+            };
+
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "87",
+                params,
+            })
+                .then((res) => {
+                    if (res.data > 0) {
+                        console.log("LEER : ", res.data)
+                    } else console.log("ERROR : ", res.data)
+                })
+                .catch(function (error) {
+                    console.log("ERROR : ", res.data)
+                    return;
+                });
+        };
+        addItemHistoryPrd();
     };
 
     return (
