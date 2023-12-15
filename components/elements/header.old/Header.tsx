@@ -39,8 +39,11 @@ const Header = ({ slim }: Props) => {
         setFilters(data);
         setHideContent(false);
     };
+    
+    console.log("FILTER : ", filters)
 
     useEffect(() => {
+     
         if (searcherButton.current && vehicleFilter.current && filters) {
             searcherButton.current.onclick = () => {
                 vehicleFilter.current?.classList.remove("hidden");
@@ -58,8 +61,6 @@ const Header = ({ slim }: Props) => {
         let inicia = null;
         localStorage.setItem("placeholdersearch", JSON.stringify(inicia));
     }
-
-    console.log("FILTER : ", filters)
 
     useEffect(() => {
         callFilters();
@@ -91,6 +92,7 @@ const Header = ({ slim }: Props) => {
                             ref={searcherButton}
                         />
                     </div>
+                    
                     <div className="filter-container">
                         <>
                             {filters ? (

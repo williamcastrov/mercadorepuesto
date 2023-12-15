@@ -151,8 +151,7 @@ const ModuleDetailShoppingActions = ({ product, cart, ecomerce }) => {
                     usuario: datosusuarios.uid,
                 };
 
-                console.log("PARAM : ", params);
-
+                //console.log("PARAM : ", params);
                 await axios({
                     method: "post",
                     url: URL_BD_MR + "57",
