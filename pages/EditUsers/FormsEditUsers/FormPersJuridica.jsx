@@ -80,7 +80,7 @@ const FormPersJuridica = () => {
     }, []);
 
     const handleValidP = () => {
-        router.push('../../my-account');
+        router.push('../MisDatos');
     };
 
     return (

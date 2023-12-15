@@ -87,22 +87,22 @@ export default function CompSMS() {
             // Navegar a la nueva ruta
             switch (info) {
                 case 'nombres':
-                    router.push('/EditUsers/FormsEditUsers/FormNamesLastNames');
+                    router.push('./FormsEditUsers/FormNamesLastNames');
                     break;
                 case 'domicilio':
-                    router.push('/EditUsers/FormsEditUsers/FormDomicilio');
+                    router.push('./FormsEditUsers/FormDomicilio');
                     break;
                 case 'email':
-                    router.push('/EditUsers/FormsEditUsers/FormEmail');
+                    router.push('./FormsEditUsers/FormEmail');
                     break;
                 case 'teléfono':
-                    router.push('/EditUsers/FormsEditUsers/FormTel');
+                    router.push('./FormsEditUsers/FormTel');
                     break;
                 case 'DocIdentificacion':
-                    router.push('/EditUsers/FormsEditUsers/FormDocumento');
+                    router.push('./FormsEditUsers/FormDocumento');
                     break;
                 default:
-                    router.push('/EditUsers/FormsEditUsers/FormDefault');
+                    router.push('./MisDatos');
             }
         } else {
             // Mostrar modal indicando que el código es incorrecto

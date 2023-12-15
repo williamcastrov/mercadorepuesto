@@ -199,7 +199,7 @@ export default function FormNamesLastNames() {
 
     //Botón ir a mis datos
     const handleValidP = () => {
-        router.push("../../my-account");
+        router.push("../MisDatos");
     };
 
     //Posición top Pagina

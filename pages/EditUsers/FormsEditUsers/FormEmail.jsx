@@ -244,7 +244,7 @@ export default function FormEmail() {
 
 
     const handleValidP = () => {
-        router.push('../../my-account');
+        router.push('./../MisDatos');
     };
 
     const irA = useRef(null);
@@ -433,7 +433,7 @@ export default function FormEmail() {
                                             </DialogContent>
                                             <DialogActions className='DialogActionsDatsGuardados'>
                                                 <div className='div1buttonDialog' >
-                                                    <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('../../my-account')} >
+                                                    <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('../MisDatos')} >
                                                         Ir a Mis datos
                                                     </button>
                                                 </div>

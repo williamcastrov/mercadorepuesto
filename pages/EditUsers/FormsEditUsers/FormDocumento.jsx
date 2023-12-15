@@ -215,7 +215,7 @@ export default function FormDocumento() {
 
 
     const handleValidP = () => {
-        router.push('../../my-account');
+        router.push('./../MisDatos');
     };
 
     const irA = useRef(null);
