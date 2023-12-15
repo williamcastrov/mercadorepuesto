@@ -1,6 +1,6 @@
 import React from 'react';
 
-function searchinteractive(props) {
+function index(props) {
     return (
         <div>
             <h1>EN DESARROLLO</h1>
@@ -8,4 +8,4 @@ function searchinteractive(props) {
     );
 }
 
-export default searchinteractive;
+export default index;
