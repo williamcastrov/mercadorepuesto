@@ -24,7 +24,6 @@ import { Themes } from "~/utilities/StyleVariables";
 import { FiltersContext } from "./contexts/FiltersSlice";
 import { findVehiclesByUserId } from "./core/fetch";
 import UpArrowIcon from "./svgs/UpArrowIcon";
-import { Button } from "@material-ui/core";
 
 export enum state {
     Filter,
@@ -256,14 +255,9 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
             searchVehiclesLocal();
         }, [editing, view, user]);
 
-        const prueba = () =>{
-            
-        }
-
         return (
             <>
                 <FilterContext.Provider value={{ view, setView }}>
-      
                     <DuplicatedContext.Provider value={setIsDuplicated}>
                         <Container
                             id="filter-wrapper"
@@ -317,7 +311,6 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
                                             ))}
                                     </EditingContext.Provider>
                                 </DeletingContext.Provider>
-                               
                             </SelectedContext.Provider>
                         </Container>
                     </DuplicatedContext.Provider>
