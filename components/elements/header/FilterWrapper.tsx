@@ -66,7 +66,7 @@ export let key = keys.guest.toString();
 
 interface Props {
     setContent: React.Dispatch<React.SetStateAction<string>>;
-    //setVehicle: React.Dispatch<React.SetStateAction<SavedVehicle | null>>;
+    setVehicle: React.Dispatch<React.SetStateAction<SavedVehicle | null>>;
 }
 
 const transmisiones = [
@@ -209,7 +209,6 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
         }, [view]);
 
         useEffect(() => {
-           /*
             let vehicle;
             if (user) {
                 vehicle = vehicles?.find((v) => v.id === selected);
@@ -238,7 +237,6 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
                       }`
                     : "Agrega tu vehículo"
             );
-            */
         }, [selected]);
 
         //   useEffect(() => {
@@ -260,7 +258,6 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
         return (
             <>
                 <FilterContext.Provider value={{ view, setView }}>
-                    {
                     <DuplicatedContext.Provider value={setIsDuplicated}>
                         <Container
                             id="filter-wrapper"
@@ -317,7 +314,6 @@ const VehicleWrapper = forwardRef<HTMLDivElement, Props>(
                             </SelectedContext.Provider>
                         </Container>
                     </DuplicatedContext.Provider>
-                    }
                 </FilterContext.Provider>
             </>
         );
