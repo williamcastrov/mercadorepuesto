@@ -7,7 +7,7 @@ import ModuleShopActionsInteractivo from "~/components/partials/shop/modules/Mod
 import { getDataCityPrd } from "../../store/datacityprd/action";
 import { getAddEdToCart } from "../../store/addedtocart/action";
 import ViewFilterSelect from "../search/viewfilterselect";
-import ViewAddShoppingCart from "../shop/viewaddshoppingcart";
+//import ViewAddShoppingCart from "../shop/viewaddshoppingcart";
 
 const breadcrumb = [
     {
@@ -319,23 +319,7 @@ const SearchPhotoItemsMaximize = (props) => {
                 />
             ) : null}
 
-            {addcartId > 0 ? (
-                <div className="productoagregarcarritodos">
-                    <ViewAddShoppingCart
-                        idproducto={addcartId}
-                        nombreimagen1={addcartImagen}
-                        titulonombre={addcartTitulo}
-                    />
-                </div>
-            ) : addcartIdLogin > 0 ? (
-                <div className="productoagregarcarritodos">
-                    <ViewAddShoppingCart
-                        idproducto={addcartIdLogin}
-                        nombreimagen1={addcartImagen}
-                        titulonombre={addcartTitulo}
-                    />
-                </div>
-            ) : null}
+           
 
             <div className="ps-page ps-page--shopping">
                 <div className={classActionInteractive}>

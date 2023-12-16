@@ -6,7 +6,7 @@ import { getEditData } from "../../store/editdata/action";
 import { getEditDataFind } from "../../store/editdatafind/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import SearchInteractiveEdit from "../searchinteractive/searchinteractiveedit";
+//import SearchInteractiveEdit from "../searchinteractive/searchinteractiveedit";
 
 function ModalMensajesBuscar(props) {
     const router = useRouter();
@@ -109,13 +109,7 @@ function ModalMensajesBuscar(props) {
                 <div className="mt-20 mb-10 ml-10 textoventanamensajesedit">
                     <div>{mensaje}</div>
                 </div>
-                <SearchInteractiveEdit
-                    close={close}
-                    setIsLoading={setIsLoading}
-                    setClicAqui={setClicAqui}
-                    setHabilitarIcono={setHabilitarIcono}
-                    setDatosFaltantes={setDatosFaltantes}
-                />
+                
             </div>
         </div>
     ) : null;
