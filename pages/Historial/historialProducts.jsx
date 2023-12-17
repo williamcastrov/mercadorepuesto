@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import axios from 'axios';
 import SearchIcon from '@material-ui/icons/Search';
 import { Dropdown } from "react-bootstrap";
-import { NextRouter } from "next/router"; 
+import { NextRouter } from "next/router";
 import { useNavigate } from "react-router-dom";
 import { Router } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +47,13 @@ export default function historialProducts() {
     const [productosSeleccionados, setProductosSeleccionados] = useState([]);
     //PosiciónTopPage
     const irA = useRef(null);
+    const [showModal3, setShowModal3] = useState(false);
+
+
+    const eliminarProductosSeleccionados = () => {
+        // Muestra el modal de confirmación
+        setShowModal3(true);
+    };
 
 
     //cerrar modal de favoritos y de eliminar un producto
@@ -399,27 +406,29 @@ export default function historialProducts() {
         }
     };
 
-    // Esta función se llama cuando haces clic en el botón para eliminar los productos seleccionados.
-    const eliminarProductosSeleccionados = () => {
-        // Mapeamos cada producto seleccionado a una promesa de eliminación.
+    const confirmarEliminacionProductosSeleccionados = () => {
+        // Mapea cada producto a una promesa de eliminación
         const promesasDeEliminacion = productosSeleccionados.map(producto => eliminarProducto(producto.idproducto));
 
-        // Esperamos a que todas las promesas se resuelvan.
+        // Espera a que todas las promesas se resuelvan
         Promise.all(promesasDeEliminacion)
             .then(() => {
-                // Actualizamos los datos después de eliminar los productos.
+                // Actualiza tus datos después de eliminar los productos
                 const nuevosDatos = datosUsuario.filter(producto => !productosSeleccionados.includes(producto));
                 setDatosUsuario(nuevosDatos);
                 setDatosUsuarioOriginales(nuevosDatos);
 
-                // Limpiamos el array después de eliminar los productos.
+                // Limpia el array después de eliminar los productos
                 setProductosSeleccionados([]);
 
-                // Mostramos el modal con el mensaje de éxito.
+                // Muestra el modal
                 setShowModal(true);
                 setTituloMensajes("Producto eliminado");
                 let texto = productosSeleccionados.length > 1 ? "Productos eliminados exitosamente" : "Producto eliminado exitosamente";
                 setTextoMensajes(texto);
+
+                // Cierra el modal de confirmación
+                setShowModal3(false);
             })
             .catch(error => {
                 // Si hay un error, lo mostramos en la consola.
@@ -612,6 +621,14 @@ export default function historialProducts() {
                                                 setAbandonarEliminar={() => setShowModal2(false)}
                                                 titulo="Eliminar historial"
                                                 mensaje="¿Estás seguro de que quieres eliminar el historial?"
+                                                tipo="confirmación"
+                                            /> 
+                                            <ModalMensajesEliminar
+                                                shown={showModal3}
+                                                setContinuarEliminar={confirmarEliminacionProductosSeleccionados}
+                                                setAbandonarEliminar={() => setShowModal3(false)}
+                                                titulo="Eliminar historial"
+                                                mensaje="¿Estás seguro de que quieres eliminar estos productos?"
                                                 tipo="confirmación"
                                             />
                                         </div>
