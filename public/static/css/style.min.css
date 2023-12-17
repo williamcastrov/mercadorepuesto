@@ -28516,19 +28516,22 @@ background-color: #F1F2F6 !important;
     border: none !important;
     color: #2D2E83 !important;
     outline: none !important;
-    font-size: 20px !important;
-    padding-left: 13px; /* Ajusta este valor según tus necesidades */ 
-  }
-  
-  .dropdowncustomMiscomprasPersButton::after {
+    font-size: 18px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    background-color: white;
+}
+
+.dropdowncustomMiscomprasPersButton::after {
+    background-color: white;
     content: '';
-    width: 10px; 
-    height: 10px;  
-    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/down-blue-arrow.png") !important;
     background-size: 10px !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
-  }
+}
 
   .contProdcOMPR{
     margin-top: 3rem;
@@ -29319,7 +29322,7 @@ color: #2D2E83;
 .contDateMSJ{
     margin-top: -1.5rem;
     display: flex;
-    width: 100%;
+    width: 100%;
 }
 
 
@@ -29362,30 +29365,367 @@ color: #2D2E83;
     object-fit: scale-down !important;
   }
 
+ 
 
 
-  /*seguridad*/
 
-  .ButtonCloseSession {
-    width: 150px;
-    background-color: #2D2E83;
-    color: white; 
-    border-radius: 10px;
-    font-size: 16px; 
-    align-items: center;
+
+/*INICIO ESTILOS JP*/
+
+
+/*Inicio Estilos Juan Pablo "HISTORIAL" */ 
+.conTopH {
     display: flex;
-    justify-content: center; 
-    height: 40px !important;
-  }
-  .subtitdispvinc{
-    font-size: 20px;
+    justify-content: space-between;
+}
+
+.conTopH p {
+    font-size: 25px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.titleHistorial1 {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1rem;
+    cursor: pointer;
+}
+.DeleteHistorial {
+    display: flex;
+    align-items: center;
+    margin-right: 4rem;
+}
+
+.DeleteHistorial p {
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.iconDeleteHistorial {
+    margin-left: 1rem;
+    color: #2D2E83;
+}
+.titleHistorial1 {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1rem;
+    cursor: pointer;
+}
+
+.titleHistorial {
+    margin-top: -1rem;
+}
+
+.titleHistorial p {
+    margin-bottom: 3rem;
+    margin-top: -3rem;
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.ContTopHistorial {
+    display: flex;
+    justify-content: space-between;
+}
+.ContTopHistorial p {
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.tamañocajaoptionsHistorial {
+    margin-left: 5px !important;
+    width: 170px !important;
+    font-size: 16px !important;
+}
+.inputhISTORIAL{
+    border-radius: 10px;
+    background-color: #f1f2f6;
+    padding: 10px;
+    width: 300px;
+    margin-right: 8px;
+    height: 44px;
+    font-size: 16px;
+    padding-left: 3rem;
+    color: #2C2E82;
+}
+.contProductsHistorial {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+.selectedProductsHistorial {
+    width: 100%;
+}
+.DeletedSelectsHistorial {
+    display: flex;
+    cursor: pointer;
+}
+
+.DeletedSelectsHistorial button {
+    font-size: 18px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif; 
+    margin-bottom: 1.5rem;
 }
-.contDispVincSubTitle{
-    margin-bottom: 2rem;
-    margin-top: 1.5rem;
+.ProducsH {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 10px;
+}
+.ContProductHistorial {
+    width: 213px;
+    border: 5px solid #EBEBEB;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+    /* Añade posición relativa para posicionar el icono absolutamente */
+}
+.ContProductHistorial img {
+    max-height: 150px;
+    max-width: 150px;
+    width: 100%;
+    /* Para asegurar que la imagen se ajuste proporcionalmente */
+    height: auto;
+    /* Para asegurar que la imagen se ajuste proporcionalmente */
+    object-fit: cover;
+    /* Ajusta la imagen manteniendo la proporción y cubriendo el contenedor */
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: .5rem;
+}
+.ContProductHistorial1 {
+    display: flex;
+    flex-direction: column;
+}
+.iconSquare,
+.iconCheck {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    font-size: 18px;
+    color: #2D2E83;
+}
+.iconSquare {
+    position: absolute;
+    top: 8px;
+    /* Ajusta según sea necesario */
+    left: 6px;
+    /* Ajusta según sea necesario */
+    font-size: 18px;
+    /* Ajusta el tamaño del icono según sea necesario */
+    color: #2D2E83;
+    /* Ajusta el color del icono según sea necesario */
+}
+.iconSquareCustom {
+    position: absolute;
+    font-size: 18px;
+    color: #2D2E83;
+    margin-top: 5px;
+}
+.iconCheck {
+    display: none;
+    /* Oculta el icono de verificación por defecto */
+}
+
+.iconCheck.selected {
+    display: inline;
+    /* Muestra el icono de verificación cuando el producto está seleccionado */
+}
+.iconCheckCustom {
+    position: absolute;
+    font-size: 15px;
+    color: #2D2E83;
+    margin-top: 5rem;
+}
+
+.iconCheckCustom {
+    display: none;
+    /* Oculta el icono de verificación por defecto */
+}
+
+.iconCheckCustom.selected {
+    display: inline;
+    /* Muestra el icono de verificación cuando el producto está seleccionado */
+}
+.DataProductHistorial {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.DataProductHistorial p {
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.ProductName {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* número de líneas a mostrar */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 1s ease-in-out;
+    /* Agrega esta línea */
+}
+
+.ProductName::after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    height: 1.2em;
+    background: linear-gradient(to right, transparent, white 50%);
+}
+
+.ProductName:hover {
+    -webkit-line-clamp: unset;
+    max-height: unset;
+}
+.iconsHistorial {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+} 
+.iconsHrl {
+    display: flex;
+    gap: 10px;
+}
+.icon1Delete {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #EBEBEB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2D2E83;
+    font-size: 17px;
+    cursor: pointer;
+}
+.iconDeleteH {
+    font-size: 15px;
+}
+.iconFavH {
+    font-size: 18px;
+}
+.lenghHistorial {
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 2rem;
+}
+
+.lenghHistorial p {
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+
+.contLenghHistorial {
+    display: flex;
+    flex-direction: column;
+}
+.paginaciónMainHistorial {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.nextButtonPages {
+    margin-top: 5px;
+    color: #2d2e83;
+    margin-left: 8px;
+}
+
+.backButtonPages {
+    margin-top: 5px;
+    color: #2d2e83;
+    margin-right: 8px;
+}
+.disabledButton {
+    color: #5b6c8f;
+    pointer-events: none;
+}
+.activePage {
+    background-color: #2d2e83;
+    /* Color de fondo del círculo */
+    color: white !important;
+    border-radius: 50%;
+    /* Hace que el elemento tenga forma de círculo */
+    padding: 5px 10px;
+    /* Espacio alrededor del texto */
+}
+
+.inactivePage {
+    color: #2d2e83 !important;
+}
+.dropdownHistorial {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 44px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 18px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    background-color: white;
+}
+
+.dropdownHistorial::after {
+    background-color: white;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/down-blue-arrow.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+.listaHistorialPages a {
+    width: 34px;
+    height: 34px;
+    margin: 0 4px;
+    font-size: 14px;
+    color: #2d2e83;
+    font-weight: 700;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+/*fIN Estilos Juan Pablo "HISTORIAL" */ 
+
+
+/*Inicio Juan Pablo "SEGURIDAD"*/
+
+/*CAMBIAR CONTRASEÑA ESTILOS*/
+.titlesFormsUsers2 {
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 600;
+    margin-bottom: .5rem;
 }
 .inpustEyes{
     position: relative;
@@ -29408,3 +29748,216 @@ color: #2D2E83;
     cursor: pointer;
     color: #2D2E83;
 }
+/*fin CONTRASEÑA ESTILOS*/
+
+/*INICIO DISPOSITIVOS VINVULADOS*/
+
+.mainDispVinculados {
+    width: 100%;
+}
+
+.mainDispVinculados {
+    width: 100%;
+}
+
+.CloseSesionDispVinc {
+    display: flex;
+    align-items: center;
+}
+.dateandLocalización{
+    flex-direction: column;
+    display: flex;
+}
+.psubtitlesSubContMisDates{
+    display: flex;
+}
+.subtitleSubContMisD2{
+    font-size: 21px;
+    color: #2C2E82;
+    font-family: "Jost", sans-serif;
+    margin-left: 1.5rem;
+}
+.ButtonCloseSession {
+    width: 150px;
+    background-color: #2D2E83;
+    color: white; 
+    border-radius: 10px;
+    font-size: 16px; 
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+    height: 40px !important;
+  }
+  .subtitdispvinc{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif; 
+}
+.contDispVincSubTitle{
+    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+}
+/*FIN DISPOSITIVOS VINC*/
+/*fin Juan Pablo "SEGURIDAD"*/
+
+
+/*INICIO PREGUNTAS REALIZADAS*/
+
+
+.inputSearchJP {
+    border-radius: 10px;
+    background-color: #f1f2f6;
+    padding: 10px;
+    margin-right: 8px;
+    width: 90%;
+    height: 44px;
+    font-size: 16px;
+    padding-left: 3rem;
+    color: #2C2E82;
+    font-weight: 500;
+
+}
+
+.contPregResps {
+    display: flex;
+    border: 5px solid #EBEBEB;
+    border-radius: 12px;
+    width: 100%;
+}
+
+.subContTopPreguntas {
+    display: flex;
+    padding: 1.5rem;
+}
+
+.subContTopPreguntas img {
+    height: 95px;
+    width: 135px;
+    margin-right: 2.5rem;
+    margin-left: 1rem;
+}
+
+.subContTopPreguntas p {
+    font-size: 24px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+
+.subContEstadoMensaje {
+    border-top: 5px solid #EBEBEB;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subContEstadoMensaje p {
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+
+.buttonsPrgsUsers {
+    display: flex;
+    flex-direction: column;
+}
+
+.MainContPregResps {
+    width: 100%;
+}
+
+.subContTopPreguntas2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+ 
+
+.pregsRespstMSJ {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.pregsRespstMSJ p {
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+
+.RespuestaVendedorsubCont {
+    margin-left: 2.7rem;
+    display: flex;
+}
+
+.RespuestaVendedorsubCont p {
+    margin-top: 5px;
+}
+
+.verMasResps {
+    display: flex;
+    align-items: flex-end;
+}
+
+.verMasResps p {
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+
+.returnIcon {
+    font-size: 45px;
+    color: #2D2E83;
+    margin-right: 2rem;
+    margin-left: -1.5rem;
+}
+
+.ComprarButton {
+    width: 190px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 16px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40px !important;
+}
+.EstadoMsjButton {
+    width: 110px;
+    background-color: #E81B1B;
+    color: white; 
+    font-size: 16px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40px !important;
+    margin-top: 1.5rem;
+}
+
+.EliminarPreguntaButton {
+    margin-top: 2rem;
+    width: 190px;
+    background-color: #f4f5f7;
+    color: #2D2E83;
+    border-radius: 10px;
+    font-size: 16px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: 40px !important;
+}
+.fechaYrespuestaCont{
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*FIN PREGUNuTAS REALIZADAS*/
+
+
+
