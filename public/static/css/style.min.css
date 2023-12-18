@@ -29343,15 +29343,21 @@ color: #2D2E83;
   }
   .imageContainerChat{ 
     display: flex;
-    justify-content:center;
+    justify-content:flex-end;
     align-items: flex-end; 
   }
-  .imageContainerChat img{
+  .imageContainerChat img {
     display: flex;
     justify-content: flex-end;  
     border-radius: 12px;
     border: 5px solid white;
-  }
+    max-width: 500px;
+    max-height: 280px;
+    width: auto;
+    height: auto;
+    margin-right: 7.5rem;
+    object-fit: cover; /* Puedes ajustar esto según tus necesidades */
+}
   .SubcontimageContainerChat{
     width: 80%; 
     margin-right: 7rem;
@@ -29359,9 +29365,7 @@ color: #2D2E83;
 
   .imgmensajescompras {
     margin-top: 4px !important;
-    margin-left: 2px !important;
-    width: 150px !important;
-    height: 150px !important;
+    margin-left: 2px !important; 
     object-fit: scale-down !important;
   }
 

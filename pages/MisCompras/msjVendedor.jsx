@@ -202,7 +202,7 @@ export default function msjVendedor() {
             estado,
             comentario: inputMessage,
             observacionintera: "",
-            nombreimagen1: imageName+extension,
+            nombreimagen1: imageName + extension,
             nombreimagen2: "",
             nombreimagen3: "",
             nombreimagen4: "",
@@ -217,7 +217,7 @@ export default function msjVendedor() {
         formdata.append("estado", estado);
         formdata.append("comentario", inputMessage);
         formdata.append("observacionintera", "");
-        formdata.append("nombreimagen1", imageName+extension);
+        formdata.append("nombreimagen1", imageName + extension);
         formdata.append("nombreimagen2", "");
         formdata.append("nombreimagen3", "");
         formdata.append("nombreimagen4", "");
@@ -231,7 +231,7 @@ export default function msjVendedor() {
             estado: estado,
             comentario: inputMessage,
             observacionintera: "",
-            nombreimagen1: imageName+extension,
+            nombreimagen1: imageName + extension,
             nombreimagen2: "",
             nombreimagen3: "",
             nombreimagen4: "",
@@ -443,42 +443,19 @@ export default function msjVendedor() {
                                 <div className="ps-page__header"> </div>
                                 <div className="ps-page__content ps-account">
                                     <Grid container>
-                                        <Grid
-                                            className="subcprinccalific"
-                                            item
-                                            xs={12}
-                                            md={7}
-                                            sx={{
-                                                width: isMdDown
-                                                    ? "100%"
-                                                    : "90%",
-                                            }}
-                                            flexDirection={"column"}>
+                                        <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? "100%" : "90%", }} flexDirection={"column"}>
                                             <div className="titleTproblema">
                                                 <p>Contactar con el vendedor</p>
                                             </div>
-                                            <Grid
-                                                container
-                                                className="calificSubC contPrincMsjVend"
-                                                item
-                                                xs={12}
-                                                md={12}
-                                                sx={{
-                                                    width: isMdDown
-                                                        ? "100%"
-                                                        : "90%",
-                                                }}
-                                                flexDirection={"column"}>
+                                            <Grid container className="calificSubC contPrincMsjVend" item xs={12} md={12} sx={{ width: isMdDown ? "100%" : "90%", }} flexDirection={"column"}>
                                                 <div className="fstdivmsjV">
                                                     <p>{producto.nombres}</p>
                                                 </div>
                                                 <div className="diaMsj">
                                                     <p>Hoy</p>
                                                 </div>
-                                                <div
-                                                    className="contMensajes"
-                                                    ref={messagesRef}>
-                                                        <div className="ContMsjsVendedor">
+                                                <div className="contMensajes" ref={messagesRef}>
+                                                    <div className="ContMsjsVendedor">
                                                         <div className="msjsVend1">
                                                             <div className="namevendedor2">
                                                                 <div className="BallNamEv2">
@@ -489,7 +466,7 @@ export default function msjVendedor() {
                                                                 <div className="msjVendedor1">
                                                                     Comentario del vendedor
                                                                 </div>
-                                                            </div> 
+                                                            </div>
                                                         </div>
                                                         <div className="contDateMSJ">
                                                             <div style={{ width: '81%' }}></div>
@@ -501,84 +478,42 @@ export default function msjVendedor() {
                                                         </div>
                                                     </div>
 
-                                                    {Array.isArray(messages) &&
-                                                    messages.length > 0 ? (
-                                                        messages
-                                                            .slice(0)
-                                                            .map(
-                                                                (
-                                                                    message,
-                                                                    index
-                                                                ) => (
-                                                                    <div
-                                                                        className="MsjVendedor"
-                                                                        key={
-                                                                            index
-                                                                        }>
-                                                                            {
-                                                                                console.log("NOM ING : ", message.nombreimagen1)
-                                                                            }
-                                                                        {message.nombreimagen1 && (
-                                                                            <div className="imageContainerChat">
-                                                                                <div className="imgmensajescompras">
-                                                                                    <img
-                                                                                        src={URL_IMAGES_RESULTS + message.nombreimagen1}
-                                                                                        alt={
-                                                                                            message.nombreimagen1
-                                                                                        }
-                                                                                    />
-                                                                                </div>
-                                                                            </div>
-                                                                        )}
-                                                                        <div className="msjsVend">
-                                                                            <div className="contComment">
-                                                                                <div className="msjVendedor2">
-                                                                                    {
-                                                                                        message.comentario
-                                                                                    }
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="namevendedor">
-                                                                                <div className="BallNamEv">
-                                                                                    <p>
-                                                                                        {
-                                                                                            primerasLetras
-                                                                                        }
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="contDateMSJ">
-                                                                            <div
-                                                                                style={{
-                                                                                    width: "81%",
-                                                                                }}></div>
-                                                                            <div
-                                                                                style={{
-                                                                                    width: "19%",
-                                                                                }}>
-                                                                                <div
-                                                                                    style={{
-                                                                                        width: "88%",
-                                                                                    }}>
-                                                                                    <p
-                                                                                        style={{
-                                                                                            fontSize:
-                                                                                                "16px",
-                                                                                        }}>
-                                                                                        {message.fechacreacion
-                                                                                            ? message.fechacreacion.slice(
-                                                                                                  11,
-                                                                                                  16
-                                                                                              )
-                                                                                            : ""}
-                                                                                    </p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                    {Array.isArray(messages) && messages.length > 0 ? (messages.slice(0).map((message, index) => (
+                                                        <div className="MsjVendedor" key={index}>
+                                                            {console.log("NOM ING : ", message.nombreimagen1)}
+                                                            {message.nombreimagen1 && (
+                                                                <div className="imageContainerChat">
+                                                                    <div className="imgmensajescompras">
+                                                                        <img src={URL_IMAGES_RESULTS + message.nombreimagen1} alt={message.nombreimagen1} />
                                                                     </div>
-                                                                )
-                                                            )
+                                                                </div>
+                                                            )}
+                                                            <div className="msjsVend">
+                                                                <div className="contComment">
+                                                                    <div className="msjVendedor2">
+                                                                        {message.comentario}
+                                                                    </div>
+                                                                </div>
+                                                                <div className="namevendedor">
+                                                                    <div className="BallNamEv">
+                                                                        <p> {primerasLetras}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="contDateMSJ">
+                                                                <div style={{ width: "81%", }}></div>
+                                                                <div style={{ width: "19%", }}>
+                                                                    <div style={{ width: "88%", }}>
+                                                                        <p style={{ fontSize: "16px", }}>
+                                                                            {message.fechacreacion ? message.fechacreacion.slice(11, 16) : ""}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                    )
                                                     ) : (
                                                         <div>
                                                             No hay mensajes
@@ -588,105 +523,41 @@ export default function msjVendedor() {
                                                 </div>
                                                 <div className="contInputYimgSend">
                                                     {mostrar ? (
-                                                        <div
-                                                            className="inputandsendMsjVendedor"
-                                                            onKeyPress={(e) => {
-                                                                if (
-                                                                    e.key ===
-                                                                    "Enter"
-                                                                ) {
-                                                                    e.preventDefault(); // Evita la recarga de la página
-                                                                    manejarEnvioMensaje();
-                                                                }
-                                                            }}>
+                                                        <div className="inputandsendMsjVendedor" onKeyPress={(e) => {
+                                                            if (e.key === "Enter") {
+                                                                e.preventDefault(); // Evita la recarga de la página
+                                                                manejarEnvioMensaje();
+                                                            }
+                                                        }}>
                                                             <div className="contButtonImg">
-                                                                <input
-                                                                    type="file"
-                                                                    id="imageUpload"
-                                                                    onChange={
-                                                                        handleImageUpload
-                                                                    }
-                                                                />
-                                                                <button
-                                                                    onClick={() =>
-                                                                        document
-                                                                            .getElementById(
-                                                                                "imageUpload"
-                                                                            )
-                                                                            .click()
-                                                                    }>
-                                                                    <SlPaperClip
-                                                                        size={
-                                                                            19
-                                                                        }
-                                                                    />
+                                                                <input type="file" id="imageUpload" onChange={handleImageUpload} />
+                                                                <button onClick={() => document.getElementById("imageUpload").click()}>
+                                                                    <SlPaperClip size={19} />
                                                                 </button>
                                                             </div>
                                                             <div className="contImgandInput">
-                                                                <input
-                                                                    value={
-                                                                        inputMessage
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) =>
-                                                                        setInputMessage(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    type="text"
-                                                                    placeholder="Escribe un mensaje al vendedor"
-                                                                    readOnly={
-                                                                        imageName
-                                                                            ? true
-                                                                            : false
-                                                                    } // Hacer el input de solo lectura si se ha seleccionado una imagen
+                                                                <input value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} type="text" placeholder="Escribe un mensaje al vendedor" readOnly={
+                                                                    imageName
+                                                                        ? true
+                                                                        : false
+                                                                } // Hacer el input de solo lectura si se ha seleccionado una imagen
                                                                 />
                                                                 {selectedImage && (
                                                                     <div className="contImgSelected">
-                                                                        <img
-                                                                            src={
-                                                                                selectedImage
-                                                                            }
-                                                                        />
-                                                                        <button
-                                                                            onClick={() => {
-                                                                                setSelectedImage(
-                                                                                    null
-                                                                                );
-                                                                                setInputMessage(
-                                                                                    ""
-                                                                                );
-                                                                                setImageName(
-                                                                                    ""
-                                                                                );
-                                                                            }}>
-                                                                            <IoMdClose
-                                                                                size={
-                                                                                    30
-                                                                                }
-                                                                            />
+                                                                        <img src={selectedImage} />
+                                                                        <button onClick={() => {
+                                                                            setSelectedImage(null);
+                                                                            setInputMessage("");
+                                                                            setImageName( "");
+                                                                        }}>
+                                                                            <IoMdClose size={30}/>
                                                                         </button>
                                                                     </div>
                                                                 )}
                                                             </div>
                                                             <div className="contSendMessage">
-                                                                <button
-                                                                    onClick={
-                                                                        manejarEnvioMensaje
-                                                                    }>
-                                                                    <LuSendHorizonal
-                                                                        size={
-                                                                            25
-                                                                        }
-                                                                        style={{
-                                                                            cursor: inputMessage.trim()
-                                                                                ? "pointer"
-                                                                                : "not-allowed",
-                                                                        }}
-                                                                    />
+                                                                <button onClick={ manejarEnvioMensaje }>
+                                                                    <LuSendHorizonal size={25} style={{cursor: inputMessage.trim()? "pointer": "not-allowed", }}/>
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -712,6 +583,16 @@ export default function msjVendedor() {
                                                 </div>
                                             </Grid>
                                         </Grid>
+
+
+
+
+
+
+
+
+
+                                        {/*Right container */}
                                         <Grid
                                             className="contInfoProdComprCalif"
                                             item
