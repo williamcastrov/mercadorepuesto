@@ -326,7 +326,7 @@ export default function FormDocumento() {
                                                 </DialogContent>
                                                 <DialogActions className='DialogActionsDatsGuardados'>
                                                     <div className='div1buttonDialog' >
-                                                        <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('../../my-account')} >
+                                                        <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('../MisDatos')} >
                                                             Ir a Mis datos
                                                         </button>
                                                     </div>

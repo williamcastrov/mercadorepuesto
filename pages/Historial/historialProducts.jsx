@@ -447,6 +447,19 @@ export default function historialProducts() {
         setDatosUsuarioOriginales(nuevosDatos);
     };
 
+    // Esta función se llama cuando haces clic en el botón de "seleccionar todo".
+    // Si todos los productos ya están seleccionados, los deselecciona.
+    // De lo contrario, selecciona todos los productos.
+    const manejarClicSeleccionarTodos = () => {
+        if (productosSeleccionados.length === datosUsuario.length) {
+            // Si todos los productos ya están seleccionados, los deseleccionamos.
+            setProductosSeleccionados([]);
+        } else {
+            // Si no todos los productos están seleccionados, los seleccionamos todos.
+            setProductosSeleccionados(datosUsuario);
+        }
+    };
+
     return (
         <>
             <div ref={irA}>
@@ -535,8 +548,13 @@ export default function historialProducts() {
                                         <div className="selectedProductsHistorial">
                                             {productosSeleccionados.length > 0 && (
                                                 <div className="DeletedSelectsHistorial">
-                                                    <button onClick={eliminarProductosSeleccionados}>Eliminar productos seleccionados</button>
-                                                </div>
+                                                    <div onClick={manejarClicSeleccionarTodos} className="iconsSelectAll">
+                                                        <IoSquareOutline className="iconSquare2" />
+                                                        {productosSeleccionados.length === datosUsuario.length && (
+                                                            <FaCheck className="iconCheck2 selected2" />
+                                                        )}
+                                                    </div>
+                                                    <button className={`buttonDeleteProductsSelects ${productosSeleccionados.length > 0 ? 'underline' : ''}`} onClick={eliminarProductosSeleccionados}>Eliminar productos seleccionados</button>                                                </div>
                                             )}
 
                                         </div>
@@ -622,13 +640,13 @@ export default function historialProducts() {
                                                 titulo="Eliminar historial"
                                                 mensaje="¿Estás seguro de que quieres eliminar el historial?"
                                                 tipo="confirmación"
-                                            /> 
+                                            />
                                             <ModalMensajesEliminar
                                                 shown={showModal3}
                                                 setContinuarEliminar={confirmarEliminacionProductosSeleccionados}
                                                 setAbandonarEliminar={() => setShowModal3(false)}
                                                 titulo="Eliminar historial"
-                                                mensaje="¿Estás seguro de que quieres eliminar estos productos?"
+                                                mensaje="¿Estás seguro de que quieres eliminar estos productos de tu historial?"
                                                 tipo="confirmación"
                                             />
                                         </div>

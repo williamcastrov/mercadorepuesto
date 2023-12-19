@@ -52,7 +52,7 @@ function ModalMensajesEliminar(props) {
                 <div className="mt-50 textoventanamensajes">
                     <div>{mensaje}</div>
                 </div>
-                <div className="ml-220 mt-60">
+                <div className="ml-220 mt-40">
                     <Row>
                         <Col xl={5} lg={5} md={5} xs={5}>
                             <Button

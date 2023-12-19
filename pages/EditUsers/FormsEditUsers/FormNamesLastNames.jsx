@@ -331,7 +331,7 @@ export default function FormNamesLastNames() {
                                                         <button
                                                             className="button2DialogDatsGuardados"
                                                             onClick={handleConfirmationSuccess(
-                                                                "../../my-account"
+                                                                "../MisDatos"
                                                             )}>
                                                             Ir a Mis datos
                                                         </button>

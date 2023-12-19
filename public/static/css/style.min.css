@@ -29410,7 +29410,10 @@ color: #2D2E83;
     display: flex;
     justify-content: space-between;
 }
-
+.iconsSelectAll{
+    display: flex;
+    position: relative; 
+}
 .conTopH p {
     font-size: 25px;
     color: #2D2E83;
@@ -29420,13 +29423,13 @@ color: #2D2E83;
 .titleHistorial1 {
     display: flex;
     justify-content: flex-end;
-    margin-top: -1rem;
-    cursor: pointer;
+    margin-top: -1rem; 
 }
 .DeleteHistorial {
     display: flex;
     align-items: center;
     margin-right: 4rem;
+    cursor: pointer;
 }
 
 .DeleteHistorial p {
@@ -29442,8 +29445,7 @@ color: #2D2E83;
 .titleHistorial1 {
     display: flex;
     justify-content: flex-end;
-    margin-top: -1rem;
-    cursor: pointer;
+    margin-top: -1rem; 
 }
 
 .titleHistorial {
@@ -29492,7 +29494,7 @@ color: #2D2E83;
 .selectedProductsHistorial {
     width: 100%;
 }
-.DeletedSelectsHistorial {
+.DeletedSelectsHistorial { 
     display: flex;
     cursor: pointer;
 }
@@ -29590,6 +29592,35 @@ color: #2D2E83;
     display: inline;
     /* Muestra el icono de verificación cuando el producto está seleccionado */
 }
+
+ 
+.iconSquare2,
+.iconCheck2 {
+    position: absolute;
+    top: 3px;
+    left: 0px;
+    font-size: 18px;
+    color: #2D2E83;
+}
+.iconCheck2 {
+    display: none;
+    /* Oculta el icono de verificación por defecto */
+}
+.iconCheck2.selected2 {
+    display: inline;
+    /* Muestra el icono de verificación cuando el producto está seleccionado */
+}
+.buttonDeleteProductsSelects{
+    margin-left: 2.5rem;
+}
+.buttonDeleteProductsSelects.underline {
+    text-decoration: underline;
+}
+
+
+
+
+
 .DataProductHistorial {
     margin-top: 5px;
     display: flex;
