@@ -192,22 +192,25 @@ export default function msjVendedor() {
     };
 
     const userId = datosusuarios.uid; // ID del usuario actua 
-    const usuarioenvia = datosusuarios.uid;
-    const isUsuarioEnvia = datosusuarios.uid === "1671495436242";
-    const isUsuarioRecibe = datosusuarios.uid === "1653161788618";
+    const usuarioenvia = datosusuarios.uid; 
 
 
     // Función para enviar un mensaje
     const sendMessage = async () => {
         const estado = 32;
-        const usuarioenvia = datosusuarios.uid; // Obtén el usuarioenvia directamente de datosusuarios.uid
+        const usuarioenvia = datosusuarios.uid;
         let usuariorecibe;
-
+      
         // Ajusta la lógica para obtener usuariorecibe desde producto.usuario
         // Esto es solo un ejemplo, asegúrate de ajustar según la estructura de tus datos
         if (producto && producto.usuario) {
-            usuariorecibe = producto.usuario;
+          usuariorecibe = producto.usuario;
+        } else {
+          // Si no hay producto.usuario, asume que el usuario actual está enviando el mensaje
+          usuariorecibe = datosusuarios.uid;
         }
+
+
         const nuevoMensaje = {
             usuarioenvia,
             usuariorecibe,
@@ -290,13 +293,7 @@ export default function msjVendedor() {
     const leerMensajes = async () => {
         let params = {
             estado: 32,
-        };
-
-        if (isUsuarioEnvia) {
-            params.usuarioenvia = datosusuarios.uid;
-          } else if (isUsuarioRecibe) {
-            params.usuariorecibe = datosusuarios.uid;
-          }
+        }; 
 
         try {
             const response = await axios({
@@ -634,8 +631,7 @@ export default function msjVendedor() {
                                                     className="continfocalifimg"
                                                     flexDirection={"column"}>
                                                     <p className="pNameProductCalif">
-                                                        {producto.titulonombre}
-                                                        {producto.usuario}
+                                                        {producto.titulonombre}  
                                                     </p>
                                                     <div className="subtitlesvercompra">
                                                         <p>
