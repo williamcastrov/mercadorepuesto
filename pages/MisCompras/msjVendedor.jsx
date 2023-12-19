@@ -33,7 +33,7 @@ import { SlPaperClip } from "react-icons/sl";
 import { LuSendHorizonal } from "react-icons/lu";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoMdClose } from "react-icons/io";
-
+import { useDispatch, useSelector } from "react-redux";
 import shortid from "shortid";
 
 export default function msjVendedor() {
@@ -54,6 +54,8 @@ export default function msjVendedor() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [extension, setExtension] = useState("");
     const messagesRef = useRef(null);
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("DAT USER : ", datosusuarios.name);
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null;
@@ -189,12 +191,23 @@ export default function msjVendedor() {
         return true;
     };
 
+    const userId = datosusuarios.uid; // ID del usuario actua 
+    const usuarioenvia = datosusuarios.uid;
+    const isUsuarioEnvia = datosusuarios.uid === "1671495436242";
+    const isUsuarioRecibe = datosusuarios.uid === "1653161788618";
+
+
     // Función para enviar un mensaje
     const sendMessage = async () => {
-        const usuariorecibe = "1653147206453"; // UID del vendedor
-        const estado = 32; // Estado pendiente por revisión y/o aprobación MR
-        const usuarioenvia = producto.usuario;
+        const estado = 32;
+        const usuarioenvia = datosusuarios.uid; // Obtén el usuarioenvia directamente de datosusuarios.uid
+        let usuariorecibe;
 
+        // Ajusta la lógica para obtener usuariorecibe desde producto.usuario
+        // Esto es solo un ejemplo, asegúrate de ajustar según la estructura de tus datos
+        if (producto && producto.usuario) {
+            usuariorecibe = producto.usuario;
+        }
         const nuevoMensaje = {
             usuarioenvia,
             usuariorecibe,
@@ -224,23 +237,6 @@ export default function msjVendedor() {
         formdata.append("nombreimagen5", "");
         formdata.append("imagen1", selectedImage);
 
-        let row = {
-            usuarioenvia: usuarioenvia,
-            usuariorecibe: usuariorecibe,
-            fechacreacion: fechacreacion,
-            estado: estado,
-            comentario: inputMessage,
-            observacionintera: "",
-            nombreimagen1: imageName + extension,
-            nombreimagen2: "",
-            nombreimagen3: "",
-            nombreimagen4: "",
-            nombreimagen5: "",
-            imagen1: selectedImage,
-        };
-
-        //console.log("PRDDDSDD : ", row);
-        //return;
 
         const grabarImg = async () => {
             await fetch("https://gimcloud.com.co/mrp/api/83", {
@@ -296,6 +292,12 @@ export default function msjVendedor() {
             estado: 32,
         };
 
+        if (isUsuarioEnvia) {
+            params.usuarioenvia = datosusuarios.uid;
+          } else if (isUsuarioRecibe) {
+            params.usuariorecibe = datosusuarios.uid;
+          }
+
         try {
             const response = await axios({
                 method: "post",
@@ -316,7 +318,6 @@ export default function msjVendedor() {
             console.error("Error leyendo mensajes:", error);
         }
     };
-
     // Efecto para cargar mensajes al montar y actualizar
     useEffect(() => {
         leerMensajes();
@@ -433,6 +434,12 @@ export default function msjVendedor() {
         }
     }, [mostrar]);
 
+
+
+
+
+
+
     return (
         <div ref={irA}>
             <div>
@@ -455,69 +462,76 @@ export default function msjVendedor() {
                                                     <p>Hoy</p>
                                                 </div>
                                                 <div className="contMensajes" ref={messagesRef}>
-                                                    <div className="ContMsjsVendedor">
-                                                        <div className="msjsVend1">
-                                                            <div className="namevendedor2">
-                                                                <div className="BallNamEv2">
-                                                                    <p>JP</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="contComment">
-                                                                <div className="msjVendedor1">
-                                                                    Comentario del vendedor
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="contDateMSJ">
-                                                            <div style={{ width: '81%' }}></div>
-                                                            <div style={{ width: '19%' }}>
-                                                                <div style={{ width: '88%' }}>
-                                                                    <p style={{ fontSize: '16px' }}>11:17</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    {Array.isArray(messages) && messages.length > 0 ? (messages.slice(0).map((message, index) => (
-                                                        <div className="MsjVendedor" key={index}>
-                                                            {console.log("NOM ING : ", message.nombreimagen1)}
-                                                            {message.nombreimagen1 && (
-                                                                <div className="imageContainerChat">
-                                                                    <div className="imgmensajescompras">
-                                                                        <img src={URL_IMAGES_RESULTS + message.nombreimagen1} alt={message.nombreimagen1} />
+                                                    {Array.isArray(messages) && messages.length > 0 ? (
+                                                        messages.map((message, index) => (
+                                                            <div key={index}>
+                                                                {message.usuarioenvia === userId ? (
+                                                                    // Mensaje propio
+                                                                    <div className="MsjVendedor" key={index}>
+                                                                        {message.nombreimagen1 && (
+                                                                            <div className="imageContainerChat">
+                                                                                <div className="imgmensajescompras2">
+                                                                                    <img src={URL_IMAGES_RESULTS + message.nombreimagen1} alt={message.nombreimagen1} />
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+                                                                        <div className="msjsVend">
+                                                                            <div className="contComment">
+                                                                                <div className="msjVendedor2">
+                                                                                    {message.comentario}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="namevendedor">
+                                                                                <div className="BallNamEv">
+                                                                                    <p>{primerasLetras}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="contDateMSJ">
+                                                                            <div style={{ width: "81%" }}></div>
+                                                                            <div style={{ width: "19%" }}>
+                                                                                <div style={{ width: "88%" }}>
+                                                                                    <p style={{ fontSize: "16px" }}>
+                                                                                        {message.fechacreacion ? message.fechacreacion.slice(11, 16) : ""}
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            )}
-                                                            <div className="msjsVend">
-                                                                <div className="contComment">
-                                                                    <div className="msjVendedor2">
-                                                                        {message.comentario}
+                                                                ) : (
+                                                                    // Mensaje no propio
+                                                                    <div className="ContMsjsVendedor" key={index}>
+                                                                        {message.nombreimagen1 && (
+                                                                            <div className="imageContainerChat2">
+                                                                                <div className="imgmensajescompras">
+                                                                                    <img src={URL_IMAGES_RESULTS + message.nombreimagen1} alt={message.nombreimagen1} />
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+                                                                        <div className="msjsVend1">
+                                                                            <div className="namevendedor2">
+                                                                                <div className="BallNamEv2">
+                                                                                    <p>{primerasLetras}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="contComment">
+                                                                                <div className="msjVendedor1">
+                                                                                    {message.comentario}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="contDateMSJ2">
+                                                                            <p>
+                                                                                {message.fechacreacion ? message.fechacreacion.slice(11, 16) : ""}
+                                                                            </p>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div className="namevendedor">
-                                                                    <div className="BallNamEv">
-                                                                        <p> {primerasLetras}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
+                                                                )}
                                                             </div>
-                                                            <div className="contDateMSJ">
-                                                                <div style={{ width: "81%", }}></div>
-                                                                <div style={{ width: "19%", }}>
-                                                                    <div style={{ width: "88%", }}>
-                                                                        <p style={{ fontSize: "16px", }}>
-                                                                            {message.fechacreacion ? message.fechacreacion.slice(11, 16) : ""}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                    )
+                                                        ))
                                                     ) : (
                                                         <div>
-                                                            No hay mensajes
-                                                            disponibles
+                                                            No hay mensajes disponibles
                                                         </div>
                                                     )}
                                                 </div>
@@ -548,16 +562,16 @@ export default function msjVendedor() {
                                                                         <button onClick={() => {
                                                                             setSelectedImage(null);
                                                                             setInputMessage("");
-                                                                            setImageName( "");
+                                                                            setImageName("");
                                                                         }}>
-                                                                            <IoMdClose size={30}/>
+                                                                            <IoMdClose size={30} />
                                                                         </button>
                                                                     </div>
                                                                 )}
                                                             </div>
                                                             <div className="contSendMessage">
-                                                                <button onClick={ manejarEnvioMensaje }>
-                                                                    <LuSendHorizonal size={25} style={{cursor: inputMessage.trim()? "pointer": "not-allowed", }}/>
+                                                                <button onClick={manejarEnvioMensaje}>
+                                                                    <LuSendHorizonal size={25} style={{ cursor: inputMessage.trim() ? "pointer" : "not-allowed", }} />
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -621,6 +635,7 @@ export default function msjVendedor() {
                                                     flexDirection={"column"}>
                                                     <p className="pNameProductCalif">
                                                         {producto.titulonombre}
+                                                        {producto.usuario}
                                                     </p>
                                                     <div className="subtitlesvercompra">
                                                         <p>

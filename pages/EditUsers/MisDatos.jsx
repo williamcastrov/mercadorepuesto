@@ -13,7 +13,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ModalMensajes from '../mensajes/ModalMensajes';
 import { useDispatch, connect, useSelector } from "react-redux";
-
+import { Button, Col, Row } from 'react-bootstrap';
+import InfoIcon from "@material-ui/icons/Info";
 
 
 

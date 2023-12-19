@@ -11,7 +11,7 @@ function ModalMensajesShoppingCart(props) {
     const router = useRouter();
     const { shown, close, titulo, mensaje, tipo, setSoyNuevo, setTengoCuenta } =
         props;
-    // Asignamos Datos al arreglo de Usuarios desde el state
+    // Asignamos Datos al arreglo de Usuarios desde el state 
     const leeira = useSelector((state) => state.leeira.ira);
 
     const creaTuCuenta = () => {

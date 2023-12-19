@@ -27,23 +27,59 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import firebase from "../../utilities/firebase";
-
-
+import ModalMensajesConfirmarEliminar from "../mensajes/ModalMensajesConfirmarEliminar";
+import ModalMensajesShoppingCart from "../mensajes/ModalMensajesShoppingCart";
+import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
 export default function dispVinculados() {
 
     const router = useRouter();
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
+
     //Posición top Pagina
     const irA = useRef(null);
     const [tituloMensajes, setTituloMensajes] = useState(''); //titulo modal
     const [textoMensajes, setTextoMensajes] = useState(''); //texto modal 
     const [showModal, setShowModal] = useState(false); //Estado de modal
-    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+
     const [UidUser, setUidUser] = useState("");
     const [DatosUser, setDatosUser] = useState([]);
     const [dispositivosVinculados, setDispositivosVinculados] = useState([]);
+
+
+
+    const [soyNuevo, setSoyNuevo] = useState(false);
+    const [tengoCuenta, setTengoCuenta] = useState(false);
+
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("DAT USER DISP VINCULADOS : ", datosusuarios.uid);
+
+    const [showModalMensajesCtlr, setShowModalMensajesCtlr] = useState(false);
+    const [tituloMensajesCtlr, setTituloMensajesCtlr] = useState('');
+    const [textoMensajesCtlr, setTextoMensajesCtlr] = useState('');
+    const [isUserLogged, setIsUserLogged] = useState(false);
+
+    useEffect(() => {
+        if (!datosusuarios.uid || datosusuarios.uid == 0) {
+            setIsUserLogged(false);
+        } else {
+            setIsUserLogged(true);
+        }
+    }, [datosusuarios.uid]);
+    
+    useEffect(() => {
+        if (!isUserLogged) {
+            setShowModalMensajesCtlr(true);
+            setTituloMensajesCtlr("Dispositivos vinculados");
+            let texto = "¡Bienvenido! Para ver tus dispositivos vinculados primero debes iniciar sesión o registrarte.";
+            setTextoMensajesCtlr(texto);
+        } else {
+            setShowModalMensajesCtlr(false);
+        }
+    }, [isUserLogged]);
+
+
 
     //cerrar modal de favoritos y de eliminar un producto
     const handleModalClose = () => {
@@ -62,9 +98,6 @@ export default function dispVinculados() {
             block: "start",
         });
     }, []);
-
-
-
 
     // Estado para almacenar el id del dispositivo actual
     const [idDispositivoActual, setIdDispositivoActual] = useState(null);
@@ -146,6 +179,7 @@ export default function dispVinculados() {
 
 
 
+
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
         const obtenerUidUsuario = async () => {
@@ -168,9 +202,9 @@ export default function dispVinculados() {
         obtenerUidUsuario();
     }, [datosusuarios]);
 
+    
 
-
-    //función para leer los dispositivos que están vinculados
+    //función para leer los dispositivos que están vinculados 
     useEffect(() => {
         const leerDispositivosVinculados = async () => {
             let params = {
@@ -207,7 +241,9 @@ export default function dispVinculados() {
                 });
         };
         leerDispositivosVinculados();
-    }, [UidUser]);
+    }, [UidUser]);    //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
+
+
 
 
     const Salir = () => {
@@ -354,7 +390,14 @@ export default function dispVinculados() {
                                             mensaje={textoMensajes}
                                             tipo="error"
                                         />
-
+                                        <ModalMensajesWishListControl
+                                            shown={showModalMensajesCtlr}
+                                            close={() => { }}
+                                            titulo={tituloMensajesCtlr}
+                                            mensaje={textoMensajesCtlr}
+                                            backdrop="static"
+                                            keyboard={false}
+                                        />
                                     </Grid>
 
                                 </div>

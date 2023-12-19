@@ -80,7 +80,7 @@ function ModalMensajesConfirmarEliminar(props) {
                                 className="ml-20 ps-btn redondearborde"
                                 onClick={() => continuar()}>
                                 {" "}
-                                Eliminar
+                                Eliminar 
                             </Button>
                         </Col>
                     </Row>

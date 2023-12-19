@@ -277,8 +277,8 @@ const ModuleDetailShoppingActions = ({ product, cart, ecomerce }) => {
             setShowModalMensajesShoppingCart(true);
             setTituloMensajesShoppingCart(
                 "¡Bienvenido! Para comprar debes ingresar a tu cuenta"
-            );
-            let texto = "";
+            ); 
+            let texto = ""; 
             setTextoMensajesShoppingCart(texto);
             //setLogin(true);
             return;

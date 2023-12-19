@@ -29324,7 +29324,14 @@ color: #2D2E83;
     display: flex;
     width: 100%;
 }
-
+.contDateMSJ2{
+    margin-top: -1.5rem;
+    display: flex;
+    width: 100%;
+}
+.contDateMSJ2 p{
+    margin-left: 7.4rem;
+}
 
   /*buttons tengoproblema container ver mas*/
   .contButtonVermasomenos{
@@ -29351,11 +29358,28 @@ color: #2D2E83;
     justify-content: flex-end;  
     border-radius: 12px;
     border: 5px solid white;
-    max-width: 500px;
+    max-width: 490px;
     max-height: 280px;
     width: auto;
     height: auto;
-    margin-right: 7.5rem;
+    margin-right: 7.4rem;
+    object-fit: cover; /* Puedes ajustar esto según tus necesidades */
+}
+.imageContainerChat2{ 
+    display: flex;
+    justify-content:flex-start;
+    align-items: flex-start; 
+  }
+  .imageContainerChat2 img {
+    display: flex;
+    justify-content: flex-start;  
+    border-radius: 12px;
+    border: 5px solid white;
+    max-width: 490px;
+    max-height: 280px;
+    width: auto;
+    height: auto;
+    margin-left: 7.4rem;
     object-fit: cover; /* Puedes ajustar esto según tus necesidades */
 }
   .SubcontimageContainerChat{
@@ -29369,7 +29393,11 @@ color: #2D2E83;
     object-fit: scale-down !important;
   }
 
- 
+  .imgmensajescompras2 {
+    margin-top: 4px !important;
+    margin-left: 2px !important; 
+    object-fit: scale-down !important;
+  }
 
 
 
@@ -29965,3 +29993,14 @@ color: #2D2E83;
 
 
 
+.mensajeRecibido {
+    background-color: white; /* O cualquier otro color que desees */
+    color: black; /* Color del texto para mensajes recibidos */
+  }
+  .azulname{
+    background-color: #00605A;
+  }
+
+  .msjPropio{
+    background-color: #00A901 !important;
+  }
