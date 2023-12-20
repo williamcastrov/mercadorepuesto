@@ -15,6 +15,11 @@ const URL_IMAGES_RESULTS = "https://gimcloud.com.co/files/mercadorepuesto/";
 
 export default function misCompras() {
 
+
+
+    const [UidUser, setUidUser] = useState(""); const [DatosUser, setDatosUser] = useState([]);
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("DAT USER MIS COMPRAS : ", datosusuarios);
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -22,10 +27,37 @@ export default function misCompras() {
     const router = useRouter();
     const [compras, setCompras] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    //PosiciónTopPage
+    const irA = useRef(null);
 
-    const filteredCompras = compras.filter((producto) =>
-        producto.titulonombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+
+
+    //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
+    useEffect(() => {
+        const obtenerUidUsuario = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "13",
+                    params,
+                });
+                setDatosUser(res.data[0]);
+                setUidUser(res.data[0].uid)
+            } catch (error) {
+                console.error("Error al leer los datos del usuario", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerUidUsuario();
+    }, [datosusuarios]);
+
+
+
+
+
 
     const handleSelect = (eventKey) => {
         // Actualiza el estado para almacenar la opción seleccionada
@@ -51,36 +83,115 @@ export default function misCompras() {
     //Obtener datos de mis compras
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.post(`${URL_BD_MR}81`);
-                // Formatear todas las fechas antes de establecerlas en el estado, simplemente quitarle los Ceros
-                const comprasFormateadas = response.data.listarcompras.map((compra) => ({
-                    ...compra,
-                    fechacompra: compra.fechacompra.slice(0, 10),
-                    fechaentrega: compra.fechaentrega.slice(0, 10),
-                    fechadespacho: compra.fechadespacho.slice(0, 10),
-                    fechadepago: compra.fechadepago.slice(0, 10),
+        const leerDirecciones = async () => {
+            let params = {
+                usuario: UidUser,
+            };
 
-                    // Sumar preciodeventa y precioenvio y guardar en nueva propiedad
-                    nuevoValor: compra.preciodeventa + compra.precioenvio,
-                }));
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "103",
+                params,
+            })
+                .then(async (res) => {
+                    if (res.data && res.data.listarunadireccion) {
+                        const direcciones = await Promise.all(
+                            res.data.listarunadireccion.map(async (direccion) => {
+                                // Obtén los detalles del producto
+                                const detallesProducto = await obtenerNombreProducto(direccion.idproducto);
 
+                                // Obtén el nombre del vendedor
+                                const detallesVendedor = await obtenerNombreVendedor(detallesProducto.usuario);
 
-                setCompras(comprasFormateadas);
-            } catch (error) {
-                console.error('Error al obtener datos:', error);
-            }
+                                return {
+                                    ...direccion,
+                                    fechacompra: direccion.fechacompra.slice(0, 10),
+                                    fechaentrega: direccion.fechaentrega.slice(0, 10),
+                                    fechadespacho: direccion.fechadespacho.slice(0, 10),
+                                    fechadepago: direccion.fechadepago.slice(0, 10),
+                                    nuevoValor: direccion.preciodeventa + direccion.precioenvio,
+                                    nombreProducto: detallesProducto.nombreProducto,
+                                    salePrice: detallesProducto.salePrice,
+                                    nombreImagen: detallesProducto.nombreImagen,
+                                    nombreVendedor: detallesVendedor.nombreVendedor,
+                                    apellidoVendedor: detallesVendedor.apellidoVendedor,
+                                };
+                            })
+                        );
+
+                        // Almacena las direcciones en el estado de tu componente
+                        setCompras(direcciones);
+                        console.log(compras);
+
+                        // Imprime las direcciones en la consola
+                        console.log("Direcciones:", direcciones);
+                    } else {
+                        console.error("Error: res.data o res.data.listarunadireccion es undefined");
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error al leer los datos del usuario", error);
+                });
+        };
+        leerDirecciones();
+    }, [UidUser]);
+
+    //función para obtener datos del producto
+    async function obtenerNombreProducto(idprd) {
+        let params = {
+            idarticulo: idprd,
         };
 
-        fetchData();
-    }, [URL_BD_MR]);
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "18",
+                params,
+            });
+
+            const nombreProducto = res.data[0].name;
+            const salePrice = res.data[0].sale_price;
+            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
+            const usuario = res.data[0].usuario;
+
+            return { nombreProducto, salePrice, nombreImagen, usuario };
+
+        } catch (error) {
+            console.error("Error al obtener el nombre del producto", error);
+        }
+    }
+
+    //función para obtener el nombre del vendedor
+    //función para obtener el nombre y apellido del vendedor
+    async function obtenerNombreVendedor(uid) {
+        let params = {
+            uid: uid,
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "13",
+                params,
+            });
+
+            const nombreVendedor = res.data[0].primernombre;
+            const apellidoVendedor = res.data[0].primerapellido;
+
+            return { nombreVendedor, apellidoVendedor };
+
+        } catch (error) {
+            console.error("Error al obtener el nombre del vendedor", error);
+        }
+    }
 
 
 
 
-    //PosiciónTopPage
-    const irA = useRef(null);
+
+    const filteredCompras = compras.filter((producto) =>
+        producto && producto.nombreProducto && producto.nombreProducto.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -160,56 +271,52 @@ export default function misCompras() {
                                 </Grid>
 
                                 <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
+
                                     {/* Mostrar productos */}
                                     {filteredCompras.length > 0 ? (
                                         filteredCompras.map((producto) => (
                                             <Grid className="productComprado" container>
-                                                <Grid key={producto.id} item xs={12} md={9} sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                                                    <Grid xs={5} md={6} sx={{ border: '4px solid #EBEBEB', borderRadius: '12px', height: '19rem', display: 'flex', justifyContent: 'center' }}>
-                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreimagen1}`} style={{ width: '200px', height: '180px' }} />
+                                                <Grid key={producto.id} item xs={12} md={9} className="productCompradoSubCont" >
+                                                    <Grid xs={5} md={6} className="contImgMisCompras">
+                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
                                                     </Grid>
-
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
-                                                            <Grid sx={{ display: 'flex', paddingLeft: '2rem', flexDirection: 'column' }}>
-                                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>Estado compra</p>
-                                                                <p style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>{producto.titulonombre}</p>
-                                                                <div style={{ display: 'flex' }}>
-                                                                    <p style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>Unidades compradas:</p>
-                                                                    <p style={{ marginLeft: '5px', fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>{producto.cantidad}</p>
+                                                            <Grid className="subContMiscompras">
+                                                                <p className="estadoCompra">{producto.estadodeldespacho}</p>
+                                                                <p className="nombreProductMiCompra">{producto.nombreProducto}</p>
+                                                                <div className="divCantCompradas">
+                                                                    <p className="UnidCompradas">Unidades compradas:</p>
+                                                                    <p className="numeroUnidsCompradas">{producto.cantidad}</p>
                                                                 </div>
-                                                                <div style={{ display: 'flex' }}>
-                                                                    <p style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}> Número de compra:</p>
-                                                                    <p style={{ marginLeft: '5px', fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>{producto.numerodeaprobacion}</p>
+                                                                <div className="divNcompra">
+                                                                    <p className="UnidCompradas"> Número de compra:</p>
+                                                                    <p className="numeroUnidsCompradas">{producto.numerodeaprobacion}</p>
                                                                 </div>
-                                                                <p style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>{producto.fechacompra}</p>
+                                                                <p className="dateCompra">{producto.fechacompra}</p>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={3} sx={{ display: 'flex', paddingLeft: '2rem', paddingTop: '2rem', paddingRight: '2rem', justifyContent: 'flex-end', borderRight: { md: '3px solid #EBEBEB', xs: 'none' } }}>
-                                                            {/* Contenido del segundo subcontenedor */}
-                                                            <p style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '700' }}>${producto.preciodeventa}</p>
+                                                        <Grid item xs={12} md={3} className="precioProductMisCompras">
+                                                            <p>${producto.preciodeventa}</p>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} md={3} sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', padding: '1.5rem', alignItems: 'center' }}>
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <p style={{ marginBottom: '5px', fontSize: '18px', color: '#2D2E83', fontWeight: '500' }}>{producto.nombres} </p>
-                                                        <p onClick={() => router.push({
+                                                <Grid item xs={12} md={3} className="ContRightMisCompras">
+                                                    <div className="SendMsjVendandName">
+                                                        <p className="nameVendedorMiCompra">{producto.nombreVendedor} {producto.apellidoVendedor} </p>
+                                                        <p className="buttonSendMsjVendedor" onClick={() => router.push({
                                                             pathname: './msjVendedor',
                                                             query: { producto: JSON.stringify(producto) }
-                                                        })}
-                                                            style={{ fontSize: '18px', color: '#2D2E83', fontWeight: '500', cursor:'pointer' }}>
+                                                        })} >
                                                             Enviar mensaje al vendedor
                                                         </p>
                                                     </div>
-                                                    <div style={{ marginTop: '3rem', width: '100%' }}>
+                                                    <div className="divButtonVercompra">
                                                         <button
                                                             onClick={() => router.push({
                                                                 pathname: './verCompra',
                                                                 query: { producto: JSON.stringify(producto) }
                                                             })}
-                                                            style={{ backgroundColor: '#2C2E82', borderRadius: '10px', color: 'white', fontSize: '16px', padding: '.6rem', margin: '0 auto', width: '100%' }}
-
                                                         >
                                                             Ver Compra
                                                         </button>

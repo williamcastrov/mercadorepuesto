@@ -621,7 +621,7 @@ export default function msjVendedor() {
                                                     className="contImgRighCalif"
                                                     mt={"2rem"}>
                                                     <img
-                                                        src={`${URL_IMAGES_RESULTS}${producto.nombreimagen1}`}
+                                                        src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`}
                                                     />
                                                 </Grid>
                                                 <Grid

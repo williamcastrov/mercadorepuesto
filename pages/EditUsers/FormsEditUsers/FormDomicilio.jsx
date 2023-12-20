@@ -37,7 +37,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
         {children}
         &#x25bc;
     </a>
-));
+)); 
 
 const CustomMenu = React.forwardRef(
     ({ children, style, className, "aria-labelledby": labeledBy }, ref) => {
@@ -751,7 +751,10 @@ const FormDomicilio = () => {
     const offDelete = () => {
         setShowDelete(false);
     };
-
+    //ruta de cuando se confirma correctamente el modal
+    const handleConfirmationSuccess = (route) => () => {
+        router.push(route);
+    };
     return (
         <Container title="Checkout">
             <div className="ps-page ps-page--shopping">
@@ -1056,12 +1059,10 @@ const FormDomicilio = () => {
                                                                                         }>
                                                                                         <div
                                                                                             className="botoncontinuardirecciondos"
-                                                                                            onClick={() =>
-                                                                                                infoSiguiente(
-                                                                                                    item
-                                                                                                )
-                                                                                            }>
-                                                                                            Continuar
+                                                                                            onClick={handleConfirmationSuccess(
+                                                                                                "../MisDatos"
+                                                                                            )}>
+                                                                                            Ir a mis datos
                                                                                         </div>
                                                                                     </Grid>
                                                                                     <Grid

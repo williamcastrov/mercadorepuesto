@@ -58,8 +58,7 @@ const Header = ({ slim }: Props) => {
         let inicia = null;
         localStorage.setItem("placeholdersearch", JSON.stringify(inicia));
     }
-
-    console.log("FILTER : ", filters)
+ 
 
     useEffect(() => {
         callFilters();

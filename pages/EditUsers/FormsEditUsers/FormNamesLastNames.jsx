@@ -89,7 +89,7 @@ export default function FormNamesLastNames() {
     const handleConfirmationSuccess = (route) => () => {
         router.push(route);
     };
-
+ 
     const handleValidacion = () => {
         let nombres = nombreCompleto.split(" ");
         let primerNombre = nombres[0];

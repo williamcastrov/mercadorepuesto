@@ -28500,6 +28500,10 @@ background-color: #F1F2F6 !important;
 
 
 /*Mis compras*/
+
+
+
+
 .TopContMisCompras{
     justify-content: space-between;
     align-items: center;
@@ -29777,6 +29781,11 @@ color: #2D2E83;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    
+}
+.buttonDeleteProductsSelects.disabled {
+    color: #d4d6e5;
+    cursor: default;
 }
 /*fIN Estilos Juan Pablo "HISTORIAL" */ 
 
@@ -29887,6 +29896,7 @@ color: #2D2E83;
     border: 5px solid #EBEBEB;
     border-radius: 12px;
     width: 100%;
+    margin-bottom: 3rem;
 }
 
 .subContTopPreguntas {
@@ -29895,14 +29905,33 @@ color: #2D2E83;
 }
 
 .subContTopPreguntas img {
-    height: 95px;
-    width: 135px;
+    max-height: 95px;
+    max-width: 135px;
     margin-right: 2.5rem;
     margin-left: 1rem;
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+}
+.ContProductHistorial img {
+    max-height: 150px;
+    max-width: 150px;
+    width: 100%;
+    /* Para asegurar que la imagen se ajuste proporcionalmente */
+    height: auto;
+    /* Para asegurar que la imagen se ajuste proporcionalmente */
+    object-fit: cover;
+    /* Ajusta la imagen manteniendo la proporción y cubriendo el contenedor */
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: .5rem;
 }
 
+
+
+
 .subContTopPreguntas p {
-    font-size: 24px;
+    font-size: 20px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
@@ -29954,8 +29983,11 @@ color: #2D2E83;
 .RespuestaVendedorsubCont {
     margin-left: 2.7rem;
     display: flex;
+    width: 100%;
 }
-
+.pricePregRealizs{
+    font-size: 20px;
+}
 .RespuestaVendedorsubCont p {
     margin-top: 5px;
 }
@@ -30034,4 +30066,110 @@ color: #2D2E83;
 
   .msjPropio{
     background-color: #00A901 !important;
+  }
+
+
+
+  /*NUEVOS ESTILOS MIS COMPRAS*/
+
+  .subContMiscompras{
+    display: flex !important;
+    flex-direction: column !important;
+    margin-left: 2rem !important;
+  }
+  .estadoCompra{
+    font-size: 24px !important;
+    color: #2D2E83 !important;
+    font-weight: 700 !important;
+  }
+  .divCantCompradas{
+    display: flex !important;
+  }
+  .UnidCompradas{
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    font-weight: 500 !important;
+  }
+  .numeroUnidsCompradas{
+    margin-left: 5px !important;
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    font-weight: 500 !important;
+  }
+  .divNcompra{
+    display: flex !important;
+  }
+  .dateCompra{
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #2D2E83 !important;
+  }
+  .productCompradoSubCont{
+    display: flex !important;
+    justify-content: flex-start !important;
+  }
+  .contImgMisCompras{
+    border: 4px solid #EBEBEB !important;
+    border-radius: 12px !important;
+    height: 19rem !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .contImgMisCompras img{
+    width: 200px !important;
+    height: 180px !important;
+  }
+  .precioProductMisCompras{
+    display: flex !important;
+    padding-left: 2rem !important;
+    padding-top: 2rem !important;
+    padding-right: 2rem !important;
+    justify-content: flex-end !important;
+    border-right: 3px solid #EBEBEB !important;
+  }
+  .precioProductMisCompras p{
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    font-weight: 700 !important;
+  }
+  .ContRightMisCompras{
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    padding: 1.5rem !important;
+    align-items: center !important;
+  }
+  .SendMsjVendandName{
+    display: flex !important;
+    flex-direction: column !important; 
+  }
+  .buttonSendMsjVendedor{
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    color: #2D2E83 !important;
+    cursor: pointer !important;
+  }
+  .nameVendedorMiCompra{
+    margin-bottom: 5px !important;
+    font-size: 18px !important;
+    color: #2D2E83 !important;
+    font-weight: 500 !important;
+  }
+  .divButtonVercompra{
+    margin-top: 3rem !important;
+    width: 100% !important;
+  }
+  .divButtonVercompra button{
+    background-color: #2C2E82;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    padding: 0.6rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .nombreProductMiCompra{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
   }

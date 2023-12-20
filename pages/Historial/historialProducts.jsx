@@ -546,17 +546,21 @@ export default function historialProducts() {
                                     </Grid>
                                     <Grid className="contProductsHistorial" container style={{ width: '100%' }}>
                                         <div className="selectedProductsHistorial">
-                                            {productosSeleccionados.length > 0 && (
-                                                <div className="DeletedSelectsHistorial">
-                                                    <div onClick={manejarClicSeleccionarTodos} className="iconsSelectAll">
-                                                        <IoSquareOutline className="iconSquare2" />
-                                                        {productosSeleccionados.length === datosUsuario.length && (
-                                                            <FaCheck className="iconCheck2 selected2" />
-                                                        )}
-                                                    </div>
-                                                    <button className={`buttonDeleteProductsSelects ${productosSeleccionados.length > 0 ? 'underline' : ''}`} onClick={eliminarProductosSeleccionados}>Eliminar productos seleccionados</button>                                                </div>
-                                            )}
-
+                                            <div className="DeletedSelectsHistorial">
+                                                <div onClick={manejarClicSeleccionarTodos} className="iconsSelectAll">
+                                                    <IoSquareOutline className="iconSquare2" />
+                                                    {productosSeleccionados.length === datosUsuario.length && (
+                                                        <FaCheck className="iconCheck2 selected2" />
+                                                    )}
+                                                </div>
+                                                <button
+                                                    className={`buttonDeleteProductsSelects ${productosSeleccionados.length > 0 ? 'underline' : 'disabled'}`}
+                                                    onClick={eliminarProductosSeleccionados}
+                                                    disabled={productosSeleccionados.length === 0}
+                                                >
+                                                    Eliminar productos seleccionados
+                                                </button>
+                                            </div>
                                         </div>
                                         <div className="ProducsH">
                                             {productosActuales.length > 0 ? (

@@ -14,41 +14,30 @@ import { IoMdReturnRight } from "react-icons/io";
 
 
 
+export default function preguntasRealizadasUsuario() {
 
 
-
-export default function preguntasSobreMisProductos() {
-    const [busqueda, setBusqueda] = React.useState("");
-    const [preguntas, setPreguntas] = useState([]);
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
     const router = useRouter();
     //PosiciónTopPage
-    const irA = useRef(null);
+    const irA = useRef(null); 
+    const [busqueda, setBusqueda] = React.useState("");
+    const [preguntas, setPreguntas] = useState([]);
+    const [selectedSortOption, setSelectedSortOption] = useState(null); 
+
     //obtener datos usuario actual
     const [UidUser, setUidUser] = useState("");
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [DatosUser, setDatosUser] = useState([]);
-    console.log("DAT USER PREGUNTA SOBRE MIS PRODUCTOS : ", datosusuarios.uid);
-
-
-    const filtrarPreguntasPorBusqueda = (preguntas, busqueda) => {
-        return preguntas.filter((pregunta) => {
-            const palabrasBusqueda = busqueda.toLowerCase().split(" ");
-            const nombreProductoMinusculas = pregunta.nombreProducto.toLowerCase();
-
-            return palabrasBusqueda.every((palabra) =>
-                nombreProductoMinusculas.includes(palabra)
-            );
-        });
-    };
 
 
     //función para ponerle la ", " a los precios
     function formatearPrecio(precio) {
         return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
@@ -72,24 +61,36 @@ export default function preguntasSobreMisProductos() {
         obtenerUidUsuario();
     }, [datosusuarios]);
 
+
+
+    const filtrarPreguntasPorBusqueda = (preguntas, busqueda) => {
+        return preguntas.filter((pregunta) => {
+            const palabrasBusqueda = busqueda.toLowerCase().split(" ");
+            const nombreProductoMinusculas = pregunta.nombreProducto.toLowerCase();
+
+            return palabrasBusqueda.every((palabra) =>
+                nombreProductoMinusculas.includes(palabra)
+            );
+        });
+    };
+
+
+
     //función para obtener mis preguntas a productos
     useEffect(() => {
         const obtenerPreguntas = async () => {
             let params = {
-                uidvendedor: UidUser,
+                uidcomprador: UidUser,
             };
 
             try {
                 const res = await axios({
                     method: "post",
-                    url: URL_BD_MR + "52",
+                    url: URL_BD_MR + "5211",
                     params,
                 });
 
-                console.log("Respuesta completa: ", res); // Imprime la respuesta completa
-                console.log("Estado de la respuesta: ", res.status); // Imprime el estado de la respuesta
-
-                const preguntas = res.data.listarpreguntavend.map((pregunta) => ({
+                const preguntas = res.data.listpreguntacompra.map((pregunta) => ({
                     id: pregunta.id,
                     idprd: pregunta.idprd,
                     uidcomprador: pregunta.uidcomprador,
@@ -98,12 +99,11 @@ export default function preguntasSobreMisProductos() {
                     comentario: pregunta.comentario,
                     respuestavenedor: pregunta.respuestavenedor,
                     estado: pregunta.estado,
-                    nombreProducto: '', // Agrega esta línea
-                    salePrice: '', // Agrega esta línea
-                    nombreImagen: '', // Agrega esta línea
+                    nombreProducto: '', 
+                    salePrice: '', 
+                    nombreImagen: '', 
                 }));
 
-                console.log("Preguntas para mí:", preguntas)
                 setPreguntas(preguntas);
 
                 // Llama a la función para cargar las imágenes en paralelo
@@ -116,7 +116,6 @@ export default function preguntasSobreMisProductos() {
 
             } catch (error) {
                 console.error("Error al obtener las preguntas", error);
-                console.log("Error.response: ", error.response); // Imprime la respuesta del error
             }
         };
 
@@ -124,6 +123,7 @@ export default function preguntasSobreMisProductos() {
     }, [UidUser]);
 
 
+    //función para obtener datos del producto
     async function obtenerNombreProducto(idprd) {
         let params = {
             idarticulo: idprd,
@@ -135,9 +135,6 @@ export default function preguntasSobreMisProductos() {
                 url: URL_BD_MR + "18",
                 params,
             });
-
-            console.log("Respuesta completa del producto: ", res); // Imprime la respuesta completa del producto
-            console.log("Estado de la respuesta del producto: ", res.status); // Imprime el estado de la respuesta del producto
 
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;
@@ -151,19 +148,10 @@ export default function preguntasSobreMisProductos() {
 
         } catch (error) {
             console.error("Error al obtener el nombre del producto", error);
-            console.log("Error.response del producto: ", error.response); // Imprime la respuesta del error del producto
         }
     }
 
 
-
-
-
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
-    const [compras, setCompras] = useState([]);
-    const filteredCompras = compras.filter((producto) =>
-        producto.titulonombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
 
 
@@ -201,12 +189,15 @@ export default function preguntasSobreMisProductos() {
 
 
 
+
+
     useEffect(() => {
         irA.current.scrollIntoView({
             behavior: "smooth",
             block: "start",
         });
     }, []);
+
 
     return (
         <>
@@ -218,15 +209,17 @@ export default function preguntasSobreMisProductos() {
                             <div className="ps-page__content ps-account">
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <div className='titlesformsUsers'>
-                                        <p>Preguntas sobre mis productos</p>
+                                        <p>Preguntas realizadas</p>
+                                        <div>
 
+                                        </div>
                                     </div>
                                 </Grid>
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
-                                         value={busqueda}
-                                         onChange={(e) => setBusqueda(e.target.value)}
+                                            value={busqueda}
+                                            onChange={(e) => setBusqueda(e.target.value)}
                                             className="inputSearchJP"
                                             placeholder="Buscar en mis preguntas"
                                             sx={{
@@ -269,18 +262,20 @@ export default function preguntasSobreMisProductos() {
                                 </Grid>
 
                                 <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
+                                    {/* Mostrar productos */}
+
                                     {filtrarPreguntasPorBusqueda(preguntas, busqueda).length > 0 ? (
                                         filtrarPreguntasPorBusqueda(preguntas, busqueda).map((pregunta, index) => (
                                             <Grid key={index} className="contPregResps" container style={{ width: '100%' }}>
                                                 <Grid item xs={12} md={6} className="subContTopPreguntas">
                                                     <img src={`${URL_IMAGES_RESULTS}${pregunta.nombreImagen}`} />
-                                                    <p className="pNameProductPregRespsts"> {pregunta.nombreProducto}</p>
+                                                    <p className="pNameProductPregRespsts">{pregunta.nombreProducto}</p>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
-                                                    <p>
+                                                    <p className="pricePregRealizs">
                                                         ${formatearPrecio(pregunta.salePrice)}
                                                     </p>
-                                                    <button className='ComprarButton'>Ver publicación</button>
+                                                    <button className='ComprarButton'>Comprar</button>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
                                                     <div className="pregsRespstMSJ">
@@ -295,19 +290,16 @@ export default function preguntasSobreMisProductos() {
                                                     </div>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
-                                                    <div className="fechaYrespuestaCont">
-                                                        <p>{pregunta.fechacreacion.toString().slice(0, 10)}</p>
-                                                        <button className='EstadoMsjButton'>Sin respuesta</button>
-                                                    </div>
+                                                    <p>{pregunta.fechacreacion.toString().slice(0, 10)}</p>
                                                     <div className="buttonsPrgsUsers">
-                                                        <button className='ComprarButton'>Responder</button>
+                                                        <button className='ComprarButton'>Hacer otra pregunta</button>
                                                         <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
                                                     </div>
                                                 </Grid>
                                             </Grid>
                                         ))
                                     ) : (
-                                        <p>No tienes preguntas sobre tus productos aún!</p>
+                                        <p>No has realizado preguntas aún!</p>
                                     )}
                                 </Grid>
                             </div>

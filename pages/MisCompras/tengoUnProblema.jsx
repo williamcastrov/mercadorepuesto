@@ -428,7 +428,7 @@ export default function tengoUnProblema() {
                                             </Grid>
                                             <Grid className="subcontImgTengoProblema" item xs={12} md={5}>
                                                 <Grid className="contImgTengoProblema" item xs={12} md={4}>
-                                                    <img src={`${URL_IMAGES_RESULTS}${producto.nombreimagen1}`} />
+                                                    <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
                                                 </Grid>
                                                 <Grid className="contdatosprobls" item xs={12} md={8} sx={{ flexDirection: 'column' }}>
                                                     <p className="contTengoProblemadatos">{producto.titulonombre}</p>

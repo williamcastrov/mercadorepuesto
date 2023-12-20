@@ -86,7 +86,7 @@ export default function verCompra() {
                                         </Grid>
                                         <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
                                             <div>
-                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600' }}>{producto.titulonombre}</p>
+                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600' }}>{producto.nombreProducto}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Unidades compradas:</p>
@@ -113,7 +113,7 @@ export default function verCompra() {
                                         <Grid className="ContPsubtitlesvercompra" item xs={12} md={8}>
                                             <div className="subtitlesvercompra">
                                                 <p>Forma de pago:</p>
-                                                <p>{producto.formadepago} </p>
+                                                <p>{producto.mediodepago} </p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Valor pagado:</p>
@@ -134,7 +134,7 @@ export default function verCompra() {
                                         </Grid>
                                         <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
                                             <div className="subtitlesvercompra">
-                                                <p>Estado compra</p>
+                                                <p>{producto.estadodeldespacho}</p>
                                             </div>
                                             <div className="subtitlesvercompra direccionsubtcompraver">
                                                 <p>Dirección de envío:</p>
@@ -153,7 +153,7 @@ export default function verCompra() {
                                         <div className="SubcontainerMisDatos" >
                                             <div style={{ width: '85%' }}>
                                                 <p className="titlecontVend1">Contactar con vendedor</p>
-                                                <p className="subtitlecontVend1">{producto.nombres}</p>
+                                                <p className="subtitlecontVend1">{producto.nombreVendedor} {producto.apellidoVendedor}</p>
                                             </div>
                                             <div className="EnviarmMsjVercompra">
                                                 <button onClick={() => router.push({

@@ -350,7 +350,7 @@ export default function calificarVendedor() {
                                             </div>
                                             <Grid container>
                                                 <Grid item xs={12} md={4} className="contImgRighCalif" mt={'2rem'}>
-                                                    <img src={`${URL_IMAGES_RESULTS}${producto.nombreimagen1}`} />
+                                                    <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
                                                 </Grid>
                                                 <Grid item xs={12} md={8} className="continfocalifimg" flexDirection={'column'}>
                                                     <p className="pNameProductCalif">{producto.titulonombre}</p>
