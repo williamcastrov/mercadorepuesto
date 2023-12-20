@@ -225,11 +225,21 @@ export default function preguntasSobreMisProductos() {
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
-                                         value={busqueda}
-                                         onChange={(e) => setBusqueda(e.target.value)}
-                                            className="inputSearchJP"
+                                            value={busqueda}
+                                            onChange={(e) => setBusqueda(e.target.value)}
                                             placeholder="Buscar en mis preguntas"
                                             sx={{
+                                                borderRadius: '10px',
+                                                backgroundColor: '#f1f2f6',
+                                                padding: '8px',
+                                                marginRight: '8px',
+                                                width: '90%',
+                                                height: '44px',
+                                                padding: '10px',
+                                                fontSize: '16px',
+                                                paddingLeft: '3rem',
+                                                color: '#2C2E82',
+                                                fontWeight: '500',
                                                 '&::placeholder': {
                                                     color: '#3E4089',
                                                     fontWeight: '600',
@@ -280,7 +290,12 @@ export default function preguntasSobreMisProductos() {
                                                     <p>
                                                         ${formatearPrecio(pregunta.salePrice)}
                                                     </p>
-                                                    <button className='ComprarButton'>Ver publicación</button>
+                                                    <button
+                                                        className='ComprarButton'
+                                                        onClick={() => router.push(`/product/${pregunta.idprd}`)}
+                                                    >
+                                                        Ver publicación
+                                                    </button>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
                                                     <div className="pregsRespstMSJ">
@@ -289,9 +304,6 @@ export default function preguntasSobreMisProductos() {
                                                             <IoMdReturnRight className="returnIcon" />
                                                             <p>Respuesta...</p>
                                                         </div>
-                                                    </div>
-                                                    <div className="verMasResps">
-                                                        <p>Ver más...</p>
                                                     </div>
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
@@ -304,6 +316,12 @@ export default function preguntasSobreMisProductos() {
                                                         <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
                                                     </div>
                                                 </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <div className="verMasResps">
+                                                        <p>Ver más...</p>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={6}></Grid>
                                             </Grid>
                                         ))
                                     ) : (

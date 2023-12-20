@@ -80,6 +80,8 @@ export default function calificarProducto() {
     const handleModalClose = () => {
         setShowModal(false);
     };
+
+    
     //envío calificación vendedor con mvalidaciones
     const validarCalificacion = () => {
         if (!calificacionSeleccionada) {

@@ -29078,6 +29078,14 @@ color: #2D2E83;
 
 /*Enviar mensaje vendedor*/
  
+
+.haventMsjsDisples{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
 .contPrincMsjVend{
     background-color: #F0F1F5;
     border-radius: 16px;
@@ -29292,7 +29300,7 @@ color: #2D2E83;
     width: 10%; 
     height: 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
     margin-right: 1rem;
 }
@@ -29992,9 +30000,12 @@ color: #2D2E83;
     margin-top: 5px;
 }
 
-.verMasResps {
+.verMasResps { 
+    justify-content: flex-end;
     display: flex;
     align-items: flex-end;
+    height: 10px;
+    cursor: pointer;
 }
 
 .verMasResps p {
@@ -30173,3 +30184,62 @@ color: #2D2E83;
     color: #2D2E83;
     font-weight: 500;
   }
+
+  /*INICIO STYLES VER PROBLEMAS PERSONAS*/
+
+  .VerProblemasPersonasCont{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .SubContsVerProblemasPersonasCont{
+    border: 5px solid #EBEBEB;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    padding: 2rem;
+  }
+  .NombreUserEnvíaProblema{
+    display: flex;
+  }
+  .NombreUserEnvíaProblema p{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+  }
+  .NombreUserEnvíaProblema1{
+    font-weight: 500 !important;
+    margin-right: 6px;
+  }
+  .ImgProblemasUsuarios{
+    display: flex;
+    gap: 10px;
+  }
+  .DataUsersVerProblemas{
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #EBEBEB;
+    padding-bottom: 1rem;
+  }
+  .DataUserSendProblem{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 700;
+    font-family: "Jost", sans-serif; 
+  }
+  .fechaProblemaEnvíado{
+    display: flex;
+    border-top: 3px solid #EBEBEB;
+    padding-top: .7rem;
+    margin-top: 1.5rem;
+  }
+  .titleFechaProblema{
+    margin-right: 5px;
+  }
+  .fechaProblemaEnvíado p{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+  }
+    /*FIN STYLES VER PROBLEMAS PERSONAS*/

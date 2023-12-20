@@ -22,10 +22,10 @@ export default function preguntasRealizadasUsuario() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
     const router = useRouter();
     //PosiciónTopPage
-    const irA = useRef(null); 
+    const irA = useRef(null);
     const [busqueda, setBusqueda] = React.useState("");
     const [preguntas, setPreguntas] = useState([]);
-    const [selectedSortOption, setSelectedSortOption] = useState(null); 
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
 
     //obtener datos usuario actual
     const [UidUser, setUidUser] = useState("");
@@ -99,9 +99,9 @@ export default function preguntasRealizadasUsuario() {
                     comentario: pregunta.comentario,
                     respuestavenedor: pregunta.respuestavenedor,
                     estado: pregunta.estado,
-                    nombreProducto: '', 
-                    salePrice: '', 
-                    nombreImagen: '', 
+                    nombreProducto: '',
+                    salePrice: '',
+                    nombreImagen: '',
                 }));
 
                 setPreguntas(preguntas);
@@ -220,9 +220,19 @@ export default function preguntasRealizadasUsuario() {
                                         <InputBase
                                             value={busqueda}
                                             onChange={(e) => setBusqueda(e.target.value)}
-                                            className="inputSearchJP"
                                             placeholder="Buscar en mis preguntas"
                                             sx={{
+                                                borderRadius: '10px',
+                                                backgroundColor: '#f1f2f6',
+                                                padding: '8px',
+                                                marginRight: '8px',
+                                                width: '90%',
+                                                height: '44px',
+                                                padding: '10px',
+                                                fontSize: '16px',
+                                                paddingLeft: '3rem',
+                                                color: '#2C2E82',
+                                                fontWeight: '500',
                                                 '&::placeholder': {
                                                     color: '#3E4089',
                                                     fontWeight: '600',
@@ -275,8 +285,12 @@ export default function preguntasRealizadasUsuario() {
                                                     <p className="pricePregRealizs">
                                                         ${formatearPrecio(pregunta.salePrice)}
                                                     </p>
-                                                    <button className='ComprarButton'>Comprar</button>
-                                                </Grid>
+                                                    <button
+                                                        className='ComprarButton'
+                                                        onClick={() => router.push(`/product/${pregunta.idprd}`)}
+                                                    >
+                                                        Comprar
+                                                    </button>                                                </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
                                                     <div className="pregsRespstMSJ">
                                                         <p>{pregunta.comentario}</p>
@@ -285,17 +299,26 @@ export default function preguntasRealizadasUsuario() {
                                                             <p>Respuesta...</p>
                                                         </div>
                                                     </div>
-                                                    <div className="verMasResps">
-                                                        <p>Ver más...</p>
-                                                    </div>
+
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
                                                     <p>{pregunta.fechacreacion.toString().slice(0, 10)}</p>
                                                     <div className="buttonsPrgsUsers">
-                                                        <button className='ComprarButton'>Hacer otra pregunta</button>
+                                                        <button
+                                                            className='ComprarButton'
+                                                            onClick={() => router.push(`/product/${pregunta.idprd}#questionSection`)}
+                                                        >
+                                                            Hacer otra pregunta
+                                                        </button> 
                                                         <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
                                                     </div>
                                                 </Grid>
+                                                <Grid item xs={12} md={6}>
+                                                    <div className="verMasResps">
+                                                        <p>Ver más...</p>
+                                                    </div>
+                                                </Grid>
+                                                <Grid item xs={12} md={6}></Grid>
                                             </Grid>
                                         ))
                                     ) : (

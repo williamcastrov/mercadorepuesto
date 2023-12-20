@@ -10,7 +10,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import shortid from "shortid";
 import { AiOutlineRight } from 'react-icons/ai';
 import { IoIosCamera } from "react-icons/io";
 import { IoSquareOutline } from "react-icons/io5";
@@ -24,13 +24,13 @@ import { PiSquare } from "react-icons/pi";
 import { PiSquareThin } from "react-icons/pi";
 import { IoMdClose } from "react-icons/io";
 import { URL_BD_MR } from "../../helpers/Constants";
-
+import { useDispatch, useSelector } from "react-redux";
 export default function tengoUnProblema() {
 
 
-    const [comentario, setComentario] = useState(''); 
+    const [comentario, setComentario] = useState('');
     const [fechacreacion, setFechacreacion] = useState(null);
-    const [observacionintera, setObservacionintera] = useState(null); 
+    const [observacionintera, setObservacionintera] = useState(null);
     const [contadorCaracteres, setContadorCaracteres] = useState(0);
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
@@ -52,7 +52,7 @@ export default function tengoUnProblema() {
     const [imagePresent4, setImagePresent4] = useState(false);
     const [imagePresent5, setImagePresent5] = useState(false);
     //mostrar cont letras
-    const [showAll, setShowAll] = useState(false); 
+    const [showAll, setShowAll] = useState(false);
     const [nombreImagen1, setNombreImagen1] = useState(null);
     const [nombreImagen2, setNombreImagen2] = useState(null);
     const [nombreImagen3, setNombreImagen3] = useState(null);
@@ -160,9 +160,9 @@ export default function tengoUnProblema() {
             { word: "movil" },
             { word: "email" },
             { word: "gmail" },
-            { word: "calle"},
-            { word: "call"},
-            { word: "cra"},
+            { word: "calle" },
+            { word: "call" },
+            { word: "cra" },
         ];
 
         for (let i = 0; i < validaword.length; i++) {
@@ -251,6 +251,34 @@ export default function tengoUnProblema() {
                     return;
                 }
 
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                    // Convertir la imagen a base64
+                    const base64Image = reader.result;
+
+                    // Generar un ID único para la imagen
+                    let uniqueImageName = shortid.generate();
+                    uniqueImageName = uniqueImageName.substring(0, 11);
+
+                    // Obtener la extensión del archivo
+                    let extension =
+                        "." +
+                        base64Image.substring(
+                            base64Image.indexOf("/") + 1,
+                            base64Image.indexOf(";base64")
+
+                        );
+
+                    // Actualizar el estado con la imagen seleccionada
+                    setSelectedImage(base64Image);
+
+                    // Actualizar el estado con el nombre de la imagen
+                    setImageName(uniqueImageName + extension);
+                };
+                // Leer la imagen como una URL de datos
+                reader.readAsDataURL(file);
+
                 const newFileData = {
                     name: file.name,
                     type: file.type,
@@ -261,31 +289,26 @@ export default function tengoUnProblema() {
                 switch (index) {
                     case 1:
                         setFileData1(newFileData);
-                        setNombreImagen1(file.name); // Agregar esta línea
                         localStorage.setItem('uploadedFile1', JSON.stringify(newFileData));
                         setImagePresent1(true);
                         break;
                     case 2:
                         setFileData2(newFileData);
-                        setNombreImagen2(file.name); // Agregar esta línea
                         localStorage.setItem('uploadedFile2', JSON.stringify(newFileData));
                         setImagePresent2(true);
                         break;
                     case 3:
                         setFileData3(newFileData);
-                        setNombreImagen3(file.name); // Agregar esta línea
                         localStorage.setItem('uploadedFile3', JSON.stringify(newFileData));
                         setImagePresent3(true);
                         break;
                     case 4:
                         setFileData4(newFileData);
-                        setNombreImagen4(file.name); // Agregar esta línea
                         localStorage.setItem('uploadedFile4', JSON.stringify(newFileData));
                         setImagePresent4(true);
                         break;
                     case 5:
                         setFileData5(newFileData);
-                        setNombreImagen5(file.name); // Agregar esta línea
                         localStorage.setItem('uploadedFile5', JSON.stringify(newFileData));
                         setImagePresent5(true);
                         break;
@@ -300,25 +323,58 @@ export default function tengoUnProblema() {
         }
     };
 
+
     const handleSquareClick = (index) => {
         document.getElementById(`fileInput${index}`).click();
     };
 
+    const [UidUser, setUidUser] = useState("");
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    const [DatosUser, setDatosUser] = useState([]);
+    console.log("DAT USER UID TENGO UN PROBLEMA  : ", datosusuarios.uid);
+
+    //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
+    useEffect(() => {
+        const obtenerUidUsuario = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "13",
+                    params,
+                });
+                setDatosUser(res.data[0]);
+                setUidUser(res.data[0].uid)
+            } catch (error) {
+                console.error("Error al leer los datos del usuario", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerUidUsuario();
+    }, [datosusuarios]);
+
+
     const handleValidacion = async () => {
-        const usuarioenvia = producto.usuario; // Recupera el UID del usuario por medio de producto.usuario
+        const usuarioenvia = UidUser; // Recupera el UID del usuario por medio de producto.usuario
 
         const nuevoMensaje = {
             usuarioenvia,
-            usuariorecibe: 1653147206453,
             fechacreacion,
             estado: 31,
             comentario,
             observacionintera,
-            nombreimagen1: nombreImagen1,
-            nombreimagen2: nombreImagen2,
-            nombreimagen3: nombreImagen3,
-            nombreimagen4: nombreImagen4,
-            nombreimagen5: nombreImagen5
+            nombreimagen1: fileData1 ? imageName + extension : "",
+            nombreimagen2: fileData2 ? fileData2.name + extension : "",
+            nombreimagen3: fileData3 ? fileData3.name + extension : "",
+            nombreimagen4: fileData4 ? fileData4.name + extension : "",
+            nombreimagen5: fileData5 ? fileData5.name + extension : "",
+            imagen1: fileData1 ? fileData1.data : null,
+            imagen2: fileData2 ? fileData2.data : null,
+            imagen3: fileData3 ? fileData3.data : null,
+            imagen4: fileData4 ? fileData4.data : null,
+            imagen5: fileData5 ? fileData5.data : null,
         };
 
         await axios({
@@ -342,6 +398,7 @@ export default function tengoUnProblema() {
             handleValidacion();
         }
     };
+
 
 
 
@@ -391,6 +448,14 @@ export default function tengoUnProblema() {
 
         }
     };
+
+
+    const [extension, setExtension] = useState("");
+    const [imageName, setImageName] = useState("");
+    const [imageName2, setImageName2] = useState("");
+
+
+    const [selectedImage, setSelectedImage] = useState(null);
 
 
 

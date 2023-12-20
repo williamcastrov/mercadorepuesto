@@ -192,7 +192,7 @@ export default function msjVendedor() {
     };
 
     const userId = datosusuarios.uid; // ID del usuario actua 
-    const usuarioenvia = datosusuarios.uid; 
+    const usuarioenvia = datosusuarios.uid;
 
 
     // Función para enviar un mensaje
@@ -200,14 +200,14 @@ export default function msjVendedor() {
         const estado = 32;
         const usuarioenvia = datosusuarios.uid;
         let usuariorecibe;
-      
+
         // Ajusta la lógica para obtener usuariorecibe desde producto.usuario
         // Esto es solo un ejemplo, asegúrate de ajustar según la estructura de tus datos
         if (producto && producto.usuario) {
-          usuariorecibe = producto.usuario;
+            usuariorecibe = producto.usuario;
         } else {
-          // Si no hay producto.usuario, asume que el usuario actual está enviando el mensaje
-          usuariorecibe = datosusuarios.uid;
+            // Si no hay producto.usuario, asume que el usuario actual está enviando el mensaje
+            usuariorecibe = datosusuarios.uid;
         }
 
 
@@ -247,7 +247,7 @@ export default function msjVendedor() {
                 body: formdata,
                 //headers: headers,
             }).then((response) => {
-                //setIsLoading(false);
+                //setIsLoading(false); 
                 if (response) {
                     if (response.status === 200) {
                         console.log("Respuesta del servidor:", response.data);
@@ -293,7 +293,7 @@ export default function msjVendedor() {
     const leerMensajes = async () => {
         let params = {
             estado: 32,
-        }; 
+        };
 
         try {
             const response = await axios({
@@ -527,8 +527,10 @@ export default function msjVendedor() {
                                                             </div>
                                                         ))
                                                     ) : (
-                                                        <div>
-                                                            No hay mensajes disponibles
+                                                        <div className="haventMsjsDisples">
+                                                            <p>
+                                                                No hay mensajes disponibles
+                                                            </p> 
                                                         </div>
                                                     )}
                                                 </div>
@@ -631,7 +633,7 @@ export default function msjVendedor() {
                                                     className="continfocalifimg"
                                                     flexDirection={"column"}>
                                                     <p className="pNameProductCalif">
-                                                        {producto.nombreProducto}  
+                                                        {producto.nombreProducto}
                                                     </p>
                                                     <div className="subtitlesvercompra">
                                                         <p>
