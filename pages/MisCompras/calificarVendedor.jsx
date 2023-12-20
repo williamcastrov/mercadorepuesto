@@ -353,7 +353,7 @@ export default function calificarVendedor() {
                                                     <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
                                                 </Grid>
                                                 <Grid item xs={12} md={8} className="continfocalifimg" flexDirection={'column'}>
-                                                    <p className="pNameProductCalif">{producto.titulonombre}</p>
+                                                    <p className="pNameProductCalif">{producto.nombreProducto}</p>
                                                     <div className="subtitlesvercompra">
                                                         <p>Unidades compradas:</p>
                                                         <p>{producto.cantidad}</p>

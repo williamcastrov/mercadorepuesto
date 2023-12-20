@@ -431,7 +431,7 @@ export default function tengoUnProblema() {
                                                     <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
                                                 </Grid>
                                                 <Grid className="contdatosprobls" item xs={12} md={8} sx={{ flexDirection: 'column' }}>
-                                                    <p className="contTengoProblemadatos">{producto.titulonombre}</p>
+                                                    <p className="contTengoProblemadatos">{producto.nombreProducto}</p>
                                                     <div className="subtitlesvercompra">
                                                         <p>Unidades compradas:</p>
                                                         <p>{producto.cantidad}</p>

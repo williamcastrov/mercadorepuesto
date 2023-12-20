@@ -631,7 +631,7 @@ export default function msjVendedor() {
                                                     className="continfocalifimg"
                                                     flexDirection={"column"}>
                                                     <p className="pNameProductCalif">
-                                                        {producto.titulonombre}  
+                                                        {producto.nombreProducto}  
                                                     </p>
                                                     <div className="subtitlesvercompra">
                                                         <p>
