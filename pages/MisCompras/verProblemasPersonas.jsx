@@ -44,6 +44,37 @@ export default function verProblemasPersonas() {
     const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
     const irA = useRef(null);
     const [messages, setMessages] = useState([]);
+
+
+    const [users, setUsers] = useState({});
+
+    // Función para leer usuarios
+    const leerUsuarios = async () => {
+        try {
+            const response = await axios({
+                method: "post",
+                url: `${URL_BD_MR}13`,
+            });
+
+            const usuarios = response.data;
+
+            // Crear un objeto donde la clave es el uid y el valor es el objeto del usuario
+            const usuariosObj = usuarios.reduce((obj, usuario) => {
+                obj[usuario.uid] = usuario;
+                return obj;
+            }, {});
+
+            // Actualizar el estado con los usuarios recibidos
+            setUsers(usuariosObj);
+        } catch (error) {
+            console.error("Error leyendo usuarios:", error);
+        }
+    };
+
+    // Efecto para cargar usuarios al montar
+    useEffect(() => {
+        leerUsuarios();
+    }, []);
     // Función para leer mensajes
     const leerMensajes = async () => {
         let params = {
@@ -59,8 +90,16 @@ export default function verProblemasPersonas() {
 
             const mensajes = response.data.listarmensajes;
 
+            // Obtener el nombre y apellido del usuario para cada mensaje
+            const mensajesConNombres = await Promise.all(
+                mensajes.map(async (mensaje) => {
+                    const { nombreUsuario, apellidoUsuario, correo } = await obtenerNombreUsuario(mensaje.usuarioenvia);
+                    return { ...mensaje, nombreUsuario, apellidoUsuario, correo };
+                })
+            );
+
             // Ordenar los mensajes por fecha de creación
-            const mensajesOrdenados = mensajes.sort(
+            const mensajesOrdenados = mensajesConNombres.sort(
                 (b, a) => new Date(a.fechacreacion) - new Date(b.fechacreacion)
             );
 
@@ -70,10 +109,37 @@ export default function verProblemasPersonas() {
             console.error("Error leyendo mensajes:", error);
         }
     };
+
     // Efecto para cargar mensajes al montar y actualizar
     useEffect(() => {
         leerMensajes();
     }, []);
+
+
+    // Función para obtener el nombre y apellido del usuario
+    async function obtenerNombreUsuario(uid) {
+        let params = {
+            uid: uid,
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "13",
+                params,
+            });
+
+            const nombreUsuario = res.data[0].primernombre;
+            const apellidoUsuario = res.data[0].segundonombre;
+            const correo = res.data[0].email;
+
+            return { nombreUsuario, apellidoUsuario, correo};
+
+        } catch (error) {
+            console.error("Error al obtener el nombre del usuario", error);
+        }
+    }
+
 
 
     return (
@@ -98,11 +164,11 @@ export default function verProblemasPersonas() {
                                                             <p className="DataUserSendProblem">Datos del comprador que envía el problema:</p>
                                                             <div className="NombreUserEnvíaProblema">
                                                                 <p className="NombreUserEnvíaProblema1">Usuario envía el problema:</p>
-                                                                <p>{mensaje.usuarioenvia}</p>
+                                                                <p>{mensaje.nombreUsuario} {mensaje.apellidoUsuario}</p>
                                                             </div>
                                                             <div className="NombreUserEnvíaProblema">
                                                                 <p className="NombreUserEnvíaProblema1">Email de  usuario que envía el problema:</p>
-                                                                <p>@gmail.com</p>
+                                                                <p> {mensaje.correo}</p>
                                                             </div>
                                                             <div className="NombreUserEnvíaProblema">
                                                                 <p className="NombreUserEnvíaProblema1">Descripción problema con el producto:</p>
@@ -125,7 +191,7 @@ export default function verProblemasPersonas() {
                                                             </div>
                                                         </div>
                                                         <div className="ImgProblemasUsuarios">
-                                                            <img src={`${URL_IMAGES_RESULTS}${mensaje.nombreimagen1}`} alt={mensaje.nombreimagen1}  /> 
+                                                            <img src={`${URL_IMAGES_RESULTS}${mensaje.nombreimagen1}`} alt={mensaje.nombreimagen1} />
                                                             {mensaje.nombreimagen2 && <img src={URL_BD_MR + mensaje.nombreimagen2} alt="Imagen 2" />}
                                                             {mensaje.nombreimagen3 && <img src={URL_BD_MR + mensaje.nombreimagen3} alt="Imagen 3" />}
                                                             {mensaje.nombreimagen4 && <img src={URL_BD_MR + mensaje.nombreimagen4} alt="Imagen 4" />}

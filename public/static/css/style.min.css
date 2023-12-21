@@ -30201,6 +30201,7 @@ color: #2D2E83;
   }
   .NombreUserEnvíaProblema{
     display: flex;
+    flex-direction: column;
   }
   .NombreUserEnvíaProblema p{
     font-size: 18px;
@@ -30209,7 +30210,7 @@ color: #2D2E83;
     font-family: "Jost", sans-serif;
   }
   .NombreUserEnvíaProblema1{
-    font-weight: 500 !important;
+    font-weight: 700 !important;
     margin-right: 6px;
   }
   .ImgProblemasUsuarios{
@@ -30241,5 +30242,5 @@ color: #2D2E83;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
-  }
+  } 
     /*FIN STYLES VER PROBLEMAS PERSONAS*/

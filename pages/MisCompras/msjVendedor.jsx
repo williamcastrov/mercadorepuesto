@@ -304,6 +304,7 @@ export default function msjVendedor() {
 
             const mensajes = response.data.listarmensajes;
 
+            
             // Ordenar los mensajes por fecha de creación
             const mensajesOrdenados = mensajes.sort(
                 (a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion)
@@ -480,7 +481,7 @@ export default function msjVendedor() {
                                                                             </div>
                                                                             <div className="namevendedor">
                                                                                 <div className="BallNamEv">
-                                                                                    <p>{primerasLetras}</p>
+                                                                                    <p>D</p>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -508,7 +509,7 @@ export default function msjVendedor() {
                                                                         <div className="msjsVend1">
                                                                             <div className="namevendedor2">
                                                                                 <div className="BallNamEv2">
-                                                                                    <p>{primerasLetras}</p>
+                                                                                    <p>WC</p>
                                                                                 </div>
                                                                             </div>
                                                                             <div className="contComment">

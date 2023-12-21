@@ -39,6 +39,7 @@
         "next-redux-wrapper": "^6.0.2",
         "next-routes": "^1.4.2",
         "node-sass": "^7.0.1",
+        "nookies": "^2.5.2",
         "npm": "^9.6.5",
         "prettier": "^2.3.0",
         "prop-types": "^15.7.2",

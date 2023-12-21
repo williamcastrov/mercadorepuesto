@@ -18,7 +18,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 import { URL_BD_MR } from "../../helpers/Constants";
-import { useDispatch, connect, useSelector } from "react-redux";
+import { useDispatch, connect, useSelector, } from "react-redux";
+
+
 import { AiOutlineRight } from 'react-icons/ai';
 import {
     getAuth,
@@ -30,6 +32,7 @@ import firebase from "../../utilities/firebase";
 import ModalMensajesConfirmarEliminar from "../mensajes/ModalMensajesConfirmarEliminar";
 import ModalMensajesShoppingCart from "../mensajes/ModalMensajesShoppingCart";
 import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
+import { setCookie, parseCookies } from 'nookies'
 export default function dispVinculados() {
 
     const router = useRouter();
@@ -47,13 +50,12 @@ export default function dispVinculados() {
     const [DatosUser, setDatosUser] = useState([]);
     const [dispositivosVinculados, setDispositivosVinculados] = useState([]);
 
-
+ 
 
     const [soyNuevo, setSoyNuevo] = useState(false);
     const [tengoCuenta, setTengoCuenta] = useState(false);
 
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
-    console.log("DAT USER DISP VINCULADOS : ", datosusuarios.uid);
 
     const [showModalMensajesCtlr, setShowModalMensajesCtlr] = useState(false);
     const [tituloMensajesCtlr, setTituloMensajesCtlr] = useState('');
@@ -67,7 +69,7 @@ export default function dispVinculados() {
             setIsUserLogged(true);
         }
     }, [datosusuarios.uid]);
-    
+
     useEffect(() => {
         if (!isUserLogged) {
             setShowModalMensajesCtlr(true);
@@ -106,7 +108,7 @@ export default function dispVinculados() {
         const handleDeviceDetection = () => {
             const userAgent = navigator.userAgent.toLowerCase();
             let array = userAgent.split(" ");
-            console.log("XXXXXXX : ", array);
+            //console.log("XXXXXXX : ", array);
 
             const isMobile =
                 /iphone|ipad|ipod|android|blackberry|windows phone/g.test(
@@ -154,7 +156,7 @@ export default function dispVinculados() {
             setIdDispositivoActual(idDispositivo);
 
             // Imprime el id del dispositivo actual en la consola
-            console.log("Dispositivo actual:", idDispositivo);
+            //console.log("Dispositivo actual:", idDispositivo);
         };
 
         handleDeviceDetection();
@@ -202,7 +204,7 @@ export default function dispVinculados() {
         obtenerUidUsuario();
     }, [datosusuarios]);
 
-    
+
 
     //función para leer los dispositivos que están vinculados 
     useEffect(() => {

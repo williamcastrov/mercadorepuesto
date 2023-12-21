@@ -15,7 +15,7 @@ const ModuleDetailTabs = ({ product }) => {
         <Tabs defaultActiveKey="1" className="ps-product__tabs mt-140">
             <TabPane className="tamañofuentetab" tab="Descripción" key="1">
                 <ModuleDetailDescription product={product} />
-            </TabPane>
+            </TabPane> 
             <TabPane
                 className="tamañofuentetab"
                 tab="Información adicional"

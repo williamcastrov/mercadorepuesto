@@ -9,15 +9,16 @@ import { NextRouter } from "next/router";
 import { useNavigate } from "react-router-dom";
 import { Router } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
-import { URL_BD_MR } from "../../helpers/Constants";
+import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 
-const URL_IMAGES_RESULTS = "https://gimcloud.com.co/files/mercadorepuesto/";
+ 
 
 export default function misCompras() {
 
 
 
-    const [UidUser, setUidUser] = useState(""); const [DatosUser, setDatosUser] = useState([]);
+    const [UidUser, setUidUser] = useState(""); 
+    const [DatosUser, setDatosUser] = useState([]);
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("DAT USER MIS COMPRAS : ", datosusuarios);
     //Consts measured, 80% and in md 100%.
