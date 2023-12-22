@@ -19,6 +19,7 @@ import { URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { RiSettings5Fill } from "react-icons/ri";
 import { URL_BD_MR } from "../../helpers/Constants";
 import { FaCheckCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function calificarVendedor() {
@@ -40,6 +41,10 @@ export default function calificarVendedor() {
     const irA = useRef(null);
     const router = useRouter();
     const contadorCaracteres = `${comentario.length}/180`;
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("DAT USER CALIFICAR VENDEDOR: ", datosusuarios.uid);
+
+
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null
@@ -158,10 +163,42 @@ export default function calificarVendedor() {
     };
 
 
-    //Enviar calificación y abrir modal
-    const enviarCalificacion = async (uid) => {
+    // Guarda el idproducto en el estado de tu componente
+    const [idproducto, setIdproducto] = useState(null);
+
+    useEffect(() => {
+        // Asegúrate de que producto no es null o undefined
+        if (producto && producto.idproducto) {
+            setIdproducto(producto.idproducto);
+        }
+    }, [producto]);
+
+    const obtenerUidVendedor = async (idproducto) => {
+        let uidvendedor = null;
+        let params = {
+            idarticulo: idproducto,
+        };
+
+        await axios({
+            method: "post",
+            url: `${URL_BD_MR}18`,
+            params,
+        })
+            .then((res) => {
+                uidvendedor = res.data[0].usuario; // Asegúrate de que el usuario exista
+                console.log('uidvendedor obtenido:', uidvendedor); // Agrega esta línea
+            })
+            .catch((error) => {
+                console.error('Error al obtener el uidvendedor:', error);
+            });
+        return uidvendedor;
+    };
+
+    const enviarCalificacion = async (idproducto) => {
+        const uidvendedor = await obtenerUidVendedor(idproducto);
         const nuevaCalificacion = {
-            uid,
+            uidcomprador: datosusuarios.uid,
+            uidvendedor: uidvendedor, // Cambia "1652703118227" a uidvendedor
             calificacion: calificacionSeleccionada,
             comentario,
         };
@@ -181,14 +218,12 @@ export default function calificarVendedor() {
             });
     };
 
-    //handle para enviar la calificacion
+    // Luego, usa el idproducto del estado en lugar de producto.idproducto
     const manejarEnvioCalificacion = () => {
-        const uid = producto.usuario; // Recupera el UID del usuario por medio de producto.usuario
         if (validarCalificacion()) {
-            enviarCalificacion(uid);
+            enviarCalificacion(idproducto);
         }
     };
-
 
 
 
@@ -202,43 +237,42 @@ export default function calificarVendedor() {
 
 
 
-    //obtengo la ultima calificación hecha para el vendedor y mando a renderizar la calificacion y el comentario
-    const obtenerCalificaciones = async () => {
-        const uid = producto.usuario; // Recupera el UID del vendedor por medio de producto.usuario
-
+    const obtenerCalificaciones = async (uidvendedor) => {
         let params = {
-            uid,
+            idcomprador: datosusuarios.uid,
+            uidvendedor: uidvendedor,
         };
 
         await axios({
             method: "post",
-            url: `${URL_BD_MR}50`,
+            url: `${URL_BD_MR}502`,
             params,
         })
             .then((res) => {
-                console.log("Respuesta completa del servidor:", res);
-                setCalificaciones(res.data.listarcalificacionvend);
+                console.log("Respuesta completa del servidor:", res.data);
+                setCalificaciones(res.data.listarcalprdvendedor);
 
                 // Comprueba si el vendedor ya ha sido calificado
-                const vendedorCalificado = res.data.listarcalificacionvend.length > 0;
+                const vendedorCalificado = res.data.listarcalprdvendedor ? res.data.listarcalprdvendedor.length > 0 : false;
                 setVendedorCalificado(vendedorCalificado);
 
                 // Si ya ha sido calificado, establece el comentario en el textarea y la calificación en los íconos con los datos de la última calificación
                 if (vendedorCalificado) {
-                    const ultimaCalificacion = obtenerUltimaCalificacion(res.data.listarcalificacionvend);
+                    const ultimaCalificacion = obtenerUltimaCalificacion(res.data.listarcalprdvendedor);
                     setComentario(ultimaCalificacion.comentario);
                     setCalificacionVendedor(ultimaCalificacion.calificacion);
                 }
             })
             .catch(function (error) {
-                console.error('Error al obtener las calificaciones:', error);
+                console.error('Error al obtener las calificaciones del vendedor:', error);
             });
     };
 
+    // Luego, cuando llames a obtenerCalificaciones, asegúrate de pasar el uidvendedor correcto
     useEffect(() => {
-        obtenerCalificaciones();
+        const uidvendedor = producto.usuario; // Recupera el UID del usuario por medio de producto.usuario
+        obtenerCalificaciones(uidvendedor);
     }, []);
-
 
 
     //Funcion para obtener ultima calificacion
@@ -250,8 +284,6 @@ export default function calificarVendedor() {
     };
 
 
-
-
     useEffect(() => {
         irA.current.scrollIntoView({
             behavior: "smooth",
@@ -260,7 +292,7 @@ export default function calificarVendedor() {
     }, []);
 
 
-
+    const [ultimaCalificacion, setUltimaCalificacion] = useState(null);
     return (
         <div ref={irA}>
             <div>

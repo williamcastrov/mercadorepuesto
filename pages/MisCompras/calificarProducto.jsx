@@ -18,7 +18,7 @@ import ModalMensajes from "../mensajes/ModalMensajes";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { RiSettings5Fill } from "react-icons/ri";
 import { FaCheckCircle } from "react-icons/fa";
-
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -38,7 +38,8 @@ export default function calificarProducto() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
     const irA = useRef(null);
     const router = useRouter();
-
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("DAT USER CALIFICAR PRODUCTO: ", datosusuarios.uid);
 
 
 
@@ -81,7 +82,7 @@ export default function calificarProducto() {
         setShowModal(false);
     };
 
-    
+
     //envío calificación vendedor con mvalidaciones
     const validarCalificacion = () => {
         if (!calificacionSeleccionada) {
@@ -161,10 +162,16 @@ export default function calificarProducto() {
     };
 
     const enviarCalificacion = async (compatible) => {
+        const idproducto = producto.idproducto;
+
+
         const nuevaCalificacion = {
+            idcomprador: datosusuarios.uid,
             compatible,
             calificacion: calificacionSeleccionada,
             comentario,
+            idproducto
+
         };
 
         await axios({
@@ -195,14 +202,14 @@ export default function calificarProducto() {
 
     const obtenerCalificacionesProducto = async () => {
         const compatible = producto.compatible; // Recupera el compatible del producto
-
         let params = {
-            producto: compatible,
+            compatible: compatible,
+            idcomprador: datosusuarios.uid,
         };
 
         await axios({
             method: "post",
-            url: `${URL_BD_MR}48`,
+            url: `${URL_BD_MR}481`,
             params,
         })
             .then((res) => {
@@ -353,7 +360,7 @@ export default function calificarProducto() {
                                                     <p className="pNameProductCalif">{producto.nombreProducto}</p>
                                                     <div className="subtitlesvercompra">
                                                         <p>Unidades compradas:</p>
-                                                        <p>{producto.cantidad}</p> 
+                                                        <p>{producto.cantidad}</p>
                                                     </div>
                                                     <div className="subtitlesvercompra">
                                                         <p>Precio del producto:</p>

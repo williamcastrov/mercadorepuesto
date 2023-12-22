@@ -312,7 +312,14 @@ export default function preguntasSobreMisProductos() {
                                                         <button className='EstadoMsjButton'>Sin respuesta</button>
                                                     </div>
                                                     <div className="buttonsPrgsUsers">
-                                                        <button className='ComprarButton'>Responder</button>
+                                                        <button
+                                                            className='ComprarButton'
+                                                            onClick={() => {
+                                                                router.push(`/product/${pregunta.idprd}?tab=4`);
+                                                            }}
+                                                        >
+                                                            Responder
+                                                        </button>
                                                         <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
                                                     </div>
                                                 </Grid>

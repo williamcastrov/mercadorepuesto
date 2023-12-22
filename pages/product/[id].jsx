@@ -113,9 +113,9 @@ const ProductDetailPage = () => {
                             </div>
                             <WidgetShopPromotion />
                         </div>
-                        <div className="ps-layout__right">{productView}</div>
+                        <div className="ps-layout__right" id="miSeccionEspecifica">{productView}</div>
                     </div>
-                </div>
+                </div> 
                 <CustomerBought />
             </div>
         </Container>

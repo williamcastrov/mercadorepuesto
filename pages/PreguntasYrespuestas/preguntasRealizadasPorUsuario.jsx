@@ -290,7 +290,8 @@ export default function preguntasRealizadasUsuario() {
                                                         onClick={() => router.push(`/product/${pregunta.idprd}`)}
                                                     >
                                                         Comprar
-                                                    </button>                                                </Grid>
+                                                    </button>
+                                                </Grid>
                                                 <Grid item xs={12} md={6} className="subContEstadoMensaje">
                                                     <div className="pregsRespstMSJ">
                                                         <p>{pregunta.comentario}</p>
@@ -306,10 +307,12 @@ export default function preguntasRealizadasUsuario() {
                                                     <div className="buttonsPrgsUsers">
                                                         <button
                                                             className='ComprarButton'
-                                                            onClick={() => router.push(`/product/${pregunta.idprd}#questionSection`)}
+                                                            onClick={() => {
+                                                                router.push(`/product/${pregunta.idprd}?tab=4#miSeccionEspecifica`);
+                                                            }}
                                                         >
                                                             Hacer otra pregunta
-                                                        </button> 
+                                                        </button>
                                                         <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
                                                     </div>
                                                 </Grid>

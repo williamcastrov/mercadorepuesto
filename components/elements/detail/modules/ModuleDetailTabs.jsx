@@ -6,17 +6,22 @@ import ModuleDetailReviews from "~/components/elements/detail/modules/ModuleDeta
 import ModuleDetailSeller from "~/components/elements/detail/modules/ModuleDetailSeller";
 import ModuleDetailQuestion from "~/components/elements/detail/modules/ModuleDetailQuestion";
 import ModuleQualificationPrd from "~/components/elements/detail/modules/ModuleQualificationPrd";
-
+import { useRouter } from "next/router";
 import { Tabs } from "antd";
 
 const { TabPane } = Tabs;
 const ModuleDetailTabs = ({ product }) => {
+    
+    
+    const router = useRouter();
+    const tab = router.query.tab || "1";
+    
     return (
-        <Tabs defaultActiveKey="1" className="ps-product__tabs mt-140">
+        <Tabs defaultActiveKey={tab} className="ps-product__tabs mt-140">
             <TabPane className="tamañofuentetab" tab="Descripción" key="1">
                 <ModuleDetailDescription product={product} />
             </TabPane> 
-            <TabPane
+            <TabPane 
                 className="tamañofuentetab"
                 tab="Información adicional"
                 key="2">

@@ -231,7 +231,7 @@ const LoginAccount = () => {
                                     let datitem = JSON.parse(
                                         localStorage.getItem("itemswishlistadd")
                                     );
-
+ 
                                     const validaPrdListWish = () => {
                                         const leerItems = async () => {
                                             let params = {

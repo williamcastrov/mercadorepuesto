@@ -46,35 +46,7 @@ export default function verProblemasPersonas() {
     const [messages, setMessages] = useState([]);
 
 
-    const [users, setUsers] = useState({});
 
-    // Función para leer usuarios
-    const leerUsuarios = async () => {
-        try {
-            const response = await axios({
-                method: "post",
-                url: `${URL_BD_MR}13`,
-            });
-
-            const usuarios = response.data;
-
-            // Crear un objeto donde la clave es el uid y el valor es el objeto del usuario
-            const usuariosObj = usuarios.reduce((obj, usuario) => {
-                obj[usuario.uid] = usuario;
-                return obj;
-            }, {});
-
-            // Actualizar el estado con los usuarios recibidos
-            setUsers(usuariosObj);
-        } catch (error) {
-            console.error("Error leyendo usuarios:", error);
-        }
-    };
-
-    // Efecto para cargar usuarios al montar
-    useEffect(() => {
-        leerUsuarios();
-    }, []);
     // Función para leer mensajes
     const leerMensajes = async () => {
         let params = {
@@ -93,8 +65,8 @@ export default function verProblemasPersonas() {
             // Obtener el nombre y apellido del usuario para cada mensaje
             const mensajesConNombres = await Promise.all(
                 mensajes.map(async (mensaje) => {
-                    const { nombreUsuario, apellidoUsuario, correo } = await obtenerNombreUsuario(mensaje.usuarioenvia);
-                    return { ...mensaje, nombreUsuario, apellidoUsuario, correo };
+                    const { nombreUsuario, SegundoNombreUsuarioC, correo, primerApellidoComprador, segundoApellidoComprador, teléfonoComprador } = await obtenerNombreUsuario(mensaje.usuarioenvia);
+                    return { ...mensaje, nombreUsuario, SegundoNombreUsuarioC, correo, primerApellidoComprador, segundoApellidoComprador, teléfonoComprador };
                 })
             );
 
@@ -130,10 +102,12 @@ export default function verProblemasPersonas() {
             });
 
             const nombreUsuario = res.data[0].primernombre;
-            const apellidoUsuario = res.data[0].segundonombre;
+            const SegundoNombreUsuarioC = res.data[0].segundonombre;
+            const primerApellidoComprador = res.data[0].primerapellido;
+            const segundoApellidoComprador = res.data[0].segundoapellido;
             const correo = res.data[0].email;
-
-            return { nombreUsuario, apellidoUsuario, correo};
+            const teléfonoComprador = res.data[0].celular;
+            return { nombreUsuario, SegundoNombreUsuarioC, correo, primerApellidoComprador, segundoApellidoComprador, teléfonoComprador };
 
         } catch (error) {
             console.error("Error al obtener el nombre del usuario", error);
@@ -152,59 +126,119 @@ export default function verProblemasPersonas() {
                                 <div className="ps-page__header"> </div>
                                 <div className="ps-page__content ps-account">
                                     <Grid container>
-                                        <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? "100%" : "90%", }} flexDirection={"column"}>
+                                        <Grid className="subcprinccalific" item xs={12} md={8} sx={{ width: "100%" }} flexDirection={"column"}>
                                             <div className="titleTproblema">
                                                 <p>Problemas de los usuarios</p>
                                             </div>
-                                            <Grid container className="VerProblemasPersonasCont" item xs={12} md={12} flexDirection={"column"}>
 
-                                                {messages.map((mensaje) => (
-                                                    <div key={mensaje.id} className="SubContsVerProblemasPersonasCont">
-                                                        <div className="DataUsersVerProblemas">
-                                                            <p className="DataUserSendProblem">Datos del comprador que envía el problema:</p>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Usuario envía el problema:</p>
-                                                                <p>{mensaje.nombreUsuario} {mensaje.apellidoUsuario}</p>
-                                                            </div>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Email de  usuario que envía el problema:</p>
-                                                                <p> {mensaje.correo}</p>
-                                                            </div>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Descripción problema con el producto:</p>
-                                                                <p>{mensaje.comentario}</p>
-                                                            </div>
+                                            {messages.map((mensaje) => (
+                                                <Grid key={mensaje.id} container className="VerProblemasPersonasCont" item xs={12} md={12}>
+                                                    <Grid className="primerSubcProblCont" item xs={12} md={6}>
+                                                        <p className="primerSubcProblContP2">Datos del comprador (solicitante)</p>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Nombre de usuario:</p>
+                                                            <p>{mensaje.nombreUsuario}</p>
                                                         </div>
-                                                        <div className="DataUsersVerProblemas">
-                                                            <p className="DataUserSendProblem">Datos del vendedor y del producto:</p>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Nombre del producto con problema:</p>
-                                                                <p>Persiana Ford Escpe Gasolina modelo 2023 </p>
-                                                            </div>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Vendedor del producto con problema:</p>
-                                                                <p>William Castro</p>
-                                                            </div>
-                                                            <div className="NombreUserEnvíaProblema">
-                                                                <p className="NombreUserEnvíaProblema1">Email del vendedor del producto con problema:</p>
-                                                                <p>WilliamCatro@gmail.com</p>
-                                                            </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Nombres y apellidos:</p>
+                                                            <p>{mensaje.nombreUsuario} {mensaje.SegundoNombreUsuarioC} {mensaje.primerApellidoComprador} {mensaje.segundoApellidoComprador} </p>
                                                         </div>
-                                                        <div className="ImgProblemasUsuarios">
-                                                            <img src={`${URL_IMAGES_RESULTS}${mensaje.nombreimagen1}`} alt={mensaje.nombreimagen1} />
-                                                            {mensaje.nombreimagen2 && <img src={URL_BD_MR + mensaje.nombreimagen2} alt="Imagen 2" />}
-                                                            {mensaje.nombreimagen3 && <img src={URL_BD_MR + mensaje.nombreimagen3} alt="Imagen 3" />}
-                                                            {mensaje.nombreimagen4 && <img src={URL_BD_MR + mensaje.nombreimagen4} alt="Imagen 4" />}
-                                                            {mensaje.nombreimagen5 && <img src={URL_BD_MR + mensaje.nombreimagen5} alt="Imagen 5" />}
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Correo:</p>
+                                                            <p>{mensaje.correo}</p>
                                                         </div>
-                                                        {/* Asegúrate de manejar correctamente los casos en los que la imagen pueda ser null */}
-                                                        <div className="fechaProblemaEnvíado">
-                                                            <p className="titleFechaProblema">Fecha envío del problema: </p>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Número de teléfono:</p>
+                                                            <p>{mensaje.teléfonoComprador} </p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Número de compra:</p>
+                                                            <p>21212</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Fecha de compra:</p>
+                                                            <p>21-12-23</p>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid className="SegSubcProblCont" item xs={12} md={6}>
+                                                        <p className="primerSubcProblContP2">Datos producto</p>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Farolas mazda 2006 azul:</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Unidades compradas:</p>
+                                                            <p>12</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Precio del producto:</p>
+                                                            <p>23.000</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Precio del envío</p>
+                                                            <p>23.000</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Total:</p>
+                                                            <p>23.000</p>
+                                                        </div>
+                                                    </Grid>
+
+
+                                                    <Grid className="primerSubcProblCont" item xs={12} md={6} mt={5}>
+                                                        <p className="primerSubcProblContP2">Datos del vendedor</p>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Nombre de usuario:</p>
+                                                            <p>Juan</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Nombres y apellidos:</p>
+                                                            <p>Juan Pablo Rojas</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Correo:</p>
+                                                            <p>Juanpablorojas@gmail.com</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Número de teléfono:</p>
+                                                            <p>3045567789</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Estado del pago:</p>
+                                                            <p>Juan Pablo Rojas</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Estado del envío:</p>
+                                                            <p>Entregado</p>
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid className="SegSubcProblCont" item xs={12} md={6} mt={5}>
+                                                        <p className="primerSubcProblContP2">Datos de la solicitud</p>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">Fecha de la solicitud:</p>
                                                             <p>{mensaje.fechacreacion.toString().slice(0, 10)}</p>
                                                         </div>
-                                                    </div>
-                                                ))}
-                                            </Grid>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="datasProblPersonasP">ID solicitud:</p>
+                                                            <p>21-12-23</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas">
+                                                            <p className="descrpProbl">{mensaje.comentario}</p>
+                                                        </div>
+                                                        <div className="datasProblPersonas3">
+                                                            <p className="datasProblPersonasP2">Fotos de la solicitud:</p>
+                                                            <div className="ImgsProblemas">
+                                                                <img src={`${URL_IMAGES_RESULTS}${mensaje.nombreimagen1}`} alt={mensaje.nombreimagen1} />
+                                                                {mensaje.nombreimagen2 && <img src={URL_BD_MR + mensaje.nombreimagen2} alt="Imagen 2" />}
+                                                                {mensaje.nombreimagen3 && <img src={URL_BD_MR + mensaje.nombreimagen3} alt="Imagen 3" />}
+                                                                {mensaje.nombreimagen4 && <img src={URL_BD_MR + mensaje.nombreimagen4} alt="Imagen 4" />}
+                                                                {mensaje.nombreimagen5 && <img src={URL_BD_MR + mensaje.nombreimagen5} alt="Imagen 5" />}
+                                                            </div>
+
+                                                        </div>
+                                                    </Grid>
+                                                </Grid>
+                                            ))}
+
                                         </Grid>
                                     </Grid>
                                 </div>
