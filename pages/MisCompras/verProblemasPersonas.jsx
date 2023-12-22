@@ -160,7 +160,7 @@ export default function verProblemasPersonas() {
                                                             <p>21-12-23</p>
                                                         </div>
                                                     </Grid>
-                                                    <Grid className="SegSubcProblCont" item xs={12} md={6}>
+                                                    <Grid className="SegSubcProblCont" item xs={12} md={6} flexDirection={"column"} >
                                                         <p className="primerSubcProblContP2">Datos producto</p>
                                                         <div className="datasProblPersonas">
                                                             <p className="datasProblPersonasP">Farolas mazda 2006 azul:</p>
@@ -211,7 +211,7 @@ export default function verProblemasPersonas() {
                                                             <p>Entregado</p>
                                                         </div>
                                                     </Grid>
-                                                    <Grid className="SegSubcProblCont" item xs={12} md={6} mt={5}>
+                                                    <Grid className="SegSubcProblCont" item xs={12} md={6} mt={5} flexDirection={"column"}>
                                                         <p className="primerSubcProblContP2">Datos de la solicitud</p>
                                                         <div className="datasProblPersonas">
                                                             <p className="datasProblPersonasP">Fecha de la solicitud:</p>
