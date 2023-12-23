@@ -19,7 +19,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
 import { URL_BD_MR } from "../../helpers/Constants";
 import { useDispatch, connect, useSelector, } from "react-redux";
-
+import { getLeeIra } from "../../store/leeira/action";
 
 import { AiOutlineRight } from 'react-icons/ai';
 import {
@@ -39,6 +39,7 @@ export default function dispVinculados() {
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
+    const dispatch = useDispatch();
 
     //Posición top Pagina
     const irA = useRef(null);
@@ -72,6 +73,16 @@ export default function dispVinculados() {
 
     useEffect(() => {
         if (!isUserLogged) {
+            dispatch(getLeeIra(11));
+            localStorage.setItem("ira", JSON.stringify(11));
+            let itemsadddispvinvulados = {
+                ruta: "/Seguridad/dispVinculados",
+            };
+            localStorage.setItem(
+                "itemsadddispvinvulados",
+                JSON.stringify(itemsadddispvinvulados)
+            );
+
             setShowModalMensajesCtlr(true);
             setTituloMensajesCtlr("Dispositivos vinculados");
             let texto = "¡Bienvenido! Para ver tus dispositivos vinculados primero debes iniciar sesión o registrarte.";

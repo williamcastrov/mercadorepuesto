@@ -9,7 +9,6 @@ import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
 import ReadUserEmail from "../repositories/ReadUserEmail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Row, Col, Modal, Form } from "react-bootstrap";
-
 import { getTokenRegistro } from "../store/tokenregistro/action";
 import { getAddEdToCart } from "../store/addedtocart/action";
 import { getAddLogin } from "../store/addlogin/action";
@@ -217,6 +216,7 @@ const LoginAccount = () => {
                         dispatch(getDuplicarPrd(0));
                         const DatosUsuario = await Users.getUsers(dat);
 
+
                         if (DatosUsuario.length > 0) {
                             setUsuario(DatosUsuario);
                             if (DatosUsuario[0].activo === "N") {
@@ -227,11 +227,26 @@ const LoginAccount = () => {
                                     login: false,
                                 };
 
-                                if (ira == 4) {
+                                if (ira == 11) {
+                                    let datitem = JSON.parse(
+                                        localStorage.getItem(
+                                            "itemsadddispvinvulados"
+                                        )
+                                    );
+
+                                    router.push(
+                                        datitem.ruta
+                                    );
+
+                                    localStorage.setItem(
+                                        "itemsadddispvinvulados",
+                                        JSON.stringify("Ok")
+                                    );
+                                } else if (ira == 4) {
                                     let datitem = JSON.parse(
                                         localStorage.getItem("itemswishlistadd")
                                     );
- 
+
                                     const validaPrdListWish = () => {
                                         const leerItems = async () => {
                                             let params = {
