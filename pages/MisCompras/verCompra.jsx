@@ -19,7 +19,7 @@ export default function verCompra() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const router = useRouter();
     const irA = useRef(null);//PosiciónTopPage
-
+ 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null
     if (typeof window !== 'undefined') {

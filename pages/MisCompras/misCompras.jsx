@@ -148,7 +148,7 @@ export default function misCompras() {
                 method: "post",
                 url: URL_BD_MR + "18",
                 params,
-            });
+            }); 
 
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;

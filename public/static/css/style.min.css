@@ -30198,14 +30198,13 @@ color: #2D2E83;
   }
   .ContRightMisCompras{
     display: flex !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     flex-direction: column !important;
-    padding: 1.5rem !important;
-    align-items: center !important;
+    padding: 1.5rem !important; 
   }
   .SendMsjVendandName{
     display: flex !important;
-    flex-direction: column !important; 
+    flex-direction: column !important;  
   }
   .buttonSendMsjVendedor{
     font-size: 18px !important;
@@ -30344,3 +30343,177 @@ color: #2D2E83;
     font-family: "Jost", sans-serif;
   } 
     /*FIN STYLES VER PROBLEMAS PERSONAS*/
+
+
+
+
+    /*INICIO STYLES MIS VENTAS*/
+
+    .divButtonVercompra2 button{
+        background-color: #2C2E82;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        padding: 0.6rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .divButtonVercompra2{
+        margin-top: 2rem !important;
+        width: 100% !important;
+      }
+
+      .misVentasRigt1 p{
+        margin-right: 5px;
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 600;
+      }
+      .subtitlesveVenta1{
+        display: flex;
+      }
+      .misVentasRigt1{
+        margin-bottom: 4rem;
+      }
+      .misVentasRigt2{
+        margin-bottom: 4rem;
+      }
+      .misVentasRigt2 p{
+        margin-right: 5px;
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 500;
+      }
+      .misVentasRigt3{
+        margin-bottom: 4rem;
+      }
+      .misVentasRigt3 p{
+        margin-right: 5px;
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 600;
+      }
+      .misVentasr{
+        border-right: 3px solid #EBEBEB;
+        height: 40rem;
+      }
+      .DetalleSEnvioVerVenta{
+        margin-top: 8rem; 
+      }
+      .detallesypagovercompra2{
+        width: 100%; 
+    }
+    .detallesypagovercompra2 p{
+        font-size: 24px;
+        color: #2D2E83;
+        font-weight: 700;
+    }
+     
+    .subtitlesverVenta {
+        flex-direction: column;
+        display: flex;
+    }
+    .subtitlesverVenta p{
+        margin-top: 1.5rem;
+        margin-right: 5px;
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 500;
+    }
+    .divButtonVerVenta button{
+        background-color: #2C2E82;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        padding: 0.6rem;
+        margin: 0 auto;
+        width: 240px;
+      }
+      .divButtonVerVenta{
+        margin-top: 2rem !important;
+        width: 100% !important;
+      }
+      .etiquetaCont{
+        width: 90%;
+        border: 5px solid #EBEBEB;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 2rem;
+      }
+      .etiquetaCont1{
+        display: flex;
+      }
+      .etiquetaContIMG{
+        margin-right: 15px;
+        border: 5px solid #EBEBEB;
+        padding: .5rem; 
+        border-radius: 12px;
+      }
+      .etiquetaContIMG img{
+        width: 90px;
+        height: 90px;
+      }
+      .etiquetaCont1 p{  
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 500;
+      }
+      .nameVerV{
+        margin-bottom: 1rem;
+      }
+      .nameVerV2{
+        margin-top: 1rem;
+      }
+      .etiquetaContDetails{
+        margin-top: 2rem;
+      }
+      .etiquetaContDetails p{
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 500;
+      }
+      .etiquetaContDetailsTitle{
+        font-weight: 600 !important;
+      }
+      .divButtonAdjFact{
+        margin-top: 1rem !important;
+        width: 100% !important; 
+      }
+      .divButtonAdjFact button{
+        background-color: #2C2E82;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        padding: 0.6rem;
+        margin: 0 auto;
+        width: 240px;
+      }
+      .datacomprVerVenta{
+        display: flex;
+        flex-direction: column;
+      }
+      .nameVendVer{
+        margin-top: 2.5rem;
+      }
+      .datacomprVerVenta p{
+        font-size: 18px;
+        color: #2D2E83;
+        font-weight: 500;
+      }
+      .nameVendVer{
+        font-weight: 600 !important;
+      }
+      .divButtonVerVenta3 button{
+        background-color: #2C2E82;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        padding: 0.6rem;
+        margin: 0 auto;
+        width: 250px;
+      }
+      .divButtonVerVenta3{
+        margin-top: 2rem !important;
+        width: 100% !important;
+      }
+    /*FIN STYLES MIS VENTAS*/
