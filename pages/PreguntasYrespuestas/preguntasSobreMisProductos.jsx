@@ -283,7 +283,7 @@ export default function preguntasSobreMisProductos() {
                             <div className="ps-page__content ps-account">
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <div className='titlesformsUsers'>
-                                        <p>Preguntas realizadas</p>
+                                        <p>Preguntas sobre mis productos</p>
                                     </div>
                                 </Grid>
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
