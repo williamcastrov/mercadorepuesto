@@ -18,6 +18,8 @@ import { IoMdReturnRight } from "react-icons/io";
 
 
 export default function preguntasSobreMisProductos() {
+
+
     const [busqueda, setBusqueda] = React.useState("");
     const [preguntas, setPreguntas] = useState([]);
     //Consts measured, 80% and in md 100%.
@@ -31,24 +33,10 @@ export default function preguntasSobreMisProductos() {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [DatosUser, setDatosUser] = useState([]);
     console.log("DAT USER PREGUNTA SOBRE MIS PRODUCTOS : ", datosusuarios.uid);
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
+    const [compras, setCompras] = useState([]);
 
 
-    const filtrarPreguntasPorBusqueda = (preguntas, busqueda) => {
-        return preguntas.filter((pregunta) => {
-            const palabrasBusqueda = busqueda.toLowerCase().split(" ");
-            const nombreProductoMinusculas = pregunta.nombreProducto.toLowerCase();
-
-            return palabrasBusqueda.every((palabra) =>
-                nombreProductoMinusculas.includes(palabra)
-            );
-        });
-    };
-
-
-    //función para ponerle la ", " a los precios
-    function formatearPrecio(precio) {
-        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
@@ -158,14 +146,7 @@ export default function preguntasSobreMisProductos() {
 
 
 
-
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
-    const [compras, setCompras] = useState([]);
-    const filteredCompras = compras.filter((producto) =>
-        producto.titulonombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-
+ 
 
     //Seleccionar funcion por mas antiguo o mas nuevo
     const handleSelect = (eventKey) => {
@@ -191,7 +172,22 @@ export default function preguntasSobreMisProductos() {
     ));
 
 
+    const filtrarPreguntasPorBusqueda = (preguntas, busqueda) => {
+        return preguntas.filter((pregunta) => {
+            const palabrasBusqueda = busqueda.toLowerCase().split(" ");
+            const nombreProductoMinusculas = pregunta.nombreProducto.toLowerCase();
 
+            return palabrasBusqueda.every((palabra) =>
+                nombreProductoMinusculas.includes(palabra)
+            );
+        });
+    };
+
+
+    //función para ponerle la ", " a los precios
+    function formatearPrecio(precio) {
+        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 
 

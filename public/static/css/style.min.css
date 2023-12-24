@@ -29899,9 +29899,7 @@ color: #2D2E83;
 
 }
 
-.contPregResps {
-    display: flex;
-    border: 5px solid #EBEBEB;
+.contPregResps { 
     border-radius: 12px;
     width: 100%;
     margin-bottom: 3rem;
@@ -29909,7 +29907,7 @@ color: #2D2E83;
 
 .subContTopPreguntas {
     display: flex;
-    padding: 1.5rem;
+    padding: 1.5rem; 
 }
 
 .subContTopPreguntas img {
@@ -29945,12 +29943,7 @@ color: #2D2E83;
     font-family: "Jost", sans-serif;
 }
 
-.subContEstadoMensaje {
-    border-top: 5px solid #EBEBEB;
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-}
+ 
 
 .subContEstadoMensaje p {
     font-size: 20px;
@@ -29958,7 +29951,12 @@ color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-
+.subContEstadoMensaje2 p {
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
 .buttonsPrgsUsers {
     display: flex;
     flex-direction: column;
@@ -29991,7 +29989,7 @@ color: #2D2E83;
 .RespuestaVendedorsubCont {
     margin-left: 2.7rem;
     display: flex;
-    width: 100%;
+    width: 100%;  
 }
 .pricePregRealizs{
     font-size: 20px;
@@ -29999,14 +29997,15 @@ color: #2D2E83;
 .RespuestaVendedorsubCont p {
     margin-top: 5px;
 }
-
+.verMasTexto:hover {
+    text-decoration: underline;
+}
 .verMasResps { 
     justify-content: flex-end;
     display: flex;
     align-items: flex-end;
     height: 20px; 
-}
-
+} 
 /*.verMasResps p {
     font-size: 16px;
     color: #2D2E83;
@@ -30030,7 +30029,7 @@ color: #2D2E83;
     font-size: 45px;
     color: #2D2E83;
     margin-right: 2rem;
-    margin-left: -1.5rem;
+    margin-left: -2rem;
 }
 
 .ComprarButton {
@@ -30071,7 +30070,47 @@ color: #2D2E83;
 .fechaYrespuestaCont{
     display: flex;
     flex-direction: column;
+} 
+.subContEstadoMensaje{ 
+    flex-direction: column;
+    width: 100%;
+} 
+.subContEstadoMensaje2{
+    display: flex; 
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-top: 5px solid #EBEBEB;
+} 
+.contNewPregYrespt{
+    width: 100%;
+    border: 5px solid #EBEBEB;
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    display: flex;
 }
+.commenteconReturn{
+    display: flex;
+    width: 100%;
+}
+.chatPregRealizUsers{
+    padding: 1.5rem;
+    border-top: 5px solid #EBEBEB;
+}
+.commenteconReturn p{
+    width: 100%;
+}
+.pregR{
+    width: 100%;
+}
+ 
+
+ .verMasTextoHover:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+
 
 
 /*FIN PREGUNuTAS REALIZADAS*/
