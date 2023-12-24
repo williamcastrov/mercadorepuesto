@@ -30043,7 +30043,7 @@ color: #2D2E83;
     justify-content: center;
     height: 40px !important;
 }
-.EstadoMsjButton {
+.EstadoMsjButton { 
     width: 110px;
     background-color: #E81B1B;
     color: white; 
@@ -30054,7 +30054,10 @@ color: #2D2E83;
     height: 40px !important;
     margin-top: 1.5rem;
 }
-
+.EstadoMsjButton.respondido {
+    background-color: #1BE829;
+    /* otros estilos... */
+}
 .EliminarPreguntaButton {
     margin-top: 2rem;
     width: 190px;

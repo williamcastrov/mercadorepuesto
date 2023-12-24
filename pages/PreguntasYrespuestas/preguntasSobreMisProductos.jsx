@@ -11,6 +11,7 @@ import { Router } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoMdReturnRight } from "react-icons/io";
+import ModalMensajes from "../mensajes/ModalMensajes";
 
 
 
@@ -20,25 +21,30 @@ import { IoMdReturnRight } from "react-icons/io";
 export default function preguntasSobreMisProductos() {
 
 
-    const [busqueda, setBusqueda] = React.useState("");
-    const [preguntas, setPreguntas] = useState([]);
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
     const router = useRouter();
     //PosiciónTopPage
     const irA = useRef(null);
+    const [busqueda, setBusqueda] = useState('');
+    const [preguntas, setPreguntas] = useState([]);
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
+
     //obtener datos usuario actual
     const [UidUser, setUidUser] = useState("");
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [DatosUser, setDatosUser] = useState([]);
-    console.log("DAT USER PREGUNTA SOBRE MIS PRODUCTOS : ", datosusuarios.uid);
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
-    const [compras, setCompras] = useState([]);
+    const [verMasDisabled, setVerMasDisabled] = useState(false); //estado para manejar el disabled cuando hay o no mas de 2 comentarios
+    const [mostrarTodas, setMostrarTodas] = useState({});
+    const [contenedorAbierto, setContenedorAbierto] = useState(-1);
+    const [tituloMensajes, setTituloMensajes] = useState(''); //titulo modal
+    const [textoMensajes, setTextoMensajes] = useState(''); //texto modal 
+    const [showModal, setShowModal] = useState(false); //Estado de modal
+    const [update, setUpdate] = useState(false); // Nuevo estado para forzar la actualización cuando elimino una pregunta
 
 
-
-    //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
+    //Función para obtener el UID del comprador que nos sirve para mapear sus pregntas
     useEffect(() => {
         const obtenerUidUsuario = async () => {
             let params = {
@@ -60,6 +66,38 @@ export default function preguntasSobreMisProductos() {
         obtenerUidUsuario();
     }, [datosusuarios]);
 
+    //función para obtener datos del producto que nos manda obtenerPreguntas
+    async function obtenerNombreProducto(idprd) {
+        let params = {
+            idarticulo: idprd,
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "18",
+                params,
+            });
+
+            const nombreProducto = res.data[0].name;
+            const salePrice = res.data[0].sale_price;
+            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
+            const idProductoRuta = res.data[0].id; // Asegúrate de que la imagen exista
+
+            console.log("Id producto ruta:", idProductoRuta)
+            setPreguntas((prevPreguntas) =>
+                prevPreguntas.map((preguntasGrupo) =>
+                    preguntasGrupo.map((pregunta) =>
+                        pregunta.idprd === idprd ? { ...pregunta, nombreProducto, salePrice, nombreImagen, idProductoRuta } : pregunta
+                    )
+                )
+            );
+
+        } catch (error) {
+            console.error("Error al obtener el nombre del producto", error);
+        }
+    }
+
     //función para obtener mis preguntas a productos
     useEffect(() => {
         const obtenerPreguntas = async () => {
@@ -74,29 +112,25 @@ export default function preguntasSobreMisProductos() {
                     params,
                 });
 
-                console.log("Respuesta completa: ", res); // Imprime la respuesta completa
-                console.log("Estado de la respuesta: ", res.status); // Imprime el estado de la respuesta
+                const preguntasAgrupadas = res.data.listarpreguntavend.reduce((acc, pregunta) => {
+                    if (acc[pregunta.idpregunta]) {
+                        acc[pregunta.idpregunta].push(pregunta);
+                    } else {
+                        acc[pregunta.idpregunta] = [pregunta];
+                    }
+                    return acc;
+                }, {});
 
-                const preguntas = res.data.listarpreguntavend.map((pregunta) => ({
-                    id: pregunta.id,
-                    idprd: pregunta.idprd,
-                    uidcomprador: pregunta.uidcomprador,
-                    uidvendedor: pregunta.uidvendedor,
-                    fechacreacion: pregunta.fechacreacion,
-                    comentario: pregunta.comentario,
-                    respuestavenedor: pregunta.respuestavenedor,
-                    estado: pregunta.estado,
-                    nombreProducto: '', // Agrega esta línea
-                    salePrice: '', // Agrega esta línea
-                    nombreImagen: '', // Agrega esta línea
-                }));
+                // Ordena las preguntas por fecha de creación
+                const preguntasOrdenadas = Object.values(preguntasAgrupadas).map(preguntasGrupo => {
+                    return preguntasGrupo.sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion));
+                });
 
-                console.log("Preguntas para mí:", preguntas)
-                setPreguntas(preguntas);
+                setPreguntas(preguntasOrdenadas);
 
                 // Llama a la función para cargar las imágenes en paralelo
-                const cargarImagenesPromises = preguntas.map((pregunta) =>
-                    obtenerNombreProducto(pregunta.idprd)
+                const cargarImagenesPromises = preguntasOrdenadas.map((preguntas) =>
+                    obtenerNombreProducto(preguntas[0].idprd)
                 );
 
                 // Espera a que todas las imágenes se carguen antes de actualizar el estado
@@ -104,63 +138,67 @@ export default function preguntasSobreMisProductos() {
 
             } catch (error) {
                 console.error("Error al obtener las preguntas", error);
-                console.log("Error.response: ", error.response); // Imprime la respuesta del error
             }
         };
 
         obtenerPreguntas();
-    }, [UidUser]);
+    }, [UidUser, update]);
 
-
-    async function obtenerNombreProducto(idprd) {
+    //función para eliminar pregunta por el idpregunta que nos manda del renderizado
+    async function eliminarPregunta(idpregunta) {
+        console.log("Eliminando pregunta con id:", idpregunta);
         let params = {
-            idarticulo: idprd,
+            idpregunta: idpregunta,
         };
 
         try {
             const res = await axios({
                 method: "post",
-                url: URL_BD_MR + "18",
+                url: URL_BD_MR + "5213",
                 params,
             });
+            console.log("Respuesta eliminar pregunta: ", res)
 
-            console.log("Respuesta completa del producto: ", res); // Imprime la respuesta completa del producto
-            console.log("Estado de la respuesta del producto: ", res.status); // Imprime el estado de la respuesta del producto
+            setPreguntas(prevPreguntas => {
+                const nuevasPreguntas = { ...prevPreguntas };
+                delete nuevasPreguntas[idpregunta];
+                return nuevasPreguntas;
+            });
 
-            const nombreProducto = res.data[0].name;
-            const salePrice = res.data[0].sale_price;
-            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
+            setUpdate(prevUpdate => !prevUpdate); // Cambia el estado de update para forzar una actualización del componente
 
-            setPreguntas((prevPreguntas) =>
-                prevPreguntas.map((pregunta) =>
-                    pregunta.idprd === idprd ? { ...pregunta, nombreProducto, salePrice, nombreImagen } : pregunta
-                )
-            );
+            // Muestra el modal de confirmación después de eliminar la pregunta
+            setShowModal(true);
+            setTituloMensajes("Pregunta eliminada");
+            let texto = "La pregunta se eliminó correctamente";
+            setTextoMensajes(texto);
 
         } catch (error) {
-            console.error("Error al obtener el nombre del producto", error);
-            console.log("Error.response del producto: ", error.response); // Imprime la respuesta del error del producto
+            console.error("Error al eliminar la pregunta", error);
         }
     }
 
-
-
-
- 
+    //función para ponerle la ", " a los precios
+    function formatearPrecio(precio) {
+        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     //Seleccionar funcion por mas antiguo o mas nuevo
     const handleSelect = (eventKey) => {
-        // Actualiza el estado para almacenar la opción seleccionada
         setSelectedSortOption(eventKey);
 
-        // Ordena las preguntas según la opción seleccionada
         if (eventKey === "Más antiguo") {
-            setPreguntas([...preguntas].sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion)));
+            setPreguntas(prevPreguntas =>
+                [...prevPreguntas].sort((a, b) => new Date(a[0].fechacreacion) - new Date(b[0].fechacreacion))
+            );
         } else if (eventKey === "Más reciente") {
-            setPreguntas([...preguntas].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion)));
+            setPreguntas(prevPreguntas =>
+                [...prevPreguntas].sort((a, b) => new Date(b[0].fechacreacion) - new Date(a[0].fechacreacion))
+            );
         }
     };
 
+    //Button de dropdown
     const CustomDropdownButton = React.forwardRef(({ children, onClick }, ref) => (
         <button
             ref={ref}
@@ -172,29 +210,60 @@ export default function preguntasSobreMisProductos() {
     ));
 
 
-    const filtrarPreguntasPorBusqueda = (preguntas, busqueda) => {
-        return preguntas.filter((pregunta) => {
-            const palabrasBusqueda = busqueda.toLowerCase().split(" ");
-            const nombreProductoMinusculas = pregunta.nombreProducto.toLowerCase();
+    // Filtra los IDs de las preguntas basándote en el valor de búsqueda
+    const palabrasBusqueda = busqueda.toLowerCase().split(' ');
 
-            return palabrasBusqueda.every((palabra) =>
-                nombreProductoMinusculas.includes(palabra)
-            );
-        });
+    const idsPreguntasFiltradas = Object.keys(preguntas).filter(idpregunta =>
+        preguntas[idpregunta][0].nombreProducto && palabrasBusqueda.every(palabra =>
+            preguntas[idpregunta][0].nombreProducto.toLowerCase().includes(palabra)
+        )
+    );
+
+    //handlechange para busqueda
+    const handleBusquedaChange = (event) => {
+        setBusqueda(event.target.value);
     };
 
-
-    //función para ponerle la ", " a los precios
-    function formatearPrecio(precio) {
-        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-
-
-
-
+    //usefect para esconder el resto de preguntas en un principio
+    useEffect(() => {
+        // Inicializar mostrarTodas con todos los contenedores como false
+        const inicializarMostrarTodas = Object.keys(preguntas).reduce((acc, idpregunta) => {
+            return { ...acc, [idpregunta]: false };
+        }, {});
+        setMostrarTodas(inicializarMostrarTodas);
+    }, [preguntas, update]);
 
 
+    //función para mostrar todas las preguntas al darle ver más
+    const handleVerMasClick = (idpregunta) => {
+        setMostrarTodas((prevState) => ({
+            ...prevState,
+            [idpregunta]: !prevState[idpregunta],
+        }));
+    };
+
+    useEffect(() => {
+        // Función para calcular el estado de verMasDisabled
+        const calcularVerMasDisabled = () => {
+            // Iterar sobre las claves de preguntas para calcular el estado de verMasDisabled
+            Object.keys(preguntas).forEach((idpregunta) => {
+                // Obtener las preguntas y respuestas actuales
+                const preguntasGrupo = preguntas[idpregunta];
+                const preguntasRespuestasOrdenadas = preguntasGrupo.sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion));
+
+                // Verificar si hay más de dos comentarios para deshabilitar el botón "Ver más"
+                setVerMasDisabled(prevState => ({ ...prevState, [idpregunta]: preguntasRespuestasOrdenadas.length <= 2 }));
+            });
+        };
+
+        // Llamar a la función para calcular el estado de verMasDisabled
+        calcularVerMasDisabled();
+    }, [preguntas, update]);
+
+    //cerrar modal de preguntas realizadas
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
 
     useEffect(() => {
@@ -214,15 +283,14 @@ export default function preguntasSobreMisProductos() {
                             <div className="ps-page__content ps-account">
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <div className='titlesformsUsers'>
-                                        <p>Preguntas sobre mis productos</p>
-
+                                        <p>Preguntas realizadas</p>
                                     </div>
                                 </Grid>
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
                                             value={busqueda}
-                                            onChange={(e) => setBusqueda(e.target.value)}
+                                            onChange={handleBusquedaChange}
                                             placeholder="Buscar en mis preguntas"
                                             sx={{
                                                 borderRadius: '10px',
@@ -275,61 +343,143 @@ export default function preguntasSobreMisProductos() {
                                 </Grid>
 
                                 <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
-                                    {filtrarPreguntasPorBusqueda(preguntas, busqueda).length > 0 ? (
-                                        filtrarPreguntasPorBusqueda(preguntas, busqueda).map((pregunta, index) => (
-                                            <Grid key={index} className="contPregResps" container style={{ width: '100%' }}>
-                                                <Grid item xs={12} md={6} className="subContTopPreguntas">
-                                                    <img src={`${URL_IMAGES_RESULTS}${pregunta.nombreImagen}`} />
-                                                    <p className="pNameProductPregRespsts"> {pregunta.nombreProducto}</p>
-                                                </Grid>
-                                                <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
-                                                    <p>
-                                                        ${formatearPrecio(pregunta.salePrice)}
-                                                    </p>
-                                                    <button
-                                                        className='ComprarButton'
-                                                        onClick={() => router.push(`/product/${pregunta.idprd}`)}
-                                                    >
-                                                        Ver publicación
-                                                    </button>
-                                                </Grid>
-                                                <Grid item xs={12} md={6} className="subContEstadoMensaje">
-                                                    <div className="pregsRespstMSJ">
-                                                        <p>{pregunta.comentario}</p>
-                                                        <div className="RespuestaVendedorsubCont">
-                                                            <IoMdReturnRight className="returnIcon" />
-                                                            <p>Respuesta...</p>
-                                                        </div>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={6} className="subContEstadoMensaje">
-                                                    <div className="fechaYrespuestaCont">
-                                                        <p>{pregunta.fechacreacion.toString().slice(0, 10)}</p>
-                                                        <button className='EstadoMsjButton'>Sin respuesta</button>
-                                                    </div>
-                                                    <div className="buttonsPrgsUsers">
-                                                        <button
-                                                            className='ComprarButton'
-                                                            onClick={() => {
-                                                                router.push(`/product/${pregunta.idprd}?tab=4`);
-                                                            }}
-                                                        >
-                                                            Responder
-                                                        </button>
-                                                        <button className='EliminarPreguntaButton'>Eliminar pregunta</button>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <div className="verMasResps">
-                                                        <p>Ver más...</p>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}></Grid>
-                                            </Grid>
-                                        ))
-                                    ) : (
-                                        <p>No tienes preguntas sobre tus productos aún!</p>
-                                    )}
+
+
+
+                                    <Grid className="contPregResps" container style={{ width: '100%' }}>
+                                        {idsPreguntasFiltradas.length > 0 ? (
+                                            idsPreguntasFiltradas.sort().map((idpregunta, indexPregunta) => {
+                                                const preguntasGrupo = preguntas[idpregunta];
+                                                // Ordena las preguntas y respuestas por fecha
+                                                const preguntasRespuestasOrdenadas = preguntasGrupo.sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion));
+                                                const mostrarSoloDos = preguntasRespuestasOrdenadas.length <= 2;
+                                                const salePrice = formatearPrecio(preguntasGrupo[0].salePrice); // Formatea el precio aquí
+                                                const nombreImagen = preguntasGrupo[0].nombreImagen;
+                                                const idProductoRuta = preguntasGrupo[0].idProductoRuta;
+                                                const hayRespuesta = preguntasRespuestasOrdenadas.some(preguntaRespuesta => preguntaRespuesta.estado === 81);
+
+                                                return (
+                                                    <Grid container key={idpregunta} className="contNewPregYrespt">
+                                                        <Grid item xs={12} md={6} className="subContTopPreguntas">
+                                                            <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} />
+                                                            <p className="pNameProductPregRespsts">{preguntasGrupo[0].nombreProducto}</p>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
+                                                            <p className="pricePregRealizs">
+                                                                ${salePrice}
+                                                            </p>
+                                                            <button
+                                                                className='ComprarButton'
+                                                                onClick={() => router.push(`/product/${idProductoRuta}`)}
+                                                            >
+                                                                Ver publicación
+                                                            </button>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6} className="chatPregRealizUsers">
+                                                            {preguntasRespuestasOrdenadas.slice(0, mostrarTodas[idpregunta] ? undefined : 2).map((preguntaRespuesta, indexRespuesta) => (
+                                                                <Grid key={preguntaRespuesta.id} item xs={12} md={12} className="subContEstadoMensaje">
+                                                                    <Grid key={preguntaRespuesta.id} item xs={12} md={12} className="subContEstadoMensaje">
+                                                                        {indexRespuesta === contenedorAbierto ? (
+                                                                            preguntaRespuesta.estado === 81 ? (
+                                                                                <div className="RespuestaVendedorsubCont">
+                                                                                    <div className="commenteconReturn">
+                                                                                        <IoMdReturnRight className="returnIcon" />
+                                                                                        <p>{preguntaRespuesta.comentario}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            ) : (
+                                                                                <p className="pregR">{preguntaRespuesta.comentario}</p>
+                                                                            )
+                                                                        ) : (
+                                                                            preguntaRespuesta.estado === 81 ? (
+                                                                                <div className="RespuestaVendedorsubCont">
+                                                                                    <div className="commenteconReturn">
+                                                                                        <IoMdReturnRight className="returnIcon" />
+                                                                                        <p>{preguntaRespuesta.comentario}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            ) : (
+                                                                                <p className="pregR">{preguntaRespuesta.comentario}</p>
+                                                                            )
+                                                                        )}
+                                                                        {preguntasRespuestasOrdenadas.length === 1 && preguntaRespuesta.estado === 80 && (
+                                                                            <div className="RespuestaVendedorsubCont">
+                                                                                <div className="commenteconReturn">
+                                                                                    <IoMdReturnRight className="returnIcon" />
+                                                                                    <p>Aún no has respondido...</p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        )}
+                                                                    </Grid>
+                                                                </Grid>
+                                                            ))}
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6} className="subContEstadoMensaje2">
+                                                            <div className="fechaYrespuestaCont">
+                                                                <p>{new Date(preguntasGrupo[preguntasGrupo.length - 1].fechacreacion).toISOString().split('T')[0]}</p>
+                                                                <button className={`EstadoMsjButton ${hayRespuesta ? 'respondido' : ''}`}>
+                                                                    {hayRespuesta ? 'Respondido' : 'Sin respuesta'}
+                                                                </button>
+                                                            </div>
+                                                            <div className="buttonsPrgsUsers">
+                                                                <button
+                                                                    className='ComprarButton'
+                                                                    onClick={() => {
+                                                                        router.push(`/product/${idProductoRuta}?tab=4`);
+                                                                    }}
+                                                                >
+                                                                    Responder
+                                                                </button>
+                                                                <button
+                                                                    className='EliminarPreguntaButton'
+                                                                    onClick={() => eliminarPregunta(preguntasGrupo[0].idpregunta)}
+                                                                >
+                                                                    Eliminar pregunta
+                                                                </button>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}>
+                                                            <div className="verMasResps" onClick={() => { if (preguntasRespuestasOrdenadas.length > 2) handleVerMasClick(idpregunta) }} style={{ cursor: mostrarTodas[idpregunta] ? 'pointer' : 'auto' }}>
+                                                                <p className={`verMasTexto ${preguntasRespuestasOrdenadas.length > 2 ? 'verMasTextoHover' : ''}`} style={{
+                                                                    fontSize: '16px',
+                                                                    color: mostrarSoloDos ? '#d4d6e5' : (mostrarTodas[idpregunta] ? '#2D2E83' : '#2D2E83'),
+                                                                    fontWeight: 500,
+                                                                    fontFamily: '"Jost", sans-serif',
+                                                                }} disabled={preguntasRespuestasOrdenadas.length <= 2}>
+                                                                    {mostrarTodas[idpregunta] ? 'Ver menos...' : 'Ver más...'}
+                                                                </p>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={6}></Grid>
+                                                    </Grid>
+                                                );
+                                            })
+                                        ) : (
+                                            <p>Aún no tienes preguntas sobre tus productos.</p>
+                                        )}
+                                    </Grid>
+
+
+
+
+
+
+
+                                    <ModalMensajes
+                                        shown={showModal}
+                                        close={handleModalClose}
+                                        titulo={tituloMensajes}
+                                        mensaje={textoMensajes}
+                                        tipo="error"
+                                    />
+
+
+
+
+
+
+
                                 </Grid>
                             </div>
                         </div>
