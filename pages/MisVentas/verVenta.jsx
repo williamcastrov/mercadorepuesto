@@ -87,7 +87,7 @@ export default function verVenta() {
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>Numero de venta:</p>
-                                                <p>{venta.id}</p>
+                                                <p>{venta.numerodeventa}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Fecha de venta:</p>
@@ -117,7 +117,7 @@ export default function verVenta() {
                                                     <div>
                                                         <p className="nameVerV">{venta.nombreProducto}</p>
                                                         <p>Unidades vendidas: {venta.cantidad}</p>
-                                                        <p className="nameVerV2">$200,000</p>
+                                                        <p className="nameVerV2">${venta.total}</p>
                                                     </div>
                                                 </div>
                                                 <div className="etiquetaContDetails">
@@ -158,7 +158,7 @@ export default function verVenta() {
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
                                                     <p>Precio del producto:</p>
-                                                    <p>${venta.salePrice}</p>
+                                                    <p>${venta.preciodeventa}</p>
                                                 </div>
                                                 <div className="subtitlesveVenta1">
                                                     <p>Precio del envio:</p>
@@ -183,7 +183,7 @@ export default function verVenta() {
                                             <div className="misVentasRigt3">
                                                 <div className="subtitlesveVenta1">
                                                     <p>Total:</p>
-                                                    <p>$12,000</p>
+                                                    <p>${venta.total}</p>
                                                 </div>
                                             </div>
 

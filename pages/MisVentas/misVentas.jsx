@@ -76,8 +76,11 @@ export default function misVentas() {
                             const detallesProducto = await obtenerNombreProducto(venta.idproducto);
                             // Obtén los detalles del comprador
                             const detallesComprador = await obtenerDetallesComprador(venta.idcomprador);
+
+                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
                             return {
                                 ...venta,
+                                fechadeventa1: venta.fechadeventa,
                                 fechadeventa: venta.fechadeventa.slice(0, 10),
                                 fechaentrega: venta.fechaentrega.slice(0, 10),
                                 fechadespacho: venta.fechadespacho ? venta.fechadespacho.slice(0, 10) : null,
@@ -90,6 +93,7 @@ export default function misVentas() {
                                 nombreUsuario: detallesProducto.usuario,
                                 nombreComprador: detallesComprador.primernombre,
                                 apellidoComprador: detallesComprador.primerapellido,
+                                total: total,
                             };
                         })
                     );
@@ -163,18 +167,18 @@ export default function misVentas() {
 
 
 
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
 
-
-    //Programación de dropdown de mis ventas actual
+    // Programación de dropdown de mis ventas actual
     const handleSelect = (eventKey) => {
         // Actualiza el estado para almacenar la opción seleccionada
         setSelectedSortOption(eventKey);
 
-        // Ordena los productos según la opción seleccionada
+        // Ordena las ventas según la opción seleccionada
         if (eventKey === "Más antiguo") {
-            setCompras([...compras].sort((a, b) => new Date(a.fechacompra) - new Date(b.fechacompra)));
+            setVentas([...ventas].sort((a, b) => new Date(a.fechadeventa1) - new Date(b.fechadeventa1)));
         } else if (eventKey === "Más reciente") {
-            setCompras([...compras].sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra)));
+            setVentas([...ventas].sort((a, b) => new Date(b.fechadeventa1) - new Date(a.fechadeventa1)));
         }
     };
 
@@ -190,14 +194,20 @@ export default function misVentas() {
 
 
 
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
+    const [busqueda, setBusqueda] = useState('');
     const [compras, setCompras] = useState([]);
-    const filteredCompras = compras.filter((producto) =>
-        producto && producto.nombreProducto && producto.nombreProducto.toLowerCase().includes(searchTerm.toLowerCase())
+    const palabrasBusqueda = busqueda.toLowerCase().split(' ');
+
+
+    const handleChange = (event) => {
+        setBusqueda(event.target.value);
+    }
+
+    const ventasFiltradas = ventas.filter(venta =>
+        venta.nombreProducto && palabrasBusqueda.every(palabra =>
+            venta.nombreProducto.toLowerCase().includes(palabra)
+        )
     );
-    const [searchTerm, setSearchTerm] = useState("");
-
-
 
 
     useEffect(() => {
@@ -225,8 +235,8 @@ export default function misVentas() {
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
-                                            value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            value={busqueda}
+                                            onChange={handleChange}
                                             placeholder="Buscar en mis ventas"
                                             sx={{
                                                 borderRadius: '10px',
@@ -280,55 +290,59 @@ export default function misVentas() {
 
                                 <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
 
-                                    {ventas.map((venta, index) => (
-                                        <Grid key={index} className="productComprado" container>
-                                            <Grid item xs={12} md={9} className="productCompradoSubCont" >
-                                                <Grid xs={5} md={6} className="contImgMisCompras">
-                                                    <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} />
-                                                </Grid>
-                                                <Grid container>
-                                                    <Grid item xs={12} md={9}>
-                                                        <Grid className="subContMiscompras">
-                                                            <p className="estadoCompra">{venta.estadodeldespacho}</p>
-                                                            <p className="nombreProductMiCompra">{venta.nombreProducto}</p>
-                                                            <div className="divCantCompradas">
-                                                                <p className="UnidCompradas">Unidades vendidas:</p>
-                                                                <p className="numeroUnidsCompradas">{venta.cantidad}</p>
-                                                            </div>
-                                                            <div className="divNcompra">
-                                                                <p className="UnidCompradas"> Número de venta:</p>
-                                                                <p className="numeroUnidsCompradas">{venta.id}</p>
-                                                            </div>
-                                                            <p className="dateCompra">{venta.fechadeventa}</p>
+                                    {ventasFiltradas.length > 0 ? (
+                                        ventasFiltradas.map((venta, index) => (
+                                            <Grid key={index} className="productComprado" container>
+                                                <Grid item xs={12} md={9} className="productCompradoSubCont" >
+                                                    <Grid xs={5} md={6} className="contImgMisCompras">
+                                                        <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} />
+                                                    </Grid>
+                                                    <Grid container>
+                                                        <Grid item xs={12} md={9}>
+                                                            <Grid className="subContMiscompras">
+                                                                <p className="estadoCompra">{venta.estadodeldespacho}</p>
+                                                                <p className="nombreProductMiCompra">{venta.nombreProducto}</p>
+                                                                <div className="divCantCompradas">
+                                                                    <p className="UnidCompradas">Unidades vendidas:</p>
+                                                                    <p className="numeroUnidsCompradas">{venta.cantidad}</p>
+                                                                </div>
+                                                                <div className="divNcompra">
+                                                                    <p className="UnidCompradas"> Número de venta:</p>
+                                                                    <p className="numeroUnidsCompradas">{venta.numerodeventa}</p>
+                                                                </div>
+                                                                <p className="dateCompra">{venta.fechadeventa}</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3} className="precioProductMisCompras">
+                                                            <p>${venta.preciodeventa}</p>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid item xs={12} md={3} className="precioProductMisCompras">
-                                                        <p>${venta.salePrice}</p>
-                                                    </Grid>
+                                                </Grid>
+                                                <Grid item xs={12} md={3} className="ContRightMisCompras">
+                                                    <div className="SendMsjVendandName">
+                                                        <p className="nameVendedorMiCompra">{venta.nombreComprador} {venta.apellidoComprador}</p>
+                                                    </div>
+                                                    <div className="SendMsjVendandName">
+                                                        <p className="nameVendedorMiCompra">Tienes x mensajes sin leer</p>
+                                                    </div>
+                                                    <div className="SendMsjVendandName">
+                                                        <p className="nameVendedorMiCompra">Enviar mensaje al comprador</p>
+                                                    </div>
+                                                    <div className="divButtonVercompra2">
+                                                        <button onClick={() => router.push({
+                                                            pathname: './verVenta',
+                                                            query: { venta: JSON.stringify(venta) }
+                                                        })}
+                                                        >
+                                                            Ver venta
+                                                        </button>
+                                                    </div>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={12} md={3} className="ContRightMisCompras">
-                                                <div className="SendMsjVendandName">
-                                                    <p className="nameVendedorMiCompra">{venta.nombreComprador} {venta.apellidoComprador}</p>
-                                                </div>
-                                                <div className="SendMsjVendandName">
-                                                    <p className="nameVendedorMiCompra">Tienes x mensajes sin leer</p>
-                                                </div>
-                                                <div className="SendMsjVendandName">
-                                                    <p className="nameVendedorMiCompra">Enviar mensaje al comprador</p>
-                                                </div>
-                                                <div className="divButtonVercompra2">
-                                                    <button onClick={() => router.push({
-                                                        pathname: './verVenta',
-                                                        query: { venta: JSON.stringify(venta) }
-                                                    })}
-                                                    >
-                                                        Ver venta
-                                                    </button>
-                                                </div>
-                                            </Grid>
-                                        </Grid>
-                                    ))}
+                                        ))
+                                    ) : (
+                                        <p>Ups, aún no tienes ventas!</p>
+                                    )}
 
 
 
