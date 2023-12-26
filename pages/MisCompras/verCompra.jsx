@@ -23,7 +23,7 @@ export default function verCompra() {
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null
     if (typeof window !== 'undefined') {
-        if (router.query.producto) {
+        if (router.query.producto) { 
             producto = JSON.parse(router.query.producto)
             // Guardar los datos en el almacenamiento local
             localStorage.setItem('producto', JSON.stringify(producto))

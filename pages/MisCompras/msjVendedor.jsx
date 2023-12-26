@@ -74,15 +74,7 @@ export default function msjVendedor() {
         }
     }
 
-    //poner primeras letras en perfil de usuario sin espacios
-    let primerasLetras = "";
-    if (producto && producto.nombres) {
-        primerasLetras = producto.nombres
-            .split(" ")
-            .map((palabra) => palabra[0])
-            .join("");
-    }
-
+ 
     //cerrar modal si no hay nada en el input
     const handleModalClose = () => {
         setShowModal(false);
@@ -197,12 +189,12 @@ export default function msjVendedor() {
 
     // Función para enviar un mensaje
     const sendMessage = async () => {
+        alert(datosusuarios.uid)
         const estado = 32;
         const usuarioenvia = datosusuarios.uid;
         let usuariorecibe;
 
-        // Ajusta la lógica para obtener usuariorecibe desde producto.usuario
-        // Esto es solo un ejemplo, asegúrate de ajustar según la estructura de tus datos
+        // obtener usuariorecibe desde producto.usuario 
         if (producto && producto.usuario) {
             usuariorecibe = producto.usuario;
         } else {
@@ -320,6 +312,11 @@ export default function msjVendedor() {
     useEffect(() => {
         leerMensajes();
     }, []);
+
+
+
+
+    
 
     // Función para desplazar hacia abajo cuando se actualizan los mensajes
     const scrollToBottom = () => {
