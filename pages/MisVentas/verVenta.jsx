@@ -168,9 +168,9 @@ export default function verVenta() {
                                                                     Adjuntar factura
                                                                 </button>
                                                             </label>
-                                                            <Button variant="contained" onClick={handleUpload}>
+                                                            <button variant="contained" onClick={handleUpload}>
                                                                 Cargar archivo
-                                                            </Button>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
