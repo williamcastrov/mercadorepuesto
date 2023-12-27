@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { AiOutlineRight } from 'react-icons/ai';
 import { GrNext } from "react-icons/gr";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
+import { IoIosInformationCircle } from "react-icons/io";
 
 
 
@@ -187,7 +188,9 @@ export default function verVenta() {
                                                 </div>
                                             </div>
 
-                                            <div className="subtitlesvercompra">
+                                            <div className="subtitlesvercompra iconVerVenta2">
+                                                <IoIosInformationCircle className="iconVerVenta" size={29}/>
+
                                                 <p>Este dinero estará disponible en 2 días</p>
                                             </div>
 

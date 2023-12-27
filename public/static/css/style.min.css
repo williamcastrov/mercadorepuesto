@@ -28813,6 +28813,10 @@ background-color: #F1F2F6 !important;
 .subtitlesvercompra {
     display: flex;
 }
+.iconVerVenta{
+    margin-right: 5px; 
+    fill:  #2D2E83;
+} 
 .subtitlesvercompra p{
     margin-right: 5px;
     font-size: 18px;

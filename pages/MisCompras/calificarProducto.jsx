@@ -162,9 +162,7 @@ export default function calificarProducto() {
     };
 
     const enviarCalificacion = async (compatible) => {
-        const idproducto = producto.idproducto;
-
-
+        const idproducto = producto.idproducto; 
         const nuevaCalificacion = {
             idcomprador: datosusuarios.uid,
             compatible,
@@ -235,10 +233,7 @@ export default function calificarProducto() {
 
     useEffect(() => {
         obtenerCalificacionesProducto();
-    }, []);
-
-
-
+    }, []); 
     //Funcion para obtener ultima calificacion
     const obtenerUltimaCalificacion = (calificaciones) => {
         // Ordena las calificaciones por fecha en orden descendente

@@ -260,7 +260,7 @@ const ModuleDetailQuestion = ({ product }) => {
                                               <a className="textopreguntavendedor">
                                                   {item.comentario} ?
                                               </a>
-                                          </Grid>
+                                          </Grid> 
                                           <Grid item xs={12} md={12} lg={12}>
                                               <div className="textorespuestavendedor">
                                                   {item.respuestavenedor}
