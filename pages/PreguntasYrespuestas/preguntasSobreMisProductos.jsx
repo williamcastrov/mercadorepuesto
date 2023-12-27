@@ -357,12 +357,12 @@ export default function preguntasSobreMisProductos() {
                                                 const nombreImagen = preguntasGrupo[0].nombreImagen;
                                                 const idProductoRuta = preguntasGrupo[0].idProductoRuta;
                                                 const hayRespuesta = preguntasRespuestasOrdenadas.some(preguntaRespuesta => preguntaRespuesta.estado === 81);
-                                               
+
 
                                                 return (
                                                     <Grid container key={idpregunta} className="contNewPregYrespt">
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas">
-                                                            <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`}  onClick={() => router.push(`/product/${idProductoRuta}`)}/>
+                                                            <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} onClick={() => router.push(`/product/${idProductoRuta}`)} />
                                                             <p className="pNameProductPregRespsts">{preguntasGrupo[0].nombreProducto}</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
@@ -424,22 +424,26 @@ export default function preguntasSobreMisProductos() {
                                                                 </button>
                                                             </div>
                                                             <div className="buttonsPrgsUsers">
-                                                                <button
-                                                                    onClick={() => router.push({
-                                                                        pathname: './Resp',
-                                                                        query: {
-                                                                            nombreImagen: nombreImagen,
-                                                                            nombreProducto: preguntasGrupo[0].nombreProducto,
-                                                                            uidcomprador: preguntasGrupo[0].uidcomprador,
-                                                                            uidvendedor: preguntasGrupo[0].uidvendedor,
-                                                                            idproducto: preguntasGrupo[0].idProductoRuta,
-                                                                            idpregunta: preguntasGrupo[0].idpregunta, 
-                                                                        }
-                                                                    })}
-                                                                    className='ComprarButton'
-                                                                >
-                                                                    Responder
-                                                                </button>
+                                                                {hayRespuesta ? (
+                                                                    <p className='hasRespP'>Ya has respondido.</p>
+                                                                ) : (
+                                                                    <button
+                                                                        onClick={() => router.push({
+                                                                            pathname: './Resp',
+                                                                            query: {
+                                                                                nombreImagen: nombreImagen,
+                                                                                nombreProducto: preguntasGrupo[0].nombreProducto,
+                                                                                uidcomprador: preguntasGrupo[0].uidcomprador,
+                                                                                uidvendedor: preguntasGrupo[0].uidvendedor,
+                                                                                idproducto: preguntasGrupo[0].idProductoRuta,
+                                                                                idpregunta: preguntasGrupo[0].idpregunta,
+                                                                            }
+                                                                        })}
+                                                                        className='ComprarButton'
+                                                                    >
+                                                                        Responder
+                                                                    </button>
+                                                                )}
                                                                 <button
                                                                     className='EliminarPreguntaButton'
                                                                     onClick={() => eliminarPregunta(preguntasGrupo[0].idpregunta)}

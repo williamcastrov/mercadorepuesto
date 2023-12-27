@@ -148,11 +148,11 @@ export default function Resp() {
                                     <Grid container>
                                         <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'}>
                                             <div className='titleTproblema'>
-                                                <p>Preguntar al vendedor</p>
+                                                <p>Responder al comprador</p>
                                             </div>
                                             <Grid className="MainContOtraPreg" item xs={12} md={12} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'} >
                                                 <div className="OtraPregContainer">
-                                                    <p className="titleOtraPregContainer">Escribe tu pregunta para el vendedor aquí</p>
+                                                    <p className="titleOtraPregContainer">Escribe tu respuesta para el comprador aquí</p>
                                                     <div>
                                                         <input
                                                             type="text"

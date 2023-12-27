@@ -29046,10 +29046,12 @@ color: #2D2E83;
     height: 16rem;
     display: flex;
     justify-content: center; 
+    
 }
 .contImgRighCalif img{
     height: 150px;
     width: 150px;
+    cursor: pointer;
 }
 .continfocalifimg{
     display: flex; 
@@ -29060,6 +29062,7 @@ color: #2D2E83;
     font-size: 20px;
     color: #2D2E83;
     font-weight: 600;
+    cursor: pointer;
 }
 .contInfoProdComprCalif{
     border-left: 3px solid #E1E2EC;
@@ -29922,6 +29925,11 @@ color: #2D2E83;
     width: 100%;
     height: auto;
     object-fit: cover; 
+    cursor: pointer;
+}
+.hasRespP{
+    font-size: 18px;
+    color: #2D2E83;
 }
 .ContProductHistorial img {
     max-height: 150px;
@@ -29964,6 +29972,8 @@ color: #2D2E83;
 .buttonsPrgsUsers {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .MainContPregResps {

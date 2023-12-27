@@ -161,10 +161,10 @@ export default function OtraPreg() {
  
                                         <Grid container>
                                             <Grid item xs={12} md={4} className="contImgRighCalif" mt={'2rem'}>
-                                                <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} alt={nombreProducto} />
+                                                <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} alt={nombreProducto}   onClick={() => router.push(`/product/${idproducto}`)}/>
                                             </Grid>
                                             <Grid item xs={12} md={8} className="continfocalifimg" flexDirection={'column'}>
-                                                <p className="pNameProductCalif">{nombreProducto}</p>
+                                                <p className="pNameProductCalif" onClick={() => router.push(`/product/${idproducto}`)}>{nombreProducto}</p>
                                             </Grid>
 
                                         </Grid>

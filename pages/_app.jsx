@@ -286,7 +286,7 @@ function App({ Component, pageProps, props }) {
                 );
 
                 if (dispositivoExistente) {
-                    console.log("El dispositivo ya está vinculado y no se puede agregar de nuevo");
+                    //console.log("El dispositivo ya está vinculado y no se puede agregar de nuevo");
                 } else {
                     let params = {
                         iddispositivo: device,
@@ -299,7 +299,7 @@ function App({ Component, pageProps, props }) {
                             url: URL_BD_MR + "92",
                             params,
                         });
-                        console.log("Se agregó el dispositivo");
+                        //console.log("Se agregó el dispositivo");
                         // Actualiza la lista de dispositivos vinculados
                         setDispositivosVinculados([...dispositivosVinculados, params]);
                     } catch (error) {

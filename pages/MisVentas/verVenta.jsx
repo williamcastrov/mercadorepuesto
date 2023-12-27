@@ -54,6 +54,26 @@ export default function verVenta() {
             block: "start",
         });
     }, []);
+
+
+
+
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileInput = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
+    const handleUpload = () => {
+        // Aquí puede agregar la lógica para cargar el archivo
+        console.log(selectedFile);
+    };
+
+
+
+
+
+
     return (
         <>
             <div ref={irA}>
@@ -134,10 +154,24 @@ export default function verVenta() {
                                                 </div>
                                                 <div className="subtitlesverVenta">
                                                     <div className="divButtonAdjFact">
-                                                        <button
-                                                        >
-                                                            Adjuntar factura
-                                                        </button>
+                                                        <div>
+                                                            <input
+                                                                accept=".pdf,.jpg,.jpeg,.png"
+                                                                id="contained-button-file"
+                                                                multiple
+                                                                type="file"
+                                                                onChange={handleFileInput}
+                                                                style={{ display: 'none' }}
+                                                            />
+                                                            <label htmlFor="contained-button-file">
+                                                                <button variant="contained" component="span">
+                                                                    Adjuntar factura
+                                                                </button>
+                                                            </label>
+                                                            <Button variant="contained" onClick={handleUpload}>
+                                                                Cargar archivo
+                                                            </Button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,8 +223,7 @@ export default function verVenta() {
                                             </div>
 
                                             <div className="subtitlesvercompra iconVerVenta2">
-                                                <IoIosInformationCircle className="iconVerVenta" size={29}/>
-
+                                                <IoIosInformationCircle className="iconVerVenta" size={29} />
                                                 <p>Este dinero estará disponible en 2 días</p>
                                             </div>
 

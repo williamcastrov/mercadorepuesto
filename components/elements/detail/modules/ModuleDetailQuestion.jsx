@@ -32,6 +32,7 @@ const ModuleDetailQuestion = ({ product }) => {
     const [textoMensajes, setTextoMensajes] = useState(false);
     const [actualiza, setActualiza] = useState(false);
     const [listaPreguntasVendedor, setListaPreguntasVendedor] = useState([]);
+console.log("producto de module detail:", product)
 
     useEffect(() => {
         //const datosusuario = JSON.parse(localStorage.getItem("datauser"));
