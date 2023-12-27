@@ -419,7 +419,10 @@ export default function preguntasSobreMisProductos() {
                                                         <Grid item xs={12} md={6} className="subContEstadoMensaje2">
                                                             <div className="fechaYrespuestaCont">
                                                                 <p>{new Date(preguntasGrupo[preguntasGrupo.length - 1].fechacreacion).toISOString().split('T')[0]}</p>
-                                                                <button className={`EstadoMsjButton ${hayRespuesta ? 'respondido' : ''}`}>
+                                                                <button
+                                                                    className={`EstadoMsjButton ${hayRespuesta ? 'respondido' : 'EstadoMsjButton2'}`}
+                                                                    disabled={!hayRespuesta}
+                                                                >
                                                                     {hayRespuesta ? 'Respondido' : 'Sin respuesta'}
                                                                 </button>
                                                             </div>

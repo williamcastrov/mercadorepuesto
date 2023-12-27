@@ -33,7 +33,7 @@ export default function OtraPreg() {
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
-    };
+    }; 
 
     console.log('uidcomprador:', uidcomprador);
     console.log('uidvendedor:', uidvendedor);

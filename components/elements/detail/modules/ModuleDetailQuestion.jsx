@@ -7,26 +7,8 @@ import { URL_BD_MR } from "../../../../helpers/Constants";
 import { FaCheckCircle } from "react-icons/fa";
 import ModalMensajes from "../../../../pages/mensajes/ModalMensajes";
 import { useRouter } from "next/router";
-
-
-let validaword = [
-    { word: "www" },
-    { word: "carrera" },
-    { word: "avenida" },
-    { word: "#" },
-    { word: "N°" },
-    { word: "@" },
-    { word: ".com" },
-    { word: ".co" },
-    { word: ".net" },
-    { word: "contactanos" },
-    { word: "contacto" },
-    { word: "llama" },
-    { word: "llamar" },
-    { word: "telefono" },
-    { word: "celular" },
-    { word: "movil" },
-];
+ 
+ 
 
 // Change your description content here
 const ModuleDetailQuestion = ({ product }) => {
@@ -35,6 +17,15 @@ const ModuleDetailQuestion = ({ product }) => {
     const [showModalMensajes, setShowModalMensajes] = useState(false);
     const [actualiza, setActualiza] = useState(false);
     const [listaPreguntasVendedor, setListaPreguntasVendedor] = useState([]);
+    const router = useRouter();
+    const theme = useTheme();
+    const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+    const [confirmationOpen, setConfirmationOpen] = useState(false); 
+    const [comentario, setComentario] = useState('');
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModal, setShowModal] = useState(false);
     console.log("producto de module detail:", product.usuario)
 
  
@@ -45,18 +36,8 @@ const ModuleDetailQuestion = ({ product }) => {
 
     const verMenos = () => {
         setMostrarMas(false);
-    };
+    }; 
 
-    
-    const router = useRouter();
-    const theme = useTheme();
-    const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
-    const [confirmationOpen, setConfirmationOpen] = useState(false); 
-    const [comentario, setComentario] = useState('');
-    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
-    const [tituloMensajes, setTituloMensajes] = useState("");
-    const [textoMensajes, setTextoMensajes] = useState("");
-    const [showModal, setShowModal] = useState(false);
 
     //cerrar modal advertencia
     const handleModalClose = () => {
@@ -152,22 +133,7 @@ const ModuleDetailQuestion = ({ product }) => {
     const handleConfirmationSuccess = (route) => () => {
         router.push(route);
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
