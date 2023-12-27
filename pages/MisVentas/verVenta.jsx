@@ -103,7 +103,7 @@ export default function verVenta() {
                                                     <div className="divButtonVerVenta">
                                                         <button
                                                         >
-                                                            Rastrear envío
+                                                            Imprimir etiqueta
                                                         </button>
                                                     </div>
                                                 </div>

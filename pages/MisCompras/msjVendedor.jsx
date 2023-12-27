@@ -12,6 +12,8 @@ import {
     InputAdornment,
     TextField,
     InputBase,
+    Input,
+    Button,
 } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
@@ -34,9 +36,10 @@ import { LuSendHorizonal } from "react-icons/lu";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import shortid from "shortid";
+import shortid from "shortid"; 
+ 
 
-export default function msjVendedor() {
+export default function msjVendedor({ UsuarioVendedor }) {
     //Consts measured, 80% and in md 100%.
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -74,7 +77,7 @@ export default function msjVendedor() {
         }
     }
 
- 
+
     //cerrar modal si no hay nada en el input
     const handleModalClose = () => {
         setShowModal(false);
@@ -296,7 +299,7 @@ export default function msjVendedor() {
 
             const mensajes = response.data.listarmensajes;
 
-            
+
             // Ordenar los mensajes por fecha de creación
             const mensajesOrdenados = mensajes.sort(
                 (a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion)
@@ -316,7 +319,7 @@ export default function msjVendedor() {
 
 
 
-    
+
 
     // Función para desplazar hacia abajo cuando se actualizan los mensajes
     const scrollToBottom = () => {
@@ -435,6 +438,49 @@ export default function msjVendedor() {
 
 
 
+
+
+    const enviarMensaje = async (comentario) => {
+        let params = {
+            idproducto: UsuarioVendedor,
+            usuariocompra: datosusuarios.uid,
+            usuariovende: UsuarioVendedor,
+            estado: datosusuarios.uid === UsuarioVendedor ? 30 : 29,
+            comentario: comentario
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "83",
+                params: params
+            });
+
+            if (res.data) {
+                console.log("Mensaje enviado exitosamente");
+            }
+        } catch (error) {
+            console.error("Error al enviar el mensaje", error);
+        }
+    }
+
+
+
+
+    // Función para identificar si el usuario loggeado corresponde al usuariovende
+    const esUsuarioVende = () => {
+        return datosusuarios.uid === detallesProducto.usuario;
+    }
+
+    // Añade un estado para el comentario
+    const [comentario, setComentario] = useState('');
+
+    // Función para manejar el cambio en el Input
+    const handleInputChange = (event) => {
+        setComentario(event.target.value);
+    }
+
+
     return (
         <div ref={irA}>
             <div>
@@ -448,6 +494,23 @@ export default function msjVendedor() {
                                         <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? "100%" : "90%", }} flexDirection={"column"}>
                                             <div className="titleTproblema">
                                                 <p>Contactar con el vendedor</p>
+                                                <div>
+                                                    {/* Input para el comentario */}
+                                                    <Input
+                                                        value={comentario}
+                                                        onChange={handleInputChange}
+                                                        placeholder="Escribe un comentario..."
+                                                    />
+
+                                                    {/* Botón para enviar el comentario */}
+                                                    <Button
+                                                        onClick={() => enviarMensaje(comentario)}
+                                                        disabled={!comentario}
+                                                    >
+                                                        Enviar
+                                                    </Button>
+
+                                                </div>
                                             </div>
                                             <Grid container className="calificSubC contPrincMsjVend" item xs={12} md={12} sx={{ width: isMdDown ? "100%" : "90%", }} flexDirection={"column"}>
                                                 <div className="fstdivmsjV">
@@ -528,7 +591,7 @@ export default function msjVendedor() {
                                                         <div className="haventMsjsDisples">
                                                             <p>
                                                                 No hay mensajes disponibles
-                                                            </p> 
+                                                            </p>
                                                         </div>
                                                     )}
                                                 </div>

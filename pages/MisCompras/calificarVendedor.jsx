@@ -249,7 +249,7 @@ export default function calificarVendedor() {
             params,
         })
             .then((res) => {
-                console.log("Respuesta completa del servidor:", res.data);
+                console.log("Mis calificaciones: ", res.data);
                 setCalificaciones(res.data.listarcalprdvendedor);
 
                 // Comprueba si el vendedor ya ha sido calificado

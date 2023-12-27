@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase, Input, Button } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
@@ -11,13 +11,13 @@ import { Router } from 'next/router';
 import { useDispatch, useSelector } from "react-redux";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 
- 
+
 
 export default function misCompras() {
 
 
 
-    const [UidUser, setUidUser] = useState(""); 
+    const [UidUser, setUidUser] = useState("");
     const [DatosUser, setDatosUser] = useState([]);
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("DAT USER MIS COMPRAS : ", datosusuarios);
@@ -30,6 +30,7 @@ export default function misCompras() {
     const [searchTerm, setSearchTerm] = useState("");
     //PosiciónTopPage
     const irA = useRef(null);
+    const [detallesProducto, setDetallesProducto] = useState(null);
 
 
 
@@ -54,6 +55,7 @@ export default function misCompras() {
         };
         obtenerUidUsuario();
     }, [datosusuarios]);
+
 
 
 
@@ -100,6 +102,7 @@ export default function misCompras() {
                             res.data.listarunadireccion.map(async (direccion) => {
                                 // Obtén los detalles del producto
                                 const detallesProducto = await obtenerNombreProducto(direccion.idproducto);
+                                setDetallesProducto(detallesProducto);
 
                                 // Obtén el nombre del vendedor
                                 const detallesVendedor = await obtenerNombreVendedor(detallesProducto.usuario);
@@ -112,6 +115,7 @@ export default function misCompras() {
                                     fechadepago: direccion.fechadepago.slice(0, 10),
                                     nuevoValor: direccion.preciodeventa + direccion.precioenvio,
                                     nombreProducto: detallesProducto.nombreProducto,
+                                    UsuarioVendedor: detallesProducto.usuario,
                                     salePrice: detallesProducto.salePrice,
                                     nombreImagen: detallesProducto.nombreImagen,
                                     nombreVendedor: detallesVendedor.nombreVendedor,
@@ -135,8 +139,7 @@ export default function misCompras() {
                 });
         };
         leerDirecciones();
-    }, [UidUser]);
-
+    }, [UidUser]); 
     //función para obtener datos del producto
     async function obtenerNombreProducto(idprd) {
         let params = {
@@ -148,7 +151,7 @@ export default function misCompras() {
                 method: "post",
                 url: URL_BD_MR + "18",
                 params,
-            }); 
+            });
 
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;
@@ -202,6 +205,28 @@ export default function misCompras() {
     }, []);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    // Función para enviar mensajes
+
+
+
+
+
+
+
+
+
     return (
         <>
             <div ref={irA}>
@@ -213,6 +238,7 @@ export default function misCompras() {
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <div className='titlesformsUsers'>
                                         <p>Mis compras</p>
+
                                     </div>
                                 </Grid>
                                 <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
@@ -327,7 +353,7 @@ export default function misCompras() {
                                         ))
                                     ) : (
                                         <p>No se encontraron resultados</p>
-                                    )}
+                                    )}  
                                 </Grid>
                             </div>
                         </div>
