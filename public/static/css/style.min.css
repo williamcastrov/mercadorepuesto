@@ -30125,6 +30125,9 @@ color: #2D2E83;
     text-decoration: underline;
     cursor: pointer;
 }
+.verMasTexto:hover{
+    text-decoration: none;
+}
 .OtraPregContainer{
     display: flex;
     flex-direction: column;
