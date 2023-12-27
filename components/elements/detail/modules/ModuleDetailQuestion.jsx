@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, useTheme, useMediaQuery} from "@mui/material";
 import ModalMensajesQuestionSeller from "../../../../pages/mensajes/ModalMensajesQuestionSeller";
 import axios from "axios";
+import { URL_BD_MR } from "../../../../helpers/Constants";
+import { FaCheckCircle } from "react-icons/fa";
+import ModalMensajes from "../../../../pages/mensajes/ModalMensajes";
+import { useRouter } from "next/router";
+
 
 let validaword = [
     { word: "www" },
     { word: "carrera" },
     { word: "avenida" },
-    { word: "#" }, 
+    { word: "#" },
     { word: "N°" },
     { word: "@" },
     { word: ".com" },
@@ -28,35 +33,11 @@ const ModuleDetailQuestion = ({ product }) => {
     const [mostrarMas, setMostrarMas] = useState(false);
     const [preguntaVendedor, setPreguntaVendedor] = useState(null);
     const [showModalMensajes, setShowModalMensajes] = useState(false);
-    const [tituloMensajes, setTituloMensajes] = useState(false);
-    const [textoMensajes, setTextoMensajes] = useState(false);
     const [actualiza, setActualiza] = useState(false);
     const [listaPreguntasVendedor, setListaPreguntasVendedor] = useState([]);
-console.log("producto de module detail:", product)
+    console.log("producto de module detail:", product.usuario)
 
-    useEffect(() => {
-        //const datosusuario = JSON.parse(localStorage.getItem("datauser"));
-        const grabarPreguntaVendedor = async () => {
-            let params = {
-                uid: product.usuario,
-            };
-
-            await axios({
-                method: "post",
-                url: "https://gimcloud.com.co/mrp/api/52",
-                params,
-            })
-                .then((res) => {
-                    console.log("DAT: ", res.data);
-                    setActualiza(false);
-                    setListaPreguntasVendedor(res.data.listarpreguntavend);
-                })
-                .catch(function (error) {
-                    console.log("Error leyendo preguntas al vendedor");
-                });
-        };
-        grabarPreguntaVendedor();
-    }, [actualiza]);
+ 
 
     const verMas = () => {
         setMostrarMas(true);
@@ -66,115 +47,130 @@ console.log("producto de module detail:", product)
         setMostrarMas(false);
     };
 
-    const saveQuestion = () => {
-        //const datosusuario = JSON.parse(localStorage.getItem("datauser"));
+    
+    const router = useRouter();
+    const theme = useTheme();
+    const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
+    const [confirmationOpen, setConfirmationOpen] = useState(false); 
+    const [comentario, setComentario] = useState('');
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
-        if (!preguntaVendedor) {
-            setShowModalMensajes(true);
-            setTituloMensajes("Tu pregunta no cumple con nuestras politicas");
-            setTextoMensajes("Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas.");
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
+    console.log('uidcomprador:', datosusuarios.uid);
+    console.log('uidvendedor:', product.usuario);
+    console.log('idproducto:', product.id);
+
+    const palabrasProhibidas = ["www", "carrera", "avenida", "#", "N°", "@", ".com", ".co", ".net", "contactanos", "contacto", "llama", "llamar", "telefono", "celular", "movil", "email", "gmail"];
+
+
+    const validarComentario = () => {
+        // Verifica que el comentario no esté vacío
+        if (comentario.length === 0) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('Tu mensaje está vacío. Por favor, escribe tu pregunta.');
+            setShowModal(true);
+            return false;
+        }
+
+        // Verifica que el comentario no sea demasiado largo
+        if (comentario.length > 130) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas.');
+            setShowModal(true);
+            return false;
+        }
+
+        // Verifica que el comentario no contenga palabras prohibidas
+        for (let palabra of palabrasProhibidas) {
+            if (comentario.toLowerCase().includes(palabra)) {
+                setTituloMensajes('Validación de mensaje');
+                setTextoMensajes('Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas.');
+                setShowModal(true);
+                return false;
+            }
+        }
+
+        // Verifica que el comentario no contenga 5 números seguidos
+        const numerosSeguidos = comentario.match(/\d{5,}/);
+        if (numerosSeguidos) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas.');
+            setShowModal(true);
+            return false;
+        }
+
+        return true;
+    };
+
+
+    const enviarPregunta = async () => {
+        if (!validarComentario()) {
             return;
         }
 
-        let control = false;
+        const idpregunta = Math.floor(Math.random() * 10000000); // Genera un número aleatorio de hasta 7 dígitos
 
-        validaword &&
-            validaword.map((item, index) => {
-                let texto = preguntaVendedor.toLowerCase();
-                let valid = texto.includes(item.word);
-                if (valid) {
-                    control = true;
-                    setShowModalMensajes(true);
-                    setTituloMensajes("Tu pregunta no cumple con nuestras politicas");
-                    setTextoMensajes(
-                        "Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas."
-                    );
-                    return;
-                }
+        let params = {
+            idprd: product.id, // Reemplaza esto con el idprd correspondiente
+            uidcomprador: datosusuarios.uid,
+            uidvendedor: product.usuario,
+            idpregunta: idpregunta.toString(),
+            comentario: comentario,
+            estado: 80
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "51", // Reemplaza esto con la URL correcta
+                params,
             });
 
-        let validacaracteres;
-        let haycaracterid = false;
-        let valornum = "";
-        let pagina = "";
+            // Aquí puedes manejar la respuesta del servidor
+            console.log(res.data);
 
-        for (var i = 0; i < preguntaVendedor.length; i++) {
-            validacaracteres = preguntaVendedor.substr(i, 1);
+            setComentario("");
 
-            //console.log("VALIDA : ", validacaracteres);
-            if (
-                validacaracteres == 0 ||
-                validacaracteres == 1 ||
-                validacaracteres == 2 ||
-                validacaracteres == 3 ||
-                validacaracteres == 4 ||
-                validacaracteres == 5 ||
-                validacaracteres == 6 ||
-                validacaracteres == 7 ||
-                validacaracteres == 8 ||
-                validacaracteres == 9
-            ) {
-                console.log("CARACTER : ", validacaracteres);
-                valornum = valornum + validacaracteres;
-            }
 
-            if (valornum.length > 5) {
-                control = true;
-                setShowModalMensajes(true);
-                setTituloMensajes("Tu pregunta no cumple con nuestras politicas");
-                setTextoMensajes(
-                    "Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas."
-                );
-                return;
-            }
+            setTituloMensajes('Pregunta enviada');
+            setTextoMensajes('Tu Pregunta ha sido enviada al vendedor');
+            setShowModal(true);
 
-            if (validacaracteres == "@") {
-                control = true;
-                setShowModalMensajes(true);
-                setTituloMensajes("Tu pregunta no cumple con nuestras politicas");
-                setTextoMensajes(
-                    "Por tu seguridad y la de tu compra, te recomendamos no incluir datos de contacto dentro de tus preguntas."
-                );
-                return;
-            }
-        }
-
-        //console.log("PRODC: ", product)
-        //console.log("DATOS USUARIO: ", datosusuario)
-        if (!control) {
-            const grabarPreguntaVendedor = async () => {
-                let params = {
-                    uid: product.usuario,
-                    comentario: preguntaVendedor,
-                };
-
-                await axios({
-                    method: "post",
-                    url: "https://gimcloud.com.co/mrp/api/51",
-                    params,
-                })
-                    .then((res) => {
-                        //console.log("DAT: ", res.data);
-                        if (res.data.type == 1) {
-                            setShowModalMensajes(true);
-                            setTituloMensajes("Información del vendedor");
-                            setTextoMensajes(
-                                "Tu Pregunta ha sido enviada al vendedor"
-                            );
-                        }
-                        setActualiza(true);
-                    })
-                    .catch(function (error) {
-                        console.log("Error grabando pregunta vendedor");
-                    });
-            };
-            grabarPreguntaVendedor();
+        } catch (error) {
+            console.error("Error al enviar la pregunta", error);
         }
     };
 
-    const handleChange = (dat) => {
-        setPreguntaVendedor(dat);
+    //router push si los datos son colocados correctamente sale esto en el dialog
+    const handleConfirmationSuccess = (route) => () => {
+        router.push(route);
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div className="mlmenos8 mtmenos15">
@@ -185,6 +181,46 @@ console.log("producto de module detail:", product)
                 mensaje={textoMensajes}
                 tipo="1"
             />
+            <Dialog
+                className='dialogDatsGuardados'
+                open={confirmationOpen}
+                PaperProps={{
+                    style: {
+                        width: isMdDown ? '80%' : '35%',
+                        backgroundColor: 'white',
+                        border: '2px solid gray',
+                        padding: '1.4rem',
+                        borderRadius: '10px'
+                    },
+                }}
+            >
+                <DialogTitle className='dialogtitleDtsGUardados' >
+                    <FaCheckCircle size={37} style={{ color: '#10c045', marginLeft: '-17px', marginRight: '8px' }} />
+                    <p className='dialogtituloP'>Pregunta enviada con exito!</p>
+                </DialogTitle>
+                <DialogContent className='dialogContentDatsGuardados'>
+                    <p className='PdialogContent'>Tu pregunta fue enviada con exito.</p>
+                </DialogContent>
+                <DialogActions className='DialogActionsDatsGuardados'>
+                    <div className='div1buttonDialog' >
+                        <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('./preguntasRealizadasPorUsuario')} >
+                            Ir a mis preguntas
+                        </button>
+                    </div>
+                    <div className='div1buttonDialog' >
+                        <button className='button1DialogDatsGuardados' onClick={handleConfirmationSuccess('/')} >
+                            Ir al inicio
+                        </button>
+                    </div>
+                </DialogActions>
+            </Dialog>
+            <ModalMensajes
+                shown={showModal}
+                close={handleModalClose}
+                titulo={tituloMensajes}
+                mensaje={textoMensajes}
+                tipo="error"
+            />
             <Grid container alignItems="center" spacing={1}>
                 <Grid item xs={12} md={12} lg={12}>
                     <a className="ml-10 tamañofuentetab colorbase">
@@ -194,16 +230,18 @@ console.log("producto de module detail:", product)
             </Grid>
 
             <Grid container alignItems="center" spacing={1}>
+                <p>{product.id}</p>
                 <Grid item xs={8} md={8} lg={8}>
                     <input
                         className="inputquestionseller"
-                        onChange={(e) => handleChange(e.target.value)}
+                        value={comentario}
+                        onChange={(e) => setComentario(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={2} md={2} lg={2}>
                     <div
                         className="botonsendquestionseller"
-                        onClick={() => saveQuestion()}>
+                        onClick={enviarPregunta}>
                         <a className="textoenviar">Enviar</a>
                     </div>
                 </Grid>
@@ -229,50 +267,50 @@ console.log("producto de module detail:", product)
 
             {listaPreguntasVendedor.length > 0
                 ? listaPreguntasVendedor &&
-                  listaPreguntasVendedor.map((item, index) => {
-                      return (
-                          <div>
-                              <div>
-                                  {index < 3 ? (
-                                      <Grid
-                                          container
-                                          alignItems="center"
-                                          spacing={1}>
-                                          <Grid item xs={12} md={12} lg={12}>
-                                              <a className="textopreguntavendedor">
-                                                  {item.comentario} ?
-                                              </a>
-                                          </Grid>
-                                          <Grid item xs={12} md={12} lg={12}>
-                                              <div className="textorespuestavendedor">
-                                                  {item.respuestavenedor}
-                                              </div>
-                                          </Grid>
-                                      </Grid>
-                                  ) : null}
-                              </div>
-                              <div>
-                                  {index > 2 && mostrarMas ? (
-                                      <Grid
-                                          container
-                                          alignItems="center"
-                                          spacing={1}>
-                                          <Grid item xs={12} md={12} lg={12}>
-                                              <a className="textopreguntavendedor">
-                                                  {item.comentario} ?
-                                              </a>
-                                          </Grid> 
-                                          <Grid item xs={12} md={12} lg={12}>
-                                              <div className="textorespuestavendedor">
-                                                  {item.respuestavenedor}
-                                              </div>
-                                          </Grid>
-                                      </Grid>
-                                  ) : null}
-                              </div>
-                          </div>
-                      );
-                  })
+                listaPreguntasVendedor.map((item, index) => {
+                    return (
+                        <div>
+                            <div>
+                                {index < 3 ? (
+                                    <Grid
+                                        container
+                                        alignItems="center"
+                                        spacing={1}>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <a className="textopreguntavendedor">
+                                                {item.comentario} ?
+                                            </a>
+                                        </Grid>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <div className="textorespuestavendedor">
+                                                {item.respuestavenedor}
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+                                ) : null}
+                            </div>
+                            <div>
+                                {index > 2 && mostrarMas ? (
+                                    <Grid
+                                        container
+                                        alignItems="center"
+                                        spacing={1}>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <a className="textopreguntavendedor">
+                                                {item.comentario} ?
+                                            </a>
+                                        </Grid>
+                                        <Grid item xs={12} md={12} lg={12}>
+                                            <div className="textorespuestavendedor">
+                                                {item.respuestavenedor}
+                                            </div>
+                                        </Grid>
+                                    </Grid>
+                                ) : null}
+                            </div>
+                        </div>
+                    );
+                })
                 : null}
 
             {!mostrarMas ? (
