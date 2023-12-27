@@ -31,7 +31,7 @@ export default function calificarVendedor() {
     const [showCalificacionModal, setShowCalificacionModal] = useState(false); //Modal que avisa si no puso calificación
     const [showComentarioModal, setShowComentarioModal] = useState(false);//Modal que avisa si no puso comeents
     const [showAmbosModal, setShowAmbosModal] = useState(false);//Modal que avisa si no puso nada
-
+    const [vendedorCalificado, setVendedorCalificado] = useState(false);
     const [calificacionSeleccionada, setCalificacionSeleccionada] = useState(0);
     const [comentario, setComentario] = useState("");
 
@@ -43,7 +43,7 @@ export default function calificarVendedor() {
     const contadorCaracteres = `${comentario.length}/180`;
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("DAT USER CALIFICAR VENDEDOR: ", datosusuarios.uid);
-
+    const [calificacionVendedor, setCalificacionVendedor] = useState(0);
 
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
@@ -218,70 +218,81 @@ export default function calificarVendedor() {
             });
     };
 
-    // Luego, usa el idproducto del estado en lugar de producto.idproducto
     const manejarEnvioCalificacion = () => {
         if (validarCalificacion()) {
-            enviarCalificacion(idproducto);
+            enviarCalificacion(idproducto).then(() => {
+                listarUltimaCalificacionVendedor(idproducto);
+            });
         }
     };
 
-
-
-    const [fechacreacion, setFechacreacion] = useState('');
-    const [calificacion, setCalificacion] = useState('');
-    const [calificaciones, setCalificaciones] = useState([]);
-
-    //estados para verificar si ya están calificados
-    const [vendedorCalificado, setVendedorCalificado] = useState(false);
-    const [calificacionVendedor, setCalificacionVendedor] = useState(0);
-
-
-
-    const obtenerCalificaciones = async (uidvendedor) => {
+    const listarUltimaCalificacionVendedor = async (idproducto) => {
+        const uidvendedor = await obtenerUidVendedor(idproducto);
         let params = {
-            idcomprador: datosusuarios.uid,
-            uidvendedor: uidvendedor,
+            uidcomprador: datosusuarios.uid,
         };
 
         await axios({
             method: "post",
-            url: `${URL_BD_MR}502`,
+            url: `${URL_BD_MR}501`,
             params,
         })
             .then((res) => {
-                console.log("Mis calificaciones: ", res.data);
-                setCalificaciones(res.data.listarcalprdvendedor);
+                console.log("Mis calificaciones como comprador: ", res.data);
+                // Filtra las calificaciones para el vendedor específico y excluye las que tienen uidvendedor nulo
+                const calificacionesVendedor = res.data.listarcalprdcompra.filter(calificacion => calificacion.uidvendedor === uidvendedor && calificacion.uidvendedor !== null);
 
                 // Comprueba si el vendedor ya ha sido calificado
-                const vendedorCalificado = res.data.listarcalprdvendedor ? res.data.listarcalprdvendedor.length > 0 : false;
+                const vendedorCalificado = calificacionesVendedor.length > 0;
                 setVendedorCalificado(vendedorCalificado);
 
-                // Si ya ha sido calificado, establece el comentario en el textarea y la calificación en los íconos con los datos de la última calificación
                 if (vendedorCalificado) {
-                    const ultimaCalificacion = obtenerUltimaCalificacion(res.data.listarcalprdvendedor);
+                    // Obtiene la última calificación
+                    const ultimaCalificacion = obtenerUltimaCalificacion(calificacionesVendedor);
+                    console.log("Mi última calificación para este vendedor: ", ultimaCalificacion);
+
+                    // Establece el comentario y la calificación con los datos de la última calificación
                     setComentario(ultimaCalificacion.comentario);
-                    setCalificacionVendedor(ultimaCalificacion.calificacion);
+                    setCalificacionSeleccionada(ultimaCalificacion.calificacion);
+                } else {
+                    console.log("Aún no has calificado a este vendedor.");
                 }
             })
             .catch(function (error) {
                 console.error('Error al obtener las calificaciones del vendedor:', error);
             });
-    };
-
-    // Luego, cuando llames a obtenerCalificaciones, asegúrate de pasar el uidvendedor correcto
+    }; 
     useEffect(() => {
-        const uidvendedor = producto.usuario; // Recupera el UID del usuario por medio de producto.usuario
-        obtenerCalificaciones(uidvendedor);
-    }, []);
+        listarUltimaCalificacionVendedor(idproducto);
+    }, [idproducto]);
 
-
-    //Funcion para obtener ultima calificacion
     const obtenerUltimaCalificacion = (calificaciones) => {
         // Ordena las calificaciones por fecha en orden descendente
         const calificacionesOrdenadas = [...calificaciones].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
         // Devuelve la primera calificación del array ordenado
         return calificacionesOrdenadas[0];
     };
+
+
+
+
+    useEffect(() => {
+        if (vendedorCalificado) {
+            console.log("El vendedor ya ha sido calificado.");
+        }
+    }, [vendedorCalificado]);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     useEffect(() => {
@@ -292,7 +303,6 @@ export default function calificarVendedor() {
     }, []);
 
 
-    const [ultimaCalificacion, setUltimaCalificacion] = useState(null);
     return (
         <div ref={irA}>
             <div>
@@ -306,10 +316,6 @@ export default function calificarVendedor() {
                                         <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'}>
                                             <div className='titleTproblema'>
                                                 <p>Calificar vendedor</p>
-                                                <div>
-                                                    {console.log("Estado de calificaciones en el renderizado:", calificaciones)}
-                                                    {/* El resto de tu código de renderizado aquí */}
-                                                </div>
                                             </div>
                                             <Grid className="calificSubC" item xs={12} md={12} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'} >
                                                 <form style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column' }}>
@@ -357,7 +363,7 @@ export default function calificarVendedor() {
                                                         ) : (
                                                             <button
                                                                 style={{
-                                                                    width: '170px', // Ajusté el valor de ancho
+                                                                    width: '170px',
                                                                     backgroundColor: '#2D2E83',
                                                                     color: 'white',
                                                                     borderRadius: '10px',

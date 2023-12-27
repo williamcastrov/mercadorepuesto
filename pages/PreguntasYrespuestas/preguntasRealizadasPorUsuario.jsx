@@ -418,11 +418,18 @@ export default function preguntasRealizadasUsuario() {
                                                             <p>{new Date(preguntasGrupo[preguntasGrupo.length - 1].fechacreacion).toISOString().split('T')[0]}</p>
                                                             <div className="buttonsPrgsUsers">
                                                                 <button
+                                                                    onClick={() => router.push({
+                                                                        pathname: './OtraPreg',
+                                                                        query: {
+                                                                            nombreImagen: nombreImagen,
+                                                                            nombreProducto: preguntasGrupo[0].nombreProducto,
+                                                                            uidcomprador: preguntasGrupo[0].uidcomprador,
+                                                                            uidvendedor: preguntasGrupo[0].uidvendedor,
+                                                                            idproducto:  preguntasGrupo[0].idProductoRuta,
+                                                                        }
+                                                                    })}
                                                                     className='ComprarButton'
-                                                                    onClick={() => {
-                                                                        router.push(`/product/${idProductoRuta}?tab=4`);
-                                                                    }}
-                                                                >
+                                                                > 
                                                                     Hacer otra pregunta
                                                                 </button>
                                                                 <button

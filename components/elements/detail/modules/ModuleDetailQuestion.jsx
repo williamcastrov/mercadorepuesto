@@ -8,7 +8,7 @@ let validaword = [
     { word: "www" },
     { word: "carrera" },
     { word: "avenida" },
-    { word: "#" },
+    { word: "#" }, 
     { word: "N°" },
     { word: "@" },
     { word: ".com" },

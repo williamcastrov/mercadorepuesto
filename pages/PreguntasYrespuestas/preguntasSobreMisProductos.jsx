@@ -357,6 +357,7 @@ export default function preguntasSobreMisProductos() {
                                                 const nombreImagen = preguntasGrupo[0].nombreImagen;
                                                 const idProductoRuta = preguntasGrupo[0].idProductoRuta;
                                                 const hayRespuesta = preguntasRespuestasOrdenadas.some(preguntaRespuesta => preguntaRespuesta.estado === 81);
+                                               
 
                                                 return (
                                                     <Grid container key={idpregunta} className="contNewPregYrespt">
@@ -424,10 +425,18 @@ export default function preguntasSobreMisProductos() {
                                                             </div>
                                                             <div className="buttonsPrgsUsers">
                                                                 <button
+                                                                    onClick={() => router.push({
+                                                                        pathname: './Resp',
+                                                                        query: {
+                                                                            nombreImagen: nombreImagen,
+                                                                            nombreProducto: preguntasGrupo[0].nombreProducto,
+                                                                            uidcomprador: preguntasGrupo[0].uidcomprador,
+                                                                            uidvendedor: preguntasGrupo[0].uidvendedor,
+                                                                            idproducto: preguntasGrupo[0].idProductoRuta,
+                                                                            idpregunta: preguntasGrupo[0].idpregunta, 
+                                                                        }
+                                                                    })}
                                                                     className='ComprarButton'
-                                                                    onClick={() => {
-                                                                        router.push(`/product/${idProductoRuta}?tab=4`);
-                                                                    }}
                                                                 >
                                                                     Responder
                                                                 </button>
