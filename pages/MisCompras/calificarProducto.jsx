@@ -83,7 +83,7 @@ export default function calificarProducto() {
     };
 
 
-    //envío calificación vendedor con mvalidaciones
+    // envío calificación vendedor con validaciones
     const validarCalificacion = () => {
         if (!calificacionSeleccionada) {
             // Modal si no seleccionó calificación
@@ -122,47 +122,20 @@ export default function calificarProducto() {
             }
         }
 
-        // Nueva validación para números y el carácter "@"
-        let validacaracteres;
-        let valornum = "";
-        for (var i = 0; i < comentario.length; i++) {
-            validacaracteres = comentario.substr(i, 1);
-
-            if (
-                validacaracteres == 0 ||
-                validacaracteres == 1 ||
-                validacaracteres == 2 ||
-                validacaracteres == 3 ||
-                validacaracteres == 4 ||
-                validacaracteres == 5 ||
-                validacaracteres == 6 ||
-                validacaracteres == 7 ||
-                validacaracteres == 8 ||
-                validacaracteres == 9
-            ) {
-                valornum = valornum + validacaracteres;
-            }
-
-            if (valornum.length > 5) {
-                setTituloMensajes('Validación de mensaje');
-                setTextoMensajes('Tu mensaje contiene palabras o caracteres no permitidos.');
-                setShowModal(true);
-                return false;
-            }
-
-            if (validacaracteres == "@") {
-                setTituloMensajes('Validación de mensaje');
-                setTextoMensajes('Tu mensaje contiene palabras o caracteres no permitidos.');
-                setShowModal(true);
-                return false;
-            }
+        // Nueva validación para números consecutivos de más de 5 dígitos
+        let regex = /\d{6,}/;
+        if (regex.test(comentario)) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('Tu mensaje contiene palabras o caracteres no permitidos.');
+            setShowModal(true);
+            return false;
         }
 
         return true;
     };
 
     const enviarCalificacion = async (compatible) => {
-        const idproducto = producto.idproducto; 
+        const idproducto = producto.idproducto;
         const nuevaCalificacion = {
             idcomprador: datosusuarios.uid,
             compatible,
@@ -233,7 +206,7 @@ export default function calificarProducto() {
 
     useEffect(() => {
         obtenerCalificacionesProducto();
-    }, []); 
+    }, []);
     //Funcion para obtener ultima calificacion
     const obtenerUltimaCalificacion = (calificaciones) => {
         // Ordena las calificaciones por fecha en orden descendente
