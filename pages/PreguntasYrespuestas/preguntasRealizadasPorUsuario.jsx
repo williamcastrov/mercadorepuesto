@@ -119,9 +119,7 @@ export default function preguntasRealizadasUsuario() {
                 }, {});
 
                 // Ordena las preguntas por fecha de creación
-                const preguntasOrdenadas = Object.values(preguntasAgrupadas).map(preguntasGrupo => {
-                    return preguntasGrupo.sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion));
-                });
+                const preguntasOrdenadas = Object.values(preguntasAgrupadas).sort((a, b) => new Date(b[0].fechacreacion) - new Date(a[0].fechacreacion));
 
                 setPreguntas(preguntasOrdenadas);
 

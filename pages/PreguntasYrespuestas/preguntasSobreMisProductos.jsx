@@ -123,9 +123,7 @@ export default function preguntasSobreMisProductos() {
                 }, {});
 
                 // Ordena las preguntas por fecha de creación
-                const preguntasOrdenadas = Object.values(preguntasAgrupadas).map(preguntasGrupo => {
-                    return preguntasGrupo.sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion));
-                });
+                const preguntasOrdenadas = Object.values(preguntasAgrupadas).sort((a, b) => new Date(b[0].fechacreacion) - new Date(a[0].fechacreacion));
 
                 setPreguntas(preguntasOrdenadas);
 
@@ -150,8 +148,8 @@ export default function preguntasSobreMisProductos() {
     const [idPreguntaAEliminar, setIdPreguntaAEliminar] = useState(null);
 
 
-       //función para eliminar pregunta por el idpregunta que nos manda del renderizado
-       const eliminarPregunta = (idpregunta) => {
+    //función para eliminar pregunta por el idpregunta que nos manda del renderizado
+    const eliminarPregunta = (idpregunta) => {
         console.log("Preparando para eliminar pregunta con id:", idpregunta);
 
         // Guarda el id de la pregunta a eliminar
