@@ -227,12 +227,12 @@ export default function misVentas() {
                         <div className="container">
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account">
-                                <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '87%' }}>
                                     <div className='titlesformsUsers'>
                                         <p>Mis ventas</p>
                                     </div>
                                 </Grid>
-                                <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '87%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
                                             value={busqueda}
@@ -288,7 +288,7 @@ export default function misVentas() {
                                     </Grid>
                                 </Grid>
 
-                                <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
+                                <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '87%', marginTop: '2rem' }}>
 
                                     {ventasFiltradas.length > 0 ? (
                                         ventasFiltradas.map((venta, index) => (
@@ -326,7 +326,7 @@ export default function misVentas() {
                                                         <p className="nameVendedorMiCompra">Tienes x mensajes sin leer</p>
                                                     </div>
                                                     <div className="SendMsjVendandName">
-                                                        <p className="nameVendedorMiCompra">Enviar mensaje al comprador</p>
+                                                        <p className="nameVendedorMiCompra nameVendedorMiCompra2">Enviar mensaje al comprador</p>
                                                     </div>
                                                     <div className="divButtonVercompra2">
                                                         <button onClick={() => router.push({

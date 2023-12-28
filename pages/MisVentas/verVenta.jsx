@@ -194,8 +194,8 @@ export default function verVenta() {
                                         </Breadcrumbs>
 
                                     </Grid>
-                                    <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                        <Grid item xs={12} md={8} className="misVentasr" >
+                                    <Grid className="contDataUsersVerventa" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                        <Grid item xs={12} md={7} className="misVentasr" >
                                             <div >
                                                 <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}> Estado compra </p>
                                             </div>
@@ -216,11 +216,10 @@ export default function verVenta() {
                                                     <p>Detalles del envio</p>
                                                 </div>
                                                 <div className="subtitlesverVenta">
-                                                    <p>{venta.estadodeldespacho}</p>
+                                                    <p>Despacha el paquete en los puntos TCC autorizados</p>
                                                     <div className="divButtonVerVenta">
-                                                        <button >
-                                                            Rastrear envío
-
+                                                        <button>
+                                                            Imprimir etiqueta 
                                                         </button>
                                                     </div>
                                                 </div>
@@ -241,6 +240,7 @@ export default function verVenta() {
                                                     <p className="etiquetaContDetailsTitle">Datos del envío</p>
                                                     <p>{venta.estadodeldespacho}</p>
                                                     <p>{venta.direcciondeenvio} {venta.ciudadenvio}</p>
+                                                    <p>Medellín, Antioquia</p>
                                                 </div>
                                             </div>
 
@@ -272,7 +272,7 @@ export default function verVenta() {
                                             </div>
 
                                         </Grid>
-                                        <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
+                                        <Grid item xs={12} md={5} sx={{ paddingLeft: '4rem' }}>
                                             <div className="misVentasRigt1">
                                                 <p>{venta.estadodelaventa}</p>
                                                 <div className="subtitlesveVenta1">
@@ -326,10 +326,10 @@ export default function verVenta() {
                                     </Grid>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '4rem' }}>
 
-                                        <Grid className="ContPsubtitlesvercompra" item xs={12} md={8}>
+                                        <Grid className="ContPsubtitlesvercompra" item xs={12} md={7}>
 
                                         </Grid>
-                                        <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
+                                        <Grid item xs={12} md={5} sx={{ paddingLeft: '4rem' }}>
                                             <div className="datacomprVerVenta">
                                                 <p className="nameVendVer">{venta.nombreComprador} {venta.apellidoComprador}</p>
                                                 <p>Tienes 1 mensajes sin leer</p>
