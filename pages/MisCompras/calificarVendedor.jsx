@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase, Button } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
@@ -22,17 +22,19 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 
 
-export default function calificarVendedor() {
-
+export default function calificarVendedor() { 
     const [showModalMensajes, setShowModalMensajes] = useState(false);
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
     const [confirmationOpen, setConfirmationOpen] = useState(false); //Modal de confirmación si ingresó los datos
     const [showCalificacionModal, setShowCalificacionModal] = useState(false); //Modal que avisa si no puso calificación
     const [showComentarioModal, setShowComentarioModal] = useState(false);//Modal que avisa si no puso comeents
-    const [showAmbosModal, setShowAmbosModal] = useState(false);//Modal que avisa si no puso nada
-    const [vendedorCalificado, setVendedorCalificado] = useState(false);
+    const [showAmbosModal, setShowAmbosModal] = useState(false);//Modal que avisa si no puso nada 
     const [calificacionSeleccionada, setCalificacionSeleccionada] = useState(0);
+    const [vendedorCalificado, setVendedorCalificado] = useState(false);
+    const [comentarioExistente, setComentarioExistente] = useState('');
+    const [calificacionProducto, setCalificacionProducto] = useState(null);
+    const [calificacionExistente, setCalificacionExistente] = useState(null);
     const [comentario, setComentario] = useState("");
 
     //Consts measured, 80% and in md 100%.
@@ -40,11 +42,11 @@ export default function calificarVendedor() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md'));
     const irA = useRef(null);
     const router = useRouter();
-    const contadorCaracteres = `${comentario.length}/180`;
+    const contadorCaracteres = `${comentarioExistente ? comentarioExistente.length : 0}/180`;
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("DAT USER CALIFICAR VENDEDOR: ", datosusuarios.uid);
     const [calificacionVendedor, setCalificacionVendedor] = useState(0);
-
+    const [showModal, setShowModal] = useState(false); //Estado de modal
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null
@@ -63,22 +65,21 @@ export default function calificarVendedor() {
         }
     }
 
+    if (producto) {
+        console.log("Id del producto: ", producto.idproducto)
+    } else {
+        console.log("Producto es null")
+    }
+
+
     //router push si los datos son colocados correctamente sale esto en el dialog
     const handleConfirmationSuccess = (route) => () => {
         router.push(route);
     };
 
-    //handlechange calificación
-    const handleCalificacionIconClick = (calificacion) => {
-        setCalificacionSeleccionada(calificacion);
-    };
 
-    //handlechange de comentario con max 180 caracteres
-    const handleComentarioChange = (event) => {
-        const nuevoComentario = event.target.value.slice(0, 180); // Limitar a 180 caracteres
-        setComentario(nuevoComentario);
-    };
-    const [showModal, setShowModal] = useState(false); //Estado de modal
+
+
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
@@ -114,7 +115,7 @@ export default function calificarVendedor() {
         ];
 
         for (let i = 0; i < validaword.length; i++) {
-            if (comentario.includes(validaword[i].word)) {
+            if (comentario.toLowerCase().includes(validaword[i].word.toLowerCase())) {
                 setTituloMensajes('Validación de mensaje');
                 setTextoMensajes('Tu mensaje contiene palabras o caracteres no permitidos.');
                 setShowModal(true);
@@ -160,47 +161,44 @@ export default function calificarVendedor() {
         }
 
         return true;
-    };
+    }; 
+ 
 
-
-    // Guarda el idproducto en el estado de tu componente
-    const [idproducto, setIdproducto] = useState(null);
-
-    useEffect(() => {
-        // Asegúrate de que producto no es null o undefined
-        if (producto && producto.idproducto) {
-            setIdproducto(producto.idproducto);
+    const obtenerUidVendedor = (producto) => {
+        if (!producto) {
+            console.error('Error: producto es null');
+            return;
         }
-    }, [producto]);
 
-    const obtenerUidVendedor = async (idproducto) => {
-        let uidvendedor = null;
         let params = {
-            idarticulo: idproducto,
+            idarticulo: producto.idproducto,
         };
 
-        await axios({
+        return axios({
             method: "post",
             url: `${URL_BD_MR}18`,
             params,
         })
             .then((res) => {
-                uidvendedor = res.data[0].usuario; // Asegúrate de que el usuario exista
-                console.log('uidvendedor obtenido:', uidvendedor); // Agrega esta línea
+                return res.data[0].usuario; // Devuelve directamente el uidvendedor
             })
             .catch((error) => {
                 console.error('Error al obtener el uidvendedor:', error);
             });
-        return uidvendedor;
     };
 
-    const enviarCalificacion = async (idproducto) => {
-        const uidvendedor = await obtenerUidVendedor(idproducto);
+    const enviarCalificacion = async () => {
+        if (!validarCalificacion()) {
+            return; // Si la validación falla, termina la función aquí
+        } 
+        const uidvendedor = await obtenerUidVendedor(producto);
+        const uidproducto = producto.idproducto;
         const nuevaCalificacion = {
             uidcomprador: datosusuarios.uid,
-            uidvendedor: uidvendedor, // Cambia "1652703118227" a uidvendedor
+            uidvendedor: uidvendedor,
+            uidproducto: uidproducto,
             calificacion: calificacionSeleccionada,
-            comentario,
+            comentario: comentarioExistente, // Utiliza comentarioExistente aquí
         };
 
         await axios({
@@ -211,6 +209,7 @@ export default function calificarVendedor() {
             .then((res) => {
                 console.log("Respuesta del servidor:", res.data);
                 setConfirmationOpen(true);
+
                 // Actualizar lógica adicional según sea necesario
             })
             .catch((error) => {
@@ -218,79 +217,65 @@ export default function calificarVendedor() {
             });
     };
 
-    const manejarEnvioCalificacion = () => {
-        if (validarCalificacion()) {
-            enviarCalificacion(idproducto).then(() => {
-                listarUltimaCalificacionVendedor(idproducto);
-            });
+
+
+
+    const handleComentarioChange = (event) => {
+        if (event.target.value.length <= 180) {
+            setComentarioExistente(event.target.value);
         }
     };
+    const handleCalificacionIconClick = (valoracion) => {
+        setCalificacionSeleccionada(valoracion);
+    };
 
-    const listarUltimaCalificacionVendedor = async (idproducto) => {
-        const uidvendedor = await obtenerUidVendedor(idproducto);
-        let params = {
+
+    const listarCalificaciones = async () => {
+        console.log('listarCalificaciones se está ejecutando');
+
+        const uidvendedor = await obtenerUidVendedor(producto);
+        const uidproducto = producto.idproducto;
+
+        const params = {
             uidcomprador: datosusuarios.uid,
+            uidvendedor: uidvendedor,
+            uidproducto: uidproducto,
         };
 
-        await axios({
+        return axios({
             method: "post",
-            url: `${URL_BD_MR}501`,
+            url: `${URL_BD_MR}50`,
             params,
         })
             .then((res) => {
-                console.log("Mis calificaciones como comprador: ", res.data);
-                // Filtra las calificaciones para el vendedor específico y excluye las que tienen uidvendedor nulo
-                const calificacionesVendedor = res.data.listarcalprdcompra.filter(calificacion => calificacion.uidvendedor === uidvendedor && calificacion.uidvendedor !== null);
+                console.log("Respuesta del servidor:", res.data);
+                // Mapear y mostrar cada calificación
+                res.data.listarcalificacionvendprd.map((calificacion) => {
+                    console.log("Calificación:", calificacion);
+                });
 
-                // Comprueba si el vendedor ya ha sido calificado
-                const vendedorCalificado = calificacionesVendedor.length > 0;
-                setVendedorCalificado(vendedorCalificado);
+                // Si hay calificaciones, establece la primera como la calificación del producto
 
-                if (vendedorCalificado) {
-                    // Obtiene la última calificación
-                    const ultimaCalificacion = obtenerUltimaCalificacion(calificacionesVendedor);
-                    console.log("Mi última calificación para este vendedor: ", ultimaCalificacion);
+                if (res.data.listarcalificacionvendprd.length > 0) {
+                    const calificacionExistente = res.data.listarcalificacionvendprd[0];
+                    setCalificacionProducto(calificacionExistente.calificacion);
+                    setComentarioExistente(calificacionExistente.comentario);
+                    setCalificacionSeleccionada(calificacionExistente.calificacion); // Actualiza calificacionSeleccionada
 
-                    // Establece el comentario y la calificación con los datos de la última calificación
-                    setComentario(ultimaCalificacion.comentario);
-                    setCalificacionSeleccionada(ultimaCalificacion.calificacion);
-                } else {
-                    console.log("Aún no has calificado a este vendedor.");
+                    if (calificacionExistente.calificacion !== null) {
+                        setVendedorCalificado(true);
+                        setCalificacionVendedor(calificacionExistente.calificacion); // Agrega esta línea
+                    }
                 }
             })
-            .catch(function (error) {
-                console.error('Error al obtener las calificaciones del vendedor:', error);
+            .catch((error) => {
+                console.error('Error al listar las calificaciones:', error);
             });
-    }; 
-    useEffect(() => {
-        listarUltimaCalificacionVendedor(idproducto);
-    }, [idproducto]);
-
-    const obtenerUltimaCalificacion = (calificaciones) => {
-        // Ordena las calificaciones por fecha en orden descendente
-        const calificacionesOrdenadas = [...calificaciones].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
-        // Devuelve la primera calificación del array ordenado
-        return calificacionesOrdenadas[0];
     };
 
-
-
-
     useEffect(() => {
-        if (vendedorCalificado) {
-            console.log("El vendedor ya ha sido calificado.");
-        }
-    }, [vendedorCalificado]);
-
-
-
-
-
-
-
-
-
-
+        listarCalificaciones();
+    }, []);// El array vacío significa que este efecto solo se ejecutará una vez, cuando el componente se monte
 
 
 
@@ -316,13 +301,15 @@ export default function calificarVendedor() {
                                         <Grid className="subcprinccalific" item xs={12} md={7} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'}>
                                             <div className='titleTproblema'>
                                                 <p>Calificar vendedor</p>
+                                               
                                             </div>
                                             <Grid className="calificSubC" item xs={12} md={12} sx={{ width: isMdDown ? '100%' : '90%' }} flexDirection={'column'} >
+
                                                 <form style={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column' }}>
                                                     <p>Elige de uno a cinco la calificación para tu vendedor, siendo uno lo más bajo y cinco lo más alto:</p>
                                                     <div className="SubContcalificSubC">
                                                         <div className="notanumero">
-                                                            <p>{(vendedorCalificado ? calificacionVendedor : calificacionSeleccionada).toFixed(1)}</p>
+                                                            <p>{(vendedorCalificado ? calificacionVendedor : (calificacionExistente || calificacionSeleccionada || 0)).toFixed(1)}</p>
                                                         </div>
                                                         <div className="iconsConfig">
                                                             {[1, 2, 3, 4, 5].map((valoracion, index) => (
@@ -330,7 +317,7 @@ export default function calificarVendedor() {
                                                                     key={index}
                                                                     size={40}
                                                                     style={{
-                                                                        color: valoracion <= (vendedorCalificado ? calificacionVendedor : calificacionSeleccionada) ? '#2C2E82' : '#acadcd',
+                                                                        color: valoracion <= calificacionSeleccionada ? '#2C2E82' : '#acadcd',
                                                                         cursor: vendedorCalificado ? 'default' : 'pointer'
                                                                     }}
                                                                     onClick={vendedorCalificado ? null : () => handleCalificacionIconClick(valoracion)}
@@ -344,7 +331,7 @@ export default function calificarVendedor() {
                                                     </div>
                                                     <div>
                                                         <textarea
-                                                            value={comentario}
+                                                            value={comentarioExistente}
                                                             onChange={handleComentarioChange}
                                                             placeholder="Escribe un mensaje al vendedor"
                                                             style={{ height: '160px', width: '100%', resize: 'none' }}
@@ -370,7 +357,7 @@ export default function calificarVendedor() {
                                                                     fontSize: '16px',
                                                                     height: '40px'
                                                                 }}
-                                                                onClick={manejarEnvioCalificacion}
+                                                                onClick={enviarCalificacion}
                                                                 type="button"
                                                             >
                                                                 Enviar
