@@ -97,9 +97,9 @@ export default function misCompras() {
                 params,
             })
                 .then(async (res) => {
-                    if (res.data && res.data.listarunadireccion) {
+                    if (res.data && res.data.listarmiscompras) {
                         const direcciones = await Promise.all(
-                            res.data.listarunadireccion.map(async (direccion) => {
+                            res.data.listarmiscompras.map(async (direccion) => {
                                 // Obtén los detalles del producto
                                 const detallesProducto = await obtenerNombreProducto(direccion.idproducto);
                                 setDetallesProducto(detallesProducto);
