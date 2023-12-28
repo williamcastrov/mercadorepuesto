@@ -195,8 +195,7 @@ const ModuleDetailQuestion = ({ product }) => {
                 </Grid>
             </Grid>
 
-            <Grid container alignItems="center" spacing={1}>
-                <p>{product.id}</p>
+            <Grid container alignItems="center" spacing={1}> 
                 <Grid item xs={8} md={8} lg={8}>
                     <input
                         className="inputquestionseller"
