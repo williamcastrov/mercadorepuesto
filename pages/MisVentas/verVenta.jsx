@@ -16,14 +16,16 @@ import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoIosInformationCircle } from "react-icons/io";
 import { IoMdClose } from 'react-icons/io';
 import { PiSquareThin } from 'react-icons/pi';
-
+import ModalMensajes from "../mensajes/ModalMensajes";
 import { IoIosSquareOutline } from "react-icons/io";
 
 
 export default function verVenta() {
 
 
-
+    const [showModal, setShowModal] = useState(false);
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
     //NextRouter
     const router = useRouter();
     const theme = useTheme();
@@ -33,6 +35,7 @@ export default function verVenta() {
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let venta = null
+
     if (typeof window !== 'undefined') {
         if (router.query.venta) {
             venta = JSON.parse(router.query.venta)
@@ -59,18 +62,82 @@ export default function verVenta() {
 
 
 
+    //cerrar modal si no hay nada en el input
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
 
     const [selectedFile, setSelectedFile] = useState();
     const fileInput = useRef(null);
 
-    const changeHandler = (event) => {
-        setSelectedFile(URL.createObjectURL(event.target.files[0]));
+    // Agrega "application/pdf" a la lista de tipos de archivos permitidos
+    const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf"];
+    const maxImageSize = 819200; // 800 KB en bytes
+    const maxImageWidth = 1024;
+    const maxImageHeight = 1024;
+
+    const changeHandler = async (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            if (allowedFileTypes.includes(file.type)) {
+                let maxSize = maxImageSize; // 800 KB para imágenes
+
+                // Permitir hasta 1 MB para archivos PDF
+                if (file.type === "application/pdf") {
+                    maxSize = 1048576; // 1 MB en bytes
+                }
+
+                if (file.size > maxSize) {
+                    setShowModal(true);
+                    setTituloMensajes("Tamaño incorrecto");
+                    setTextoMensajes(file.type === "application/pdf" ? "Los archivos PDF deben pesar máximo 1 MB." : "Las imágenes deben pesar máximo 800 KB.");
+                    return;
+                }
+
+                if (file.type !== "application/pdf") {
+                    const image = new Image();
+                    image.src = URL.createObjectURL(file);
+
+                    // Esperar a que la imagen cargue antes de realizar las validaciones
+                    await new Promise((resolve) => {
+                        image.onload = resolve;
+                    });
+
+                    const imageWidth = image.width;
+                    const imageHeight = image.height;
+
+                    if (
+                        imageWidth > maxImageWidth ||
+                        imageHeight > maxImageHeight
+                    ) {
+                        setShowModal(true);
+                        setTituloMensajes("Dimensiones incorrectas");
+                        setTextoMensajes(
+                            `Las dimensiones de las imágenes deben ser como máximo ${maxImageWidth} x ${maxImageHeight}.`
+                        );
+                        return;
+                    }
+                }
+
+                setSelectedFile(URL.createObjectURL(file));
+            } else {
+                setShowModal(true);
+                setTituloMensajes("Archivo incorrecto");
+                setTextoMensajes("Solo se permiten archivos JPG, JPEG, PNG y PDF.");
+            }
+        } else {
+            console.log("No se seleccionó ningún archivo");
+        }
+
+        // Restablecer el valor del campo de entrada del archivo
+        event.target.value = null;
     };
 
     const handleClick = () => {
         fileInput.current.click();
     };
-
 
 
 
@@ -169,7 +236,7 @@ export default function verVenta() {
                                                                     </div>
                                                                     <div className="diviconCloeseDoc" onClick={() => setSelectedFile(null)}>
                                                                         <IoMdClose className="iconCloseVerVenta" />
-                                                                    </div> 
+                                                                    </div>
                                                                 </div>
                                                             )}
                                                         </div>
@@ -249,7 +316,13 @@ export default function verVenta() {
 
                                         </Grid>
                                     </Grid>
-
+                                    <ModalMensajes
+                                        shown={showModal}
+                                        close={handleModalClose}
+                                        titulo={tituloMensajes}
+                                        mensaje={textoMensajes}
+                                        tipo="error"
+                                    />
                                 </div>
                             </div>
                         </div>

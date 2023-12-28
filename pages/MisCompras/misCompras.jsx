@@ -88,7 +88,7 @@ export default function misCompras() {
     useEffect(() => {
         const leerDirecciones = async () => {
             let params = {
-                usuario: UidUser,
+                uidcomprador: UidUser,
             };
 
             await axios({
