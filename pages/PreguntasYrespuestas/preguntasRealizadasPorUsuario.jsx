@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoMdReturnRight } from "react-icons/io";
 import ModalMensajes from "../mensajes/ModalMensajes";
+import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
 
 
 
@@ -38,8 +39,7 @@ export default function preguntasRealizadasUsuario() {
     const [tituloMensajes, setTituloMensajes] = useState(''); //titulo modal
     const [textoMensajes, setTextoMensajes] = useState(''); //texto modal 
     const [showModal, setShowModal] = useState(false); //Estado de modal
-    const [update, setUpdate] = useState(false); // Nuevo estado para forzar la actualización cuando elimino una pregunta
-
+    const [update, setUpdate] = useState(false); // Nuevo estado para forzar la actualización cuando elimino una pregunta 
 
     //Función para obtener el UID del comprador que nos sirve para mapear sus pregntas
     useEffect(() => {
@@ -142,38 +142,53 @@ export default function preguntasRealizadasUsuario() {
     }, [UidUser, update]);
 
     //función para eliminar pregunta por el idpregunta que nos manda del renderizado
-    async function eliminarPregunta(idpregunta) {
-        console.log("Eliminando pregunta con id:", idpregunta);
+    const eliminarPregunta = (idpregunta) => {
+        console.log("Preparando para eliminar pregunta con id:", idpregunta);
+
+        // Guarda el id de la pregunta a eliminar
+        setIdPreguntaAEliminar(idpregunta);
+
+        // Muestra el modal de confirmación
+        setShowModal2(true);
+    };
+
+    const confirmarEliminacion = async () => {
         let params = {
-            idpregunta: idpregunta,
+            idpregunta: idPreguntaAEliminar,
         };
 
-        try {
-            const res = await axios({
-                method: "post",
-                url: URL_BD_MR + "5213",
-                params,
+        await axios({
+            method: "post",
+            url: URL_BD_MR + "5213",
+            params,
+        })
+            .then((res) => {
+                console.log("Pregunta eliminada exitosamente");
+
+                setPreguntas(prevPreguntas => {
+                    const nuevasPreguntas = { ...prevPreguntas };
+                    delete nuevasPreguntas[idPreguntaAEliminar];
+                    return nuevasPreguntas;
+                });
+
+                setUpdate(prevUpdate => !prevUpdate); // Cambia el estado de update para forzar una actualización del componente
+
+                // Muestra el modal de confirmación después de eliminar la pregunta
+                setShowModal(true);
+                setTituloMensajes("Pregunta eliminada");
+                let texto = "La pregunta se eliminó correctamente";
+                setTextoMensajes(texto);
+            })
+            .catch(function (error) {
+                console.error("Error al eliminar la pregunta", error);
             });
-            console.log("Respuesta eliminar pregunta: ", res)
 
-            setPreguntas(prevPreguntas => {
-                const nuevasPreguntas = { ...prevPreguntas };
-                delete nuevasPreguntas[idpregunta];
-                return nuevasPreguntas;
-            });
+        // Cierra el modal después de la eliminación
+        setShowModal2(false);
+    };
 
-            setUpdate(prevUpdate => !prevUpdate); // Cambia el estado de update para forzar una actualización del componente
-
-            // Muestra el modal de confirmación después de eliminar la pregunta
-            setShowModal(true);
-            setTituloMensajes("Pregunta eliminada");
-            let texto = "La pregunta se eliminó correctamente";
-            setTextoMensajes(texto);
-
-        } catch (error) {
-            console.error("Error al eliminar la pregunta", error);
-        }
-    }
+    const [showModal2, setShowModal2] = useState(false);
+    const [idPreguntaAEliminar, setIdPreguntaAEliminar] = useState(null);
 
     //función para ponerle la ", " a los precios
     function formatearPrecio(precio) {
@@ -261,6 +276,10 @@ export default function preguntasRealizadasUsuario() {
     const handleModalClose = () => {
         setShowModal(false);
     };
+
+ 
+
+
 
 
     useEffect(() => {
@@ -360,7 +379,7 @@ export default function preguntasRealizadasUsuario() {
                                                 return (
                                                     <Grid container key={idpregunta} className="contNewPregYrespt">
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas">
-                                                            <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`}  onClick={() => router.push(`/product/${idProductoRuta}`)}/>
+                                                            <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} onClick={() => router.push(`/product/${idProductoRuta}`)} />
                                                             <p className="pNameProductPregRespsts">{preguntasGrupo[0].nombreProducto}</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
@@ -425,11 +444,11 @@ export default function preguntasRealizadasUsuario() {
                                                                             nombreProducto: preguntasGrupo[0].nombreProducto,
                                                                             uidcomprador: preguntasGrupo[0].uidcomprador,
                                                                             uidvendedor: preguntasGrupo[0].uidvendedor,
-                                                                            idproducto:  preguntasGrupo[0].idProductoRuta,
+                                                                            idproducto: preguntasGrupo[0].idProductoRuta,
                                                                         }
                                                                     })}
                                                                     className='ComprarButton'
-                                                                > 
+                                                                >
                                                                     Hacer otra pregunta
                                                                 </button>
                                                                 <button
@@ -466,7 +485,14 @@ export default function preguntasRealizadasUsuario() {
 
 
 
-
+                                    <ModalMensajesEliminar
+                                        shown={showModal2}
+                                        setContinuarEliminar={confirmarEliminacion}
+                                        setAbandonarEliminar={() => setShowModal2(false)}
+                                        titulo="Eliminar pregunta"
+                                        mensaje="¿Estás seguro de que quieres eliminar esta pregunta?"
+                                        tipo="confirmación"
+                                    />
                                     <ModalMensajes
                                         shown={showModal}
                                         close={handleModalClose}
