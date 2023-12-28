@@ -32491,7 +32491,9 @@ label {
 .etiquetaContDetailsTitle {
     font-weight: 600 !important;
 }
-
+.pNameProductPregRespsts{
+    cursor: pointer !important;
+}
 .divButtonAdjFact {
     margin-top: 1rem !important;
     width: 100% !important;
