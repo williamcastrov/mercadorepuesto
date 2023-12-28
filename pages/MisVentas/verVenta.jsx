@@ -18,7 +18,7 @@ import { IoMdClose } from 'react-icons/io';
 import { PiSquareThin } from 'react-icons/pi';
 import ModalMensajes from "../mensajes/ModalMensajes";
 import { IoIosSquareOutline } from "react-icons/io";
-
+import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
 
 export default function verVenta() {
 
@@ -81,67 +81,94 @@ export default function verVenta() {
         const file = event.target.files[0];
 
         if (file) {
-            if (allowedFileTypes.includes(file.type)) {
-                let maxSize = maxImageSize; // 800 KB para imágenes
+            let maxSize = maxImageSize; // 800 KB para imágenes
 
-                // Permitir hasta 1 MB para archivos PDF
-                if (file.type === "application/pdf") {
-                    maxSize = 1048576; // 1 MB en bytes
-                }
+            // Permitir hasta 1 MB para archivos PDF
+            if (file.type === "application/pdf") {
+                maxSize = 1048576; // 1 MB en bytes
+            }
 
-                if (file.size > maxSize) {
+            if (file.size > maxSize) {
+                setShowModal(true);
+                setTituloMensajes("Tamaño incorrecto");
+                setTextoMensajes(file.type === "application/pdf" ? "Los archivos PDF deben pesar máximo 1 MB." : "Las imágenes deben pesar máximo 800 KB.");
+                return;
+            }
+
+            if (file.type !== "application/pdf") {
+                const image = new Image();
+                image.src = URL.createObjectURL(file);
+
+                // Esperar a que la imagen cargue antes de realizar las validaciones
+                await new Promise((resolve) => {
+                    image.onload = resolve;
+                });
+
+                const imageWidth = image.width;
+                const imageHeight = image.height;
+
+                if (
+                    imageWidth > maxImageWidth ||
+                    imageHeight > maxImageHeight
+                ) {
                     setShowModal(true);
-                    setTituloMensajes("Tamaño incorrecto");
-                    setTextoMensajes(file.type === "application/pdf" ? "Los archivos PDF deben pesar máximo 1 MB." : "Las imágenes deben pesar máximo 800 KB.");
+                    setTituloMensajes("Dimensiones incorrectas");
+                    setTextoMensajes(
+                        `Las dimensiones de las imágenes deben ser como máximo ${maxImageWidth} x ${maxImageHeight}.`
+                    );
                     return;
                 }
-
-                if (file.type !== "application/pdf") {
-                    const image = new Image();
-                    image.src = URL.createObjectURL(file);
-
-                    // Esperar a que la imagen cargue antes de realizar las validaciones
-                    await new Promise((resolve) => {
-                        image.onload = resolve;
-                    });
-
-                    const imageWidth = image.width;
-                    const imageHeight = image.height;
-
-                    if (
-                        imageWidth > maxImageWidth ||
-                        imageHeight > maxImageHeight
-                    ) {
-                        setShowModal(true);
-                        setTituloMensajes("Dimensiones incorrectas");
-                        setTextoMensajes(
-                            `Las dimensiones de las imágenes deben ser como máximo ${maxImageWidth} x ${maxImageHeight}.`
-                        );
-                        return;
-                    }
-                }
-
-                setSelectedFile(URL.createObjectURL(file));
-            } else {
-                setShowModal(true);
-                setTituloMensajes("Archivo incorrecto");
-                setTextoMensajes("Solo se permiten archivos JPG, JPEG, PNG y PDF.");
             }
+
+            setSelectedFile(URL.createObjectURL(file));
+            setButtonText("Enviar factura");
         } else {
-            console.log("No se seleccionó ningún archivo");
+            setShowModal(true);
+            setTituloMensajes("Archivo incorrecto");
+            setTextoMensajes("Solo se permiten archivos JPG, JPEG, PNG y PDF.");
         }
 
         // Restablecer el valor del campo de entrada del archivo
         event.target.value = null;
     };
 
+    const [showModal2, setShowModal2] = useState(false);
+    const [buttonText, setButtonText] = useState("Adjuntar factura");
+
     const handleClick = () => {
-        fileInput.current.click();
+        if (buttonText === "Enviar factura") {
+            // Muestra el modal de confirmación
+            setShowModal2(true);
+        } else {
+            // Abre el diálogo de selección de archivos
+            fileInput.current.click();
+        }
     };
 
 
+    const handleRemoveFile = () => {
+        // Elimina la imagen y restablece el texto del botón
+        setSelectedFile(null);
+        setButtonText("Adjuntar factura");
+
+        // Restablecer el valor del campo de entrada del archivo para permitir la selección del mismo archivo
+        fileInput.current.value = null;
+    };
 
 
+    const confirmarEliminacion = () => {
+        // Muestra el modal de éxito
+        setShowModal(true);
+        setTituloMensajes("Factura enviada");
+        setTextoMensajes("La factura ha sido enviada exitosamente.");
+
+        // Restablece el archivo seleccionado y el texto del botón
+        setSelectedFile(null);
+        setButtonText("Adjuntar factura");
+
+        // Cierra el modal de confirmación
+        setShowModal2(false);
+    };
 
     return (
         <>
@@ -224,8 +251,8 @@ export default function verVenta() {
                                                 <div className="subtitlesverVenta">
                                                     <div className="divButtonAdjFact">
                                                         <div className="divButtonVerVenta">
-                                                            <button onClick={handleClick}>
-                                                                Adjuntar factura
+                                                            <button className="buttnVerVenta" onClick={handleClick}>
+                                                                {buttonText}
                                                                 <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
                                                             </button>
                                                             {selectedFile && (
@@ -234,7 +261,7 @@ export default function verVenta() {
                                                                         <PiSquareThin size={138} className="iconSquareVerventa" />
                                                                         <img src={selectedFile} alt="preview" className="imgVerVenta" />
                                                                     </div>
-                                                                    <div className="diviconCloeseDoc" onClick={() => setSelectedFile(null)}>
+                                                                    <div className="diviconCloeseDoc" onClick={handleRemoveFile}>
                                                                         <IoMdClose className="iconCloseVerVenta" />
                                                                     </div>
                                                                 </div>
@@ -322,6 +349,15 @@ export default function verVenta() {
                                         titulo={tituloMensajes}
                                         mensaje={textoMensajes}
                                         tipo="error"
+                                    />
+                                    <ModalMensajesEliminar
+                                        shown={showModal2}
+                                        setContinuarEliminar={confirmarEliminacion}
+                                        setAbandonarEliminar={() => setShowModal2(false)}
+                                        titulo="Confirmar envío"
+                                        mensaje="¿Estás seguro de que quieres enviar esta factura?"
+                                        tipo="confirmación"
+                                        buttonText="Enviar" // Aquí pasas el texto del botón
                                     />
                                 </div>
                             </div>

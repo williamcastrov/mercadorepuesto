@@ -32398,7 +32398,15 @@ label {
     color: #2D2E83;
     font-weight: 500;
 }
-
+.divButtonVerVenta{
+    cursor: pointer;
+}
+.buttnVerVenta{
+    cursor: pointer; 
+}
+.buttonSendF{
+    cursor: pointer;
+}
 .divButtonVerVenta button {
     background-color: #2C2E82;
     border-radius: 10px;

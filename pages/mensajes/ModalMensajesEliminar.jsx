@@ -11,6 +11,7 @@ function ModalMensajesEliminar(props) {
         titulo,
         mensaje,
         tipo,
+        buttonText = "Eliminar", // Nueva prop con un valor predeterminado de "Eliminar"
     } = props;
 
     return shown ? (
@@ -42,7 +43,7 @@ function ModalMensajesEliminar(props) {
                                 type="button"
                                 className="cerrarmodal ml-40 sinborder colorbase"
                                 data-dismiss="modal"
-                                //onClick={() => close(false)}
+                            //onClick={() => close(false)}
                             >
                                 {" "}
                             </button>
@@ -69,7 +70,7 @@ function ModalMensajesEliminar(props) {
                                 className="ml-20 ps-btn redondearborde"
                                 onClick={() => setContinuarEliminar(true)}>
                                 {" "}
-                                Eliminar
+                                {buttonText} {/* Usa la nueva prop para el texto del botón */}
                             </Button>
                         </Col>
                     </Row>
