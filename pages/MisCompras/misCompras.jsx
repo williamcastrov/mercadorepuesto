@@ -356,7 +356,7 @@ export default function misCompras() {
                                     )}  
                                 </Grid>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                 </Container>
             </div>

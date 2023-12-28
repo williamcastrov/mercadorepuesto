@@ -14,8 +14,10 @@ import { AiOutlineRight } from 'react-icons/ai';
 import { GrNext } from "react-icons/gr";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
 import { IoIosInformationCircle } from "react-icons/io";
+import { IoMdClose } from 'react-icons/io';
+import { PiSquareThin } from 'react-icons/pi';
 
-
+import { IoIosSquareOutline } from "react-icons/io";
 
 
 export default function verVenta() {
@@ -58,15 +60,15 @@ export default function verVenta() {
 
 
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState();
+    const fileInput = useRef(null);
 
-    const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]);
+    const changeHandler = (event) => {
+        setSelectedFile(URL.createObjectURL(event.target.files[0]));
     };
 
-    const handleUpload = () => {
-        // Aquí puede agregar la lógica para cargar el archivo
-        console.log(selectedFile);
+    const handleClick = () => {
+        fileInput.current.click();
     };
 
 
@@ -82,7 +84,7 @@ export default function verVenta() {
                         <div className="ps-page ps-page--inner" id="myaccount">
                             <div className="container">
                                 <div className="ps-page__header"> </div>
-                                <div className="ps-page__content ps-account" style={{ marginBottom: '8rem' }}>
+                                <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginBottom: '4rem' }}>
                                         <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
@@ -122,9 +124,9 @@ export default function verVenta() {
                                                 <div className="subtitlesverVenta">
                                                     <p>{venta.estadodeldespacho}</p>
                                                     <div className="divButtonVerVenta">
-                                                        <button
-                                                        >
-                                                            Imprimir etiqueta
+                                                        <button >
+                                                            Rastrear envío
+
                                                         </button>
                                                     </div>
                                                 </div>
@@ -154,23 +156,22 @@ export default function verVenta() {
                                                 </div>
                                                 <div className="subtitlesverVenta">
                                                     <div className="divButtonAdjFact">
-                                                        <div>
-                                                            <input
-                                                                accept=".pdf,.jpg,.jpeg,.png"
-                                                                id="contained-button-file"
-                                                                multiple
-                                                                type="file"
-                                                                onChange={handleFileInput}
-                                                                style={{ display: 'none' }}
-                                                            />
-                                                            <label htmlFor="contained-button-file">
-                                                                <button variant="contained" component="span">
-                                                                    Adjuntar factura
-                                                                </button>
-                                                            </label>
-                                                            <button variant="contained" onClick={handleUpload}>
-                                                                Cargar archivo
+                                                        <div className="divButtonVerVenta">
+                                                            <button onClick={handleClick}>
+                                                                Adjuntar factura
+                                                                <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
                                                             </button>
+                                                            {selectedFile && (
+                                                                <div>
+                                                                    <div className="diviconSquareVerventa">
+                                                                        <PiSquareThin size={140} className="iconSquareVerventa" />
+                                                                        <img src={selectedFile} alt="preview" className="imgVerVenta" />
+                                                                    </div>
+                                                                    <button className="buttonDeleteVerVenta" onClick={() => setSelectedFile(null)}>
+                                                                        <IoMdClose />
+                                                                    </button>
+                                                                </div>
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>

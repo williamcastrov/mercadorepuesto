@@ -383,7 +383,7 @@ export default function preguntasSobreMisProductos() {
                                                     <Grid container key={idpregunta} className="contNewPregYrespt">
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas">
                                                             <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} onClick={() => router.push(`/product/${idProductoRuta}`)} />
-                                                            <p className="pNameProductPregRespsts">{preguntasGrupo[0].nombreProducto}</p>
+                                                            <p className="pNameProductPregRespsts" onClick={() => router.push(`/product/${idProductoRuta}`)}>{preguntasGrupo[0].nombreProducto}</p>
                                                         </Grid>
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
                                                             <p className="pricePregRealizs">

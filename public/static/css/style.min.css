@@ -32409,9 +32409,35 @@ label {
     width: 240px;
 }
 
-.divButtonVerVenta {
-    margin-top: 2rem !important;
-    width: 100% !important;
+
+.imgVerVenta{
+    z-index: 1;
+    object-fit: cover;
+    height: 80px;
+    width: 80px;
+    left: 39px;
+    top: 18px;
+    position: absolute;
+}
+.iconSquareVerventa{
+    position: absolute;
+    left: 10px;
+    top: -10px;
+}
+.diviconSquareVerventa{
+    position: relative;
+    height: 100px;
+    width: 100px;
+    margin-top: 1rem;
+}
+.buttonDeleteVerVenta{
+    margin-top: 12rem;
+    width: 10px;
+}
+
+.iconDeleteVerventa{
+    z-index: 2;
+    color: #00BF15;
 }
 
 .etiquetaCont {
