@@ -31,6 +31,17 @@ export default function verVenta() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
+    const [selectedFile, setSelectedFile] = useState();
+    const fileInput = useRef(null); 
+    // Agrega "application/pdf" a la lista de tipos de archivos permitidos
+    const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf"];
+    const maxImageSize = 819200; // 800 KB en bytes
+    const maxImageWidth = 1024;
+    const maxImageHeight = 1024;
+    const [showModal2, setShowModal2] = useState(false);
+    const [buttonText, setButtonText] = useState("Adjuntar factura");
+
+
 
 
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
@@ -68,14 +79,7 @@ export default function verVenta() {
     };
 
 
-    const [selectedFile, setSelectedFile] = useState();
-    const fileInput = useRef(null);
 
-    // Agrega "application/pdf" a la lista de tipos de archivos permitidos
-    const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf"];
-    const maxImageSize = 819200; // 800 KB en bytes
-    const maxImageWidth = 1024;
-    const maxImageHeight = 1024;
 
     const changeHandler = async (event) => {
         const file = event.target.files[0];
@@ -132,8 +136,7 @@ export default function verVenta() {
         event.target.value = null;
     };
 
-    const [showModal2, setShowModal2] = useState(false);
-    const [buttonText, setButtonText] = useState("Adjuntar factura");
+
 
     const handleClick = () => {
         if (buttonText === "Enviar factura") {
@@ -156,6 +159,7 @@ export default function verVenta() {
     };
 
 
+    //Función para confirmar eliminación de imagen
     const confirmarEliminacion = () => {
         // Muestra el modal de éxito
         setShowModal(true);
@@ -239,8 +243,7 @@ export default function verVenta() {
                                                 <div className="etiquetaContDetails">
                                                     <p className="etiquetaContDetailsTitle">Datos del envío</p>
                                                     <p>{venta.estadodeldespacho}</p>
-                                                    <p>{venta.direcciondeenvio} {venta.ciudadenvio}</p>
-                                                    <p>Medellín, Antioquia</p>
+                                                    <p>{venta.direcciondeenvio}</p> 
                                                 </div>
                                             </div>
 
