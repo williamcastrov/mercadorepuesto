@@ -32407,6 +32407,7 @@ label {
     padding: 0.6rem;
     margin: 0 auto;
     width: 240px;
+    cursor: pointer;
 }
 
 
@@ -32415,14 +32416,20 @@ label {
     object-fit: cover;
     height: 80px;
     width: 80px;
-    left: 39px;
+    left: 64px;
     top: 18px;
     position: absolute;
 }
 .iconSquareVerventa{
     position: absolute;
-    left: 10px;
+    left: 35px;
     top: -10px;
+    color: #2C2E82;
+}
+.iconCloseVerVenta{
+    color: #2C2E82; 
+    cursor: pointer;
+    font-size: 30px;
 }
 .diviconSquareVerventa{
     position: relative;
@@ -32438,6 +32445,18 @@ label {
 .iconDeleteVerventa{
     z-index: 2;
     color: #00BF15;
+}
+.diviconCloeseDoc{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    width: 29%;
+    cursor: pointer;
+}
+.verVentaDoc{
+    display: flex;
+    flex-direction: column;
 }
 
 .etiquetaCont {

@@ -162,14 +162,14 @@ export default function verVenta() {
                                                                 <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
                                                             </button>
                                                             {selectedFile && (
-                                                                <div>
+                                                                <div className="verVentaDoc">
                                                                     <div className="diviconSquareVerventa">
-                                                                        <PiSquareThin size={140} className="iconSquareVerventa" />
+                                                                        <PiSquareThin size={138} className="iconSquareVerventa" />
                                                                         <img src={selectedFile} alt="preview" className="imgVerVenta" />
                                                                     </div>
-                                                                    <button className="buttonDeleteVerVenta" onClick={() => setSelectedFile(null)}>
-                                                                        <IoMdClose />
-                                                                    </button>
+                                                                    <div className="diviconCloeseDoc" onClick={() => setSelectedFile(null)}>
+                                                                        <IoMdClose className="iconCloseVerVenta" />
+                                                                    </div> 
                                                                 </div>
                                                             )}
                                                         </div>
@@ -237,7 +237,7 @@ export default function verVenta() {
                                         </Grid>
                                         <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
                                             <div className="datacomprVerVenta">
-                                                <p className="nameVendVer">Juan Pablo Rojas Tabares</p>
+                                                <p className="nameVendVer">{venta.nombreComprador} {venta.apellidoComprador}</p>
                                                 <p>Tienes 1 mensajes sin leer</p>
                                                 <div className="divButtonVerVenta3">
                                                     <button
