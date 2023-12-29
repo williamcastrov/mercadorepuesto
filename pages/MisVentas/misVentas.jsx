@@ -32,6 +32,9 @@ export default function misVentas() {
     const irA = useRef(null);
     const [ventas, setVentas] = useState([]);
 
+    function formatearPrecio(precio) {
+        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {

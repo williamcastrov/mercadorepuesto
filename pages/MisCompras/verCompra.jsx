@@ -93,11 +93,11 @@ export default function verCompra() {
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>Precio del producto:</p>
-                                                <p>${producto.preciodeventa}</p>
+                                                <p>${producto.precioDeVentaFormateado}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Precio del envío:</p>
-                                                <p>${producto.precioenvio}</p>
+                                                <p>${producto.precioEnvioFormateado}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Total:</p>

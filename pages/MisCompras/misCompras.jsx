@@ -32,7 +32,9 @@ export default function misCompras() {
     const irA = useRef(null);
     const [detallesProducto, setDetallesProducto] = useState(null);
 
-
+    function formatearPrecio(precio) {
+        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
@@ -113,13 +115,15 @@ export default function misCompras() {
                                     fechaentrega: direccion.fechaentrega.slice(0, 10),
                                     fechadespacho: direccion.fechadespacho.slice(0, 10),
                                     fechadepago: direccion.fechadepago.slice(0, 10),
-                                    nuevoValor: direccion.preciodeventa + direccion.precioenvio,
+                                    nuevoValor: formatearPrecio(direccion.preciodeventa + direccion.precioenvio),
                                     nombreProducto: detallesProducto.nombreProducto,
-                                    UsuarioVendedor: detallesProducto.usuario,
-                                    salePrice: detallesProducto.salePrice,
+                                    UsuarioVendedor: detallesProducto.usuario,  
+                                    salePrice: formatearPrecio(detallesProducto.salePrice),
                                     nombreImagen: detallesProducto.nombreImagen,
                                     nombreVendedor: detallesVendedor.nombreVendedor,
                                     apellidoVendedor: detallesVendedor.apellidoVendedor,
+                                    precioDeVentaFormateado: formatearPrecio(direccion.preciodeventa),
+                                    precioEnvioFormateado: formatearPrecio(direccion.precioenvio),
                                 };
                             })
                         );
@@ -139,7 +143,7 @@ export default function misCompras() {
                 });
         };
         leerDirecciones();
-    }, [UidUser]); 
+    }, [UidUser]);
     //función para obtener datos del producto
     async function obtenerNombreProducto(idprd) {
         let params = {
@@ -157,7 +161,7 @@ export default function misCompras() {
             const salePrice = res.data[0].sale_price;
             const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
             const usuario = res.data[0].usuario;
-            
+
 
             return { nombreProducto, salePrice, nombreImagen, usuario };
 
@@ -306,13 +310,13 @@ export default function misCompras() {
                                             <Grid className="productComprado" container>
                                                 <Grid key={producto.id} item xs={12} md={9} className="productCompradoSubCont" >
                                                     <Grid xs={5} md={6} className="contImgMisCompras">
-                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} onClick={() => router.push(`/product/${producto.idprd}`)}/>
-                                                    </Grid> 
+                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} onClick={() => router.push(`/product/${producto.idprd}`)} />
+                                                    </Grid>
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
                                                                 <p className="estadoCompra">{producto.estadodeldespacho}</p>
-                                                                <p className="nombreProductMiCompra"  onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
+                                                                <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades compradas:</p>
                                                                     <p className="numeroUnidsCompradas">{producto.cantidad}</p>
@@ -325,7 +329,7 @@ export default function misCompras() {
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={3} className="precioProductMisCompras">
-                                                            <p>${producto.preciodeventa}</p>
+                                                            <p>${producto.salePrice}</p>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -354,10 +358,10 @@ export default function misCompras() {
                                         ))
                                     ) : (
                                         <p>No se encontraron resultados</p>
-                                    )}  
+                                    )}
                                 </Grid>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </Container>
             </div>
