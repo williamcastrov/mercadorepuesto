@@ -32,7 +32,7 @@ export default function verVenta() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const [selectedFile, setSelectedFile] = useState();
-    const fileInput = useRef(null); 
+    const fileInput = useRef(null);
     // Agrega "application/pdf" a la lista de tipos de archivos permitidos
     const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf"];
     const maxImageSize = 819200; // 800 KB en bytes
@@ -186,28 +186,28 @@ export default function verVenta() {
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginBottom: '4rem' }}>
                                         <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
+                                                className="linkMisv"
                                                 underline="none"
-                                                color="inherit"
                                                 href="./"
                                                 onClick={(e) => { e.preventDefault(); router.push('./misVentas') }}
-                                                sx={{ color: '#D9D9D9', fontSize: 25, fontWeight: 700 }}
+                                               
                                             >
-                                                Mis ventas
+                                                <p className="VerVentaLink">Mis ventas</p>
                                             </Link>
-                                            <Typography sx={{ color: '#D9D9D9', fontSize: 25, fontWeight: 700 }} color="textPrimary">Ver venta</Typography>
+                                            <p className="VerVentaLink">Ver venta</p>
                                         </Breadcrumbs>
 
                                     </Grid>
                                     <Grid className="contDataUsersVerventa" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                         <Grid item xs={12} md={7} className="misVentasr" >
                                             <div >
-                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}> Estado compra </p>
+                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>{venta.estadodeldespacho} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>{venta.nombreProducto} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
-                                                <p>Numero de venta:</p>
+                                                <p>Número de venta:</p>
                                                 <p>{venta.numerodeventa}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
@@ -217,13 +217,13 @@ export default function verVenta() {
 
                                             <div className="DetalleSEnvioVerVenta">
                                                 <div className="detallesypagovercompra2">
-                                                    <p>Detalles del envio</p>
+                                                    <p>Detalles del envío</p>
                                                 </div>
                                                 <div className="subtitlesverVenta">
                                                     <p>Despacha el paquete en los puntos TCC autorizados</p>
                                                     <div className="divButtonVerVenta">
                                                         <button>
-                                                            Imprimir etiqueta 
+                                                            Imprimir etiqueta
                                                         </button>
                                                     </div>
                                                 </div>
@@ -243,7 +243,7 @@ export default function verVenta() {
                                                 <div className="etiquetaContDetails">
                                                     <p className="etiquetaContDetailsTitle">Datos del envío</p>
                                                     <p>{venta.estadodeldespacho}</p>
-                                                    <p>{venta.direcciondeenvio}</p> 
+                                                    <p>{venta.direcciondeenvio}</p>
                                                 </div>
                                             </div>
 
@@ -294,7 +294,7 @@ export default function verVenta() {
                                                     <p>${venta.preciodeventa}</p>
                                                 </div>
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Precio del envio:</p>
+                                                    <p>Precio del envío:</p>
                                                     <p>${venta.preciodelenvio}</p>
                                                 </div>
                                             </div>
@@ -375,4 +375,4 @@ export default function verVenta() {
             </div>
         </>
     )
-}
+} 

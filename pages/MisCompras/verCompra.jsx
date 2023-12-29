@@ -19,11 +19,11 @@ export default function verCompra() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const router = useRouter();
     const irA = useRef(null);//PosiciónTopPage
- 
+
     //recibir los datos del producto comprado y guardar url para cuando reinicie seguir en el mismo
     let producto = null
     if (typeof window !== 'undefined') {
-        if (router.query.producto) { 
+        if (router.query.producto) {
             producto = JSON.parse(router.query.producto)
             // Guardar los datos en el almacenamiento local
             localStorage.setItem('producto', JSON.stringify(producto))
@@ -58,22 +58,21 @@ export default function verCompra() {
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginBottom: '4rem' }}>
                                         <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
-                                                underline="none"
-                                                color="inherit"
+                                             className="linkMisv"
+                                                underline="none" 
                                                 href="./misCompras"
-                                                onClick={(e) => { e.preventDefault(); router.push('./misCompras') }}
-                                                sx={{ color: '#D9D9D9', fontSize: 25, fontWeight: 700 }}
+                                                onClick={(e) => { e.preventDefault(); router.push('./misCompras') }} 
                                             >
-                                                Mis Compras
+                                               <p className="VerVentaLink">Mis ventas</p>
                                             </Link>
-                                            <Typography sx={{ color: '#D9D9D9', fontSize: 25, fontWeight: 700 }} color="textPrimary">Ver Compra</Typography>
+                                            <p className="VerVentaLink">Ver venta</p>
                                         </Breadcrumbs>
 
                                     </Grid>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                        <Grid item xs={12} md={8} style={{ borderRight: '3px solid #EBEBEB', height: '21rem' }}>
+                                        <Grid item xs={12} md={7} style={{ borderRight: '3px solid #EBEBEB', height: '21rem' }}>
                                             <div >
-                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}> Estado compra </p>
+                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>  {producto.estadodeldespacho} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>Numero de compra:</p>
@@ -84,9 +83,9 @@ export default function verCompra() {
                                                 <p>{producto.fechacompra}</p>
                                             </div>
                                         </Grid>
-                                        <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
-                                            <div>
-                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600' }}>{producto.nombreProducto}</p>
+                                        <Grid item xs={12} md={5} sx={{ paddingLeft: '4rem' }}>
+                                            <div style={{ width: '80%' }}>
+                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600', cursor: 'pointer' }} onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Unidades compradas:</p>
@@ -110,7 +109,7 @@ export default function verCompra() {
                                         <div className="detallesypagovercompra">
                                             <p>Detalles de pago y envio</p>
                                         </div>
-                                        <Grid className="ContPsubtitlesvercompra" item xs={12} md={8}>
+                                        <Grid className="ContPsubtitlesvercompra" item xs={12} md={7}>
                                             <div className="subtitlesvercompra">
                                                 <p>Forma de pago:</p>
                                                 <p>{producto.mediodepago} </p>
@@ -125,14 +124,14 @@ export default function verCompra() {
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Estado de pago:</p>
-                                                <p> {producto.estadodeldespacho}</p>
+                                                <p>Aprobado</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Número de aprobación:</p>
                                                 <p>{producto.numerodeaprobacion}</p>
                                             </div>
                                         </Grid>
-                                        <Grid item xs={12} md={4} sx={{ paddingLeft: '4rem' }}>
+                                        <Grid item xs={12} md={5} sx={{ paddingLeft: '4rem' }}>
                                             <div className="subtitlesvercompra">
                                                 <p>{producto.estadodeldespacho}</p>
                                             </div>
@@ -149,7 +148,7 @@ export default function verCompra() {
                                     </Grid>
 
 
-                                    <Grid className="ContVendedor" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                    <Grid className="ContVendedor" container style={{ width: isMdDown ? '100%' : '87%' }}>
                                         <div className="SubcontainerMisDatos" >
                                             <div style={{ width: '85%' }}>
                                                 <p className="titlecontVend1">Contactar con vendedor</p>
@@ -167,7 +166,7 @@ export default function verCompra() {
                                         pathname: './linktoTengounProblema',
                                         query: { producto: JSON.stringify(producto) }
                                     })}
-                                        className="ContVendedor3" container style={{ width: isMdDown ? '100%' : '90%', cursor: 'pointer' }}>
+                                        className="ContVendedor3" container style={{ width: isMdDown ? '100%' : '87%', cursor: 'pointer' }}>
                                         <div style={{ marginBottom: '2rem', width: '100%' }}>
                                             <p className="titlecontVend2">Ayuda con mi compra</p>
                                         </div>
@@ -181,7 +180,7 @@ export default function verCompra() {
                                             pathname: './calificarVendedor',
                                             query: { producto: JSON.stringify(producto) }
                                         })}
-                                        className="subContVendedor2" container style={{ width: isMdDown ? '100%' : '90%', cursor: 'pointer' }}>
+                                        className="subContVendedor2" container style={{ width: isMdDown ? '100%' : '87%', cursor: 'pointer' }}>
                                         <div className="containerTitlecontvendBottom">
                                             <p className="titlecontvendBottom">Calificar vendedor</p>
                                             <AiOutlineRight size={30} style={{ cursor: 'pointer' }} />
@@ -192,7 +191,7 @@ export default function verCompra() {
                                             pathname: './calificarProducto',
                                             query: { producto: JSON.stringify(producto) }
                                         })}
-                                        className="subContVendedor2" container style={{ width: isMdDown ? '100%' : '90%', cursor: 'pointer' }}>
+                                        className="subContVendedor2" container style={{ width: isMdDown ? '100%' : '87%', cursor: 'pointer' }}>
                                         <div className="containerTitlecontvendBottom">
                                             <p className="titlecontvendBottom">Calificar producto</p>
                                             <AiOutlineRight size={30} style={{ cursor: 'pointer' }} />
@@ -201,7 +200,7 @@ export default function verCompra() {
                                     <Grid onClick={() => router.push({
                                         pathname: './tengoUnProblema',
                                         query: { producto: JSON.stringify(producto) }
-                                    })} className="UltsubContVendedor2" container style={{ width: isMdDown ? '100%' : '90%', cursor:'pointer' }}>
+                                    })} className="UltsubContVendedor2" container style={{ width: isMdDown ? '100%' : '87%', cursor: 'pointer' }}>
                                         <div className="containerTitlecontvendBottom">
                                             <p className="titlecontvendBottom">No llegó mi compra</p>
                                             <AiOutlineRight size={30} style={{ cursor: 'pointer' }} />

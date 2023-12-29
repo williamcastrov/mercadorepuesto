@@ -157,6 +157,7 @@ export default function misCompras() {
             const salePrice = res.data[0].sale_price;
             const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
             const usuario = res.data[0].usuario;
+            
 
             return { nombreProducto, salePrice, nombreImagen, usuario };
 
@@ -235,13 +236,13 @@ export default function misCompras() {
                         <div className="container">
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account">
-                                <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '87%' }}>
                                     <div className='titlesformsUsers'>
                                         <p>Mis compras</p>
 
                                     </div>
                                 </Grid>
-                                <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                <Grid className="contDataUsers TopContMisCompras" container style={{ width: isMdDown ? '100%' : '87%' }}>
                                     <Grid item xs={12} md={6}>
                                         <InputBase
                                             value={searchTerm}
@@ -297,7 +298,7 @@ export default function misCompras() {
                                     </Grid>
                                 </Grid>
 
-                                <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '2rem' }}>
+                                <Grid className="contProdcOMPR" container style={{ width: isMdDown ? '100%' : '87%', marginTop: '2rem' }}>
 
                                     {/* Mostrar productos */}
                                     {filteredCompras.length > 0 ? (
@@ -305,13 +306,13 @@ export default function misCompras() {
                                             <Grid className="productComprado" container>
                                                 <Grid key={producto.id} item xs={12} md={9} className="productCompradoSubCont" >
                                                     <Grid xs={5} md={6} className="contImgMisCompras">
-                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} />
-                                                    </Grid>
+                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} onClick={() => router.push(`/product/${producto.idprd}`)}/>
+                                                    </Grid> 
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
                                                                 <p className="estadoCompra">{producto.estadodeldespacho}</p>
-                                                                <p className="nombreProductMiCompra">{producto.nombreProducto}</p>
+                                                                <p className="nombreProductMiCompra"  onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades compradas:</p>
                                                                     <p className="numeroUnidsCompradas">{producto.cantidad}</p>

@@ -32122,10 +32122,13 @@ label {
 } 
 
 .contImgMisCompras img {
-    width: 200px !important;
-    height: 180px !important;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* o "cover" dependiendo de tu preferencia */
+    max-width: 200px;
+    max-height: 180px;
+    cursor: pointer;
 }
-
 .precioProductMisCompras {
     display: flex !important;
     padding-left: 2rem !important;
@@ -32186,7 +32189,9 @@ label {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
+    cursor: pointer;
 }
+
 
 /*INICIO STYLES VER PROBLEMAS PERSONAS*/
 
@@ -32582,6 +32587,108 @@ label {
     justify-content: center;
 
 }
+.VerVentaLink{
+    color: #D9D9D9;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Jost", sans-serif !important;
+}
+.linkMisv{ 
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 700 !important;
+    font-family: "Jost", sans-serif;
+}
 /*FIN STYLES MIS VENTAS*/
 
 /*ESTILOS PREGUNTAS Y RESPUESTAS*/
+
+
+/*Mis opiniones como vendedor*/
+
+.ContOpVendedor{
+    display: flex;
+    flex-direction: column;
+}
+.TitleOpVend p {
+    margin-bottom: 3rem; 
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.subTitleOpVend p{
+    margin-bottom: 3rem; 
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.conUserOpiVend{
+    display: flex;
+    flex-direction: column;
+    background-color: #F4F5F7;
+    padding: 3rem;
+    border-radius: 12px;
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important; 
+}
+.conUserOpiVendNombre p{
+    margin-bottom: 3rem; 
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 700;
+    font-family: "Jost", sans-serif;
+}
+.conUserOpiVendData p{
+    margin-bottom: 3rem; 
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+    margin: 0;
+}
+.conUserOpiVendData{
+    display: flex;
+    flex-direction: column;
+}
+.contCalificOpinionesV{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+.SubcontCalificOpinionesV{
+    display: flex; 
+    align-items: end;
+}
+.contnumbercalifics{
+    display: flex;
+    flex-direction: column;
+}
+.maincontCalificOpinionesV{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 14rem;
+}
+.PcalifV p{
+    margin-bottom: .5rem; 
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+    margin: 0;
+}
+.SubcontCalificOpinionesVP{
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    margin-bottom: 1.5rem !important; 
+    font-size: 30px !important;
+    color: #2D2E83;
+    font-weight: 700;
+    font-family: "Jost", sans-serif;
+    margin: 0;
+}
+
+/*Fin opiniones como vendedor*/

@@ -379,7 +379,7 @@ export default function preguntasRealizadasUsuario() {
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas">
                                                             <img src={`${URL_IMAGES_RESULTS}${nombreImagen}`} onClick={() => router.push(`/product/${idProductoRuta}`)} />
                                                             <p className="pNameProductPregRespsts" onClick={() => router.push(`/product/${idProductoRuta}`)}>{preguntasGrupo[0].nombreProducto}</p>
-                                                        </Grid>
+                                                        </Grid> 
                                                         <Grid item xs={12} md={6} className="subContTopPreguntas subContTopPreguntas2">
                                                             <p className="pricePregRealizs">
                                                                 ${salePrice}
