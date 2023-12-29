@@ -75,7 +75,7 @@ export default function verCompra() {
                                                 <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>  {producto.estadodeldespacho} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
-                                                <p>Numero de compra:</p>
+                                                <p>Número de compra:</p>
                                                 <p>{producto.numerodeaprobacion}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
