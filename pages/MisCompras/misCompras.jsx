@@ -120,6 +120,7 @@ export default function misCompras() {
                                     UsuarioVendedor: detallesProducto.usuario,  
                                     salePrice: formatearPrecio(detallesProducto.salePrice),
                                     nombreImagen: detallesProducto.nombreImagen,
+                                    idPrdoductRuta: detallesProducto.idPrdoductRuta,
                                     nombreVendedor: detallesVendedor.nombreVendedor,
                                     apellidoVendedor: detallesVendedor.apellidoVendedor,
                                     precioDeVentaFormateado: formatearPrecio(direccion.preciodeventa),
@@ -131,7 +132,7 @@ export default function misCompras() {
                         // Almacena las direcciones en el estado de tu componente
                         setCompras(direcciones);
                         console.log(compras);
-
+                        console.log("Direcciones:", idPrdoductRuta);
                         // Imprime las direcciones en la consola
                         console.log("Direcciones:", direcciones);
                     } else {
@@ -157,13 +158,14 @@ export default function misCompras() {
                 params,
             });
 
+            const idPrdoductRuta = res.data[0].id;
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;
             const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
             const usuario = res.data[0].usuario;
 
 
-            return { nombreProducto, salePrice, nombreImagen, usuario };
+            return { nombreProducto, salePrice, nombreImagen, usuario, idPrdoductRuta };
 
         } catch (error) {
             console.error("Error al obtener el nombre del producto", error);
@@ -310,13 +312,13 @@ export default function misCompras() {
                                             <Grid className="productComprado" container>
                                                 <Grid key={producto.id} item xs={12} md={9} className="productCompradoSubCont" >
                                                     <Grid xs={5} md={6} className="contImgMisCompras">
-                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} onClick={() => router.push(`/product/${producto.idprd}`)} />
+                                                        <img src={`${URL_IMAGES_RESULTS}${producto.nombreImagen}`} onClick={() => router.push(`/product/${producto.idPrdoductRuta}`)} />
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
                                                                 <p className="estadoCompra">{producto.estadodeldespacho}</p>
-                                                                <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
+                                                                <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${producto.idPrdoductRuta}`)}>{producto.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades compradas:</p>
                                                                     <p className="numeroUnidsCompradas">{producto.cantidad}</p>

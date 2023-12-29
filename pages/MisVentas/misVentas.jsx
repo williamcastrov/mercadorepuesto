@@ -92,6 +92,7 @@ export default function misVentas() {
                                 nuevoValor: venta.preciodeventa + venta.precioenvio,
                                 nombreProducto: detallesProducto.nombreProducto,
                                 salePrice: detallesProducto.salePrice,
+                                idPrdoductRuta: detallesProducto.idPrdoductRuta,
                                 nombreImagen: detallesProducto.nombreImagen,
                                 nombreUsuario: detallesProducto.usuario,
                                 nombreComprador: detallesComprador.primernombre,
@@ -125,13 +126,13 @@ export default function misVentas() {
                 url: URL_BD_MR + "18",
                 params,
             });
-
+            const idPrdoductRuta = res.data[0].id;
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;
             const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
             const usuario = res.data[0].usuario;
 
-            return { nombreProducto, salePrice, nombreImagen, usuario };
+            return { nombreProducto, salePrice, nombreImagen, usuario, idPrdoductRuta };
 
         } catch (error) {
             console.error("Error al obtener el nombre del producto", error);
@@ -298,13 +299,13 @@ export default function misVentas() {
                                             <Grid key={index} className="productComprado" container>
                                                 <Grid item xs={12} md={9} className="productCompradoSubCont" >
                                                     <Grid xs={5} md={6} className="contImgMisCompras">
-                                                        <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} />
+                                                        <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)}/>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
                                                                 <p className="estadoCompra">{venta.estadodeldespacho}</p>
-                                                                <p className="nombreProductMiCompra">{venta.nombreProducto}</p>
+                                                                <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)}>{venta.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades vendidas:</p>
                                                                     <p className="numeroUnidsCompradas">{venta.cantidad}</p>
