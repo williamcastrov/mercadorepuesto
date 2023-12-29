@@ -174,15 +174,17 @@ export default function verVenta() {
         setShowModal2(false);
     };
 
+
+
     return (
         <>
             <div ref={irA}>
                 {venta ? (
                     <Container title="Mi Cuenta">
                         <div className="ps-page ps-page--inner" id="myaccount">
-                            <div className="container">
-                                <div className="ps-page__header"> </div>
-                                <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
+                            <div className="container" >
+                                <div className="ps-page__header" > </div>
+                                <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginBottom: '4rem' }}>
                                         <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
@@ -190,7 +192,7 @@ export default function verVenta() {
                                                 underline="none"
                                                 href="./"
                                                 onClick={(e) => { e.preventDefault(); router.push('./misVentas') }}
-                                               
+
                                             >
                                                 <p className="VerVentaLink">Mis ventas</p>
                                             </Link>
@@ -253,7 +255,7 @@ export default function verVenta() {
                                                 </div>
                                                 <div className="subtitlesverVenta">
                                                     <div className="divButtonAdjFact">
-                                                        <div className="divButtonVerVenta">
+                                                        <div className="divButtonVerVenta2">
                                                             <button className="buttnVerVenta" onClick={handleClick}>
                                                                 {buttonText}
                                                                 <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
@@ -290,26 +292,34 @@ export default function verVenta() {
 
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Precio del producto:</p>
-                                                    <p>${venta.preciodeventa}</p>
+                                                    <p>Precio del producto:</p>  
+                                                    {venta.preciodeventa !== null && (
+                                                        <p>${venta.preciodeventa.toLocaleString()}</p>
+                                                    )}
                                                 </div>
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Precio del envío:</p>
-                                                    <p>${venta.preciodelenvio}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="misVentasRigt2">
-                                                <div className="subtitlesveVenta1">
-                                                    <p>Retención:</p>
-                                                    <p>${venta.retencion}</p>
+                                                    <p>Precio del envío:</p> 
+                                                    {venta.preciodelenvio !== null && (
+                                                        <p>${venta.preciodelenvio.toLocaleString()}</p>
+                                                    )}
                                                 </div>
                                             </div>
 
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Impuestos:</p>
-                                                    <p>${venta.impuestos}</p>
+                                                    <p>Retención:</p> 
+                                                    {venta.retencion !== null && (
+                                                        <p>${venta.retencion.toLocaleString()}</p>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            <div className="misVentasRigt2">
+                                                <div className="subtitlesveVenta1">
+                                                    <p>Impuestos:</p>  
+                                                    {venta.impuestos !== null && (
+                                                        <p>${venta.impuestos.toLocaleString()}</p>
+                                                    )}
                                                 </div>
                                             </div>
 

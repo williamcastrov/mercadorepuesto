@@ -79,8 +79,11 @@ export default function misVentas() {
                             const detallesProducto = await obtenerNombreProducto(venta.idproducto);
                             // Obtén los detalles del comprador
                             const detallesComprador = await obtenerDetallesComprador(venta.idcomprador);
+                            const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
+                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.preciodelenvio;
+                            const formattedTotal = total.toLocaleString();
 
-                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
+
                             return {
                                 ...venta,
                                 fechadeventa1: venta.fechadeventa,
@@ -89,15 +92,15 @@ export default function misVentas() {
                                 fechadespacho: venta.fechadespacho ? venta.fechadespacho.slice(0, 10) : null,
                                 fechadevolucion: venta.fechadevolucion ? venta.fechadevolucion.slice(0, 10) : null,
                                 fechadepago: venta.fechadepago ? venta.fechadepago.slice(0, 10) : null,
-                                nuevoValor: venta.preciodeventa + venta.precioenvio,
+                                nuevoValor: venta.preciodeventa + venta.preciodelenvio,
                                 nombreProducto: detallesProducto.nombreProducto,
-                                salePrice: detallesProducto.salePrice,
+                                salePrice: formattedSalePrice,
                                 idPrdoductRuta: detallesProducto.idPrdoductRuta,
                                 nombreImagen: detallesProducto.nombreImagen,
                                 nombreUsuario: detallesProducto.usuario,
                                 nombreComprador: detallesComprador.primernombre,
                                 apellidoComprador: detallesComprador.primerapellido,
-                                total: total,
+                                total: formattedTotal,
                             };
                         })
                     );
@@ -299,7 +302,7 @@ export default function misVentas() {
                                             <Grid key={index} className="productComprado" container>
                                                 <Grid item xs={12} md={9} className="productCompradoSubCont" >
                                                     <Grid xs={5} md={6} className="contImgMisCompras">
-                                                        <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)}/>
+                                                        <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)} />
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
@@ -318,7 +321,9 @@ export default function misVentas() {
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={3} className="precioProductMisCompras">
-                                                            <p>${venta.preciodeventa}</p>
+                                                            {venta.preciodeventa !== null && (
+                                                                <p>${venta.preciodeventa.toLocaleString()}</p>
+                                                            )}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

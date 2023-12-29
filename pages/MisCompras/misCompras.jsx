@@ -329,7 +329,7 @@ export default function misCompras() {
                                                                 </div>
                                                                 <p className="dateCompra">{producto.fechacompra}</p>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> 
                                                         <Grid item xs={12} md={3} className="precioProductMisCompras">
                                                             <p>${producto.salePrice}</p>
                                                         </Grid>

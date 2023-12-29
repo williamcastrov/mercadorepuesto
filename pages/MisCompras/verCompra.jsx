@@ -26,7 +26,7 @@ export default function verCompra() {
         if (router.query.producto) {
             producto = JSON.parse(router.query.producto)
             // Guardar los datos en el almacenamiento local
-            localStorage.setItem('producto', JSON.stringify(producto))
+            localStorage.setItem('producto', JSON.stringify(producto)) 
         } else {
             // Recuperar los datos del almacenamiento local
             const data = localStorage.getItem('producto')
@@ -63,9 +63,9 @@ export default function verCompra() {
                                                 href="./misCompras"
                                                 onClick={(e) => { e.preventDefault(); router.push('./misCompras') }} 
                                             >
-                                               <p className="VerVentaLink">Mis ventas</p>
+                                               <p className="VerVentaLink">Mis compras</p>
                                             </Link>
-                                            <p className="VerVentaLink">Ver venta</p>
+                                            <p className="VerVentaLink">Ver compra</p>
                                         </Breadcrumbs>
 
                                     </Grid>
@@ -85,7 +85,7 @@ export default function verCompra() {
                                         </Grid>
                                         <Grid item xs={12} md={5} sx={{ paddingLeft: '4rem' }}>
                                             <div style={{ width: '80%' }}>
-                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600', cursor: 'pointer' }} onClick={() => router.push(`/product/${producto.idprd}`)}>{producto.nombreProducto}</p>
+                                                <p style={{ fontSize: '20px', color: '#2D2E83', fontWeight: '600', cursor: 'pointer' }}onClick={() => router.push(`/product/${producto.idPrdoductRuta}`)} >{producto.nombreProducto}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Unidades compradas:</p>
@@ -98,7 +98,7 @@ export default function verCompra() {
                                             <div className="subtitlesvercompra">
                                                 <p>Precio del envío:</p>
                                                 <p>${producto.precioEnvioFormateado}</p>
-                                            </div>
+                                            </div> 
                                             <div className="subtitlesvercompra">
                                                 <p>Total:</p>
                                                 <p>${producto.nuevoValor}</p>
@@ -107,7 +107,7 @@ export default function verCompra() {
                                     </Grid>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '4rem' }}>
                                         <div className="detallesypagovercompra">
-                                            <p>Detalles de pago y envio</p>
+                                            <p>Detalles de pago y envío</p>
                                         </div>
                                         <Grid className="ContPsubtitlesvercompra" item xs={12} md={7}>
                                             <div className="subtitlesvercompra">
@@ -142,7 +142,7 @@ export default function verCompra() {
                                             <div className="subtitlesvercompra">
                                                 <p>{producto.nombreciudad}, {producto.nombre_dep} </p>
                                             </div>
-                                            <button className="RastrMiEnvVerCompraButton">Rastrear mi envio</button>
+                                            <button className="RastrMiEnvVerCompraButton">Rastrear mi envío</button>
 
                                         </Grid>
                                     </Grid>
