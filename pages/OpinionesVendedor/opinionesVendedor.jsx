@@ -76,7 +76,12 @@ export default function opinionesVendedor() {
     const [ciudadVendedor, setCiudadVendedor] = useState("");
     const [departamentoVendedor, setDepartamentoVendedor] = useState("");
     const [selectedSortOption, setSelectedSortOption] = useState(null);
+    // Estado para almacenar las calificaciones
+    const [calificaciones, setCalificaciones] = useState([]);
+    // Estado para almacenar la calificación promedio
+    const [calificacionPromedio, setCalificacionPromedio] = useState(0);
 
+    
     //Función para obtener, nombre de vendedor, número de ventas y tiempo como vendedor
     useEffect(() => {
         const obtenerDatosVendedor = async () => {
@@ -192,10 +197,7 @@ export default function opinionesVendedor() {
     //console.log("Dias como vendedor: ", diasComoVendedor)
 
 
-    // Estado para almacenar las calificaciones
-    const [calificaciones, setCalificaciones] = useState([]);
-    // Estado para almacenar la calificación promedio
-    const [calificacionPromedio, setCalificacionPromedio] = useState(0);
+
 
     useEffect(() => {
         const obtenerCalificacionesVendedor = async () => {
@@ -270,8 +272,8 @@ export default function opinionesVendedor() {
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
 
-                                <Grid className="contDataUsersVerventa" container style={{ width: isMdDown ? '100%' : '94%' }}>
-                                    <Grid item xs={12} md={4} className="ContOpVendedor" >
+                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '94%' }}>
+                                    <Grid item xs={12} md={4} className="ContOpVendedor" flexDirection={'column'} display={'flex'}>
                                         <div className='TitleOpVend'>
                                             <p>Mis opiniones como vendedor</p>
                                         </div>
@@ -289,7 +291,7 @@ export default function opinionesVendedor() {
                                             </div>
                                         </div>
                                     </Grid>
-                                    <Grid item xs={12} md={7} className="maincontCalificOpinionesV">
+                                    <Grid item xs={12} md={7} className="maincontCalificOpinionesV" display={'flex'} flexDirection={'column'}>
                                         <div className="vacioOpiniones"></div>
 
                                         <div className="contCalificOpinionesV">
