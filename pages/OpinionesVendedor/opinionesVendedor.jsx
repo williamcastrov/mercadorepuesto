@@ -75,7 +75,7 @@ export default function opinionesVendedor() {
     // Estado para almacenar la dirección más reciente
     const [ciudadVendedor, setCiudadVendedor] = useState("");
     const [departamentoVendedor, setDepartamentoVendedor] = useState("");
-
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
 
     //Función para obtener, nombre de vendedor, número de ventas y tiempo como vendedor
     useEffect(() => {
@@ -97,7 +97,7 @@ export default function opinionesVendedor() {
                     // Asumiendo que todos los objetos son ventas del mismo vendedor
                     setNumeroVentas(res.data.listarvtasusuariovende.length);
                     const vendedor = res.data.listarvtasusuariovende[0];
-                    const nombreCompleto = `${vendedor.primernombre} ${vendedor.segundoapellido}`;
+                    const nombreCompleto = `${vendedor.primernombre || ''} ${vendedor.segundoapellido || ''}`.trim();
                     setNombreVendedor(nombreCompleto);
                 }
             } catch (error) {
@@ -232,7 +232,7 @@ export default function opinionesVendedor() {
 
 
 
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
+
     //Seleccionar funcion por mas antiguo o mas nuevo
     const handleSelect = (eventKey) => {
         setSelectedSortOption(eventKey);
@@ -341,7 +341,7 @@ export default function opinionesVendedor() {
                                             </div>
 
 
-                                            <div className="MainComentarios"> 
+                                            <div className="MainComentarios">
                                                 {calificaciones.map((calificacion, index) => (
                                                     <div className="subCmainComentarios" key={index}>
                                                         <div className="subCmainComentarios2">
@@ -358,10 +358,10 @@ export default function opinionesVendedor() {
                                                             <p>{calificacion.comentario}</p>
 
                                                             <p>{calificacion.fechacreacion ? calificacion.fechacreacion.slice(0, 10) : ""}</p>
-                                                            
+
                                                         </div>
                                                     </div>
-                                                ))} 
+                                                ))}
                                             </div>
 
 
