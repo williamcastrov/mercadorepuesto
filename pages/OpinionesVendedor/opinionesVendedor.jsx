@@ -69,7 +69,7 @@ export default function opinionesVendedor() {
     const irA = useRef(null);//PosiciónTopPage
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("Datos usuario vendedor: ", datosusuarios)
-    const [tiempoComoVendedor, setTiempoComoVendedor] = useState(''); 
+    const [tiempoComoVendedor, setTiempoComoVendedor] = useState('');
     const [nombreVendedor, setNombreVendedor] = useState(""); //Nombrevendedor
     const [numeroVentas, setNumeroVentas] = useState(0);    //estado para guardar ventas cantidad
     // Estado para almacenar la dirección más reciente
@@ -106,7 +106,7 @@ export default function opinionesVendedor() {
             }
         };
         obtenerDatosVendedor();
-    }, [datosusuarios]); 
+    }, [datosusuarios]);
 
     //Función para calcular el tiempo que lleva como vendedor 
     useEffect(() => {
@@ -152,7 +152,7 @@ export default function opinionesVendedor() {
         };
 
         fechaCreacionVendedor();
-    }, [datosusuarios]); 
+    }, [datosusuarios]);
 
     //Función para obtener dirección mas reciente del usuario
     useEffect(() => {
@@ -192,7 +192,72 @@ export default function opinionesVendedor() {
     //console.log("Dias como vendedor: ", diasComoVendedor)
 
 
+    // Estado para almacenar las calificaciones
+    const [calificaciones, setCalificaciones] = useState([]);
+    // Estado para almacenar la calificación promedio
+    const [calificacionPromedio, setCalificacionPromedio] = useState(0);
 
+    useEffect(() => {
+        const obtenerCalificacionesVendedor = async () => {
+            let params = {
+                uidvendedor: datosusuarios.uid,
+            };
+            try {
+                console.log("Enviando solicitud a endPoint 502 con params: ", params);
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "502",
+                    params,
+                });
+                console.log("Respuesta recibida del endPoint 502: ", res.data);
+
+                // Mapeo de los datos
+                if (res.data && res.data.listarcalprdvendedor) {
+                    setCalificaciones(res.data.listarcalprdvendedor);
+
+                    // Calcular la calificación promedio
+                    const sumaCalificaciones = res.data.listarcalprdvendedor.reduce((suma, calificacion) => suma + calificacion.calificacion, 0);
+                    const promedio = sumaCalificaciones / res.data.listarcalprdvendedor.length;
+                    setCalificacionPromedio(promedio);
+                }
+            } catch (error) {
+                console.error("Error al leer los datos del vendedor en endPoint 502", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerCalificacionesVendedor();
+    }, [datosusuarios]);
+
+
+
+
+
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
+    //Seleccionar funcion por mas antiguo o mas nuevo
+    const handleSelect = (eventKey) => {
+        setSelectedSortOption(eventKey);
+
+        if (eventKey === "Más antiguo") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion))
+            );
+        } else if (eventKey === "Más reciente") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion))
+            );
+        }
+    };
+
+    //Button de dropdown
+    const CustomDropdownButton = React.forwardRef(({ children, onClick }, ref) => (
+        <button
+            ref={ref}
+            onClick={onClick}
+            className="dropdowncustomMiscomprasPersButton"
+        >
+            {selectedSortOption ? `${selectedSortOption}` : "Ordenar por"}
+        </button>
+    ));
 
 
 
@@ -232,18 +297,18 @@ export default function opinionesVendedor() {
                                                 <p>Calificación vendedor</p>
                                             </div>
                                             <div className="SubcontCalificOpinionesV">
-                                                <p className="SubcontCalificOpinionesVP">5.0</p>
+                                                <p className="SubcontCalificOpinionesVP"> {calificacionPromedio.toFixed(1)}</p>
                                                 <div className="contnumbercalifics">
                                                     <div className="iconsOpinVend">
                                                         {[1, 2, 3, 4, 5].map((index) => (
                                                             <RiSettings5Fill
                                                                 key={index}
                                                                 size={22}
-                                                                className="iconoConfOpiVn"
+                                                                className={index <= Math.floor(calificacionPromedio) ? "iconoConfOpiVn colorRojo" : "iconoConfOpiVn"}
                                                             />
                                                         ))}
                                                     </div>
-                                                    <p>6 calificaciones</p>
+                                                    <p>{calificaciones.length} calificaciones</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,60 +316,54 @@ export default function opinionesVendedor() {
                                         <div className="mainOpinionesComentarios">
                                             <div className="subCmainOpiniones">
                                                 <p>Comentarios de los compradores:</p>
-                                                <button>Hola</button>
+                                                <Dropdown style={{ width: '27%' }} onSelect={handleSelect} className="dropOpiniones">
+                                                    <Dropdown.Toggle
+                                                        as={CustomDropdownButton}
+                                                        id="dropdown-basic"
+                                                    >
+                                                        {selectedSortOption ? `Ordenar por ${selectedSortOption}` : "Ordenar por"}
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu className="tamañocajaoptionsVendedor">
+                                                        <Dropdown.Item
+                                                            eventKey="Más antiguo"
+                                                            className="itemsdropdownVerVenta"
+                                                        >
+                                                            Más antiguo
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item
+                                                            eventKey="Más reciente"
+                                                            className="itemsdropdownVerVenta"
+                                                        >
+                                                            Más reciente
+                                                        </Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
                                             </div>
 
 
-                                            <div className="MainComentarios">
+                                            <div className="MainComentarios"> 
+                                                {calificaciones.map((calificacion, index) => (
+                                                    <div className="subCmainComentarios" key={index}>
+                                                        <div className="subCmainComentarios2">
+                                                            <div className="subCmainIconos">
+                                                                {[1, 2, 3, 4, 5].map((index) => (
+                                                                    <RiSettings5Fill
+                                                                        key={index}
+                                                                        size={18}
+                                                                        className={index <= calificacion.calificacion ? "iconoConfOpiVn colorRojo" : "iconoConfOpiVn"}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                            <p>Comentario de la calificación:</p>
+                                                            <p>{calificacion.comentario}</p>
 
-                                                <div className="subCmainComentarios">
-                                                    <div className="subCmainIconos">
-                                                        {[1, 2, 3, 4, 5].map((index) => (
-                                                            <RiSettings5Fill
-                                                                key={index}
-                                                                size={18}
-                                                                className="iconoConfOpiVn"
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                    <p>Comentario de la calificación:</p>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque eos illum explicabo, magni atque alias ipsa reiciendis culpa quae harum veniam repudiandae.</p>
-                                                    <p>2023-12-22</p>
-                                                </div>
-
-                                                <div className="subCmainComentarios">
-                                                    <div className="subCmainIconos">
-                                                        {[1, 2, 3, 4, 5].map((index) => (
-                                                            <RiSettings5Fill
-                                                                key={index}
-                                                                size={18}
-                                                                className="iconoConfOpiVn"
-                                                            />
-                                                        ))}
-                                                    </div>
-                                                    <p>Comentario de la calificación:</p>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque eos illum explicabo, magni atque alias ipsa reiciendis culpa quae harum veniam repudiandae.</p>
-                                                    <p>2023-12-22</p>
-                                                </div>
-
-                                                <div className="subCmainComentarios">
-                                                    <div className="subCmainComentariosSub">
-                                                        <div className="subCmainIconos">
-                                                            {[1, 2, 3, 4, 5].map((index) => (
-                                                                <RiSettings5Fill
-                                                                    key={index}
-                                                                    size={18}
-                                                                    className="iconoConfOpiVn"
-                                                                />
-                                                            ))}
+                                                            <p>{calificacion.fechacreacion ? calificacion.fechacreacion.slice(0, 10) : ""}</p>
+                                                            
                                                         </div>
-                                                        <p>Comentario de la calificación:</p>
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque eos illum explicabo, magni atque alias ipsa reiciendis culpa quae harum veniam repudiandae.</p>
-                                                        <p>2023-12-22</p>
                                                     </div>
-                                                </div>
-
+                                                ))} 
                                             </div>
+
 
                                         </div>
 

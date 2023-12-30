@@ -32677,9 +32677,9 @@ label {
 .contnumbercalifics{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
-.contnumbercalifics p{
-    margin-top: 1.3rem;
+.contnumbercalifics p{ 
     margin-bottom: .5rem; 
     font-size: 16px !important;
     color: #2D2E83;
@@ -32713,8 +32713,7 @@ label {
 }
 .iconsOpinVend{
     display: flex;
-    gap: 5px;
-    color: #2D2E83;
+    gap: 5px; 
 }
 .iconoConfOpiVn{
     margin-top: -5px;
@@ -32727,6 +32726,7 @@ label {
     justify-content: space-between;
     border-bottom: 4px solid #F4F5F5;
     padding-bottom: 1rem;
+    align-items: center;
 }
 .subCmainOpiniones p{ 
     font-size: 18px !important;
@@ -32734,16 +32734,41 @@ label {
     font-weight: 500;
     font-family: "Jost", sans-serif; 
 }
-.MainComentarios{
+
+.MainComentarios {
     display: flex;
     flex-direction: column;
     width: 100%;
+    max-height: 55rem; /* Altura máxima en rem */
+    overflow-y: auto; /* Agrega un scroll vertical si es necesario */
+    scrollbar-width: thin; /* Ajusta el ancho del scrollbar (puede ser 'thin', 'auto', o 'none') */
+    scrollbar-color: #F4F5F5 #ffffff; /* Ajusta el color del scrollbar (puedes cambiar estos valores) */
 }
+
+/* Solo para navegadores que admiten la propiedad scrollbar-color */
+.MainComentarios::-webkit-scrollbar {
+    width: 8px; /* Ajusta el ancho del scrollbar en navegadores WebKit (Chrome, Safari, etc.) */
+}
+
+.MainComentarios::-webkit-scrollbar-thumb {
+    background-color: #F4F5F5; /* Ajusta el color del thumb (el área desplazable) */
+    border-radius: 4px; /* Ajusta la esquina del thumb si lo deseas */
+}
+
+.MainComentarios::-webkit-scrollbar-track {
+    background-color: #ffffff; /* Ajusta el color de la pista (el área no desplazable) */
+}
+
+
+
+
 .subCmainComentarios{
     border-bottom:  3px solid #F4F5F5;
     margin-top: 12px;
     margin-bottom: 12px;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.8rem; 
+    padding-left: 1.8rem;
+    padding-right: 1.8rem; 
 }
 .subCmainComentarios p{
     font-size: 16px !important;
@@ -32762,5 +32787,30 @@ label {
     width: 90%;
     display: flex;
     flex-direction: column;
+}
+.iconoConfOpiVn { 
+    color: #acadcd; 
+}
+
+.iconoConfOpiVn.colorRojo { 
+    color: #2D2E83;
+}
+.subCmainComentarios2{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.tamañocajaoptionsVendedor {
+    margin-left: 5px !important;
+    width: 250px !important;
+    font-size: 16px !important;
+}
+.itemsdropdownVerVenta {
+    color: #2D2E83 !important;
+    height: 35px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+.dropOpiniones{ 
 }
 /*Fin opiniones como vendedor*/
