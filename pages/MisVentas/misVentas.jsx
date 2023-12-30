@@ -32,9 +32,20 @@ export default function misVentas() {
     const irA = useRef(null);
     const [ventas, setVentas] = useState([]);
 
-    function formatearPrecio(precio) {
-        return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    const estadosDespacho = {
+        40: "Alistando tu compra",
+        41: "Compra enviada",
+        42: "Compra entregada",
+        43: "Compra finalizada"
+    };
+
+    const estadosVenta = {
+        50: "Alistando la venta",
+        51: "Venta enviada",
+        52: "Venta entregada",
+        53: "Venta finalizada"
+    };
+
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
@@ -86,6 +97,8 @@ export default function misVentas() {
 
                             return {
                                 ...venta,
+                                estadodeldespacho: estadosDespacho[venta.estadodeldespacho],
+                                estadodelaventa: estadosVenta[venta.estadodelaventa],
                                 fechadeventa1: venta.fechadeventa,
                                 fechadeventa: venta.fechadeventa.slice(0, 10),
                                 fechaentrega: venta.fechaentrega.slice(0, 10),

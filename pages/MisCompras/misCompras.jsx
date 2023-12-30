@@ -32,6 +32,15 @@ export default function misCompras() {
     const irA = useRef(null);
     const [detallesProducto, setDetallesProducto] = useState(null);
 
+
+    const estadosDespacho = {
+        40: "Alistando tu compra",
+        41: "Compra enviada",
+        42: "Compra entregada",
+        43: "Compra finalizada"
+    };
+
+
     function formatearPrecio(precio) {
         return precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -111,6 +120,7 @@ export default function misCompras() {
 
                                 return {
                                     ...direccion,
+                                    estadodeldespacho:estadosDespacho[direccion.estadodeldespacho], 
                                     fechacompra: direccion.fechacompra.slice(0, 10),
                                     fechaentrega: direccion.fechaentrega.slice(0, 10),
                                     fechadespacho: direccion.fechadespacho.slice(0, 10),
