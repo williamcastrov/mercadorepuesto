@@ -15,10 +15,53 @@ import { GrNext } from "react-icons/gr";
 import { URL_BD_MR } from "../../helpers/Constants";
 import { RiSettings5Fill } from "react-icons/ri";
 import { useSelector } from "react-redux";
-
+import moment from 'moment';
 
 
 export default function opinionesVendedor() {
+
+
+    {/* 
+    const [diasComoVendedor, setDiasComoVendedor] = useState(0);
+
+    useEffect(() => {
+      const obtenerDatosVendedor = async () => {
+        let params = {
+          uid: datosusuarios.uid,
+        };
+        try {
+          console.log("Enviando solicitud a tuEndPoint con params: ", params);
+          const res = await axios({
+            method: "post",
+            url: URL_BD_MR + "13",
+            params,
+          });
+          console.log("Respuesta recibida de tuEndPoint: ", res.data);
+  
+          if (res.data && res.data.length > 0) {
+            const fechaCreacion = moment(res.data[0].fechacreacion, "YYYY-MM-DD HH:mm:ss");
+            
+            if (fechaCreacion.isValid()) {
+              const fechaActual = moment();
+              const diferenciaEnDias = fechaActual.diff(fechaCreacion, 'days');
+              setDiasComoVendedor(diferenciaEnDias);
+            } else {
+              console.error("La fecha de creación no es válida.");
+            }
+          } else {
+            console.error("No se encontraron datos del usuario en tuEndPoint.");
+          }
+        } catch (error) {
+          console.error("Error al leer los datos del usuario en tuEndPoint", error);
+          // Maneja el error según tus necesidades
+        }
+      };
+  
+      obtenerDatosVendedor();
+    }, [datosusuarios]);
+*/}
+
+
 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
@@ -26,12 +69,13 @@ export default function opinionesVendedor() {
     const irA = useRef(null);//PosiciónTopPage
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     console.log("Datos usuario vendedor: ", datosusuarios)
+    const [tiempoComoVendedor, setTiempoComoVendedor] = useState(''); 
+    const [nombreVendedor, setNombreVendedor] = useState(""); //Nombrevendedor
+    const [numeroVentas, setNumeroVentas] = useState(0);    //estado para guardar ventas cantidad
+    // Estado para almacenar la dirección más reciente
+    const [ciudadVendedor, setCiudadVendedor] = useState("");
+    const [departamentoVendedor, setDepartamentoVendedor] = useState("");
 
-    // Estado para almacenar el tiempo como vendedor
-    const [diasComoVendedor, setDiasComoVendedor] = useState(0);
-
-    const [nombreVendedor, setNombreVendedor] = useState("");
-    const [numeroVentas, setNumeroVentas] = useState(0);
 
     //Función para obtener, nombre de vendedor, número de ventas y tiempo como vendedor
     useEffect(() => {
@@ -62,20 +106,55 @@ export default function opinionesVendedor() {
             }
         };
         obtenerDatosVendedor();
-    }, [datosusuarios]);
+    }, [datosusuarios]); 
 
+    //Función para calcular el tiempo que lleva como vendedor 
+    useEffect(() => {
+        const fechaCreacionVendedor = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+            try {
+                console.log("Enviando solicitud a tuEndPoint con params: ", params);
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "13",
+                    params,
+                });
+                console.log("Respuesta recibida de tuEndPoint: ", res.data);
 
+                if (res.data && res.data.length > 0) {
+                    const fechaCreacion = moment(res.data[0].fechacreacion, "YYYY-MM-DD HH:mm:ss");
 
+                    if (fechaCreacion.isValid()) {
+                        const fechaActual = moment();
+                        const diferenciaEnDias = fechaActual.diff(fechaCreacion, 'days');
 
+                        if (diferenciaEnDias < 365) {
+                            setTiempoComoVendedor(`${diferenciaEnDias} días`);
+                        } else {
+                            const duracion = moment.duration(diferenciaEnDias, 'days');
+                            const years = duracion.years();
+                            const remainingDays = duracion.days();
 
+                            setTiempoComoVendedor(`${years} año${years !== 1 ? 's' : ''} y ${remainingDays} día${remainingDays !== 1 ? 's' : ''}`);
+                        }
+                    } else {
+                        console.error("La fecha de creación no es válida.");
+                    }
+                } else {
+                    console.error("No se encontraron datos del usuario en tuEndPoint.");
+                }
+            } catch (error) {
+                console.error("Error al leer los datos del usuario en tuEndPoint", error);
+                // Maneja el error según tus necesidades
+            }
+        };
 
+        fechaCreacionVendedor();
+    }, [datosusuarios]); 
 
-
-
-    // Estado para almacenar la dirección más reciente
-    const [ciudadVendedor, setCiudadVendedor] = useState("");
-    const [departamentoVendedor, setDepartamentoVendedor] = useState("");
-
+    //Función para obtener dirección mas reciente del usuario
     useEffect(() => {
         const obtenerDireccionVendedor = async () => {
             let params = {
@@ -92,22 +171,13 @@ export default function opinionesVendedor() {
 
                 // Mapeo de los datos
                 if (res.data && res.data.listardireccionesusuario) {
-                    try {
-                        // Ordenamos las direcciones por fecha de creación y tomamos la más reciente
-                        const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
-                        setCiudadVendedor(direccionesOrdenadas[0].nombreciudad);
-                        setDepartamentoVendedor(direccionesOrdenadas[0].nombre_dep);
+                    // Ordenamos las direcciones por fecha de creación y tomamos la más reciente
+                    const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
+                    setCiudadVendedor(direccionesOrdenadas[0].nombreciudad);
+                    setDepartamentoVendedor(direccionesOrdenadas[0].nombre_dep);
 
-                        // Calcular el tiempo como vendedor
-                        if (vendedor && vendedor.fechacreacion) {
-                            const fechaCreacion = new Date(vendedor.fechacreacion);
-                            const fechaActual = new Date();
-                            const diferenciaEnDias = Math.floor((fechaActual - fechaCreacion) / (1000 * 60 * 60 * 24));
-                            setDiasComoVendedor(diferenciaEnDias);
-                        }
-                    } catch (error) {
-                        console.error("Error al calcular la diferencia de días:", error);
-                    }
+
+
                 }
             } catch (error) {
                 console.error("Error al leer los datos del vendedor en endPoint 65", error);
@@ -117,9 +187,9 @@ export default function opinionesVendedor() {
         obtenerDireccionVendedor();
     }, [datosusuarios]);
 
-    console.log("Ciudad vendedor: ", ciudadVendedor)
-    console.log("Departamento vendedor: ", departamentoVendedor)
-    console.log("Dias como vendedor: ", diasComoVendedor)
+    //console.log("Ciudad vendedor: ", ciudadVendedor)
+    //console.log("Departamento vendedor: ", departamentoVendedor)
+    //console.log("Dias como vendedor: ", diasComoVendedor)
 
 
 
@@ -148,7 +218,7 @@ export default function opinionesVendedor() {
                                                 <p>Vendedor: {nombreVendedor}</p>
                                             </div>
                                             <div className="conUserOpiVendData">
-                                                <p>Tiempo como vendedor: {diasComoVendedor}</p>
+                                                <p>Tiempo como vendedor:  {tiempoComoVendedor}</p>
                                                 <p>Numero de ventas: {numeroVentas}</p>
                                                 <p>{ciudadVendedor}, {departamentoVendedor}</p>
                                             </div>
