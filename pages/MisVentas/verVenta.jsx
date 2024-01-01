@@ -239,7 +239,7 @@ export default function verVenta() {
                                                     <div>
                                                         <p className="nameVerV">{venta.nombreProducto}</p>
                                                         <p>Unidades vendidas: {venta.cantidad}</p>
-                                                        <p className="nameVerV2">${venta.total}</p>
+                                                        <p className="nameVerV2">${venta.total.toLocaleString('en-US')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="etiquetaContDetails">
@@ -292,33 +292,33 @@ export default function verVenta() {
 
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Precio del producto:</p>  
+                                                    <p>Precio del producto:</p>
                                                     {venta.preciodeventa !== null && (
-                                                        <p>${venta.preciodeventa.toLocaleString()}</p>
+                                                        <p>${venta.preciodeventa.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Precio del envío:</p> 
-                                                    {venta.preciodelenvio !== null && (
-                                                        <p>${venta.preciodelenvio.toLocaleString()}</p>
-                                                    )}
-                                                </div>
-                                            </div>
-
-                                            <div className="misVentasRigt2">
-                                                <div className="subtitlesveVenta1">
-                                                    <p>Retención:</p> 
-                                                    {venta.retencion !== null && (
-                                                        <p>${venta.retencion.toLocaleString()}</p>
+                                                    <p>Precio del envío:</p>
+                                                    {venta.preciodelenvio !== null && ( 
+                                                        <p>${venta.preciodelenvio.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
                                             </div>
 
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
-                                                    <p>Impuestos:</p>  
-                                                    {venta.impuestos !== null && (
-                                                        <p>${venta.impuestos.toLocaleString()}</p>
+                                                    <p>Retención:</p>
+                                                    {venta.retencion !== null && ( 
+                                                        <p>${venta.retencion.toLocaleString('en-US')}</p> 
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            <div className="misVentasRigt2">
+                                                <div className="subtitlesveVenta1">
+                                                    <p>Impuestos:</p>
+                                                    {venta.impuestos !== null && ( 
+                                                        <p>${venta.impuestos.toLocaleString('en-US')}</p> 
                                                     )}
                                                 </div>
                                             </div>
@@ -326,7 +326,7 @@ export default function verVenta() {
                                             <div className="misVentasRigt3">
                                                 <div className="subtitlesveVenta1">
                                                     <p>Total:</p>
-                                                    <p>${venta.total}</p>
+                                                    <p>${venta.total.toLocaleString('en-US')}</p>
                                                 </div>
                                             </div>
 

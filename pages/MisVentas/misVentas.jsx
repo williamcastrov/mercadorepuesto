@@ -92,7 +92,7 @@ export default function misVentas() {
                             const detallesComprador = await obtenerDetallesComprador(venta.idcomprador);
                             const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
                             const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.preciodelenvio;
-                            const formattedTotal = total.toLocaleString();
+                 
 
 
                             return {
@@ -113,7 +113,7 @@ export default function misVentas() {
                                 nombreUsuario: detallesProducto.usuario,
                                 nombreComprador: detallesComprador.primernombre,
                                 apellidoComprador: detallesComprador.primerapellido,
-                                total: formattedTotal,
+                                total
                             };
                         })
                     );
@@ -335,7 +335,7 @@ export default function misVentas() {
                                                         </Grid>
                                                         <Grid item xs={12} md={3} className="precioProductMisCompras">
                                                             {venta.preciodeventa !== null && (
-                                                                <p>${venta.preciodeventa.toLocaleString()}</p>
+                                                                <p>${venta.preciodeventa.toLocaleString('en-US')}</p>
                                                             )}
                                                         </Grid>
                                                     </Grid>
