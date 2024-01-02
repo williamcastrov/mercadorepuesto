@@ -81,7 +81,7 @@ export default function opinionesVendedor() {
     // Estado para almacenar la calificación promedio
     const [calificacionPromedio, setCalificacionPromedio] = useState(0);
 
-    
+
     //Función para obtener, nombre de vendedor, número de ventas y tiempo como vendedor
     useEffect(() => {
         const obtenerDatosVendedor = async () => {
@@ -159,7 +159,6 @@ export default function opinionesVendedor() {
         fechaCreacionVendedor();
     }, [datosusuarios]);
 
-    //Función para obtener dirección mas reciente del usuario
     useEffect(() => {
         const obtenerDireccionVendedor = async () => {
             let params = {
@@ -179,10 +178,11 @@ export default function opinionesVendedor() {
                     // Ordenamos las direcciones por fecha de creación y tomamos la más reciente
                     const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
                     setCiudadVendedor(direccionesOrdenadas[0].nombreciudad);
-                    setDepartamentoVendedor(direccionesOrdenadas[0].nombre_dep);
 
-
-
+                    // Convertir el nombre del departamento a formato de título
+                    let departamento = direccionesOrdenadas[0].nombre_dep.toLowerCase();
+                    departamento = departamento.charAt(0).toUpperCase() + departamento.slice(1);
+                    setDepartamentoVendedor(departamento);
                 }
             } catch (error) {
                 console.error("Error al leer los datos del vendedor en endPoint 65", error);
@@ -246,6 +246,14 @@ export default function opinionesVendedor() {
         } else if (eventKey === "Más reciente") {
             setCalificaciones(prevCalificaciones =>
                 [...prevCalificaciones].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion))
+            );
+        } else if (eventKey === "Mayor calificación") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => b.calificacion - a.calificacion)
+            );
+        } else if (eventKey === "Menor calificación") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => a.calificacion - b.calificacion)
             );
         }
     };
@@ -318,7 +326,7 @@ export default function opinionesVendedor() {
                                         <div className="mainOpinionesComentarios">
                                             <div className="subCmainOpiniones">
                                                 <p>Comentarios de los compradores:</p>
-                                                <Dropdown style={{ width: '27%' }} onSelect={handleSelect} className="dropOpiniones">
+                                                <Dropdown onSelect={handleSelect} className="dropOpiniones">
                                                     <Dropdown.Toggle
                                                         as={CustomDropdownButton}
                                                         id="dropdown-basic"
@@ -338,6 +346,18 @@ export default function opinionesVendedor() {
                                                         >
                                                             Más reciente
                                                         </Dropdown.Item>
+                                                        <Dropdown.Item
+                                                            eventKey="Mayor calificación"
+                                                            className="itemsdropdownVerVenta"
+                                                        >
+                                                            Mayor calificación
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item
+                                                            eventKey="Menor calificación"
+                                                            className="itemsdropdownVerVenta"
+                                                        >
+                                                            Menor calificación
+                                                        </Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                             </div>
@@ -356,8 +376,12 @@ export default function opinionesVendedor() {
                                                                     />
                                                                 ))}
                                                             </div>
-                                                            <p>Comentario de la calificación:</p>
-                                                            <p>{calificacion.comentario}</p>
+                                                            {calificacion.comentario && (
+                                                                <>
+                                                                    <p>Comentario de la calificación:</p>
+                                                                    <p>{calificacion.comentario}</p>
+                                                                </>
+                                                            )}
 
                                                             <p>{calificacion.fechacreacion ? calificacion.fechacreacion.slice(0, 10) : ""}</p>
 

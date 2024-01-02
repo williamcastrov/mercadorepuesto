@@ -102,7 +102,7 @@ export default function verCompra() {
                                             <div className="subtitlesvercompra">
                                                 <p>Total:</p>
                                                 <p>${producto.nuevoValor}</p>
-                                            </div>
+                                            </div> 
                                         </Grid>
                                     </Grid>
                                     <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%', marginTop: '4rem' }}>
