@@ -194,10 +194,10 @@ export default function verVenta() {
     const confirmarEnvio = async () => {
         // Aquí puedes verificar si la factura ya existe
         const facturaExistente = await verificarFacturaExistente();
-    
+
         // Cierra el modal de confirmación
         setShowModal2(false);
-    
+
         if (facturaExistente) {
             // Muestra el modal de aviso
             setShowModal(true);
@@ -206,13 +206,14 @@ export default function verVenta() {
         } else {
             let params = {
                 idcomprador: venta.idcomprador,
+                idproducto: venta.idproducto,
                 idvendedor: venta.idvendedor,
                 fechadeventa: venta.fechadeventa,
                 numerodeventa: venta.numerodeventa,
                 nombreimagen1: imageName + extension,
                 //factura: selectedImage
             };
-    
+
             console.log("Params de factura: ", params)
             try {
                 const response = await axios({
@@ -220,14 +221,14 @@ export default function verVenta() {
                     url: URL_BD_MR + "109",
                     params,
                 });
-    
+
                 console.log(response.data);
-    
+
                 // Muestra el modal de éxito
                 setShowModal(true);
                 setTituloMensajes("Factura enviada");
                 setTextoMensajes("La factura ha sido enviada exitosamente.");
-    
+
                 // Restablece el archivo seleccionado y el texto del botón
                 setSelectedFile(null);
                 setButtonText("Adjuntar factura");
@@ -238,6 +239,7 @@ export default function verVenta() {
         }
     };
 
+    //Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {
         let params = {
             idvendedor: venta.idvendedor,
@@ -263,6 +265,7 @@ export default function verVenta() {
         console.log("Id Vendedor: ", venta.idvendedor)
         console.log("Fecha venta: ", venta.fechadeventa)
         console.log("Numero de venta: ", venta.numerodeventa)
+        console.log("Id producto: ", venta.idproducto)
     } else {
         console.log("Venta es null")
     }
