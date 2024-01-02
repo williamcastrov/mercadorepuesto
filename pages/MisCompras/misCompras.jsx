@@ -141,6 +141,7 @@ export default function misCompras() {
 
                         // Almacena las direcciones en el estado de tu componente
                         setCompras(direcciones);
+                        console.log("Direcciones: ", direcciones)
                         console.log(compras);
                         console.log("Direcciones:", idPrdoductRuta);
                         // Imprime las direcciones en la consola

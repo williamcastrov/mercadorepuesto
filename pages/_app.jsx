@@ -65,7 +65,7 @@ function App({ Component, pageProps, props }) {
     const [device, setDevice] = useState("");
     const [deviceLink, setDeviceLink] = useState("");
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
-    console.log("DAT USER : ", datosusuarios);
+   // console.log("DAT USER : ", datosusuarios);
     const [UidUser, setUidUser] = useState("");
     const [DatosUser, setDatosUser] = useState([]);
     const [dispositivosVinculados, setDispositivosVinculados] = useState([]);
@@ -140,7 +140,7 @@ function App({ Component, pageProps, props }) {
         const handleDeviceDetection = () => {
             const userAgent = navigator.userAgent.toLowerCase();
             let array = userAgent.split(" ");
-            console.log("XXXXXXX : ", array);
+            //console.log("XXXXXXX : ", array);
 
             setDevice(userAgent);
             const isMobile =
@@ -153,7 +153,7 @@ function App({ Component, pageProps, props }) {
                 );
             //validacaracteres = preguntaVendedor.substr(i, 1);
             if (isMobile) {
-                console.log("ID Dispositivo : ", "Mobile" + array[1] + " ");
+               // console.log("ID Dispositivo : ", "Mobile" + array[1] + " ");
                 setDevice(
                     "Mobile" +
                     " " +
@@ -165,7 +165,7 @@ function App({ Component, pageProps, props }) {
                     array[5]
                 );
             } else if (isTablet) {
-                console.log("ID Dispositivo : ", "Tablet" + array[1] + " ");
+                //console.log("ID Dispositivo : ", "Tablet" + array[1] + " ");
                 setDevice(
                     "Tablet" +
                     " " +
@@ -185,7 +185,7 @@ function App({ Component, pageProps, props }) {
                     fecha: 0
                 }
 
-                console.log("ID Dispositivo : ", row);
+                //console.log("ID Dispositivo : ", row);
                 setDevice(
                     "Desktop" +
                     " " +
@@ -207,7 +207,7 @@ function App({ Component, pageProps, props }) {
         };
     }, [datosusuarios]);
 
-    console.log("DISPOSITIVOS : ", deviceLink);
+   // console.log("DISPOSITIVOS : ", deviceLink);
     //Función para identificar la localizacion
     useEffect(() => {
         const fetchData = async () => {
@@ -216,18 +216,18 @@ function App({ Component, pageProps, props }) {
                     navigator.geolocation.getCurrentPosition(
                         async (position) => {
                             const { latitude, longitude } = position.coords;
-                            console.log("Latitude:", latitude);
-                            console.log("Longitude:", longitude);
+                            //console.log("Latitude:", latitude);
+                            //console.log("Longitude:", longitude);
 
                             const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAHpKFep5sHSFrTg-98GSpDsgSiKBa9vOI`;
-                            console.log("Geocode URL:", geocodeUrl);
+                            //console.log("Geocode URL:", geocodeUrl);
 
                             try {
                                 const response = await axios.get(geocodeUrl);
 
                                 if (response.data.results[0]) {
                                     const formattedAddress = response.data.results[0].formatted_address;
-                                    console.log("Formatted Address:", formattedAddress);
+                                    //console.log("Formatted Address:", formattedAddress);
 
                                     setLocation({
                                         latitude,
@@ -236,7 +236,7 @@ function App({ Component, pageProps, props }) {
                                         error: null,
                                     });
 
-                                    console.log("Location state updated successfully");
+                                   // console.log("Location state updated successfully");
                                 } else {
                                     console.error("No results found in geocoding response");
                                     setLocation({ error: "No results found" });
@@ -569,7 +569,7 @@ function App({ Component, pageProps, props }) {
                     leer();
                     // Coloca los datos en state arreglo de categorias
                 } else {
-                    console.log("USUARIO NO ESTA LOGUEADO");
+                   // console.log("USUARIO NO ESTA LOGUEADO");
                     setSelectedForm(null);
                     const Usuario = {
                         uid: 0,

@@ -92,16 +92,16 @@ export default function misVentas() {
                             const detallesComprador = await obtenerDetallesComprador(venta.idcomprador);
                             const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
                             const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.preciodelenvio;
-                 
+
 
 
                             return {
                                 ...venta,
                                 estadodeldespacho: estadosDespacho[venta.estadodeldespacho],
                                 estadodelaventa: estadosVenta[venta.estadodelaventa],
-                                fechadeventa1: venta.fechadeventa,
-                                fechadeventa: venta.fechadeventa.slice(0, 10),
-                                fechaentrega: venta.fechaentrega.slice(0, 10),
+                                fechadeventa1: venta.fechadeventa ? venta.fechadeventa.slice(0, 10) : null,
+                                fechadeventa: venta.fechadeventa ? venta.fechadeventa.slice(0, 10) : null, 
+                                fechaentrega: venta.fechaentrega ? venta.fechaentrega.slice(0, 10) : null,
                                 fechadespacho: venta.fechadespacho ? venta.fechadespacho.slice(0, 10) : null,
                                 fechadevolucion: venta.fechadevolucion ? venta.fechadevolucion.slice(0, 10) : null,
                                 fechadepago: venta.fechadepago ? venta.fechadepago.slice(0, 10) : null,
@@ -118,11 +118,12 @@ export default function misVentas() {
                         })
                     );
                     setVentas(ventas);
+                    console.log("Mis ventas:", ventas)
                 } else {
                     console.error("Error: res.data o res.data.listarvtasusuariovende es undefined");
                 }
             } catch (error) {
-                console.error("Error al leer los datos del usuario", error);
+                console.error("Error al leer las ventas:", error);
             }
         };
         if (UidUser) {
