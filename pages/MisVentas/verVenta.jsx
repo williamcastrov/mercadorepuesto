@@ -63,15 +63,7 @@ export default function verVenta() {
     }
 
 
-    console.log("Venta ver venta:", venta)
-    if (venta) {
-        console.log("Id comprador: ", venta.idcomprador)
-        console.log("Id Vendedor: ", venta.idvendedor)
-        console.log("Fecha venta: ", venta.fechadeventa)
-        console.log("Numero de venta: ", venta.numerodeventa)
-    } else {
-        console.log("Venta es null")
-    }
+
 
 
     //toppagewhilesign
@@ -107,10 +99,6 @@ export default function verVenta() {
             let uniqueImageName = shortid.generate();
             uniqueImageName = uniqueImageName.substring(0, 11);
 
-            // Almacenar la imagen en localStorage con el nuevo nombre
-            //localStorage.setItem(uniqueImageName, base64Image);
-
-            // Actualizar el estado con la imagen seleccionada
             let extension =
                 "." +
                 base64Image.substring(
@@ -170,14 +158,12 @@ export default function verVenta() {
             reader.readAsDataURL(file);
 
             setButtonText("Enviar factura");
-            
+
         } else {
             setShowModal(true);
             setTituloMensajes("Archivo incorrecto");
             setTextoMensajes("Solo se permiten archivos JPG, JPEG, PNG y PDF.");
         }
-
-        // Restablecer el valor del campo de entrada del archivo
         event.target.value = null;
     };
 
@@ -204,20 +190,82 @@ export default function verVenta() {
     };
 
 
-    //Función para confirmar eliminación de imagen
-    const confirmarEliminacion = () => {
-        // Muestra el modal de éxito
-        setShowModal(true);
-        setTituloMensajes("Factura enviada");
-        setTextoMensajes("La factura ha sido enviada exitosamente.");
-
-        // Restablece el archivo seleccionado y el texto del botón
-        setSelectedFile(null);
-        setButtonText("Adjuntar factura");
-
+    //Función para confirmar envío de factura
+    const confirmarEnvio = async () => {
+        // Aquí puedes verificar si la factura ya existe
+        const facturaExistente = await verificarFacturaExistente();
+    
         // Cierra el modal de confirmación
         setShowModal2(false);
+    
+        if (facturaExistente) {
+            // Muestra el modal de aviso
+            setShowModal(true);
+            setTituloMensajes("Factura existente");
+            setTextoMensajes("Ya existe una factura para esta venta y no es posible enviar de nuevo.");
+        } else {
+            let params = {
+                idcomprador: venta.idcomprador,
+                idvendedor: venta.idvendedor,
+                fechadeventa: venta.fechadeventa,
+                numerodeventa: venta.numerodeventa,
+                nombreimagen1: imageName + extension,
+                //factura: selectedImage
+            };
+    
+            console.log("Params de factura: ", params)
+            try {
+                const response = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "109",
+                    params,
+                });
+    
+                console.log(response.data);
+    
+                // Muestra el modal de éxito
+                setShowModal(true);
+                setTituloMensajes("Factura enviada");
+                setTextoMensajes("La factura ha sido enviada exitosamente.");
+    
+                // Restablece el archivo seleccionado y el texto del botón
+                setSelectedFile(null);
+                setButtonText("Adjuntar factura");
+            } catch (error) {
+                console.error("Error al enviar la factura", error);
+                // Maneja el error según tus necesidades
+            }
+        }
     };
+
+    const verificarFacturaExistente = async () => {
+        let params = {
+            idvendedor: venta.idvendedor,
+        };
+
+        const response = await axios({
+            method: "post",
+            url: URL_BD_MR + "111",
+            params,
+        });
+
+        const facturas = response.data.listarfacturavendedor;
+
+        // Verifica si ya existe una factura con el mismo número de venta
+        const facturaExistente = facturas.some(factura => factura.numerodeventa === venta.numerodeventa);
+
+        return facturaExistente;
+    };
+
+    console.log("Venta ver venta:", venta)
+    if (venta) {
+        console.log("Id comprador: ", venta.idcomprador)
+        console.log("Id Vendedor: ", venta.idvendedor)
+        console.log("Fecha venta: ", venta.fechadeventa)
+        console.log("Numero de venta: ", venta.numerodeventa)
+    } else {
+        console.log("Venta es null")
+    }
 
 
 
@@ -410,7 +458,7 @@ export default function verVenta() {
                                     />
                                     <ModalMensajesEliminar
                                         shown={showModal2}
-                                        setContinuarEliminar={confirmarEliminacion}
+                                        setContinuarEliminar={confirmarEnvio}
                                         setAbandonarEliminar={() => setShowModal2(false)}
                                         titulo="Confirmar envío"
                                         mensaje="¿Estás seguro de que quieres enviar esta factura?"
