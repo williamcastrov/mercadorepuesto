@@ -278,7 +278,7 @@ export default function opinionesVendedor() {
                                             <p>Mis opiniones como vendedor</p>
                                         </div>
                                         <div className='subTitleOpVend'>
-                                            <p>Mis opiniones como vendedor</p>
+                                            <p>Así te ven los demás usuarios</p>
                                         </div>
                                         <div className="conUserOpiVend">
                                             <div className="conUserOpiVendNombre">

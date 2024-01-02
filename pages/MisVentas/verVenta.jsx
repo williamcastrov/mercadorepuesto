@@ -246,6 +246,7 @@ export default function verVenta() {
                                                     <p className="etiquetaContDetailsTitle">Datos del envío</p>
                                                     <p>{venta.estadodeldespacho}</p>
                                                     <p>{venta.direcciondeenvio}</p>
+                                                    <p>{venta.nombreciudad}, {venta.nombre_dep}</p>
                                                 </div>
                                             </div>
 
