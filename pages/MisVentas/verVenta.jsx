@@ -62,6 +62,16 @@ export default function verVenta() {
         }
     }
 
+    console.log("Venta ver venta:", venta)
+    if (venta) {
+        console.log("Id comprador: ", venta.idcomprador)
+        console.log("Id Vendedor: ", venta.idvendedor)
+        console.log("Fecha venta: ", venta.fechadeventa)
+        console.log("Numero de venta: ", venta.numerodeventa)
+        console.log("Id producto: ", venta.idproducto)
+    } else {
+        console.log("Venta es null")
+    }
 
 
 
@@ -211,7 +221,7 @@ export default function verVenta() {
                 fechadeventa: venta.fechadeventa,
                 numerodeventa: venta.numerodeventa,
                 nombreimagen1: imageName + extension,
-                //factura: selectedImage
+                imagen1: selectedImage
             };
 
             console.log("Params de factura: ", params)
@@ -259,16 +269,6 @@ export default function verVenta() {
         return facturaExistente;
     };
 
-    console.log("Venta ver venta:", venta)
-    if (venta) {
-        console.log("Id comprador: ", venta.idcomprador)
-        console.log("Id Vendedor: ", venta.idvendedor)
-        console.log("Fecha venta: ", venta.fechadeventa)
-        console.log("Numero de venta: ", venta.numerodeventa)
-        console.log("Id producto: ", venta.idproducto)
-    } else {
-        console.log("Venta es null")
-    }
 
 
 
