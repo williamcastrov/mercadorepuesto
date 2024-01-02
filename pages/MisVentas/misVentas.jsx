@@ -31,12 +31,14 @@ export default function misVentas() {
     //PosiciónTopPage
     const irA = useRef(null);
     const [ventas, setVentas] = useState([]);
+    
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
 
     const estadosDespacho = {
-        40: "Alistando la compra",
-        41: "Compra enviada",
-        42: "Compra entregada",
-        43: "Compra finalizada"
+        40: "Alistando la venta",
+        41: "Venta enviada",
+        42: "Venta entregada",
+        43: "Venta finalizada"
     };
 
     const estadosVenta = {
@@ -172,23 +174,11 @@ export default function misVentas() {
         }
     };
 
+ 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    const [selectedSortOption, setSelectedSortOption] = useState(null);
 
     // Programación de dropdown de mis ventas actual
     const handleSelect = (eventKey) => {
@@ -321,7 +311,7 @@ export default function misVentas() {
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
-                                                                <p className="estadoCompra">{venta.estadodeldespacho}</p>
+                                                                <p className="estadoCompra">{venta.estadodelaventa}</p>
                                                                 <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)}>{venta.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades vendidas:</p>

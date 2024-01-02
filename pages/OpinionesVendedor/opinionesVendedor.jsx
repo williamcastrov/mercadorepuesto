@@ -71,6 +71,7 @@ export default function opinionesVendedor() {
     console.log("Datos usuario vendedor: ", datosusuarios)
     const [tiempoComoVendedor, setTiempoComoVendedor] = useState('');
     const [nombreVendedor, setNombreVendedor] = useState(""); //Nombrevendedor
+    const [idVendedor, setIdVendedor] = useState(""); //Nombrevendedor
     const [numeroVentas, setNumeroVentas] = useState(0);    //estado para guardar ventas cantidad
     // Estado para almacenar la dirección más reciente
     const [ciudadVendedor, setCiudadVendedor] = useState("");
@@ -102,8 +103,10 @@ export default function opinionesVendedor() {
                     // Asumiendo que todos los objetos son ventas del mismo vendedor
                     setNumeroVentas(res.data.listarvtasusuariovende.length);
                     const vendedor = res.data.listarvtasusuariovende[0];
-                    const nombreCompleto = `${vendedor.primernombre || ''} ${vendedor.segundoapellido || ''}`.trim();
-                    setNombreVendedor(nombreCompleto);
+                    // Asumiendo que vendedor.uid es "1652703118227"
+                    const ultimoCincoDigitos = vendedor.uid.slice(-7);
+                    setNombreVendedor(ultimoCincoDigitos);
+
                 }
             } catch (error) {
                 console.error("Error al leer los datos del vendedor en endPoint 106", error);

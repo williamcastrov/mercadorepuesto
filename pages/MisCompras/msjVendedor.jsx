@@ -291,7 +291,7 @@ export default function msjVendedor({ UsuarioVendedor }) {
         };
 
         try {
-            const response = await axios({
+            const response = await axios({ 
                 method: "post",
                 url: `${URL_BD_MR}84`,
                 params,

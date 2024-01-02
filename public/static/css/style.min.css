@@ -32513,12 +32513,20 @@ label {
     font-weight: 500;
 }
 
-.nameVerV {
-    margin-bottom: 1rem;
+.nameVerV { 
+    margin-bottom: .5rem;
+        font-size: 16px !important;
+        color: #2D2E83;
+        font-weight: 500; 
+}
+.unidVend{ 
+    font-size: 16px !important;
+    color: #2D2E83;
+    font-weight: 500; 
 }
 
 .nameVerV2 {
-    margin-top: 1rem;
+    margin-top: .5rem;
 }
 
 .etiquetaContDetails {

@@ -19,6 +19,7 @@ import { PiSquareThin } from 'react-icons/pi';
 import ModalMensajes from "../mensajes/ModalMensajes";
 import { IoIosSquareOutline } from "react-icons/io";
 import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
+import shortid from "shortid";
 
 export default function verVenta() {
 
@@ -63,6 +64,16 @@ export default function verVenta() {
 
 
     console.log("Venta ver venta:", venta)
+    if (venta) {
+        console.log("Id comprador: ", venta.idcomprador)
+        console.log("Id Vendedor: ", venta.idvendedor)
+        console.log("Fecha venta: ", venta.fechadeventa)
+        console.log("Numero de venta: ", venta.numerodeventa)
+    } else {
+        console.log("Venta es null")
+    }
+
+
     //toppagewhilesign
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -78,11 +89,37 @@ export default function verVenta() {
         setShowModal(false);
     };
 
-
+    // Estado para almacenar el nombre de la imagen
+    const [imageName, setImageName] = useState("");
+    const [extension, setExtension] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
 
 
     const changeHandler = async (event) => {
         const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            // Convertir la imagen a base64
+            const base64Image = reader.result;
+
+            // Generar un ID único para la imagen
+            let uniqueImageName = shortid.generate();
+            uniqueImageName = uniqueImageName.substring(0, 11);
+
+            // Almacenar la imagen en localStorage con el nuevo nombre
+            //localStorage.setItem(uniqueImageName, base64Image);
+
+            // Actualizar el estado con la imagen seleccionada
+            let extension =
+                "." +
+                base64Image.substring(
+                    base64Image.indexOf("/") + 1,
+                    base64Image.indexOf(";base64")
+                );
+            setExtension(extension);
+            setSelectedImage(base64Image);
+        };
 
         if (file) {
             let maxSize = maxImageSize; // 800 KB para imágenes
@@ -124,8 +161,16 @@ export default function verVenta() {
                 }
             }
 
+            // Si la imagen pasa todas las validaciones, actualiza el estado
+            let nombreimagen = shortid();
+            console.log("NombreImagen: ", nombreimagen)
+            setImageName(nombreimagen);
             setSelectedFile(URL.createObjectURL(file));
+            // Leer la imagen como una URL de datos
+            reader.readAsDataURL(file);
+
             setButtonText("Enviar factura");
+            
         } else {
             setShowModal(true);
             setTituloMensajes("Archivo incorrecto");
@@ -203,7 +248,7 @@ export default function verVenta() {
                                     <Grid className="contDataUsersVerventa" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                         <Grid item xs={12} md={7} className="misVentasr" >
                                             <div >
-                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>{venta.estadodeldespacho} </p>
+                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>{venta.estadodelaventa} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>{venta.nombreProducto} </p>
@@ -238,13 +283,12 @@ export default function verVenta() {
                                                     </div>
                                                     <div>
                                                         <p className="nameVerV">{venta.nombreProducto}</p>
-                                                        <p>Unidades vendidas: {venta.cantidad}</p>
+                                                        <p className="unidVend">Unidades vendidas: {venta.cantidad}</p>
                                                         <p className="nameVerV2">${venta.total.toLocaleString('en-US')}</p>
                                                     </div>
                                                 </div>
                                                 <div className="etiquetaContDetails">
                                                     <p className="etiquetaContDetailsTitle">Datos del envío</p>
-                                                    <p>{venta.estadodeldespacho}</p>
                                                     <p>{venta.direcciondeenvio}</p>
                                                     <p>{venta.nombreciudad}, {venta.nombre_dep}</p>
                                                 </div>
@@ -300,7 +344,7 @@ export default function verVenta() {
                                                 </div>
                                                 <div className="subtitlesveVenta1">
                                                     <p>Precio del envío:</p>
-                                                    {venta.preciodelenvio !== null && ( 
+                                                    {venta.preciodelenvio !== null && (
                                                         <p>${venta.preciodelenvio.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
@@ -309,8 +353,8 @@ export default function verVenta() {
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
                                                     <p>Retención:</p>
-                                                    {venta.retencion !== null && ( 
-                                                        <p>${venta.retencion.toLocaleString('en-US')}</p> 
+                                                    {venta.retencion !== null && (
+                                                        <p>${venta.retencion.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
                                             </div>
@@ -318,8 +362,8 @@ export default function verVenta() {
                                             <div className="misVentasRigt2">
                                                 <div className="subtitlesveVenta1">
                                                     <p>Impuestos:</p>
-                                                    {venta.impuestos !== null && ( 
-                                                        <p>${venta.impuestos.toLocaleString('en-US')}</p> 
+                                                    {venta.impuestos !== null && (
+                                                        <p>${venta.impuestos.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
                                             </div>
