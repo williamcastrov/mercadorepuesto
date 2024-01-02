@@ -33,7 +33,7 @@ export default function misVentas() {
     const [ventas, setVentas] = useState([]);
 
     const estadosDespacho = {
-        40: "Alistando la venta",
+        40: "Alistando la compra",
         41: "Compra enviada",
         42: "Compra entregada",
         43: "Compra finalizada"
