@@ -83,7 +83,7 @@ export default function index() {
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
 
-                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '87%' }}>
+                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '87%' }} display={'flex'} flexDirection={'column'}>
                                     <div className='TitleOpVend'>
                                         <p>Resuelve tus dudas</p>
                                     </div>
