@@ -333,7 +333,7 @@ export default function misVentas() {
                                                 </Grid>
                                                 <Grid item xs={12} md={3} className="ContRightMisCompras">
                                                     <div className="SendMsjVendandName">
-                                                        <p className="nameVendedorMiCompra">Nombre Comprador</p>
+                                                        <p className="nameVendedorMiCompra">{venta.nombreComprador} {venta.apellidoComprador} </p>
                                                     </div>
                                                     <div className="SendMsjVendandName">
                                                         <p className="nameVendedorMiCompra">Tienes x mensajes sin leer</p>
