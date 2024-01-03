@@ -284,31 +284,26 @@ export default function opinionesVendedor() {
                             <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
 
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '94%' }}>
-                                    <Grid item xs={12} md={4} className="ContOpVendedor" flexDirection={'column'} display={'flex'}>
-                                        <div className='TitleOpVend'>
-                                            <p>Mis opiniones como vendedor</p>
-                                        </div>
-                                        <div className='subTitleOpVend'>
-                                            <p>Así te ven los demás usuarios</p>
-                                        </div>
-                                        <div className="conUserOpiVend">
-                                            <div className="conUserOpiVendNombre">
-                                                <p>Vendedor: {nombreVendedor}</p>
+                                    <div className='TitleOpVend'>
+                                        <p>Mis opiniones como vendedor</p>
+                                    </div>
+                                    <div className="dataContVendedor">
+                                        <div className="dataVendedor">
+                                            <div>
+                                                <p className="titleDataVend">Vendedor: </p> {/*UID VENDEDOR */}
+                                                <p className="infotitleDataVend">{nombreVendedor}</p>
                                             </div>
-                                            <div className="conUserOpiVendData">
-                                                <p>Tiempo como vendedor:  {tiempoComoVendedor}</p>
-                                                <p>Numero de ventas: {numeroVentas}</p>
-                                                <p>{ciudadVendedor}, {departamentoVendedor}</p>
+                                            <div>
+                                                <p className="titleDataVend">Tiempo como vendedor: </p>
+                                                <p className="infotitleDataVend">{tiempoComoVendedor}</p>
                                             </div>
+                                            <div>
+                                                <p className="titleDataVend">Número de ventas: </p>
+                                                <p className="infotitleDataVend">{numeroVentas}</p>
+                                            </div>
+                                            <p className="infotitleDataVend">{ciudadVendedor}, {departamentoVendedor}</p>
                                         </div>
-                                    </Grid>
-                                    <Grid item xs={12} md={7} className="maincontCalificOpinionesV" display={'flex'} flexDirection={'column'}>
-                                        <div className="vacioOpiniones"></div>
-
-                                        <div className="contCalificOpinionesV">
-                                            <div className="PcalifV">
-                                                <p>Calificación vendedor</p>
-                                            </div>
+                                        <div className="cantCalificaciones">
                                             <div className="SubcontCalificOpinionesV">
                                                 <p className="SubcontCalificOpinionesVP"> {calificacionPromedio.toFixed(1)}</p>
                                                 <div className="contnumbercalifics">
@@ -325,52 +320,53 @@ export default function opinionesVendedor() {
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                        <div className="mainOpinionesComentarios">
-                                            <div className="subCmainOpiniones">
-                                                <p>Comentarios de los compradores:</p>
-                                                <Dropdown onSelect={handleSelect} className="dropOpiniones">
-                                                    <Dropdown.Toggle
-                                                        as={CustomDropdownButton}
-                                                        id="dropdown-basic"
+                                    <div className="contCalificaciones">
+                                        <div className="toPcontCalificaciones">
+                                            <p>Tus opiniones</p>
+                                            <Dropdown onSelect={handleSelect} className="dropOpiniones">
+                                                <Dropdown.Toggle
+                                                    as={CustomDropdownButton}
+                                                    id="dropdown-basic"
+                                                >
+                                                    {selectedSortOption ? `Ordenar por ${selectedSortOption}` : "Ordenar por"}
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu className="tamañocajaoptionsVendedor">
+                                                    <Dropdown.Item
+                                                        eventKey="Más antiguo"
+                                                        className="itemsdropdownVerVenta"
                                                     >
-                                                        {selectedSortOption ? `Ordenar por ${selectedSortOption}` : "Ordenar por"}
-                                                    </Dropdown.Toggle>
-                                                    <Dropdown.Menu className="tamañocajaoptionsVendedor">
-                                                        <Dropdown.Item
-                                                            eventKey="Más antiguo"
-                                                            className="itemsdropdownVerVenta"
-                                                        >
-                                                            Más antiguo
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item
-                                                            eventKey="Más reciente"
-                                                            className="itemsdropdownVerVenta"
-                                                        >
-                                                            Más reciente
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item
-                                                            eventKey="Mayor calificación"
-                                                            className="itemsdropdownVerVenta"
-                                                        >
-                                                            Mayor calificación
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item
-                                                            eventKey="Menor calificación"
-                                                            className="itemsdropdownVerVenta"
-                                                        >
-                                                            Menor calificación
-                                                        </Dropdown.Item>
-                                                    </Dropdown.Menu>
-                                                </Dropdown>
-                                            </div>
+                                                        Más antiguo
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        eventKey="Más reciente"
+                                                        className="itemsdropdownVerVenta"
+                                                    >
+                                                        Más reciente
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        eventKey="Mayor calificación"
+                                                        className="itemsdropdownVerVenta"
+                                                    >
+                                                        Mayor calificación
+                                                    </Dropdown.Item>
+                                                    <Dropdown.Item
+                                                        eventKey="Menor calificación"
+                                                        className="itemsdropdownVerVenta"
+                                                    >
+                                                        Menor calificación
+                                                    </Dropdown.Item>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
 
-
-                                            <div className="MainComentarios">
-                                                {calificaciones.map((calificacion, index) => (
-                                                    <div className="subCmainComentarios" key={index}>
-                                                        <div className="subCmainComentarios2">
-                                                            <div className="subCmainIconos">
+                                        <div className="renderCalificaciones">
+                                            {calificaciones.map((calificacion, index) => (
+                                                <div className="subCmainComentarios" key={index}>
+                                                    <div className="subCmainComentarios2">
+                                                        <div className="subCmainIconos">
+                                                            <div>
                                                                 {[1, 2, 3, 4, 5].map((index) => (
                                                                     <RiSettings5Fill
                                                                         key={index}
@@ -378,26 +374,24 @@ export default function opinionesVendedor() {
                                                                         className={index <= calificacion.calificacion ? "iconoConfOpiVn colorRojo" : "iconoConfOpiVn"}
                                                                     />
                                                                 ))}
-                                                            </div>
-                                                            {calificacion.comentario && (
-                                                                <>
-                                                                    <p>Comentario de la calificación:</p>
-                                                                    <p>{calificacion.comentario}</p>
-                                                                </>
-                                                            )}
-
+                                                            </div> 
                                                             <p>{calificacion.fechacreacion ? calificacion.fechacreacion.slice(0, 10) : ""}</p>
-
                                                         </div>
+                                                        {calificacion.comentario && (
+                                                            <div className="comentClif">
+                                                                <p>Comentario de la calificación:</p>
+                                                                <p>{calificacion.comentario}</p>
+                                                            </div>
+                                                        )} 
                                                     </div>
-                                                ))}
-                                            </div>
-
-
+                                                </div>
+                                            ))}
                                         </div>
 
+                                    </div>
 
-                                    </Grid>
+
+
                                 </Grid>
 
                             </div>
