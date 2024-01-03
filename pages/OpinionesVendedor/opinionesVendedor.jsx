@@ -41,6 +41,13 @@ export default function opinionesVendedor() {
     // Estado para almacenar la calificación promedio
     const [calificacionPromedio, setCalificacionPromedio] = useState(0);
 
+    
+    useEffect(() => {
+        irA.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    }, []);
 
     //Función para obtener, nombre de vendedor, número de ventas y tiempo como vendedor
     useEffect(() => {

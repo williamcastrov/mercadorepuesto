@@ -32935,3 +32935,67 @@ label {
     margin-bottom: 1rem;
 }
 /*Fin opiniones como vendedor*/
+
+
+
+/*Resolver dudas*/
+
+.contResDudasInputdiv{
+    width: 70%;
+    margin: 0 auto;
+}
+.contMainResolverDudas{
+    width: 70%;
+    margin: 0 auto;
+    flex-direction: column;
+    display: flex;
+}
+.sobreComprarDudas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+.sobreComprarDudas div{
+    cursor: pointer;
+}
+.contTitulosDudas{
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: #F0F1F5;
+    margin-bottom: .5rem;
+}
+.contTitulo{
+    margin-bottom: 2rem;
+}
+.contTitulo p{
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.contTitulosDudas p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.startContDudas{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.endContDudas{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.contTitulosDudas svg{ 
+    fill: #2D2E83;
+}
+.SobreVenderCont{
+    margin-top: 5rem !important;
+}
+.sobreMiCuentaCont{
+    margin-top: 5rem !important;
+}
+/*fin resolver dudas*/
