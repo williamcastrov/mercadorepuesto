@@ -87,7 +87,7 @@ export default function opinionesVendedor() {
     useEffect(() => {
         const obtenerDatosVendedor = async () => {
             let params = {
-                idvendedor: datosusuarios.uid,
+                uidvendedor: datosusuarios.uid,
             };
             try {
                 console.log("Enviando solicitud a endPoint 106 con params: ", params);
@@ -99,12 +99,12 @@ export default function opinionesVendedor() {
                 console.log("Respuesta recibida del endPoint 106: ", res.data);
 
                 // Mapeo de los datos
-                if (res.data && res.data.listarvtasusuariovende) {
+                if (res.data && res.data.listarmisventas) {
                     // Asumiendo que todos los objetos son ventas del mismo vendedor
-                    setNumeroVentas(res.data.listarvtasusuariovende.length);
-                    const vendedor = res.data.listarvtasusuariovende[0];
+                    setNumeroVentas(res.data.listarmisventas.length);
+                    const vendedor = res.data.listarmisventas[0];
                     // Asumiendo que vendedor.uid es "1652703118227"
-                    const ultimoCincoDigitos = vendedor.uid.slice(-7);
+                    const ultimoCincoDigitos = vendedor.uidvendedor.slice(-7);
                     setNombreVendedor(ultimoCincoDigitos);
 
                 }
