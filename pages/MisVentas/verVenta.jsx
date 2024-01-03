@@ -195,10 +195,12 @@ export default function verVenta() {
     };
 
     const handleRemoveFile = () => {
-        // Elimina la imagen y restablece el texto del botón
+        // Elimina la imagen y el PDF y restablece el texto del botón
         setSelectedFile(null);
+        setSelectedImage(null);
+        setSelectedPDF(null);
         setButtonText("Adjuntar factura");
-
+    
         // Restablecer el valor del campo de entrada del archivo para permitir la selección del mismo archivo
         fileInput.current.value = null;
     };
