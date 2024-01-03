@@ -18,48 +18,7 @@ import { useSelector } from "react-redux";
 import moment from 'moment';
 
 
-export default function opinionesVendedor() {
-
-
-    {/* 
-    const [diasComoVendedor, setDiasComoVendedor] = useState(0);
-
-    useEffect(() => {
-      const obtenerDatosVendedor = async () => {
-        let params = {
-          uid: datosusuarios.uid,
-        };
-        try {
-          console.log("Enviando solicitud a tuEndPoint con params: ", params);
-          const res = await axios({
-            method: "post",
-            url: URL_BD_MR + "13",
-            params,
-          });
-          console.log("Respuesta recibida de tuEndPoint: ", res.data);
-  
-          if (res.data && res.data.length > 0) {
-            const fechaCreacion = moment(res.data[0].fechacreacion, "YYYY-MM-DD HH:mm:ss");
-            
-            if (fechaCreacion.isValid()) {
-              const fechaActual = moment();
-              const diferenciaEnDias = fechaActual.diff(fechaCreacion, 'days');
-              setDiasComoVendedor(diferenciaEnDias);
-            } else {
-              console.error("La fecha de creación no es válida.");
-            }
-          } else {
-            console.error("No se encontraron datos del usuario en tuEndPoint.");
-          }
-        } catch (error) {
-          console.error("Error al leer los datos del usuario en tuEndPoint", error);
-          // Maneja el error según tus necesidades
-        }
-      };
-  
-      obtenerDatosVendedor();
-    }, [datosusuarios]);
-*/}
+export default function opinionesVendedor() { 
 
 
 
@@ -162,6 +121,8 @@ export default function opinionesVendedor() {
         fechaCreacionVendedor();
     }, [datosusuarios]);
 
+
+    //Función para conocer ubicación del comprador
     useEffect(() => {
         const obtenerDireccionVendedor = async () => {
             let params = {
@@ -201,7 +162,7 @@ export default function opinionesVendedor() {
 
 
 
-
+    //función para obtener las calificaciones del vendedor
     useEffect(() => {
         const obtenerCalificacionesVendedor = async () => {
             let params = {

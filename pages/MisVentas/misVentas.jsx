@@ -77,7 +77,7 @@ export default function misVentas() {
     useEffect(() => {
         const obtenerVentasUsuario = async () => {
             let params = {
-                idvendedor: UidUser,
+                uidvendedor: UidUser,
             };
             try {
                 const res = await axios({
@@ -85,15 +85,15 @@ export default function misVentas() {
                     url: URL_BD_MR + "106",
                     params,
                 });
-                if (res.data && res.data.listarvtasusuariovende) {
+                if (res.data && res.data.listarmisventas) {
                     const ventas = await Promise.all(
-                        res.data.listarvtasusuariovende.map(async (venta) => {
+                        res.data.listarmisventas.map(async (venta) => {
                             // Obtén los detalles del producto
                             const detallesProducto = await obtenerNombreProducto(venta.idproducto);
                             // Obtén los detalles del comprador
-                            const detallesComprador = await obtenerDetallesComprador(venta.idcomprador);
+                            const detallesComprador = await obtenerDetallesComprador(venta.uidcomprador);
                             const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
-                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.preciodelenvio;
+                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
 
 
 
@@ -101,13 +101,13 @@ export default function misVentas() {
                                 ...venta,
                                 estadodeldespacho: estadosDespacho[venta.estadodeldespacho],
                                 estadodelaventa: estadosVenta[venta.estadodelaventa],
-                                fechadeventa1: venta.fechadeventa ? venta.fechadeventa.slice(0, 10) : null,
-                                fechadeventa: venta.fechadeventa ? venta.fechadeventa.slice(0, 10) : null, 
+                                fechadeventa1: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null,
+                                fechadeventa: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null, 
                                 fechaentrega: venta.fechaentrega ? venta.fechaentrega.slice(0, 10) : null,
                                 fechadespacho: venta.fechadespacho ? venta.fechadespacho.slice(0, 10) : null,
                                 fechadevolucion: venta.fechadevolucion ? venta.fechadevolucion.slice(0, 10) : null,
                                 fechadepago: venta.fechadepago ? venta.fechadepago.slice(0, 10) : null,
-                                nuevoValor: venta.preciodeventa + venta.preciodelenvio,
+                                nuevoValor: venta.preciodeventa + venta.precioenvio,
                                 nombreProducto: detallesProducto.nombreProducto,
                                 salePrice: formattedSalePrice,
                                 idPrdoductRuta: detallesProducto.idPrdoductRuta,
@@ -134,9 +134,9 @@ export default function misVentas() {
     }, [UidUser]);
 
     //función para obtener datos del producto
-    async function obtenerNombreProducto(idprd) {
+    async function obtenerNombreProducto(idproducto) {
         let params = {
-            idarticulo: idprd,
+            idarticulo: idproducto,
         };
 
         try {
@@ -158,9 +158,9 @@ export default function misVentas() {
         }
     }
 
-    const obtenerDetallesComprador = async (idcomprador) => {
+    const obtenerDetallesComprador = async (uidcomprador) => {
         let params = {
-            uid: idcomprador,
+            uid: uidcomprador,
         };
         try {
             const res = await axios({
@@ -319,7 +319,7 @@ export default function misVentas() {
                                                                 </div>
                                                                 <div className="divNcompra">
                                                                     <p className="UnidCompradas"> Número de venta:</p>
-                                                                    <p className="numeroUnidsCompradas">{venta.numerodeventa}</p>
+                                                                    <p className="numeroUnidsCompradas">{venta.numerodeaprobacion}</p>
                                                                 </div>
                                                                 <p className="dateCompra">{venta.fechadeventa}</p>
                                                             </Grid>
@@ -333,7 +333,7 @@ export default function misVentas() {
                                                 </Grid>
                                                 <Grid item xs={12} md={3} className="ContRightMisCompras">
                                                     <div className="SendMsjVendandName">
-                                                        <p className="nameVendedorMiCompra">{venta.nombreComprador} {venta.apellidoComprador}</p>
+                                                        <p className="nameVendedorMiCompra">Nombre Comprador</p>
                                                     </div>
                                                     <div className="SendMsjVendandName">
                                                         <p className="nameVendedorMiCompra">Tienes x mensajes sin leer</p>

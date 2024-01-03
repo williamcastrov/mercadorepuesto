@@ -67,7 +67,7 @@ export default function verVenta() {
         console.log("Id comprador: ", venta.idcomprador)
         console.log("Id Vendedor: ", venta.idvendedor)
         console.log("Fecha venta: ", venta.fechadeventa)
-        console.log("Numero de venta: ", venta.numerodeventa)
+        console.log("Numero de venta: ", venta.numerodeaprobacion)
         console.log("Id producto: ", venta.idproducto)
     } else {
         console.log("Venta es null")
@@ -219,7 +219,7 @@ export default function verVenta() {
                 idproducto: venta.idproducto,
                 idvendedor: venta.idvendedor,
                 fechadeventa: venta.fechadeventa,
-                numerodeventa: venta.numerodeventa,
+                numerodeaprobacion: venta.numerodeaprobacion,
                 nombreimagen1: imageName + extension,
                 imagen1: selectedImage
             };
@@ -264,7 +264,7 @@ export default function verVenta() {
         const facturas = response.data.listarfacturavendedor;
 
         // Verifica si ya existe una factura con el mismo número de venta
-        const facturaExistente = facturas.some(factura => factura.numerodeventa === venta.numerodeventa);
+        const facturaExistente = facturas.some(factura => factura.numerodeaprobacion === venta.numerodeaprobacion);
 
         return facturaExistente;
     };
@@ -306,7 +306,7 @@ export default function verVenta() {
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>Número de venta:</p>
-                                                <p>{venta.numerodeventa}</p>
+                                                <p>{venta.numerodeaprobacion}</p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Fecha de venta:</p>
@@ -378,7 +378,7 @@ export default function verVenta() {
                                                 <p>{venta.estadodelaventa}</p>
                                                 <div className="subtitlesveVenta1">
                                                     <p>Número aprobación de pago:</p>
-                                                    <p>{venta.numerodeventa}</p>
+                                                    <p>{venta.numerodeaprobacion}</p>
                                                 </div>
                                                 <div className="subtitlesveVenta1">
                                                     <p>Fecha de pago:</p>
@@ -395,8 +395,8 @@ export default function verVenta() {
                                                 </div>
                                                 <div className="subtitlesveVenta1">
                                                     <p>Precio del envío:</p>
-                                                    {venta.preciodelenvio !== null && (
-                                                        <p>${venta.preciodelenvio.toLocaleString('en-US')}</p>
+                                                    {venta.precioenvio !== null && (
+                                                        <p>${venta.precioenvio.toLocaleString('en-US')}</p>
                                                     )}
                                                 </div>
                                             </div>
