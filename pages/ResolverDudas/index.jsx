@@ -24,6 +24,8 @@ export default function index() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
 
+    const router = useRouter();
+
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -51,7 +53,7 @@ export default function index() {
                                     </div>
                                     <div className="contResDudasInputdiv">
                                         <InputBase
-                                            placeholder="Buscar en mis ventas"
+                                            placeholder="Busca en resuelve tus dudas"
                                             sx={{
                                                 borderRadius: '10px',
                                                 backgroundColor: '#f1f2f6',
@@ -82,7 +84,8 @@ export default function index() {
                                             <div className="contTitulo ">
                                                 <p>Sobre comprar</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas">
+                                            <div onClick={() => router.push({pathname: '../MisCompras/misCompras'})}
+                                                className="contTitulosDudas startContDudas">
                                                 <p>Ir a mis compras</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
@@ -105,7 +108,7 @@ export default function index() {
                                             <div className="contTitulo">
                                                 <p>Sobre vender</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas">
+                                            <div className="contTitulosDudas startContDudas"  onClick={() => router.push({pathname: '../MisVentas/misVentas'})}>
                                                 <p>Ir a mis ventas</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
@@ -128,7 +131,7 @@ export default function index() {
                                             <div className="contTitulo ">
                                                 <p>Sobre mi cuenta</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas">
+                                            <div className="contTitulosDudas startContDudas"  onClick={() => router.push({pathname: '../EditUsers/MisDatos'})}>
                                                 <p>Ir a mis datos</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>

@@ -95,7 +95,7 @@ export default function verVenta() {
     const [imageName, setImageName] = useState("");
     const [extension, setExtension] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
-
+    const [selectedPDF, setSelectedPDF] = useState(null);
 
     const changeHandler = async (event) => {
         const file = event.target.files[0];
@@ -116,7 +116,12 @@ export default function verVenta() {
                     base64Image.indexOf(";base64")
                 );
             setExtension(extension);
-            setSelectedImage(base64Image);
+
+            if (file.type === "application/pdf") {
+                setSelectedPDF(URL.createObjectURL(file));
+            } else {
+                setSelectedImage(base64Image);
+            }
         };
 
         if (file) {
@@ -189,7 +194,6 @@ export default function verVenta() {
         }
     };
 
-
     const handleRemoveFile = () => {
         // Elimina la imagen y restablece el texto del botón
         setSelectedFile(null);
@@ -215,11 +219,11 @@ export default function verVenta() {
             setTextoMensajes("Ya existe una factura para esta venta y no es posible enviar de nuevo.");
         } else {
             let params = {
-                idcomprador: venta.idcomprador,
+                idcomprador: venta.uidcomprador,
                 idproducto: venta.idproducto,
-                idvendedor: venta.idvendedor,
+                idvendedor: venta.uidvendedor,
                 fechadeventa: venta.fechadeventa,
-                numerodeaprobacion: venta.numerodeaprobacion,
+                numerodeventa: venta.numerodeaprobacion,
                 nombreimagen1: imageName + extension,
                 imagen1: selectedImage
             };
@@ -245,6 +249,19 @@ export default function verVenta() {
             } catch (error) {
                 console.error("Error al enviar la factura", error);
                 // Maneja el error según tus necesidades
+                if (error.response) {
+                    // El servidor respondió con un estado fuera del rango de 2xx
+                    console.log("Datos devueltos por el servidor:", error.response.data);
+                    console.log("Estado devuelto por el servidor:", error.response.status);
+                    console.log("Encabezados devueltos por el servidor:", error.response.headers);
+                } else if (error.request) {
+                    // La solicitud fue hecha pero no se recibió ninguna respuesta
+                    console.log("Solicitud:", error.request);
+                } else {
+                    // Algo sucedió en la configuración de la solicitud que desencadenó un error
+                    console.log("Error:", error.message);
+                }
+                console.log("Configuración de la solicitud:", error.config);
             }
         }
     };
@@ -252,7 +269,7 @@ export default function verVenta() {
     //Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {
         let params = {
-            idvendedor: venta.idvendedor,
+            idvendedor: venta.uidvendedor,
         };
 
         const response = await axios({
@@ -264,7 +281,7 @@ export default function verVenta() {
         const facturas = response.data.listarfacturavendedor;
 
         // Verifica si ya existe una factura con el mismo número de venta
-        const facturaExistente = facturas.some(factura => factura.numerodeaprobacion === venta.numerodeaprobacion);
+        const facturaExistente = facturas.some(factura => factura.numerodeventa === venta.numerodeaprobacion);
 
         return facturaExistente;
     };
@@ -360,7 +377,13 @@ export default function verVenta() {
                                                                 <div className="verVentaDoc">
                                                                     <div className="diviconSquareVerventa">
                                                                         <PiSquareThin size={138} className="iconSquareVerventa" />
-                                                                        <img src={selectedFile} alt="preview" className="imgVerVenta" />
+                                                                        {selectedPDF ? (
+                                                                            <a className="verPdfMain" href={selectedPDF} target="_blank" rel="noopener noreferrer">
+                                                                                <div className="verPdf">Ver PDF</div>
+                                                                            </a>
+                                                                        ) : (
+                                                                            <img src={selectedFile} alt="preview" className="imgVerVenta" />
+                                                                        )}
                                                                     </div>
                                                                     <div className="diviconCloeseDoc" onClick={handleRemoveFile}>
                                                                         <IoMdClose className="iconCloseVerVenta" />
