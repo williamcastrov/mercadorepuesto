@@ -14,16 +14,21 @@ import { AiOutlineRight } from 'react-icons/ai';
 import { GrNext } from "react-icons/gr";
 import { URL_BD_MR } from "../../helpers/Constants";
 import { RiSettings5Fill } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from 'moment';
-
-
+import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
+import { getLeeIra } from "../../store/leeira/action";
 export default function index() {
 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
-
+    const dispatch = useDispatch();
+    const [showModalMensajesCtlr, setShowModalMensajesCtlr] = useState(false);
+    const [tituloMensajesCtlr, setTituloMensajesCtlr] = useState('');
+    const [textoMensajesCtlr, setTextoMensajesCtlr] = useState('');
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    const [isUserLogged, setIsUserLogged] = useState(false);
     const router = useRouter();
 
 
@@ -36,7 +41,36 @@ export default function index() {
 
 
 
+    //Usefect para conocer si el usuario está loggeado o no
+    useEffect(() => {
+        if (!datosusuarios.uid || datosusuarios.uid == 0) {
+            setIsUserLogged(false);
+        } else {
+            setIsUserLogged(true);
+        }
+    }, [datosusuarios.uid]);
 
+    //función para redireccionar usurio a resolver dudas cuando se loggee
+    const handleButtonClick = (ruta) => {
+        if (!isUserLogged) {
+            dispatch(getLeeIra(12));
+            localStorage.setItem("ira", JSON.stringify(12));
+            let itemsresolverdudas = {
+                ruta: "/ResolverDudas",
+            };
+            localStorage.setItem(
+                "itemsresolverdudas",
+                JSON.stringify(itemsresolverdudas)
+            );
+
+            setShowModalMensajesCtlr(true);
+            setTituloMensajesCtlr("Dispositivos vinculados");
+            let texto = "¡Bienvenido! Para ver tus dispositivos vinculados primero debes iniciar sesión o registrarte.";
+            setTextoMensajesCtlr(texto);
+        } else {
+            router.push({ pathname: ruta });
+        }
+    };
 
     return (
         <>
@@ -84,8 +118,7 @@ export default function index() {
                                             <div className="contTitulo ">
                                                 <p>Sobre comprar</p>
                                             </div>
-                                            <div onClick={() => router.push({pathname: '../MisCompras/misCompras'})}
-                                                className="contTitulosDudas startContDudas">
+                                            <div onClick={() => handleButtonClick('../MisCompras/misCompras')} className="contTitulosDudas startContDudas">
                                                 <p>Ir a mis compras</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
@@ -108,7 +141,7 @@ export default function index() {
                                             <div className="contTitulo">
                                                 <p>Sobre vender</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas"  onClick={() => router.push({pathname: '../MisVentas/misVentas'})}>
+                                            <div onClick={() => handleButtonClick('../MisVentas/misVentas')} className="contTitulosDudas startContDudas">
                                                 <p>Ir a mis ventas</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
@@ -131,7 +164,7 @@ export default function index() {
                                             <div className="contTitulo ">
                                                 <p>Sobre mi cuenta</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas"  onClick={() => router.push({pathname: '../EditUsers/MisDatos'})}>
+                                            <div className="contTitulosDudas startContDudas"  onClick={() => handleButtonClick('../EditUsers/MisDatos')}>
                                                 <p>Ir a mis datos</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
@@ -154,7 +187,14 @@ export default function index() {
 
 
                                 </Grid>
-
+                                <ModalMensajesWishListControl
+                                    shown={showModalMensajesCtlr}
+                                    close={() => { }}
+                                    titulo={tituloMensajesCtlr}
+                                    mensaje={textoMensajesCtlr}
+                                    backdrop="static"
+                                    keyboard={false}
+                                />
                             </div>
                         </div>
                     </div>

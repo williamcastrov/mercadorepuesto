@@ -227,7 +227,25 @@ const LoginAccount = () => {
                                     login: false,
                                 };
 
-                                if (ira == 11) {
+
+                                if (ira == 12) {
+                                    let datitem = JSON.parse(
+                                        localStorage.getItem(
+                                            "itemsresolverdudas"
+                                        )
+                                    );
+
+                                    router.push(
+                                        datitem.ruta
+                                    );
+
+                                    localStorage.setItem(
+                                        "itemsresolverdudas",
+                                        JSON.stringify("Ok")
+                                    );
+                                }  
+
+                                else if (ira == 11) {
                                     let datitem = JSON.parse(
                                         localStorage.getItem(
                                             "itemsadddispvinvulados"
