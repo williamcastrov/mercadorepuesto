@@ -31,7 +31,7 @@ export default function misVentas() {
     //PosiciónTopPage
     const irA = useRef(null);
     const [ventas, setVentas] = useState([]);
-    
+
     const [selectedSortOption, setSelectedSortOption] = useState(null);
 
     const estadosDespacho = {
@@ -93,7 +93,7 @@ export default function misVentas() {
                             // Obtén los detalles del comprador
                             const detallesComprador = await obtenerDetallesComprador(venta.uidcomprador);
                             const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
-                            const total = venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
+                            const total = venta.cantidad * venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
 
 
 
@@ -102,7 +102,7 @@ export default function misVentas() {
                                 estadodeldespacho: estadosDespacho[venta.estadodeldespacho],
                                 estadodelaventa: estadosVenta[venta.estadodelaventa],
                                 fechadeventa1: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null,
-                                fechadeventa: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null, 
+                                fechadeventa: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null,
                                 fechaentrega: venta.fechaentrega ? venta.fechaentrega.slice(0, 10) : null,
                                 fechadespacho: venta.fechadespacho ? venta.fechadespacho.slice(0, 10) : null,
                                 fechadevolucion: venta.fechadevolucion ? venta.fechadevolucion.slice(0, 10) : null,
@@ -174,7 +174,7 @@ export default function misVentas() {
         }
     };
 
- 
+
 
 
 
