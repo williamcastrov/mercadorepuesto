@@ -102,7 +102,7 @@ export default function dudasDatos() {
                                             >
                                                 <p className="VerVentaLink">Resuelve tus dudas</p>
                                             </Link>
-                                            <p className="VerVentaLink">Sobre mi cuentas</p>
+                                            <p className="VerVentaLink">Sobre mi cuenta</p>
                                         </Breadcrumbs>
                                     </div>
                                     <div className="contMainResolverDudas">

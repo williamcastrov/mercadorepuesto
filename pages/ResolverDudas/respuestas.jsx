@@ -62,6 +62,8 @@ export default function dudasDatos() {
                                         </Breadcrumbs>
                                     </div>
                                     <div className="contMainResolverDudas">
+
+                                        {/*Cont INput */}
                                         <div className="contResDudasInputdiv">
                                             <InputBase
                                                 placeholder="Busca en resuelve tus dudas"
@@ -89,6 +91,8 @@ export default function dudasDatos() {
                                                 }
                                             />
                                         </div>
+
+                                        {/*Contenedor de la info de la pregunta*/}
                                         <div className="maincontRespuestadudas">
                                             <div className="titlecontRespuestadudas">
                                                 <p>¿Cómo hablar con el vendedor?</p>
@@ -97,12 +101,13 @@ export default function dudasDatos() {
                                                 <div>
                                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, expedita similique, vel quos labore eaque dignissimos itaque sint minima odit, nihil aliquid? Aliquid excepturi omnis velit porro nemo voluptatibus incidunt?</p>
                                                 </div>
-                                                <div>
+                                                <div className="imagenRespuestaDuda">
                                                     <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" alt="" />
                                                 </div>
                                             </div>
                                         </div>
 
+                                        {/*Otras dudas relacionadas contenedor */}
                                         <div className="sobreComprarDudas sobreMiCuentaCont">
                                             <div className="contTitulo ">
                                                 <p>Te podría interesar</p>
@@ -114,8 +119,8 @@ export default function dudasDatos() {
                                             <div className="contTitulosDudas">
                                                 <p>¿Cómo ver el reembolso de mi dinero?</p>
                                                 <AiOutlineRight size={27} />
-                                            </div> 
-                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasDatos'})} className="contTitulosDudas endContDudas">
+                                            </div>
+                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasDatos' })} className="contTitulosDudas endContDudas">
                                                 <p>¿Cómo calificar un vendedor?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
