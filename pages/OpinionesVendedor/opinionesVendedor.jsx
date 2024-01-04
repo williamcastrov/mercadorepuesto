@@ -251,7 +251,7 @@ export default function opinionesVendedor() {
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
 
-                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '94%' }}>
+                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '94%' }} display={'flex'} flexDirection={'column'}>
                                     <div className='TitleOpVend'>
                                         <p>Mis opiniones como vendedor</p>
                                     </div>
