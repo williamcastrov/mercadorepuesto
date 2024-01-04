@@ -21,7 +21,8 @@ import { IoIosSquareOutline } from "react-icons/io";
 import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
 import shortid from "shortid";
 import { FaCheckCircle } from "react-icons/fa";
-
+import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
+import { TfiEye } from "react-icons/tfi";
 
 export default function verVenta() {
 
@@ -240,7 +241,8 @@ export default function verVenta() {
                 fechadeventa: venta.fechadeventa,
                 numerodeventa: venta.numerodeaprobacion,
                 nombreimagen1: imageName + extension,
-                imagen1: selectedImage
+                imagen1: selectedImage,
+                numerodeimagenes: 1
             };
 
             console.log("Params de factura: ", params)
@@ -278,6 +280,7 @@ export default function verVenta() {
     };
 
     //Función para verificar si una factura existe por el numero de venta
+    // Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {
         let params = {
             idvendedor: venta.uidvendedor,
@@ -291,8 +294,13 @@ export default function verVenta() {
 
         const facturas = response.data.listarfacturavendedor;
 
-        // Verifica si ya existe una factura con el mismo número de venta
-        const facturaExistente = facturas.some(factura => factura.numerodeventa === venta.numerodeaprobacion);
+        // Encuentra la factura con el mismo número de venta
+        const facturaExistente = facturas.find(factura => factura.numerodeventa === venta.numerodeaprobacion);
+
+        // Muestra el nombre de la imagen en la consola
+        if (facturaExistente) {
+            console.log(facturaExistente.nombreimagen1);
+        }
 
         return facturaExistente;
     };
@@ -310,6 +318,7 @@ export default function verVenta() {
 
         verificarFactura();
     }, []);
+
 
     return (
         <>
@@ -370,6 +379,7 @@ export default function verVenta() {
                                                 <div className="etiquetaCont1">
                                                     <div className="etiquetaContIMG">
                                                         <img src={`${URL_IMAGES_RESULTS}${venta.nombreImagen}`} />
+
                                                     </div>
                                                     <div>
                                                         <p className="nameVerV">{venta.nombreProducto}</p>
@@ -394,9 +404,22 @@ export default function verVenta() {
                                                             {facturaExistente ? (
                                                                 <div className="factExistente">
                                                                     <p>Ya tienes una factura para esta venta.</p>
-                                                                    <div className="divIconFact"> 
-                                                                        <PiSquareThin size={138} className="iconFact" /> 
-                                                                        <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" className="imagenDeFondo" />
+                                                                    <div className="divIconFact">
+                                                                        <PiSquareThin size={138} className="iconFact" />
+                                                                        {facturaExistente && (
+                                                                            facturaExistente.nombreimagen1.endsWith('.pdf') ? (
+                                                                                <a className="verPdfMain2" href={`${URL_IMAGES_RESULTSSMS}${facturaExistente.nombreimagen1}`} target="_blank" rel="noopener noreferrer">
+                                                                                    <div className="verPdf">Ver <br /> PDF</div>
+                                                                                </a>
+                                                                            ) : (
+                                                                                <div>
+                                                                                    <img src={`${URL_IMAGES_RESULTSSMS}${facturaExistente.nombreimagen1}`} className="imagenDeFondo" />
+                                                                                    <a href={`${URL_IMAGES_RESULTSSMS}${facturaExistente.nombreimagen1}`} target="_blank">
+                                                                                        <TfiEye className="iconSeeFact"/>
+                                                                                    </a>
+                                                                                </div>
+                                                                            )
+                                                                        )}
                                                                     </div>
                                                                 </div>
 

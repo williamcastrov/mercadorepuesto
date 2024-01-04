@@ -32443,6 +32443,18 @@ label {
     left: 90px;
     top: 30px;
 }
+.verPdfMain2{
+    position: absolute;  
+    left: 125px;
+    top: 40px;
+    color: #2D2E83;
+}
+.iconSeeFact{
+    margin-top: -1.5rem;
+    margin-left: 12.3rem;
+    font-size: 25px;
+    color: #2D2E83;
+}
 .verPdfMain div{
     color: #2D2E83;
 }
@@ -32452,10 +32464,10 @@ label {
 }
 .imagenDeFondo {
     position: absolute;
-    top: 19px;
-    left: 85px;
-    width: 100px;
-    height: 100px;
+    top: 25px;
+    left: 100px;
+    width: 80px;
+    height: 80px;
     -o-object-fit: cover;
     object-fit: cover;
 }
@@ -32467,6 +32479,7 @@ label {
 } 
 .iconFact{
     color: #2C2E82;
+    z-index: 999;
     margin-left: 7rem;
 }
 .iconCloseVerVenta{
