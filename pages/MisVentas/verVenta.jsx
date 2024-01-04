@@ -20,9 +20,22 @@ import ModalMensajes from "../mensajes/ModalMensajes";
 import { IoIosSquareOutline } from "react-icons/io";
 import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
 import shortid from "shortid";
+import { FaCheckCircle } from "react-icons/fa";
+
 
 export default function verVenta() {
 
+    //ModalDatosGUardados
+    const [confirmationOpen, setConfirmationOpen] = useState(false);
+
+    //mostrarModaldeConfirmación
+    const handleConfirmationOpen = () => {
+        setConfirmationOpen(true);
+    };
+    //router push si los datos son colocados correctamente sale esto en el dialog
+    const handleConfirmationSuccess = (route) => () => {
+        router.push(route);
+    };
 
     const [showModal, setShowModal] = useState(false);
     const [tituloMensajes, setTituloMensajes] = useState("");
@@ -64,8 +77,8 @@ export default function verVenta() {
 
     console.log("Venta ver venta:", venta)
     if (venta) {
-        console.log("Id comprador: ", venta.idcomprador)
-        console.log("Id Vendedor: ", venta.idvendedor)
+        console.log("Id comprador: ", venta.uidcomprador)
+        console.log("Id Vendedor: ", venta.uidvendedor)
         console.log("Fecha venta: ", venta.fechadeventa)
         console.log("Numero de venta: ", venta.numerodeaprobacion)
         console.log("Id producto: ", venta.idproducto)
@@ -200,7 +213,7 @@ export default function verVenta() {
         setSelectedImage(null);
         setSelectedPDF(null);
         setButtonText("Adjuntar factura");
-    
+
         // Restablecer el valor del campo de entrada del archivo para permitir la selección del mismo archivo
         fileInput.current.value = null;
     };
@@ -240,11 +253,7 @@ export default function verVenta() {
 
                 console.log(response.data);
 
-                // Muestra el modal de éxito
-                setShowModal(true);
-                setTituloMensajes("Factura enviada");
-                setTextoMensajes("La factura ha sido enviada exitosamente.");
-
+                setConfirmationOpen(true);
                 // Restablece el archivo seleccionado y el texto del botón
                 setSelectedFile(null);
                 setButtonText("Adjuntar factura");
@@ -289,7 +298,18 @@ export default function verVenta() {
     };
 
 
+    // Estado para almacenar si la factura existe
+    const [facturaExistente, setFacturaExistente] = useState(false);
 
+    // Verifica si la factura existe cuando el componente se monta
+    useEffect(() => {
+        const verificarFactura = async () => {
+            const existeFactura = await verificarFacturaExistente();
+            setFacturaExistente(existeFactura);
+        };
+
+        verificarFactura();
+    }, []);
 
     return (
         <>
@@ -371,10 +391,21 @@ export default function verVenta() {
                                                 <div className="subtitlesverVenta">
                                                     <div className="divButtonAdjFact">
                                                         <div className="divButtonVerVenta2">
-                                                            <button className="buttnVerVenta" onClick={handleClick}>
-                                                                {buttonText}
-                                                                <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
-                                                            </button>
+                                                            {facturaExistente ? (
+                                                                <div className="factExistente">
+                                                                    <p>Ya tienes una factura para esta venta.</p>
+                                                                    <div className="divIconFact"> 
+                                                                        <PiSquareThin size={138} className="iconFact" /> 
+                                                                        <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" className="imagenDeFondo" />
+                                                                    </div>
+                                                                </div>
+
+                                                            ) : (
+                                                                <button className="buttnVerVenta" onClick={handleClick}>
+                                                                    {buttonText}
+                                                                    <input type="file" accept=".pdf,.png,.jpeg,.jpg" onChange={changeHandler} style={{ display: 'none' }} ref={fileInput} />
+                                                                </button>
+                                                            )}
                                                             {selectedFile && (
                                                                 <div className="verVentaDoc">
                                                                     <div className="diviconSquareVerventa">
@@ -493,6 +524,39 @@ export default function verVenta() {
                                         tipo="confirmación"
                                         buttonText="Enviar" // Aquí pasas el texto del botón
                                     />
+                                    <Dialog
+                                        className='dialogDatsGuardados'
+                                        open={confirmationOpen}
+                                        PaperProps={{
+                                            style: {
+                                                width: isMdDown ? '80%' : '35%',
+                                                backgroundColor: 'white',
+                                                border: '2px solid gray',
+                                                padding: '1.4rem',
+                                                borderRadius: '10px'
+                                            },
+                                        }}
+                                    >
+                                        <DialogTitle className='dialogtitleDtsGUardados' >
+                                            <FaCheckCircle size={37} style={{ color: '#10c045', marginLeft: '-17px', marginRight: '8px' }} />
+                                            <p className='dialogtituloP'>¡Factura enviada con exito!</p>
+                                        </DialogTitle>
+                                        <DialogContent className='dialogContentDatsGuardados'>
+                                            <p className='PdialogContent'>La factura se ha enviado exitosamente.</p>
+                                        </DialogContent>
+                                        <DialogActions className='DialogActionsDatsGuardados'>
+                                            <div className='div1buttonDialog' >
+                                                <button className='button2DialogDatsGuardados' onClick={handleConfirmationSuccess('./misVentas')} >
+                                                    Ir a mis ventas
+                                                </button>
+                                            </div>
+                                            <div className='div1buttonDialog' >
+                                                <button className='button1DialogDatsGuardados' onClick={handleConfirmationSuccess('/')} >
+                                                    Ir al inicio
+                                                </button>
+                                            </div>
+                                        </DialogActions>
+                                    </Dialog>
                                 </div>
                             </div>
                         </div>

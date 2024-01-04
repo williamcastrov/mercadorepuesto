@@ -32325,6 +32325,11 @@ label {
     margin: 0 auto;
     width: 100%;
 }
+.factExistente{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 .divButtonVercompra2 {
     margin-top: 2rem !important;
@@ -32438,11 +32443,31 @@ label {
     left: 90px;
     top: 30px;
 }
+.verPdfMain div{
+    color: #2D2E83;
+}
+.divIconFact{
+    margin-top: -2rem;
+    position: relative; 
+}
+.imagenDeFondo {
+    position: absolute;
+    top: 19px;
+    left: 85px;
+    width: 100px;
+    height: 100px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
 .iconSquareVerventa{
     position: absolute;
     left: 35px;
     top: -10px;
     color: #2C2E82;
+} 
+.iconFact{
+    color: #2C2E82;
+    margin-left: 7rem;
 }
 .iconCloseVerVenta{
     color: #2C2E82; 
@@ -32466,17 +32491,17 @@ label {
 }
 .diviconCloeseDoc{ 
     display: flex;
-    justify-content: center;
+    margin-left: 8.7rem;
     align-items: center;
     margin-top: 1rem;
     width: 29%;
-    cursor: pointer;
+    cursor: pointer; 
 }
 .verVentaDoc{
     display: flex;
     flex-direction: column;
 }
-
+ 
 .etiquetaCont {
     width: 87%;
     border: 3px solid #EBEBEB;
