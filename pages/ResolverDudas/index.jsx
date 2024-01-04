@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import moment from 'moment';
 import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
 import { getLeeIra } from "../../store/leeira/action";
+import { useParams } from 'react-router-dom';
 export default function index() {
 
     const theme = useTheme();
@@ -72,6 +73,12 @@ export default function index() {
         }
     };
 
+
+
+    // En tu primer componente
+    function handleButtonCategoria(category) {
+        router.push('./masOpciones/${category}');
+    }
 
 
     return (
@@ -134,7 +141,7 @@ export default function index() {
                                                 <p>¿Cómo hablar con el vendedor?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasCompras'})} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
@@ -157,7 +164,7 @@ export default function index() {
                                                 <p>¿Cómo realizar una devoluvión?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasVentas'})} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
@@ -180,7 +187,7 @@ export default function index() {
                                                 <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasDatos'})} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>

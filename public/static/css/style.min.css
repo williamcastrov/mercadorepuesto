@@ -33003,4 +33003,31 @@ label {
 .sobreMiCuentaCont{
     margin-top: 5rem !important;
 }
+.TitleDinamicoDudas{
+    display: flex;
+    margin-bottom: 4rem;
+}
+.contRespuestadudas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    border-radius: 10px;  
+    padding: 2rem;
+    background-color: #F0F1F5; 
+}
+.maincontRespuestadudas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.titlecontRespuestadudas{
+    margin-top: 7rem;
+}
+.titlecontRespuestadudas p{
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
 /*fin resolver dudas*/

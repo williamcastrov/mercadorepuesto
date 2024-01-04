@@ -20,7 +20,12 @@ import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListContr
 import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
 
-export default function masOpciones() {
+
+
+
+export default function dudasDatos() {
+
+
 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
@@ -28,15 +33,12 @@ export default function masOpciones() {
     const router = useRouter();
     const { category } = useParams();
     const [currentCategory, setCurrentCategory] = useState('MisCompras');
-
-
-
-
-
-
-
-
-
+    const dispatch = useDispatch();
+    const [showModalMensajesCtlr, setShowModalMensajesCtlr] = useState(false);
+    const [tituloMensajesCtlr, setTituloMensajesCtlr] = useState('');
+    const [textoMensajesCtlr, setTextoMensajesCtlr] = useState('');
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    const [isUserLogged, setIsUserLogged] = useState(false);
 
 
     useEffect(() => {
@@ -47,6 +49,37 @@ export default function masOpciones() {
     }, []);
 
 
+
+    //Usefect para conocer si el usuario está loggeado o no
+    useEffect(() => {
+        if (!datosusuarios.uid || datosusuarios.uid == 0) {
+            setIsUserLogged(false);
+        } else {
+            setIsUserLogged(true);
+        }
+    }, [datosusuarios.uid]);
+
+    //función para redireccionar usurio a resolver dudas cuando se loggee
+    const handleButtonClick = (ruta) => {
+        if (!isUserLogged) {
+            dispatch(getLeeIra(12));
+            localStorage.setItem("ira", JSON.stringify(12));
+            let itemsresolverdudas = {
+                ruta: "/ResolverDudas/dudasDatos",
+            };
+            localStorage.setItem(
+                "itemsresolverdudas",
+                JSON.stringify(itemsresolverdudas)
+            );
+
+            setShowModalMensajesCtlr(true);
+            setTituloMensajesCtlr("Dispositivos vinculados");
+            let texto = "¡Bienvenido! Para ver tus dispositivos vinculados primero debes iniciar sesión o registrarte.";
+            setTextoMensajesCtlr(texto);
+        } else {
+            router.push({ pathname: ruta });
+        }
+    };
 
     return (
         <>
@@ -67,9 +100,9 @@ export default function masOpciones() {
                                                 onClick={(e) => { e.preventDefault(); router.push('./') }}
 
                                             >
-                                                <p className="VerVentaLink">Resuelve tus dudas </p>
+                                                <p className="VerVentaLink">Resuelve tus dudas</p>
                                             </Link>
-                                            <p className="VerVentaLink">Sobre comprar</p>
+                                            <p className="VerVentaLink">Sobre mi cuentas</p>
                                         </Breadcrumbs>
                                     </div>
                                     <div className="contMainResolverDudas">
@@ -100,87 +133,40 @@ export default function masOpciones() {
                                                 }
                                             />
                                         </div>
-
-
-                                        {currentCategory === 'MisCompras' && (
-                                            <div className="sobreComprarDudas">
-                                                <div className="contTitulo ">
-                                                    <p>Sobre comprar</p>
-                                                </div>
-                                                <div onClick={() => router.push({ pathname: '../MisCompras/misCompras' })} className="contTitulosDudas startContDudas">
-                                                    <p>Ir a mis compras</p>
-                                                    <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
-                                                </div>
-                                                <div className="contTitulosDudas">
-                                                    <p>¿Cómo hacer seguimiento a mi compra?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas">
-                                                    <p>¿Cómo hablar con el vendedor?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo calificar al vendedor?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo calificar mi producto?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo realizar una devolución?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                            </div>
-                                        )}
-                                        {currentCategory === 'MisVentas' && (
-                                            <div className="sobreComprarDudas">
-                                              Mis ventas
-                                            </div>
-                                        )}
-                                        {currentCategory === 'MisDatos' && (
-                                            <div className="sobreComprarDudas">
-                                                Mis datos
-                                            </div>
-                                        )}
-
                                         {/*Container de mis compras */}
-                                        <div className="sobreComprarDudas">
+                                        <div className="sobreComprarDudas sobreMiCuentaCont">
                                             <div className="contTitulo ">
-                                                <p>Sobre comprar</p>
+                                                <p>Sobre mi cuenta</p>
                                             </div>
-                                            <div onClick={() => router.push({ pathname: '../MisCompras/misCompras' })} className="contTitulosDudas startContDudas">
-                                                <p>Ir a mis compras</p>
+                                            <div className="contTitulosDudas startContDudas" onClick={() => handleButtonClick('../EditUsers/MisDatos')}>
+                                                <p>Ir a mis datos</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
                                             <div className="contTitulosDudas">
-                                                <p>¿Cómo hacer seguimiento a mi compra?</p>
+                                                <p>¿Cómo editar mis datos personales?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                             <div className="contTitulosDudas">
-                                                <p>¿Cómo hablar con el vendedor?</p>
+                                                <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                             <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar al vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar mi producto?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo realizar una devolución?</p>
+                                                <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                         </div>
 
 
                                     </div>
-
-
                                 </Grid>
-
+                                <ModalMensajesWishListControl
+                                    shown={showModalMensajesCtlr}
+                                    close={() => { }}
+                                    titulo={tituloMensajesCtlr}
+                                    mensaje={textoMensajesCtlr}
+                                    backdrop="static"
+                                    keyboard={false}
+                                />
                             </div>
                         </div>
                     </div>

@@ -68,7 +68,7 @@ export default function dispVinculados() {
             setIsUserLogged(false);
         } else {
             setIsUserLogged(true);
-        }
+        } 
     }, [datosusuarios.uid]);
 
     useEffect(() => {

@@ -20,24 +20,14 @@ import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListContr
 import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
 
-export default function masOpciones() {
 
+
+
+export default function dudasDatos() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const router = useRouter();
-    const { category } = useParams();
-    const [currentCategory, setCurrentCategory] = useState('MisCompras');
-
-
-
-
-
-
-
-
-
-
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -45,7 +35,6 @@ export default function masOpciones() {
             block: "start",
         });
     }, []);
-
 
 
     return (
@@ -67,9 +56,9 @@ export default function masOpciones() {
                                                 onClick={(e) => { e.preventDefault(); router.push('./') }}
 
                                             >
-                                                <p className="VerVentaLink">Resuelve tus dudas </p>
+                                                <p className="VerVentaLink">Resuelve tus dudas</p>
                                             </Link>
-                                            <p className="VerVentaLink">Sobre comprar</p>
+                                            <p className="VerVentaLink">¿Cómo hablar con el vendedor?</p>
                                         </Breadcrumbs>
                                     </div>
                                     <div className="contMainResolverDudas">
@@ -100,85 +89,40 @@ export default function masOpciones() {
                                                 }
                                             />
                                         </div>
-
-
-                                        {currentCategory === 'MisCompras' && (
-                                            <div className="sobreComprarDudas">
-                                                <div className="contTitulo ">
-                                                    <p>Sobre comprar</p>
+                                        <div className="maincontRespuestadudas">
+                                            <div className="titlecontRespuestadudas">
+                                                <p>¿Cómo hablar con el vendedor?</p>
+                                            </div>
+                                            <div className="contRespuestadudas">
+                                                <div>
+                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, expedita similique, vel quos labore eaque dignissimos itaque sint minima odit, nihil aliquid? Aliquid excepturi omnis velit porro nemo voluptatibus incidunt?</p>
                                                 </div>
-                                                <div onClick={() => router.push({ pathname: '../MisCompras/misCompras' })} className="contTitulosDudas startContDudas">
-                                                    <p>Ir a mis compras</p>
-                                                    <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
-                                                </div>
-                                                <div className="contTitulosDudas">
-                                                    <p>¿Cómo hacer seguimiento a mi compra?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas">
-                                                    <p>¿Cómo hablar con el vendedor?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo calificar al vendedor?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo calificar mi producto?</p>
-                                                    <AiOutlineRight size={27} />
-                                                </div>
-                                                <div className="contTitulosDudas endContDudas">
-                                                    <p>¿Cómo realizar una devolución?</p>
-                                                    <AiOutlineRight size={27} />
+                                                <div>
+                                                    <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" alt="" />
                                                 </div>
                                             </div>
-                                        )}
-                                        {currentCategory === 'MisVentas' && (
-                                            <div className="sobreComprarDudas">
-                                              Mis ventas
-                                            </div>
-                                        )}
-                                        {currentCategory === 'MisDatos' && (
-                                            <div className="sobreComprarDudas">
-                                                Mis datos
-                                            </div>
-                                        )}
+                                        </div>
 
-                                        {/*Container de mis compras */}
-                                        <div className="sobreComprarDudas">
+                                        <div className="sobreComprarDudas sobreMiCuentaCont">
                                             <div className="contTitulo ">
-                                                <p>Sobre comprar</p>
+                                                <p>Te podría interesar</p>
                                             </div>
-                                            <div onClick={() => router.push({ pathname: '../MisCompras/misCompras' })} className="contTitulosDudas startContDudas">
-                                                <p>Ir a mis compras</p>
+                                            <div className="contTitulosDudas startContDudas">
+                                                <p>¿Cómo devolver un producto?</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
                                             <div className="contTitulosDudas">
-                                                <p>¿Cómo hacer seguimiento a mi compra?</p>
+                                                <p>¿Cómo ver el reembolso de mi dinero?</p>
                                                 <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo hablar con el vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar al vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar mi producto?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo realizar una devolución?</p>
+                                            </div> 
+                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasDatos'})} className="contTitulosDudas endContDudas">
+                                                <p>¿Cómo calificar un vendedor?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                         </div>
 
 
                                     </div>
-
-
                                 </Grid>
 
                             </div>
