@@ -24115,10 +24115,7 @@ ol {
     padding-top: 10px;
     border-radius: 25px;
 }
-
-. {
-    color: #2D2E83 !important;
-}
+ 
 
 .textomedidas {
     padding-left: 2px !important;
@@ -27064,8 +27061,7 @@ label {
 .botondatostuvehiculoingdos {
     margin-left: 160px;
     width: 300px;
-    height: 30px;
-    margin-bottom: ;
+    height: 30px; 
     font-size: 14px !important;
     border-radius: 7px !important;
     color: white !important;
