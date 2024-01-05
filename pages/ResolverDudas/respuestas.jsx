@@ -34,14 +34,14 @@ export default function Respuestas() {
     //const datos = useSelector(state => state.datos);
 
     const router = useRouter();
-    const { id, dato } = router.query; 
+    const { id, dato } = router.query;
     const datoParsed = dato ? JSON.parse(dato) : null;
     // Muestra los datos en la consola
     useEffect(() => {
         console.log(datoParsed);
     }, [datoParsed]);
 
-    
+
     useEffect(() => {
         if (datoParsed) {
             console.log(datoParsed);
@@ -55,6 +55,45 @@ export default function Respuestas() {
             block: "start",
         });
     }, []);
+
+    // Función para consumir el endpoint 116
+    const obtenerDatos = async () => {
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "116",
+            });
+            return res.data.resolverdudasdos;
+        } catch (error) {
+            console.error("Error al leer los datos", error);
+            return [];
+        }
+    };
+
+    const [datos, setDatos] = useState([]);
+    const [indicesAleatorios, setIndicesAleatorios] = useState([]);
+
+    // Luego, en un efecto de React, puedes obtener los datos y los índices aleatorios
+    useEffect(() => {
+        const obtenerYSeleccionarDatos = async () => {
+            const datosObtenidos = await obtenerDatos();
+            setDatos(datosObtenidos);
+
+            let indices = [];
+            if (datosObtenidos.length >= 3) {
+                while (indices.length < 3) {
+                    let indice = Math.floor(Math.random() * datosObtenidos.length);
+                    if (!indices.includes(indice)) {
+                        indices.push(indice);
+                    }
+                }
+            }
+            setIndicesAleatorios(indices);
+        };
+
+        obtenerYSeleccionarDatos();
+    }, []);
+
 
     return (
         <>
@@ -98,26 +137,35 @@ export default function Respuestas() {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
 
                                         {/*Otras dudas relacionadas contenedor */}
                                         <div className="sobreComprarDudas sobreMiCuentaCont">
                                             <div className="contTitulo ">
                                                 <p>Te podría interesar</p>
                                             </div>
-                                            <div className="contTitulosDudas startContDudas">
-                                                <p>¿Cómo devolver un producto?</p>
-                                                <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo ver el reembolso de mi dinero?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasDatos' })} className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar un vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
+                                            {indicesAleatorios.map((indice, i) => {
+                                                const dato = datos[indice];
+                                                let className = "contTitulosDudas";
+                                                if (i === 0) {
+                                                    className += " startContDudas"; // Agrega la clase al primer elemento
+                                                } else if (i === indicesAleatorios.length - 1) {
+                                                    className += " endContDudas"; // Agrega la clase al último elemento
+                                                }
+                                                return (
+                                                    <div key={indice} onClick={() => {
+                                                        router.push({
+                                                            pathname: `../ResolverDudas/respuestas`,
+                                                            query: { dato: JSON.stringify(dato) }
+                                                        });
+                                                    }} className={className}>
+                                                        <p>{dato.nombreniveldos}</p>
+                                                        <AiOutlineRight size={27} />
+                                                    </div>
+                                                );
+                                            })}  
                                         </div>
+
 
 
                                     </div>
