@@ -87,7 +87,7 @@ export default function Respuestas() {
                                         {/*Contenedor de la info de la pregunta*/}
                                         <div className="maincontRespuestadudas">
                                             <div className="titlecontRespuestadudas">
-                                                <p>¿Cómo hablar con el vendedor?</p>
+                                                <p>{datoParsed ? datoParsed.nombreniveldos : 'Cargando...'}</p>
                                             </div>
                                             <div className="contRespuestadudas">
                                                 <div>
