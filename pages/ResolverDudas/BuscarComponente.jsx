@@ -23,10 +23,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { CiSearch } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
+
+
 const BuscarComponente = () => {
+
 
     const [searchTerm, setSearchTerm] = useState('');
     const [options, setOptions] = useState([]);
+    const router = useRouter();
+
 
     const relatedWords = {
         'venta': ['vendedor', 'ventas', 'vender', 'vendiste', 'vendiendo', 'vendido', 'vendidos', 'vendidas', 'vendida'],
@@ -47,7 +52,7 @@ const BuscarComponente = () => {
         // otras palabras y sus palabras relacionadas
     };
 
-    const data = ['¿Cómo hacer seguimiento a mi compra?', '¿Cómo hablar con el vendedor?', '¿Cómo enviar mi primera venta?', '¿Cómo realizar una devoluvión?', '¿Cómo editar mis datos personales?', '¿Cómo cambiar mi cuenta a persona juridica?']; // Tus datos estáticos
+
 
     const levenshtein = (a, b) => {
         const an = a ? a.length : 0;
@@ -74,12 +79,29 @@ const BuscarComponente = () => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^\w\s]/gi, '');
     };
 
-    const handleChange = (event) => {
+    // Función para consumir el endpoint 116
+    const obtenerDatos = async () => {
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "116",
+            });
+            return res.data.resolverdudasdos;
+        } catch (error) {
+            console.error("Error al leer los datos", error);
+            return [];
+        }
+    };
+
+    //función para obtener datos del endPoint del titulo
+    const handleChange = async (event) => {
         setSearchTerm(event.target.value);
         if (event.target.value !== '') {
+            const datos = await obtenerDatos();
+
             const searchWords = normalize(event.target.value).split(' ');
-            setOptions(data.filter((item) => {
-                const itemWords = normalize(item).split(' ');
+            setOptions(datos.filter((item) => {
+                const itemWords = normalize(item.nombreniveldos).split(' ');
                 return searchWords.every((searchWord) =>
                     itemWords.some((itemWord) =>
                         itemWord.includes(searchWord) ||
@@ -92,8 +114,6 @@ const BuscarComponente = () => {
             setOptions([]);
         }
     };
-    // Tus datos estáticos y funciones handleChange y normalize van aquí
-
     return (
         <div className="contResDudasInputdiv">
             <InputBase
@@ -130,9 +150,20 @@ const BuscarComponente = () => {
                     </ListItem>
                 ) : (
                     options.map((option, index) => (
-                        <ListItem className="ListItempaperOpciones" key={index}>
+                        <ListItem
+                            className="ListItempaperOpciones"
+                            key={index}
+                            onClick={() => {
+                                router.push({
+                                    pathname: `../ResolverDudas/respuestas`,
+                                    query: { dato: JSON.stringify(option) }
+                                });
+                                setSearchTerm(''); // Borra el contenido del campo de entrada
+                                setOptions([]); // Cierra las opciones de búsqueda
+                            }}
+                        >
                             <IoSearch />
-                            {option}
+                            {option.nombreniveldos}
                         </ListItem>
                     ))
                 )}

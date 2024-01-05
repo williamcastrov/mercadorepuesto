@@ -83,6 +83,29 @@ export default function index() {
     };
 
 
+    const [datosNivelUno, setDatosNivelUno] = useState([]);
+    const [datosNivelDos, setDatosNivelDos] = useState([]);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "116",
+                });
+                const datosNivelUno = res.data.resolverdudasdos.filter(dato => dato.niveluno === 1);
+                const datosNivelDos = res.data.resolverdudasdos.filter(dato => dato.niveluno === 2);
+                const datosNivelTres = res.data.resolverdudasdos.filter(dato => dato.niveluno === 3);
+                setDatosNivelUno(datosNivelUno);
+                setDatosNivelDos(datosNivelDos);
+                setDatosNivelTres(datosNivelTres);
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerDatos();
+    }, []);
 
 
 
@@ -115,14 +138,19 @@ export default function index() {
                                                 <p>Ir a mis compras</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo hacer seguimiento a mi compra?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo hablar con el vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
+
+
+                                            {datosNivelUno.slice(0, 2).map(dato => (
+                                                <div className="contTitulosDudas" onClick={() => router.push({
+                                                    pathname: `../ResolverDudas/respuestas`,
+                                                    query: { dato: JSON.stringify(dato) }
+                                                })}>
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
+
                                             <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasCompras' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
@@ -138,14 +166,17 @@ export default function index() {
                                                 <p>Ir a mis ventas</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo enviar mi primera venta?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo realizar una devoluvión?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
+
+                                            {datosNivelDos.slice(0, 2).map(dato => (
+                                                <div className="contTitulosDudas" onClick={() => router.push({
+                                                    pathname: `../ResolverDudas/respuestas`,
+                                                    query: { dato: JSON.stringify(dato) }
+                                                })}>
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
                                             <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasVentas' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
@@ -161,14 +192,17 @@ export default function index() {
                                                 <p>Ir a mis datos</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo editar mis datos personales?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
+
+                                            {datosNivelTres.slice(0, 2).map(dato => (
+                                                <div className="contTitulosDudas" onClick={() => router.push({
+                                                    pathname: `../ResolverDudas/respuestas`,
+                                                    query: { dato: JSON.stringify(dato) }
+                                                })}>
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
                                             <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasDatos' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />

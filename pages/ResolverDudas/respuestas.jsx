@@ -24,11 +24,30 @@ import BuscarComponente from "./BuscarComponente";
 
 
 
-export default function dudasDatos() {
+export default function Respuestas() {
+
+
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
-    const irA = useRef(null);//PosiciónTopPage
+    const irA = useRef(null);//PosiciónTopPage 
+
+    //const datos = useSelector(state => state.datos);
+
     const router = useRouter();
+    const { id, dato } = router.query; 
+    const datoParsed = dato ? JSON.parse(dato) : null;
+    // Muestra los datos en la consola
+    useEffect(() => {
+        console.log(datoParsed);
+    }, [datoParsed]);
+
+    
+    useEffect(() => {
+        if (datoParsed) {
+            console.log(datoParsed);
+        }
+    }, [datoParsed]);
+
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -36,7 +55,6 @@ export default function dudasDatos() {
             block: "start",
         });
     }, []);
-
 
     return (
         <>
@@ -59,7 +77,7 @@ export default function dudasDatos() {
                                             >
                                                 <p className="VerVentaLink">Resuelve tus dudas</p>
                                             </Link>
-                                            <p className="VerVentaLink">¿Cómo hablar con el vendedor?</p>
+                                            <p className="VerVentaLink">{datoParsed ? datoParsed.nombreniveldos : 'Cargando...'}</p>
                                         </Breadcrumbs>
                                     </div>
                                     <div className="contMainResolverDudas">
@@ -73,13 +91,14 @@ export default function dudasDatos() {
                                             </div>
                                             <div className="contRespuestadudas">
                                                 <div>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus, expedita similique, vel quos labore eaque dignissimos itaque sint minima odit, nihil aliquid? Aliquid excepturi omnis velit porro nemo voluptatibus incidunt?</p>
+                                                    <p>{datoParsed ? datoParsed.descripcionniveldos : 'Cargando...'}</p>
                                                 </div>
                                                 <div className="imagenRespuestaDuda">
                                                     <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" alt="" />
                                                 </div>
                                             </div>
                                         </div>
+                                        
 
                                         {/*Otras dudas relacionadas contenedor */}
                                         <div className="sobreComprarDudas sobreMiCuentaCont">
