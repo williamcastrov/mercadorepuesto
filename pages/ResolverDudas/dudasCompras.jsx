@@ -1,21 +1,14 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import {  Grid, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
-import axios from 'axios';
-import SearchIcon from '@material-ui/icons/Search';
-import { Dropdown } from "react-bootstrap";
-import { NextRouter } from "next/router";
+import axios from 'axios'; 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import Link from '@mui/material/Link'; 
 import { AiOutlineRight } from 'react-icons/ai';
 import { GrNext } from "react-icons/gr";
-import { URL_BD_MR } from "../../helpers/Constants";
-import { RiSettings5Fill } from "react-icons/ri";
-import { useSelector, useDispatch } from "react-redux";
-import moment from 'moment';
+import { URL_BD_MR } from "../../helpers/Constants"; 
+import { useSelector, useDispatch } from "react-redux"; 
 import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
 import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
@@ -31,16 +24,14 @@ export default function dudasCompras() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
-    const router = useRouter();
-    const { category } = useParams();
-    const [currentCategory, setCurrentCategory] = useState('MisCompras');
+    const router = useRouter(); 
     const dispatch = useDispatch();
     const [showModalMensajesCtlr, setShowModalMensajesCtlr] = useState(false);
     const [tituloMensajesCtlr, setTituloMensajesCtlr] = useState('');
     const [textoMensajesCtlr, setTextoMensajesCtlr] = useState('');
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [isUserLogged, setIsUserLogged] = useState(false);
-
+    const [datosNivelUno, setDatosNivelUno] = useState([]); 
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -82,9 +73,7 @@ export default function dudasCompras() {
         }
     };
 
-    const [datosNivelUno, setDatosNivelUno] = useState([]);
-    const [datosNivelDos, setDatosNivelDos] = useState([]);
-    const [datosNivelTres, setDatosNivelTres] = useState([]);
+
 
 
     useEffect(() => {
@@ -94,12 +83,8 @@ export default function dudasCompras() {
                     method: "post",
                     url: URL_BD_MR + "116",
                 });
-                const datosNivelUno = res.data.resolverdudasdos.filter(dato => dato.niveluno === 1);
-                const datosNivelDos = res.data.resolverdudasdos.filter(dato => dato.niveluno === 2);
-                const datosNivelTres = res.data.resolverdudasdos.filter(dato => dato.niveluno === 3);
-                setDatosNivelUno(datosNivelUno);
-                setDatosNivelDos(datosNivelDos);
-                setDatosNivelTres(datosNivelTres);
+                const datosNivelUno = res.data.resolverdudasdos.filter(dato => dato.niveluno === 1); 
+                setDatosNivelUno(datosNivelUno); 
             } catch (error) {
                 console.error("Error al leer los datos", error);
                 // Maneja el error según tus necesidades

@@ -33112,4 +33112,88 @@ label {
 .ListItempaperOpciones:hover {
     background-color: #d3d4e4;
 }
+.ModifDudasMisCompras{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.ModifDudasMisCompras input{
+    width: 60% !important;
+    margin: 0 auto;
+}
+.ModifDudasMisCompras textarea{
+    height: 160px;
+    width: 60%;
+    resize: none;
+    background-color: #f1f2f6;
+    border-radius: 10px;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    margin: 0 auto;
+}
+.mainButtonsModifi{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ButtonsModifi{ 
+    display: flex;
+    gap: 10px;
+}
+.buttonActiveModif {
+    width: 180px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px; 
+    align-items: center; 
+    padding: 1rem;
+}
+
+.buttonActiveModif.active { 
+    width: 180px;
+    background-color: white;
+    color: #2D2E83;
+    border-radius: 10px;
+    font-size: 15px; 
+    align-items: center; 
+    padding: 1rem;
+    border: 3px solid #2D2E83;
+}
+.SubModifDudasMisCompras{
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+    border-radius: 10px;
+    padding: 1rem;
+}
+.AccionesInputs{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid #f1f2f6;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+.AccionesInputs input{
+    margin-top: 1rem !important;
+}
+.AccionesInputs textarea{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.AccionesInputs button{
+    width: 150px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px; 
+    align-items: center; 
+    padding: 1rem;
+    margin: 0 auto;
+}
 /*fin resolver dudas*/
