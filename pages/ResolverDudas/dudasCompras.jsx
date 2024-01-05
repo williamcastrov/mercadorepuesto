@@ -82,6 +82,33 @@ export default function dudasCompras() {
         }
     };
 
+    const [datosNivelUno, setDatosNivelUno] = useState([]);
+    const [datosNivelDos, setDatosNivelDos] = useState([]);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
+
+
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "116",
+                });
+                const datosNivelUno = res.data.resolverdudasdos.filter(dato => dato.niveluno === 1);
+                const datosNivelDos = res.data.resolverdudasdos.filter(dato => dato.niveluno === 2);
+                const datosNivelTres = res.data.resolverdudasdos.filter(dato => dato.niveluno === 3);
+                setDatosNivelUno(datosNivelUno);
+                setDatosNivelDos(datosNivelDos);
+                setDatosNivelTres(datosNivelTres);
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerDatos();
+    }, []);
+
+
     return (
         <>
             <div ref={irA}>
@@ -117,7 +144,21 @@ export default function dudasCompras() {
                                                 <p>Ir a mis compras</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
-                                            <div className="contTitulosDudas">
+
+                                            {datosNivelUno.map((dato, index) => (
+                                                <div
+                                                    className={`contTitulosDudas ${index === datosNivelUno.length - 1 ? 'endContDudas' : ''}`}
+                                                    onClick={() => router.push({
+                                                        pathname: `../ResolverDudas/respuestas`,
+                                                        query: { dato: JSON.stringify(dato) }
+                                                    })}
+                                                >
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
+                                            {/*  <div className="contTitulosDudas">
                                                 <p>¿Cómo hacer seguimiento a mi compra?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
@@ -136,7 +177,8 @@ export default function dudasCompras() {
                                             <div className="contTitulosDudas endContDudas">
                                                 <p>¿Cómo realizar una devolución?</p>
                                                 <AiOutlineRight size={27} />
-                                            </div>
+                                            </div>*/}
+
                                         </div>
                                     </div>
                                 </Grid>

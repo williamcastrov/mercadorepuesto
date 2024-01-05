@@ -82,6 +82,32 @@ export default function dudasVentas() {
         }
     };
 
+    const [datosNivelUno, setDatosNivelUno] = useState([]);
+    const [datosNivelDos, setDatosNivelDos] = useState([]);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
+
+
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "116",
+                });
+                
+                const datosNivelDos = res.data.resolverdudasdos.filter(dato => dato.niveluno === 2);
+                const datosNivelTres = res.data.resolverdudasdos.filter(dato => dato.niveluno === 3);
+                setDatosNivelUno(datosNivelUno);
+                setDatosNivelDos(datosNivelDos);
+                setDatosNivelTres(datosNivelTres);
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerDatos();
+    }, []);
+
     return (
         <>
             <div ref={irA}>
@@ -117,6 +143,22 @@ export default function dudasVentas() {
                                                 <p>Ir a mis ventas</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
+
+
+                                            {datosNivelDos.map((dato, index) => (
+                                                <div
+                                                    className={`contTitulosDudas ${index === datosNivelDos.length - 1 ? 'endContDudas' : ''}`}
+                                                    onClick={() => router.push({
+                                                        pathname: `../ResolverDudas/respuestas`,
+                                                        query: { dato: JSON.stringify(dato) }
+                                                    })}
+                                                >
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
+                                            {/* 
                                             <div className="contTitulosDudas">
                                                 <p>¿Cómo enviar mi primera venta?</p>
                                                 <AiOutlineRight size={27} />
@@ -137,6 +179,7 @@ export default function dudasVentas() {
                                                 <p>Productos prohibidos para la venta</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
+                                            */}
                                         </div>
 
 

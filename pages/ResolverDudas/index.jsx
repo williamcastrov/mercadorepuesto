@@ -40,7 +40,9 @@ export default function index() {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [isUserLogged, setIsUserLogged] = useState(false);
     const router = useRouter();
-
+    const [datosNivelUno, setDatosNivelUno] = useState([]);
+    const [datosNivelDos, setDatosNivelDos] = useState([]);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -83,9 +85,9 @@ export default function index() {
     };
 
 
-    const [datosNivelUno, setDatosNivelUno] = useState([]);
-    const [datosNivelDos, setDatosNivelDos] = useState([]);
-    const [datosNivelTres, setDatosNivelTres] = useState([]);
+
+
+
     useEffect(() => {
         const obtenerDatos = async () => {
             try {

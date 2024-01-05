@@ -40,6 +40,7 @@ export default function dudasDatos() {
     const [textoMensajesCtlr, setTextoMensajesCtlr] = useState('');
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const [isUserLogged, setIsUserLogged] = useState(false);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
 
 
     useEffect(() => {
@@ -82,6 +83,27 @@ export default function dudasDatos() {
         }
     };
 
+    //funcion para obtener las preguntas de los datos
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "116",
+                });
+
+                const datosNivelTres = res.data.resolverdudasdos.filter(dato => dato.niveluno === 3);
+                setDatosNivelTres(datosNivelTres);
+
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        obtenerDatos();
+    }, []);
+
+
     return (
         <>
             <div ref={irA}>
@@ -117,6 +139,21 @@ export default function dudasDatos() {
                                                 <p>Ir a mis datos</p>
                                                 <AiOutlineRight size={27} style={{ cursor: 'pointer' }} />
                                             </div>
+
+                                            {datosNivelTres.map((dato, index) => (
+                                                <div
+                                                    className={`contTitulosDudas ${index === datosNivelTres.length - 1 ? 'endContDudas' : ''}`}
+                                                    onClick={() => router.push({
+                                                        pathname: `../ResolverDudas/respuestas`,
+                                                        query: { dato: JSON.stringify(dato) }
+                                                    })}
+                                                >
+                                                    <p>{dato.nombreniveldos}</p>
+                                                    <AiOutlineRight size={27} />
+                                                </div>
+                                            ))}
+
+                                            {/* 
                                             <div className="contTitulosDudas">
                                                 <p>¿Cómo editar mis datos personales?</p>
                                                 <AiOutlineRight size={27} />
@@ -136,7 +173,9 @@ export default function dudasDatos() {
                                             <div className="contTitulosDudas endContDudas">
                                                 <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
                                                 <AiOutlineRight size={27} />
-                                            </div> 
+                                            </div>
+                                           */}
+
                                         </div>
 
 

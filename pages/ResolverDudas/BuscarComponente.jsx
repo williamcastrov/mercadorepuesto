@@ -48,7 +48,9 @@ const BuscarComponente = () => {
         'cuenta': ['account', 'usuario', 'perfil', 'registrarse', 'registro', 'login', 'log in', 'sign in', 'signin', 'logon', 'log on', 'signon', 'sign on', 'acceder', 'acceso', 'entrar', 'signup', 'sign up', 'register'],
         'jurídica': ['empresa', 'empresas', 'negocio', 'negocios', 'corporativo', 'corporativos', 'corporación', 'corporaciones', 'compañía', 'compañías', 'sociedad', 'sociedades'],
         'vendi': ['vendedor', 'vendes', 'vendio', 'vender'],
-        'vender': ['vendedor', 'vendiste', 'venderé', 'venta', 'vender']
+        'vender': ['vendedor', 'vendiste', 'venderé', 'venta', 'vender'],
+        'hacer': ['crear', 'realizar', 'presentar']
+
         // otras palabras y sus palabras relacionadas
     };
 
