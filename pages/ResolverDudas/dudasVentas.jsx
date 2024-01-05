@@ -125,8 +125,16 @@ export default function dudasVentas() {
                                                 <p>¿Cómo realizar una devoluvión?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasVentas' })} className="contTitulosDudas endContDudas">
-                                                <p>Ver más opciones</p>
+                                            <div className="contTitulosDudas">
+                                                <p>¿Cómo consultar el estado y el detalle de una venta?</p>
+                                                <AiOutlineRight size={27} />
+                                            </div>
+                                            <div className="contTitulosDudas">
+                                                <p>¿Por qué el dinero de mis ventas no se libera al instante?</p>
+                                                <AiOutlineRight size={27} />
+                                            </div>
+                                            <div className="contTitulosDudas endContDudas">
+                                                <p>Productos prohibidos para la venta</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                         </div>

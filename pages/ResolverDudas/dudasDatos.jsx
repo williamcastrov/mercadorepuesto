@@ -122,13 +122,21 @@ export default function dudasDatos() {
                                                 <AiOutlineRight size={27} />
                                             </div>
                                             <div className="contTitulosDudas">
-                                                <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
+                                                <p>Política de tratamiento de datos personales</p>
+                                                <AiOutlineRight size={27} />
+                                            </div>
+                                            <div className="contTitulosDudas">
+                                                <p>Cómo proteger mis datos personales</p>
+                                                <AiOutlineRight size={27} />
+                                            </div>
+                                            <div className="contTitulosDudas">
+                                                <p>Dónde encuentro los datos de mis vendedores</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
                                             <div className="contTitulosDudas endContDudas">
-                                                <p>Ver más opciones</p>
+                                                <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
                                                 <AiOutlineRight size={27} />
-                                            </div>
+                                            </div> 
                                         </div>
 
 
