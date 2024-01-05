@@ -23,7 +23,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import { CiSearch } from "react-icons/ci";
 import { IoSearch } from "react-icons/io5";
-const BuscarComponente = () => { 
+const BuscarComponente = () => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [options, setOptions] = useState([]);
@@ -126,7 +126,7 @@ const BuscarComponente = () => {
             <Paper className="paperOpciones">
                 {searchTerm && options.length === 0 ? (
                     <ListItem className="ListItempaperOpciones">
-                        <IoSearch /> No se ha encontrado nada para tu búsqueda
+                        No se ha encontrado nada para tu búsqueda
                     </ListItem>
                 ) : (
                     options.map((option, index) => (
