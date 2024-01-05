@@ -20,13 +20,17 @@ import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListContr
 import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
 import BuscarComponente from "./BuscarComponente";
+import ModalMensajes from "../mensajes/ModalMensajes";
 
 
 
 export default function modificarPreguntas() {
 
 
-
+    const [active, setActive] = useState(1);
+    const [datosNivelUno, setDatosNivelUno] = useState([]);
+    const [datosNivelDos, setDatosNivelDos] = useState([]);
+    const [datosNivelTres, setDatosNivelTres] = useState([]);
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
@@ -38,12 +42,7 @@ export default function modificarPreguntas() {
         });
     }, []);
 
-    const [active, setActive] = useState(1);
 
-
-    const [datosNivelUno, setDatosNivelUno] = useState([]);
-    const [datosNivelDos, setDatosNivelDos] = useState([]);
-    const [datosNivelTres, setDatosNivelTres] = useState([]);
 
     useEffect(() => {
         const obtenerDatos = async () => {
@@ -123,8 +122,30 @@ export default function modificarPreguntas() {
     });
 
     // Función para manejar el evento del botón "Guardar"
+    // Función para manejar el evento del botón "Guardar"
     const handleSave = async (index, nivel) => {
         const dato = nivel === 1 ? datosNivelUno[index] : nivel === 2 ? datosNivelDos[index] : datosNivelTres[index];
+
+        // Validar los datos
+        if (!validarDatos(dato)) {
+            return; // No continuar con la función si los datos no son válidos
+        }
+
+        // Enviar los datos
+        enviarDatos(dato);
+    };
+
+    const validarDatos = (dato) => {
+        if (!dato.nombreniveldos || !dato.descripcionniveldos) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('Admin, nigún campo puede quedar vacio.');
+            setShowModal(true);
+            return false;
+        }
+        return true;
+    };
+
+    const enviarDatos = async (dato) => {
         try {
             const res = await axios({
                 method: "post",
@@ -135,12 +156,26 @@ export default function modificarPreguntas() {
                     descripcionniveldos: dato.descripcionniveldos
                 }
             });
-            // Maneja la respuesta según tus necesidades
+
+            console.log("Respuesta del servidor al enviar datos: ", res.data)
+            // Si la solicitud fue exitosa, muestra el modal con un mensaje de éxito
+            setTituloMensajes('Datos envíados');
+            setTextoMensajes('Los datos se han enviado correctamente.');
+            setShowModal(true);
         } catch (error) {
             console.error("Error al actualizar los datos", error);
             // Maneja el error según tus necesidades
         }
     };
+
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModal, setShowModal] = useState(false); //Estado de modal
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
 
     return (
         <>
@@ -165,10 +200,6 @@ export default function modificarPreguntas() {
 
                                             </div>
                                         </div>
-
-
-
-
 
 
                                         {active === 1 && (
@@ -217,7 +248,13 @@ export default function modificarPreguntas() {
                                             </div>
                                         )}
 
-
+                                        <ModalMensajes
+                                            shown={showModal}
+                                            close={handleModalClose}
+                                            titulo={tituloMensajes}
+                                            mensaje={textoMensajes}
+                                            tipo="error"
+                                        />
                                     </div>
                                 </Grid>
 
