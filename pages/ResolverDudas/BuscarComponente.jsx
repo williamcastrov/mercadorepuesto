@@ -116,6 +116,10 @@ const BuscarComponente = () => {
             setOptions([]);
         }
     };
+
+
+
+    
     return (
         <div className="contResDudasInputdiv">
             <InputBase

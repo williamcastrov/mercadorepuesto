@@ -142,30 +142,7 @@ export default function dudasDatos() {
                                                     <p>{dato.nombreniveldos}</p>
                                                     <AiOutlineRight size={27} />
                                                 </div>
-                                            ))}
-
-                                            {/* 
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo editar mis datos personales?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>Política de tratamiento de datos personales</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>Cómo proteger mis datos personales</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>Dónde encuentro los datos de mis vendedores</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                           */}
+                                            ))} 
 
                                         </div>
 

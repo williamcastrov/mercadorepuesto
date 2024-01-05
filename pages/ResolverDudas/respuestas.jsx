@@ -29,17 +29,12 @@ export default function Respuestas() {
 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
-    const irA = useRef(null);//PosiciónTopPage 
-
-    //const datos = useSelector(state => state.datos);
-
+    const irA = useRef(null);
+    const [datos, setDatos] = useState([]);
+    const [indicesAleatorios, setIndicesAleatorios] = useState([]);
     const router = useRouter();
     const { id, dato } = router.query;
     const datoParsed = dato ? JSON.parse(dato) : null;
-    // Muestra los datos en la consola
-    useEffect(() => {
-        console.log(datoParsed);
-    }, [datoParsed]);
 
 
     useEffect(() => {
@@ -69,10 +64,6 @@ export default function Respuestas() {
             return [];
         }
     };
-
-    const [datos, setDatos] = useState([]);
-    const [indicesAleatorios, setIndicesAleatorios] = useState([]);
-
     // Luego, en un efecto de React, puedes obtener los datos y los índices aleatorios
     useEffect(() => {
         const obtenerYSeleccionarDatos = async () => {
@@ -93,7 +84,7 @@ export default function Respuestas() {
 
         obtenerYSeleccionarDatos();
     }, []);
-
+ 
 
     return (
         <>
@@ -154,7 +145,7 @@ export default function Respuestas() {
                                                 }
                                                 return (
                                                     <div key={indice} onClick={() => {
-                                                        router.push({
+                                                        router.replace({
                                                             pathname: `../ResolverDudas/respuestas`,
                                                             query: { dato: JSON.stringify(dato) }
                                                         });
@@ -163,7 +154,7 @@ export default function Respuestas() {
                                                         <AiOutlineRight size={27} />
                                                     </div>
                                                 );
-                                            })}  
+                                            })}
                                         </div>
 
 

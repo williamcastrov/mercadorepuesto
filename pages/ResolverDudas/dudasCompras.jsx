@@ -141,28 +141,7 @@ export default function dudasCompras() {
                                                     <p>{dato.nombreniveldos}</p>
                                                     <AiOutlineRight size={27} />
                                                 </div>
-                                            ))}
-
-                                            {/*  <div className="contTitulosDudas">
-                                                <p>¿Cómo hacer seguimiento a mi compra?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo hablar con el vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar al vendedor?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo calificar mi producto?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>¿Cómo realizar una devolución?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>*/}
+                                            ))} 
 
                                         </div>
                                     </div>

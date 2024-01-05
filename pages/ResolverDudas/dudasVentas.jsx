@@ -146,30 +146,7 @@ export default function dudasVentas() {
                                                     <p>{dato.nombreniveldos}</p>
                                                     <AiOutlineRight size={27} />
                                                 </div>
-                                            ))}
-
-                                            {/* 
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo enviar mi primera venta?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo realizar una devoluvión?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Cómo consultar el estado y el detalle de una venta?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas">
-                                                <p>¿Por qué el dinero de mis ventas no se libera al instante?</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            <div className="contTitulosDudas endContDudas">
-                                                <p>Productos prohibidos para la venta</p>
-                                                <AiOutlineRight size={27} />
-                                            </div>
-                                            */}
+                                            ))} 
                                         </div>
 
 
