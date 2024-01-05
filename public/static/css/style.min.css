@@ -33084,4 +33084,32 @@ label {
     max-width: 300px;
     max-height: 300px;
 }
+.contResDudasInputdiv{
+    position: relative;
+}
+.paperOpciones{
+    position: absolute;
+    width: 100%;
+    z-index: 1; 
+    margin-top: .5rem;
+    background-color: #f1f2f6;
+} 
+.ListItempaperOpciones {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #2D2E83;
+    gap: 15px;
+    background-color: #f1f2f6;
+    height: 38px;
+    padding-bottom: 0;
+    font-size: 16px;
+}
+.ListItempaperOpciones svg{
+    font-size: 20px;
+    color: #2D2E83;
+}
+
+.ListItempaperOpciones:hover {
+    background-color: #d3d4e4;
+}
 /*fin resolver dudas*/

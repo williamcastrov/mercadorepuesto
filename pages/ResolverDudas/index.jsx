@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase, Paper } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
@@ -19,6 +19,15 @@ import moment from 'moment';
 import ModalMensajesWishListControl from "../mensajes/ModalMensajesWishListControl";
 import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { CiSearch } from "react-icons/ci";
+import { IoSearch } from "react-icons/io5";
+import BuscarComponente from "./BuscarComponente";
+
+
+
+
 export default function index() {
 
     const theme = useTheme();
@@ -75,10 +84,9 @@ export default function index() {
 
 
 
-    // En tu primer componente
-    function handleButtonCategoria(category) {
-        router.push('./masOpciones/${category}');
-    }
+
+
+
 
 
     return (
@@ -97,33 +105,7 @@ export default function index() {
 
 
                                     <div className="contMainResolverDudas">
-                                        <div className="contResDudasInputdiv">
-                                            <InputBase
-                                                placeholder="Busca en resuelve tus dudas"
-                                                sx={{
-                                                    borderRadius: '10px',
-                                                    backgroundColor: '#f1f2f6',
-                                                    padding: '8px',
-                                                    marginRight: '8px',
-                                                    width: '100%',
-                                                    height: '44px',
-                                                    padding: '10px',
-                                                    fontSize: '16px',
-                                                    paddingLeft: '3rem',
-                                                    color: '#2C2E82',
-                                                    fontWeight: '500',
-                                                    '&::placeholder': {
-                                                        color: '#3E4089',
-                                                        fontWeight: '600',
-                                                    },
-                                                }}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <SearchIcon style={{ fontSize: 30, color: '#3E4089' }} />
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </div>
+                                        <BuscarComponente />
 
                                         <div className="sobreComprarDudas">
                                             <div className="contTitulo ">
@@ -141,7 +123,7 @@ export default function index() {
                                                 <p>¿Cómo hablar con el vendedor?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasCompras'})} className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasCompras' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
@@ -164,7 +146,7 @@ export default function index() {
                                                 <p>¿Cómo realizar una devoluvión?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasVentas'})} className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasVentas' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
@@ -187,7 +169,7 @@ export default function index() {
                                                 <p>¿Cómo cambiar mi cuenta a persona juridica?</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
-                                            <div onClick={() => router.push({pathname: '../ResolverDudas/dudasDatos'})} className="contTitulosDudas endContDudas">
+                                            <div onClick={() => router.push({ pathname: '../ResolverDudas/dudasDatos' })} className="contTitulosDudas endContDudas">
                                                 <p>Ver más opciones</p>
                                                 <AiOutlineRight size={27} />
                                             </div>
