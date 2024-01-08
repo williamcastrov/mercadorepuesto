@@ -24115,7 +24115,7 @@ ol {
     padding-top: 10px;
     border-radius: 25px;
 }
- 
+
 
 .textomedidas {
     padding-left: 2px !important;
@@ -27061,7 +27061,7 @@ label {
 .botondatostuvehiculoingdos {
     margin-left: 160px;
     width: 300px;
-    height: 30px; 
+    height: 30px;
     font-size: 14px !important;
     border-radius: 7px !important;
     color: white !important;
@@ -31924,9 +31924,11 @@ label {
     margin-top: 1.5rem;
     cursor: default;
 }
-.EstadoMsjButton2{
+
+.EstadoMsjButton2 {
     cursor: default;
 }
+
 .EstadoMsjButton.respondido {
     background-color: #1BE829;
     cursor: default;
@@ -32115,16 +32117,18 @@ label {
     height: 19rem !important;
     display: flex !important;
     justify-content: center !important;
-} 
+}
 
 .contImgMisCompras img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* o "cover" dependiendo de tu preferencia */
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
     max-width: 200px;
     max-height: 180px;
     cursor: pointer;
 }
+
 .precioProductMisCompras {
     display: flex !important;
     padding-left: 2rem !important;
@@ -32325,7 +32329,8 @@ label {
     margin: 0 auto;
     width: 100%;
 }
-.factExistente{
+
+.factExistente {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -32350,7 +32355,7 @@ label {
 .misVentasRigt1 {
     margin-bottom: 4rem;
 }
- 
+
 
 .misVentasRigt2 p {
     margin-right: 5px;
@@ -32403,20 +32408,25 @@ label {
     font-weight: 500;
     margin-bottom: 1.5rem;
 }
-.nameVendedorMiCompra2{
+
+.nameVendedorMiCompra2 {
     text-decoration: underline;
     cursor: pointer;
     font-size: 17px !important;
 }
-.divButtonVerVenta{
+
+.divButtonVerVenta {
     cursor: pointer;
 }
-.buttnVerVenta{
-    cursor: pointer; 
-}
-.buttonSendF{
+
+.buttnVerVenta {
     cursor: pointer;
 }
+
+.buttonSendF {
+    cursor: pointer;
+}
+
 .divButtonVerVenta button {
     background-color: #2C2E82;
     border-radius: 10px;
@@ -32429,7 +32439,7 @@ label {
 }
 
 
-.imgVerVenta{
+.imgVerVenta {
     z-index: 1;
     object-fit: cover;
     height: 80px;
@@ -32438,30 +32448,36 @@ label {
     top: 18px;
     position: absolute;
 }
-.verPdfMain{
-    position: absolute;  
+
+.verPdfMain {
+    position: absolute;
     left: 90px;
     top: 30px;
 }
-.verPdfMain2{
-    position: absolute;  
+
+.verPdfMain2 {
+    position: absolute;
     left: 125px;
     top: 40px;
     color: #2D2E83;
 }
-.iconSeeFact{
+
+.iconSeeFact {
     margin-top: -1.5rem;
     margin-left: 12.3rem;
     font-size: 25px;
     color: #2D2E83;
 }
-.verPdfMain div{
+
+.verPdfMain div {
     color: #2D2E83;
 }
-.divIconFact{
+
+.divIconFact {
     margin-top: -2rem;
-    position: relative; 
+    position: relative;
 }
+
 .imagenDeFondo {
     position: absolute;
     top: 25px;
@@ -32471,50 +32487,57 @@ label {
     -o-object-fit: cover;
     object-fit: cover;
 }
-.iconSquareVerventa{
+
+.iconSquareVerventa {
     position: absolute;
     left: 35px;
     top: -10px;
     color: #2C2E82;
-} 
-.iconFact{
+}
+
+.iconFact {
     color: #2C2E82;
     z-index: 999;
     margin-left: 7rem;
 }
-.iconCloseVerVenta{
-    color: #2C2E82; 
+
+.iconCloseVerVenta {
+    color: #2C2E82;
     cursor: pointer;
     font-size: 30px;
 }
-.diviconSquareVerventa{
+
+.diviconSquareVerventa {
     position: relative;
     height: 100px;
     width: 100px;
     margin-top: 1rem;
 }
-.buttonDeleteVerVenta{
+
+.buttonDeleteVerVenta {
     margin-top: 12rem;
     width: 10px;
 }
 
-.iconDeleteVerventa{
+.iconDeleteVerventa {
     z-index: 2;
     color: #00BF15;
 }
-.diviconCloeseDoc{ 
+
+.diviconCloeseDoc {
     display: flex;
     margin-left: 8.7rem;
     align-items: center;
     margin-top: 1rem;
     width: 29%;
-    cursor: pointer; 
+    cursor: pointer;
 }
-.verVentaDoc{
+
+.verVentaDoc {
     display: flex;
     flex-direction: column;
 }
- 
+
 .etiquetaCont {
     width: 87%;
     border: 3px solid #EBEBEB;
@@ -32538,30 +32561,32 @@ label {
     align-items: center;
 }
 
-.etiquetaContIMG img { 
+.etiquetaContIMG img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* o "cover" dependiendo de tu preferencia */
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
     max-width: 90px;
     max-height: 90px;
 }
- 
+
 .etiquetaCont1 p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
 }
 
-.nameVerV { 
+.nameVerV {
     margin-bottom: .5rem;
-        font-size: 16px !important;
-        color: #2D2E83;
-        font-weight: 500; 
-}
-.unidVend{ 
     font-size: 16px !important;
     color: #2D2E83;
-    font-weight: 500; 
+    font-weight: 500;
+}
+
+.unidVend {
+    font-size: 16px !important;
+    color: #2D2E83;
+    font-weight: 500;
 }
 
 .nameVerV2 {
@@ -32581,9 +32606,11 @@ label {
 .etiquetaContDetailsTitle {
     font-weight: 600 !important;
 }
-.pNameProductPregRespsts{
+
+.pNameProductPregRespsts {
     cursor: pointer !important;
 }
+
 .divButtonAdjFact {
     margin-top: 1rem !important;
     width: 100% !important;
@@ -32632,6 +32659,7 @@ label {
     margin-top: 2rem !important;
     width: 100% !important;
 }
+
 .contDataUsersVerventa {
     margin-top: 3rem;
     display: flex;
@@ -32643,18 +32671,20 @@ label {
 }
 
 
-.VerVentaLink{
+.VerVentaLink {
     color: #D9D9D9;
     font-size: 24px;
     font-weight: 700;
     font-family: "Jost", sans-serif !important;
 }
-.linkMisv{ 
+
+.linkMisv {
     font-size: 24px !important;
     color: #2D2E83;
     font-weight: 700 !important;
     font-family: "Jost", sans-serif;
 }
+
 /*FIN STYLES MIS VENTAS*/
 
 /*ESTILOS PREGUNTAS Y RESPUESTAS*/
@@ -32662,190 +32692,222 @@ label {
 
 /*Mis opiniones como vendedor*/
 
-.ContOpVendedor{
+.ContOpVendedor {
     display: flex;
     flex-direction: column;
 }
+
 .TitleOpVend p {
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
     font-size: 24px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.subTitleOpVend p{
-    margin-bottom: 3rem; 
+
+.subTitleOpVend p {
+    margin-bottom: 3rem;
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.conUserOpiVend{
+
+.conUserOpiVend {
     display: flex;
     flex-direction: column;
     background-color: #F4F5F7;
     padding: 3rem;
     border-radius: 12px;
     padding-top: 3.5rem !important;
-    padding-bottom: 3.5rem !important; 
+    padding-bottom: 3.5rem !important;
 }
-.conUserOpiVendNombre p{
-    margin-bottom: 3rem; 
+
+.conUserOpiVendNombre p {
+    margin-bottom: 3rem;
     font-size: 24px !important;
     color: #2D2E83;
     font-weight: 700;
     font-family: "Jost", sans-serif;
 }
-.conUserOpiVendData p{
-    margin-bottom: 3rem; 
+
+.conUserOpiVendData p {
+    margin-bottom: 3rem;
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
     margin: 0;
 }
-.conUserOpiVendData{
+
+.conUserOpiVendData {
     display: flex;
     flex-direction: column;
 }
-.contCalificOpinionesV{ 
+
+.contCalificOpinionesV {
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
     margin-bottom: 4rem;
 }
-.vacioOpiniones{
+
+.vacioOpiniones {
     width: 100%;
     height: 12.5rem;
 
 }
-.SubcontCalificOpinionesV{
-    display: flex; 
+
+.SubcontCalificOpinionesV {
+    display: flex;
     align-items: end;
 }
-.contnumbercalifics{
+
+.contnumbercalifics {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.contnumbercalifics p{ 
-    margin-bottom: .5rem; 
+
+.contnumbercalifics p {
+    margin-bottom: .5rem;
     font-size: 16px !important;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
-.maincontCalificOpinionesV{
+
+.maincontCalificOpinionesV {
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
 }
-.PcalifV p{
-    margin-bottom: .5rem; 
+
+.PcalifV p {
+    margin-bottom: .5rem;
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
     margin: 0;
 }
-.SubcontCalificOpinionesVP{
+
+.SubcontCalificOpinionesVP {
     margin-left: 1.5rem !important;
     margin-right: 1.5rem !important;
-    margin-bottom: 1.5rem !important; 
+    margin-bottom: 1.5rem !important;
     font-size: 35px !important;
     color: #2D2E83;
     font-weight: 700;
     font-family: "Jost", sans-serif;
     margin: 0;
 }
-.iconsOpinVend{
+
+.iconsOpinVend {
     display: flex;
-    gap: 5px; 
+    gap: 5px;
 }
-.iconoConfOpiVn{
+
+.iconoConfOpiVn {
     margin-top: -5px;
 }
-.mainOpinionesComentarios{
-    width: 100%; 
+
+.mainOpinionesComentarios {
+    width: 100%;
 }
-.subCmainOpiniones{
+
+.subCmainOpiniones {
     display: flex;
     justify-content: space-between;
     border-bottom: 4px solid #F4F5F5;
     padding-bottom: 1rem;
     align-items: center;
 }
-.subCmainOpiniones p{ 
+
+.subCmainOpiniones p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
 
 .MainComentarios {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 55rem; /* Altura máxima en rem */
-    overflow-y: auto; /* Agrega un scroll vertical si es necesario */
-    scrollbar-width: thin; /* Ajusta el ancho del scrollbar (puede ser 'thin', 'auto', o 'none') */
-    scrollbar-color: #F4F5F5 #ffffff; /* Ajusta el color del scrollbar (puedes cambiar estos valores) */
+    max-height: 55rem;
+    /* Altura máxima en rem */
+    overflow-y: auto;
+    /* Agrega un scroll vertical si es necesario */
+    scrollbar-width: thin;
+    /* Ajusta el ancho del scrollbar (puede ser 'thin', 'auto', o 'none') */
+    scrollbar-color: #F4F5F5 #ffffff;
+    /* Ajusta el color del scrollbar (puedes cambiar estos valores) */
 }
 
 /* Solo para navegadores que admiten la propiedad scrollbar-color */
 .MainComentarios::-webkit-scrollbar {
-    width: 8px; /* Ajusta el ancho del scrollbar en navegadores WebKit (Chrome, Safari, etc.) */
+    width: 8px;
+    /* Ajusta el ancho del scrollbar en navegadores WebKit (Chrome, Safari, etc.) */
 }
 
 .MainComentarios::-webkit-scrollbar-thumb {
-    background-color: #F4F5F5; /* Ajusta el color del thumb (el área desplazable) */
-    border-radius: 4px; /* Ajusta la esquina del thumb si lo deseas */
+    background-color: #F4F5F5;
+    /* Ajusta el color del thumb (el área desplazable) */
+    border-radius: 4px;
+    /* Ajusta la esquina del thumb si lo deseas */
 }
 
 .MainComentarios::-webkit-scrollbar-track {
-    background-color: #ffffff; /* Ajusta el color de la pista (el área no desplazable) */
+    background-color: #ffffff;
+    /* Ajusta el color de la pista (el área no desplazable) */
 }
 
 
 
 
-.subCmainComentarios{  
-    padding-bottom: 1rem; 
+.subCmainComentarios {
+    padding-bottom: 1rem;
     padding-left: 1.8rem;
-    padding-right: 1.8rem; 
-    width: 90%; 
+    padding-right: 1.8rem;
+    width: 90%;
     margin: 0 auto;
     border-top: 2px solid #2D2E83;
 }
-.subCmainComentarios p{
+
+.subCmainComentarios p {
     font-size: 16px !important;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
-.subCmainIconos{
-    display: flex; 
+
+.subCmainIconos {
+    display: flex;
     margin-bottom: .5rem;
     margin-top: 2.5rem;
     color: #2D2E83;
     justify-content: space-between;
     align-items: center;
 }
-.subCmainIconos div{
+
+.subCmainIconos div {
     display: flex;
-    gap: 3px; 
+    gap: 3px;
     color: #2D2E83;
 }
-.subCmainComentariosSub{
+
+.subCmainComentariosSub {
     width: 90%;
     display: flex;
     flex-direction: column;
 }
-.iconoConfOpiVn { 
-    color: #acadcd; 
+
+.iconoConfOpiVn {
+    color: #acadcd;
 }
 
-.iconoConfOpiVn.colorRojo { 
+.iconoConfOpiVn.colorRojo {
     color: #2D2E83;
 }
 
@@ -32854,23 +32916,26 @@ label {
     width: 183px !important;
     font-size: 16px !important;
 }
+
 .itemsdropdownVerVenta {
     color: #2D2E83 !important;
     height: 35px !important;
     font-size: 14px !important;
     white-space: nowrap !important;
 }
-.contMainOpiniones{
+
+.contMainOpiniones {
     margin-top: 3rem;
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: .5rem;
     margin: 0 auto;
-    justify-content: center; 
+    justify-content: center;
 
 }
-.dropOpiniones{
+
+.dropOpiniones {
     width: auto;
     max-width: 30%;
     min-width: 25%;
@@ -32881,7 +32946,7 @@ label {
 
 
 
-.dataContVendedor{
+.dataContVendedor {
     background-color: transparent;
     border: 3px solid #2C2E82;
     border-radius: 12px;
@@ -32892,40 +32957,45 @@ label {
     padding: 1.5rem;
 }
 
- 
-.dataVendedor div{
+
+.dataVendedor div {
     display: flex;
     gap: 4px;
 }
-.cantCalificaciones{
+
+.cantCalificaciones {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.titleDataVend{
+
+.titleDataVend {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
-.infotitleDataVend{
+
+.infotitleDataVend {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 700;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
-.contCalificaciones{
-    background-color: #F4F5F7; 
+
+.contCalificaciones {
+    background-color: #F4F5F7;
     border-radius: 12px;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     width: 60%;
-    margin: 0 auto; 
+    margin: 0 auto;
     margin-top: 2rem;
     padding-bottom: 1.5rem;
 }
-.toPcontCalificaciones{
+
+.toPcontCalificaciones {
     display: flex;
     justify-content: space-between;
     padding: 1.5rem;
@@ -32933,167 +33003,204 @@ label {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
 }
-.toPcontCalificaciones p{
+
+.toPcontCalificaciones p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
+    font-family: "Jost", sans-serif;
 }
-.renderCalificaciones{
+
+.renderCalificaciones {
     display: flex;
-    flex-direction: column; 
-    width: 100%;  
-    max-height: 55rem; /* Altura máxima en rem */
-    overflow-y: auto; /* Agrega un scroll vertical si es necesario */
-    scrollbar-width: thin; /* Ajusta el ancho del scrollbar (puede ser 'thin', 'auto', o 'none') */
-    scrollbar-color: #F4F5F5 #ffffff; /* Ajusta el color del scrollbar (puedes cambiar estos valores) */
+    flex-direction: column;
+    width: 100%;
+    max-height: 55rem;
+    /* Altura máxima en rem */
+    overflow-y: auto;
+    /* Agrega un scroll vertical si es necesario */
+    scrollbar-width: thin;
+    /* Ajusta el ancho del scrollbar (puede ser 'thin', 'auto', o 'none') */
+    scrollbar-color: #F4F5F5 #ffffff;
+    /* Ajusta el color del scrollbar (puedes cambiar estos valores) */
 }
+
 /* Solo para navegadores que admiten la propiedad scrollbar-color */
 .renderCalificaciones::-webkit-scrollbar {
-    width: 8px; /* Ajusta el ancho del scrollbar en navegadores WebKit (Chrome, Safari, etc.) */
+    width: 8px;
+    /* Ajusta el ancho del scrollbar en navegadores WebKit (Chrome, Safari, etc.) */
 }
 
 .renderCalificaciones::-webkit-scrollbar-thumb {
-    background-color: #ffffff; /* Ajusta el color del thumb (el área desplazable) */
-    border-radius: 4px; /* Ajusta la esquina del thumb si lo deseas */
+    background-color: #ffffff;
+    /* Ajusta el color del thumb (el área desplazable) */
+    border-radius: 4px;
+    /* Ajusta la esquina del thumb si lo deseas */
 }
 
 .renderCalificaciones::-webkit-scrollbar-track {
-    background-color: #F4F5F5; /* Ajusta el color de la pista (el área no desplazable) */
+    background-color: #F4F5F5;
+    /* Ajusta el color de la pista (el área no desplazable) */
 }
 
 
- 
-.subCmainComentarios2{
+
+.subCmainComentarios2 {
     display: flex;
     flex-direction: column;
     width: 90%;
     margin: 0 auto;
 }
-.comentClif{
+
+.comentClif {
     margin-bottom: 1rem;
 }
+
 /*Fin opiniones como vendedor*/
 
 
 
 /*Resolver dudas*/
 
-.contResDudasInputdiv{
+.contResDudasInputdiv {
     width: 100%;
     margin: 0 auto;
 }
-.contMainResolverDudas{
+
+.contMainResolverDudas {
     width: 70%;
     margin: 0 auto;
     flex-direction: column;
     display: flex;
 }
-.sobreComprarDudas{
+
+.sobreComprarDudas {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
 }
-.sobreComprarDudas div{
+
+.sobreComprarDudas div {
     cursor: pointer;
 }
-.contTitulosDudas{
+
+.contTitulosDudas {
     display: flex;
     justify-content: space-between;
     padding: 2rem;
     background-color: #F0F1F5;
     margin-bottom: .5rem;
 }
-.contTitulo{
+
+.contTitulo {
     margin-bottom: 2rem;
 }
-.contTitulo p{
+
+.contTitulo p {
     font-size: 24px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.contTitulosDudas p{
+
+.contTitulosDudas p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.startContDudas{
+
+.startContDudas {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
-.endContDudas{
+
+.endContDudas {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-.contTitulosDudas svg{ 
+
+.contTitulosDudas svg {
     fill: #2D2E83;
 }
-.SobreVenderCont{
+
+.SobreVenderCont {
     margin-top: 5rem !important;
 }
-.sobreMiCuentaCont{
+
+.sobreMiCuentaCont {
     margin-top: 5rem !important;
 }
-.TitleDinamicoDudas{
+
+.TitleDinamicoDudas {
     display: flex;
     margin-bottom: 4rem;
 }
-.contRespuestadudas{
+
+.contRespuestadudas {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 2rem;
-    border-radius: 10px;  
+    border-radius: 10px;
     padding: 2.6rem;
-    background-color: #F0F1F5; 
+    background-color: #F0F1F5;
     justify-content: center;
 }
-.maincontRespuestadudas{
+
+.maincontRespuestadudas {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-.titlecontRespuestadudas{
+
+.titlecontRespuestadudas {
     margin-top: 7rem;
 }
-.titlecontRespuestadudas p{
+
+.titlecontRespuestadudas p {
     font-size: 24px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.contRespuestadudas p{
+
+.contRespuestadudas p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.imagenRespuestaDuda{
+
+.imagenRespuestaDuda {
     width: 100%;
     justify-content: center;
     display: flex;
     align-items: center;
 }
-.imagenRespuestaDuda img{
+
+.imagenRespuestaDuda img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* o "cover" dependiendo de tu preferencia */
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
     max-width: 300px;
     max-height: 300px;
 }
-.contResDudasInputdiv{
+
+.contResDudasInputdiv {
     position: relative;
 }
-.paperOpciones{
+
+.paperOpciones {
     position: absolute;
     width: 100%;
-    z-index: 1; 
+    z-index: 1;
     margin-top: .5rem;
     background-color: #f1f2f6;
-} 
+}
+
 .ListItempaperOpciones {
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -33104,7 +33211,8 @@ label {
     padding-bottom: 0;
     font-size: 16px;
 }
-.ListItempaperOpciones svg{
+
+.ListItempaperOpciones svg {
     font-size: 20px;
     color: #2D2E83;
 }
@@ -33112,17 +33220,20 @@ label {
 .ListItempaperOpciones:hover {
     background-color: #d3d4e4;
 }
-.ModifDudasMisCompras{
+
+.ModifDudasMisCompras {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; 
 }
-.ModifDudasMisCompras input{
+
+.ModifDudasMisCompras input {
     width: 60% !important;
     margin: 0 auto;
 }
-.ModifDudasMisCompras textarea{
+
+.ModifDudasMisCompras textarea {
     height: 160px;
     width: 60%;
     resize: none;
@@ -33132,44 +33243,49 @@ label {
     padding: 1.5rem;
     margin: 0 auto;
 }
-.mainButtonsModifi{
+
+.mainButtonsModifi {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.ButtonsModifi{ 
+
+.ButtonsModifi {
     display: flex;
     gap: 10px;
 }
+
 .buttonActiveModif {
     width: 180px;
     background-color: #2D2E83;
     color: white;
     border-radius: 10px;
-    font-size: 15px; 
-    align-items: center; 
+    font-size: 15px;
+    align-items: center;
     padding: 1rem;
 }
 
-.buttonActiveModif.active { 
+.buttonActiveModif.active {
     width: 180px;
     background-color: white;
     color: #2D2E83;
     border-radius: 10px;
-    font-size: 15px; 
-    align-items: center; 
+    font-size: 15px;
+    align-items: center;
     padding: 1rem;
     border: 3px solid #2D2E83;
 }
-.SubModifDudasMisCompras{
+
+.SubModifDudasMisCompras {
     width: 100%;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     border-radius: 10px;
     padding: 1rem;
 }
-.AccionesInputs{
+
+.AccionesInputs {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -33179,21 +33295,64 @@ label {
     margin-bottom: 2rem;
     justify-content: center;
 }
-.AccionesInputs input{
+
+.AccionesInputs input {
     margin-top: 1rem !important;
 }
-.AccionesInputs textarea{
+
+.AccionesInputs textarea {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
-.AccionesInputs button{
+
+.AccionesInputs button {
     width: 150px;
     background-color: #2D2E83;
     color: white;
     border-radius: 10px;
-    font-size: 15px; 
-    align-items: center; 
+    font-size: 15px;
+    align-items: center;
     padding: 1rem;
     margin: 0 auto;
 }
+
+.botónDN1 {
+    width: 160px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 13px;
+    align-items: center;
+    padding: 1.5rem;
+    height: 40px !important;
+    justify-content: center;
+    display: flex;
+}
+
+.botónDN1-activo {
+    width: 160px;
+    background-color: white;
+    color: #2D2E83;
+    border-radius: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 3px solid #2D2E83;
+    height: 40px !important;
+    justify-content: center;
+}
+
+.BotonesEnActivo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+.ModifMain{
+    width: 80% !important;
+}
+
 /*fin resolver dudas*/

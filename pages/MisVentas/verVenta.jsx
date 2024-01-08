@@ -104,6 +104,8 @@ export default function verVenta() {
     const handleModalClose = () => {
         setShowModal(false);
     };
+    // En tu estado del componente, añade una nueva variable para el archivo
+    const [userFile, setUserFile] = useState(null);
 
     // Estado para almacenar el nombre de la imagen
     const [imageName, setImageName] = useState("");
@@ -112,9 +114,8 @@ export default function verVenta() {
     const [selectedPDF, setSelectedPDF] = useState(null);
 
     const changeHandler = async (event) => {
-        const file = event.target.files[0];
         const reader = new FileReader();
-
+        const file = event.target.files[0];
         reader.onloadend = () => {
             // Convertir la imagen a base64
             const base64Image = reader.result;
@@ -132,6 +133,7 @@ export default function verVenta() {
             setExtension(extension);
 
             if (file.type === "application/pdf") {
+                setUserFile(file);  // Aquí se establece el archivo del usuario si es un PDF
                 setSelectedPDF(URL.createObjectURL(file));
             } else {
                 setSelectedImage(base64Image);
@@ -220,7 +222,6 @@ export default function verVenta() {
     };
 
 
-    //Función para confirmar envío de factura
     const confirmarEnvio = async () => {
         // Aquí puedes verificar si la factura ya existe
         const facturaExistente = await verificarFacturaExistente();
@@ -234,24 +235,37 @@ export default function verVenta() {
             setTituloMensajes("Factura existente");
             setTextoMensajes("Ya existe una factura para esta venta y no es posible enviar de nuevo.");
         } else {
-            let params = {
-                idcomprador: venta.uidcomprador,
-                idproducto: venta.idproducto,
-                idvendedor: venta.uidvendedor,
-                fechadeventa: venta.fechadeventa,
-                numerodeventa: venta.numerodeaprobacion,
-                nombreimagen1: imageName + extension,
-                imagen1: selectedImage,
-                numerodeimagenes: 1
+            // Crear un objeto FormData
+            let formData = new FormData();
+
+            // Agregar los demás campos a formData
+            formData.append('idcomprador', venta.uidcomprador);
+            formData.append('idproducto', venta.idproducto);
+            formData.append('idvendedor', venta.uidvendedor);
+            formData.append('fechadeventa', venta.fechadeventa);
+            formData.append('numerodeventa', venta.numerodeaprobacion);
+            formData.append('nombreimagen1', imageName + extension);
+            formData.append('numerodeimagenes', 1);
+
+            // Verificar si estás enviando una imagen o un PDF
+            if (selectedImage) {
+                // Si estás enviando una imagen, envíala como base64
+                formData.append('imagen1', selectedImage);
+            } else if (userFile) {
+                // Si estás enviando un PDF, envíalo como un archivo
+                formData.append('document', userFile);
+            }
+
+            // Configurar las opciones de axios. 
+            //  incluir la cabecera 'Content-Type': 'multipart/form-data'.
+            let axiosOptions = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             };
 
-            console.log("Params de factura: ", params)
             try {
-                const response = await axios({
-                    method: "post",
-                    url: URL_BD_MR + "109",
-                    params,
-                });
+                const response = await axios.post(URL_BD_MR + "109", formData, axiosOptions);
 
                 console.log(response.data);
 
@@ -278,7 +292,6 @@ export default function verVenta() {
             }
         }
     };
-
     //Función para verificar si una factura existe por el numero de venta
     // Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {
@@ -415,7 +428,7 @@ export default function verVenta() {
                                                                                 <div>
                                                                                     <img src={`${URL_IMAGES_RESULTSSMS}${facturaExistente.nombreimagen1}`} className="imagenDeFondo" />
                                                                                     <a href={`${URL_IMAGES_RESULTSSMS}${facturaExistente.nombreimagen1}`} target="_blank">
-                                                                                        <TfiEye className="iconSeeFact"/>
+                                                                                        <TfiEye className="iconSeeFact" />
                                                                                     </a>
                                                                                 </div>
                                                                             )

@@ -25,8 +25,10 @@ import ModalMensajes from "../mensajes/ModalMensajes";
 
 
 export default function modificarPreguntas() {
-
-
+    const [activeIdDos, setActiveIdDos] = useState(null);
+    const [activeIndexUno, setActiveIndexUno] = useState(0);
+    const [activeIndexDos, setActiveIndexDos] = useState(0);
+    const [activeIndexTres, setActiveIndexTres] = useState(0);
     const [active, setActive] = useState(1);
     const [datosNivelUno, setDatosNivelUno] = useState([]);
     const [datosNivelDos, setDatosNivelDos] = useState([]);
@@ -35,13 +37,14 @@ export default function modificarPreguntas() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
 
+
+
     useEffect(() => {
         irA.current.scrollIntoView({
             behavior: "smooth",
             block: "start",
         });
     }, []);
-
 
 
     useEffect(() => {
@@ -59,6 +62,7 @@ export default function modificarPreguntas() {
                     }
                     return false;
                 });
+                idCounter = 10; // Comienza a asignar los IDs para datosNivelDos desde 10
                 const datosNivelDos = res.data.resolverdudasdos.filter(dato => {
                     if (dato.niveluno === 2) {
                         dato.uniqueId = idCounter++;
@@ -66,6 +70,7 @@ export default function modificarPreguntas() {
                     }
                     return false;
                 });
+                idCounter = 20; // Ajusta este valor según dónde deban comenzar los IDs para datosNivelTres
                 const datosNivelTres = res.data.resolverdudasdos.filter(dato => {
                     if (dato.niveluno === 3) {
                         dato.uniqueId = idCounter++;
@@ -82,7 +87,8 @@ export default function modificarPreguntas() {
             }
         };
         obtenerDatos();
-    }, []);
+    }, []); // Se ejecuta cada vez que se actualizan los datos
+
 
 
     // Función para manejar el cambio de los inputs y textareas
@@ -121,8 +127,7 @@ export default function modificarPreguntas() {
         idMapping[dato.niveldos] = index + 1 + datosNivelUno.length + datosNivelDos.length;
     });
 
-    // Función para manejar el evento del botón "Guardar"
-    // Función para manejar el evento del botón "Guardar"
+    // Función para manejar el evento del botón "Guardar" 
     const handleSave = async (index, nivel) => {
         const dato = nivel === 1 ? datosNivelUno[index] : nivel === 2 ? datosNivelDos[index] : datosNivelTres[index];
 
@@ -147,19 +152,24 @@ export default function modificarPreguntas() {
 
     const enviarDatos = async (dato) => {
         try {
+            // Imprimir los datos que se van a enviar en la consola
+            console.log("Datos a enviar: ", dato);
+
             const res = await axios({
                 method: "post",
                 url: URL_BD_MR + "118",
                 params: {
                     id: dato.uniqueId, // Usar el ID único
                     nombreniveldos: dato.nombreniveldos,
-                    descripcionniveldos: dato.descripcionniveldos
+                    descripcionniveldos: dato.descripcionniveldos,
+                    descripcionniveltres: dato.descripcionniveltres,
+                    descripcionnivelcuatro: dato.descripcionnivelcuatro
                 }
             });
-
+            console.log("Datos enviados: ", dato);
             console.log("Respuesta del servidor al enviar datos: ", res.data)
             // Si la solicitud fue exitosa, muestra el modal con un mensaje de éxito
-            setTituloMensajes('Datos envíados');
+            setTituloMensajes('Datos enviados');
             setTextoMensajes('Los datos se han enviado correctamente.');
             setShowModal(true);
         } catch (error) {
@@ -176,7 +186,6 @@ export default function modificarPreguntas() {
         setShowModal(false);
     };
 
-
     return (
         <>
             <div ref={irA}>
@@ -186,11 +195,11 @@ export default function modificarPreguntas() {
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '18rem' }}>
 
-                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '87%' }} display={'flex'} flexDirection={'column'}>
+                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '89%' }} display={'flex'} flexDirection={'column'}>
                                     <div className='TitleOpVend'>
                                         <p>Modificar dudas e inquietudes</p>
                                     </div>
-                                    <div className="contMainResolverDudas">
+                                    <div className="contMainResolverDudas ModifMain">
                                         <div className="mainButtonsModifi">
                                             <div className="ButtonsModifi">
                                                 <button className={`buttonActiveModif ${active === 1 ? 'active' : ''}`} onClick={() => setActive(1)}>Preguntas mis compras</button>
@@ -207,14 +216,26 @@ export default function modificarPreguntas() {
                                                 <div className='TitleOpVend'>
                                                     <p>Modificar dudas de mis compras</p>
                                                 </div>
-
-                                                {datosNivelUno.map((dato, index) => (
-                                                    <div className='AccionesInputs' key={dato.uniqueId}>
-                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={dato.nombreniveldos} onChange={(e) => handleInputChange(e, index, 'nombreniveldos', 1)} />
-                                                        <textarea placeholder="Descripcion de duda en mis compras" value={dato.descripcionniveldos} onChange={(e) => handleInputChange(e, index, 'descripcionniveldos', 1)} />
-                                                        <button onClick={() => handleSave(index, 1)}>Guardar</button>
+                                                <div className="BotonesEnActivo">
+                                                    {datosNivelUno.map((dato, index) => (
+                                                        <button
+                                                            key={dato.uniqueId}
+                                                            onClick={() => setActiveIndexUno(index)}
+                                                            className={`botónDN1 ${activeIndexUno === index ? 'botónDN1-activo' : ''}`}
+                                                        >
+                                                            Mis compras botón {index + 1}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                {datosNivelUno[activeIndexUno] && (
+                                                    <div className='AccionesInputs'>
+                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelUno[activeIndexUno].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'nombreniveldos', 1)} />
+                                                        <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelUno[activeIndexUno].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveldos', 1)} />
+                                                        <textarea placeholder="Segundo parrafo" value={datosNivelUno[activeIndexUno].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
+                                                        <textarea placeholder="Tercer parrafo" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
+                                                        <button onClick={() => handleSave(activeIndexUno, 1)}>Guardar</button>
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
                                         )}
 
@@ -223,13 +244,26 @@ export default function modificarPreguntas() {
                                                 <div className='TitleOpVend'>
                                                     <p>Modificar dudas de mis ventas</p>
                                                 </div>
-                                                {datosNivelDos.map((dato, index) => (
-                                                    <div className='AccionesInputs' key={dato.uniqueId}>
-                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={dato.nombreniveldos} onChange={(e) => handleInputChange(e, index, 'nombreniveldos', 2)} />
-                                                        <textarea placeholder="Descripcion de duda en mis compras" value={dato.descripcionniveldos} onChange={(e) => handleInputChange(e, index, 'descripcionniveldos', 2)} />
-                                                        <button onClick={() => handleSave(index, 2)}>Guardar</button>
+                                                <div className="BotonesEnActivo">
+                                                    {datosNivelDos.map((dato, index) => (
+                                                        <button
+                                                            key={dato.uniqueId}
+                                                            onClick={() => setActiveIndexDos(index)}
+                                                            className={`botónDN1 ${activeIndexDos === index ? 'botónDN1-activo' : ''}`}
+                                                        >
+                                                            Mis ventas botón {index + 1}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                {datosNivelDos[activeIndexDos] && (
+                                                    <div className='AccionesInputs'>
+                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelDos[activeIndexDos].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexDos, 'nombreniveldos', 2)} />
+                                                        <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelDos[activeIndexDos].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionniveldos', 2)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelDos[activeIndexDos].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionniveltres', 2)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelDos[activeIndexDos].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionnivelcuatro', 2)} />
+                                                        <button onClick={() => handleSave(activeIndexDos, 2)}>Guardar</button>
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
                                         )}
 
@@ -238,13 +272,26 @@ export default function modificarPreguntas() {
                                                 <div className='TitleOpVend'>
                                                     <p>Modificar dudas de mis datos</p>
                                                 </div>
-                                                {datosNivelTres.map((dato, index) => (
-                                                    <div className='AccionesInputs' key={dato.uniqueId}>
-                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={dato.nombreniveldos} onChange={(e) => handleInputChange(e, index, 'nombreniveldos', 3)} />
-                                                        <textarea placeholder="Descripcion de duda en mis compras" value={dato.descripcionniveldos} onChange={(e) => handleInputChange(e, index, 'descripcionniveldos', 3)} />
-                                                        <button onClick={() => handleSave(index, 3)}>Guardar</button>
+                                                <div className="BotonesEnActivo">
+                                                    {datosNivelTres.map((dato, index) => (
+                                                        <button
+                                                            key={dato.uniqueId}
+                                                            onClick={() => setActiveIndexTres(index)}
+                                                            className={`botónDN1 ${activeIndexTres === index ? 'botónDN1-activo' : ''}`}
+                                                        >
+                                                            Mis datos botón {index + 1}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                {datosNivelTres[activeIndexTres] && (
+                                                    <div className='AccionesInputs'>
+                                                        <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelTres[activeIndexTres].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexTres, 'nombreniveldos', 3)} />
+                                                        <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelTres[activeIndexTres].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionniveldos', 3)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelTres[activeIndexTres].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionniveltres', 3)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelTres[activeIndexTres].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionnivelcuatro', 3)} />
+                                                        <button onClick={() => handleSave(activeIndexTres, 3)}>Guardar</button>
                                                     </div>
-                                                ))}
+                                                )}
                                             </div>
                                         )}
 
