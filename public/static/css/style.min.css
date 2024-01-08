@@ -33147,6 +33147,7 @@ label {
     padding: 2.6rem;
     background-color: #F0F1F5;
     justify-content: center;
+    color: #2D2E83;
 }
 
 .maincontRespuestadudas {
@@ -33187,6 +33188,7 @@ label {
     /* o "cover" dependiendo de tu preferencia */
     max-width: 300px;
     max-height: 300px;
+    margin: 2rem;
 }
 
 .contResDudasInputdiv {
@@ -33354,5 +33356,11 @@ label {
 .ModifMain{
     width: 80% !important;
 }
+.descrip4{
+    margin-top: 2.5rem !important;
+}
 
+.imagen2Respuesta{
+    margin-bottom: -2rem !important;
+}
 /*fin resolver dudas*/

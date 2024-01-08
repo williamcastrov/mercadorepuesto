@@ -84,7 +84,7 @@ export default function Respuestas() {
 
         obtenerYSeleccionarDatos();
     }, []);
- 
+
 
     return (
         <>
@@ -124,7 +124,16 @@ export default function Respuestas() {
                                                     <p>{datoParsed ? datoParsed.descripcionniveldos : 'Cargando...'}</p>
                                                 </div>
                                                 <div className="imagenRespuestaDuda">
-                                                    <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" alt="" />
+                                                    <img src="https://i.postimg.cc/2866G3fh/35.png" alt="" />
+                                                </div>
+                                                <div>
+                                                    <p>{datoParsed ? datoParsed.descripcionniveltres : 'Cargando...'} Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa maxime sequi placeat ullam tempore quis eligendi ut omnis explicabo aliquid natus, ex recusandae distinctio eius perspiciatis ipsum eum expedita minima?</p>
+                                                </div>
+                                                <div className="imagenRespuestaDuda imagen2Respuesta">
+                                                    <img src="https://i.postimg.cc/2866G3fh/35.png" alt="" />
+                                                </div>
+                                                <div className="descrip4">
+                                                    <p>{datoParsed ? datoParsed.descripcionnivelcuatro : 'Cargando...'} Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda rerum, tempora officiis quia ab velit magni excepturi! Enim vitae, reiciendis sed harum nihil similique beatae eos! Est quisquam quibusdam sunt.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +157,7 @@ export default function Respuestas() {
                                                         router.replace({
                                                             pathname: `../ResolverDudas/respuestas`,
                                                             query: { dato: JSON.stringify(dato) }
-                                                        });
+                                                        }).then(() => window.location.reload());
                                                     }} className={className}>
                                                         <p>{dato.nombreniveldos}</p>
                                                         <AiOutlineRight size={27} />
