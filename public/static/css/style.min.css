@@ -33364,3 +33364,197 @@ label {
     margin-bottom: -2rem !important;
 }
 /*fin resolver dudas*/
+
+
+
+/*Inicio styles facturación*/
+
+.contMainFacturacion {
+    margin-top: 2rem;
+    display: flex;
+    margin: 0;
+    padding: .5rem;
+    margin: 0 auto;
+    justify-content: center;  
+}
+
+.primerContFacturacion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.primerSubcontFactu{
+    width: 98%;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #2C2E82 !important; 
+}
+.primerSubcontFactu div{
+    margin-bottom: 1.5rem;
+}
+.primerSubcontFactu div p{
+    font-size: 20px !important;
+    color: #2C2E82 !important; 
+    font-weight: 600 !important;
+    font-family: "Jost", sans-serif;
+}
+.primerSubcontFactu p{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.segdoSubcontFactu{
+      width: 98%;
+    display: flex;
+    justify-content: space-between !important;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem; 
+    color: #2C2E82 !important; 
+}
+.buttonFactVermas{
+    display: flex; 
+    align-items: flex-end;
+}
+.segdoSubcontFactu div div{
+    margin-bottom: 1.5rem;
+}
+.segdoSubcontFactu div div p{ 
+    font-size: 20px !important;
+    color: #2C2E82 !important; 
+    font-weight: 600 !important;
+    font-family: "Jost", sans-serif;
+}
+.segdoSubcontFactu div p{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.buttonFactVermas div{
+    padding: 2rem;
+    padding-left: 3.5rem !important;
+    padding-right: 3.5rem !important;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: #2C2E82;
+    color: white;
+    font-size: 16px;
+    width: 150px;
+    height: 39px;
+    border-radius: 10px;
+    margin-bottom: .8rem;
+    cursor: pointer;
+}
+.statePaymentFacturacion{
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 0 !important;
+    width: 155px;
+}
+.segdoContFacturacion{
+    width: 100%;
+    display: flex;
+    flex-direction: column; 
+}
+.buttonMisFacts{
+    margin-bottom: 3rem;
+    width: 100%; 
+    margin-left: 4rem;
+}
+.buttonMisFacts button{
+    width: 84%; 
+    background-color: #2C2E82;
+    color: white;
+    border-radius: 10px;
+    padding: .7rem;
+    font-size: 18px;
+    font-weight: 500;
+}
+.contDataFactrs{
+        margin-left: 4rem;
+    width: 84%;
+    background-color: #F0F1F5;
+    padding: 2rem;
+    border-radius: 10px; 
+}
+.titleContDataFactrs{
+    margin-bottom: 1.5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+.titleContDataFactrs p{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+
+.dataFactrs{
+    margin-bottom: 2rem; 
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+.dataFactrs p{
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.irDatosFact{
+    margin-left: .5rem;
+    margin-right: .5rem;
+    margin-top: 3rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.irDatosFact p{
+    text-decoration: underline;
+    font-size: 19px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.iconRightFact{
+    color: #2D2E83;
+    font-size: 18px;
+}
+
+
+.contMainMisFacturas{
+    display: flex !important;
+    flex-direction: column !important; 
+    margin-top: 2rem;
+    display: flex;
+    margin: 0;
+    padding: .5rem;
+    margin: 0 auto;
+    justify-content: center; 
+}
+
+.contTopMisFacturas{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+.dataMainFacturas{
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem;
+}
+
+/*Fin styles facturación*/
