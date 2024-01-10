@@ -67,7 +67,7 @@ export default function misVentas() {
                 console.error("Error al leer los datos del usuario", error);
                 // Maneja el error según tus necesidades
             }
-        };
+        }; 
         obtenerUidUsuario();
     }, [datosusuarios]);
 
@@ -94,8 +94,6 @@ export default function misVentas() {
                             const detallesComprador = await obtenerDetallesComprador(venta.uidcomprador);
                             const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
                             const total = venta.cantidad * venta.preciodeventa - venta.retencion - venta.impuestos + venta.precioenvio;
-
-
 
                             return {
                                 ...venta,

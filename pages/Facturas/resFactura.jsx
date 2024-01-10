@@ -30,7 +30,9 @@ import { BsFiletypePdf } from "react-icons/bs";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 
-
+import { jsPDF } from "jspdf";
+import { saveAs } from 'file-saver';
+import { utils, writeFile } from 'xlsx';
 
 
 export default function resFactura() {
@@ -49,6 +51,55 @@ export default function resFactura() {
             block: "start",
         });
     }, []);
+
+    const ultimaFactura = router.query.ultimaFactura ? JSON.parse(router.query.ultimaFactura) : null;
+
+    console.log(ultimaFactura);
+
+
+
+
+    const descargarPDF = () => {
+        if (ultimaFactura) {
+            const doc = new jsPDF();
+
+            doc.text(`Total facturado: $${ultimaFactura.total.toLocaleString('en-US')}`, 10, 10);
+            doc.text(`Precio de envío: $${ultimaFactura.precioenvio.toLocaleString('en-US')}`, 10, 20);
+            // Agrega más datos aquí...
+
+            doc.save("factura.pdf");
+        } else {
+            console.error("No hay datos de factura disponibles para descargar.");
+        }
+    };
+
+
+    const descargarExcel = () => {
+        if (ultimaFactura) {
+            // Crear un nuevo libro de trabajo
+            const wb = utils.book_new();
+
+            // Crear una hoja de trabajo
+            const ws_data = [
+                ['Total facturado', 'Precio de envío'],
+                [ultimaFactura.total, ultimaFactura.precioenvio]
+            ];
+            const ws = utils.aoa_to_sheet(ws_data);
+
+            // Añadir la hoja de trabajo al libro de trabajo
+            utils.book_append_sheet(wb, ws, "Factura");
+
+            // Escribir el libro de trabajo en un Blob
+            const wbout = writeFile(wb, 'factura.xlsx', { type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+            // Guardar el archivo
+            saveAs(blob, 'factura.xlsx');
+        } else {
+            console.error("No hay datos de factura disponibles para descargar.");
+        }
+    };
+
 
     return (
         <>
@@ -72,27 +123,27 @@ export default function resFactura() {
                                             </div>
                                             <div className="DataFacturaRes">
                                                 <p>Cargos por venta</p>
-                                                <p>$ XXX.XXX,XX</p>
+                                                <p>${ultimaFactura.retencion.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
                                                 <p>Cargos por envío</p>
-                                                <p>$ XXX.XXX,XX</p>
+                                                <p>${ultimaFactura.precioenvio.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
-                                                <p>Impuestoso</p>
-                                                <p>$ XXX.XXX,XX</p>
+                                                <p>Impuestos</p>
+                                                <p>${ultimaFactura.impuestos.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
                                                 <p>Retenciones</p>
-                                                <p>$ XXX.XXX,XX</p>
+                                                <p>${ultimaFactura.retencion.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="TotalFactRes">
                                                 <p>Total facturado</p>
-                                                <p>$ XXX.XXX,XX</p>
+                                                <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
                                             </div>
                                         </div>
 
@@ -116,7 +167,7 @@ export default function resFactura() {
                                             <div className="DataContDataResFactura">
                                                 <p>Fecha de emisión</p>
                                                 <span>
-                                                    <p>DD-MM-AAAA</p>
+                                                    <p>{ultimaFactura.fechadeventa}</p>
                                                 </span>
                                             </div>
 
@@ -141,10 +192,10 @@ export default function resFactura() {
                                                 </span>
                                             </div>
 
-                                            <div className="DataContDataResFactura">
+                                            <div className="DataContDataResFactura DataContDataResFacturaTotal">
                                                 <p>Por pagar</p>
                                                 <span>
-                                                    <p>$ XXX.XXX,XX</p>
+                                                    <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
                                                 </span>
                                             </div>
                                         </div>
@@ -152,8 +203,8 @@ export default function resFactura() {
                                         <div className="contDataResFacturaDownload">
                                             <p>Descargar</p>
                                             <div>
-                                                <BsFiletypePdf className="pdfIcon" />
-                                                <RiFileExcel2Fill className="ExcelIcon" />
+                                                <BsFiletypePdf onClick={descargarPDF} className="pdfIcon" />
+                                                <RiFileExcel2Fill className="ExcelIcon" onClick={descargarExcel} />
                                             </div>
                                         </div>
                                     </Grid>

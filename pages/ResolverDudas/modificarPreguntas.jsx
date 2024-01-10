@@ -54,65 +54,13 @@ export default function modificarPreguntas() {
     }, []);
 
 
-    
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
 
-    const [image1, setImage1] = useState(null);
-    const [base64Image1, setBase64Image1] = useState(null);
-    const [imageName1, setImageName1] = useState(null);
-    const [extension1, setExtension1] = useState(null);
 
-    const [image2, setImage2] = useState(null);
-    const [base64Image2, setBase64Image2] = useState(null);
-    const [imageName2, setImageName2] = useState(null);
-    const [extension2, setExtension2] = useState(null);
-
-    const handleImageChange1 = (e) => {
-        handleImageChange(e, setImage1, setBase64Image1, setImageName1, setExtension1);
-    }
-
-    const handleImageChange2 = (e) => {
-        handleImageChange(e, setImage2, setBase64Image2, setImageName2, setExtension2);
-    }
-
-    const handleImageChange = (e, setImage, setBase64Image, setImageName, setExtension) => {
-        if (e.target.files[0]) {
-            const reader = new FileReader();
-            const file = e.target.files[0];
-            reader.onloadend = () => {
-                // Convertir la imagen a base64
-                const base64Image = reader.result;
-                setBase64Image(base64Image);
-
-                // Generar un ID único para la imagen
-                let uniqueImageName = shortid.generate();
-                setImageName(uniqueImageName);
-
-                // Obtener la extensión del archivo
-                let extension = "." + base64Image.substring(base64Image.indexOf("/") + 1, base64Image.indexOf(";base64"));
-                setExtension(extension);
-
-                setImage(URL.createObjectURL(file));
-            }
-            reader.readAsDataURL(file);
-        }
-        e.target.value = null; // Restablecer el valor del input de archivo
-    }
-
-    const handleImageRemove1 = () => {
-        handleImageRemove(setImage1, setBase64Image1, setImageName1, setExtension1);
-    }
-
-    const handleImageRemove2 = () => {
-        handleImageRemove(setImage2, setBase64Image2, setImageName2, setExtension2);
-    }
-
-    const handleImageRemove = (setImage, setBase64Image, setImageName, setExtension) => {
-        setImage(null);
-        setBase64Image(null);
-        setImageName(null);
-        setExtension(null);
-    }
 
 
 
@@ -220,6 +168,7 @@ export default function modificarPreguntas() {
         enviarDatos(dato);
     };
 
+    //valida si el titulo o la primera descripcion de alguna pregunta está vacio y no lo deja enviar
     const validarDatos = (dato) => {
         if (!dato.nombreniveldos || !dato.descripcionniveldos) {
             setTituloMensajes('Validación de mensaje');
@@ -230,11 +179,55 @@ export default function modificarPreguntas() {
         return true;
     };
 
-    // Enviar los datos
+    const [extension, setExtension] = useState("");
+    const [imagenNiveldos, setImagenNiveldos] = useState(null);
+    const [imagenNiveltres, setImagenNiveltres] = useState(null);
+    const [imageName, setImageName] = useState("");
+
+    const handleImageUpload = async (event, field) => {
+        const reader = new FileReader();
+        const file = event.target.files[0];
+        reader.onloadend = () => {
+            // Convertir la imagen a base64
+            const base64Image = reader.result;
+
+            // Generar un ID único para la imagen
+            let uniqueImageName = shortid.generate();
+            uniqueImageName = uniqueImageName.substring(0, 11);
+
+            let extension =
+                "." +
+                base64Image.substring(
+                    base64Image.indexOf("/") + 1,
+                    base64Image.indexOf(";base64")
+                );
+            setExtension(extension);
+            setImageName(uniqueImageName);
+
+            if (field === 'imagenNiveldos') {
+                setImagenNiveldos(base64Image);
+            } else if (field === 'imagenNiveltres') {
+                setImagenNiveltres(base64Image);
+            }
+        };
+
+        if (file) {
+            // Leer la imagen como una URL de datos
+            reader.readAsDataURL(file);
+        }
+        event.target.value = null;
+    };
+
+
+
+    // Enviar los datos validados
     const enviarDatos = async (dato) => {
         try {
             const datosParaEnviar = { ...dato };
             delete datosParaEnviar.uniqueId;
+
+            // Generar un ID único para la imagen
+            let uniqueImageName = imageName + extension;
 
             // Imprimir los datos que se van a enviar en la consola
             console.log("Datos a enviar: ", datosParaEnviar);
@@ -247,7 +240,10 @@ export default function modificarPreguntas() {
                     nombreniveldos: dato.nombreniveldos,
                     descripcionniveldos: dato.descripcionniveldos,
                     descripcionniveltres: dato.descripcionniveltres,
-                    descripcionnivelcuatro: dato.descripcionnivelcuatro
+                    descripcionnivelcuatro: dato.descripcionnivelcuatro,
+                    nombreimagen1: uniqueImageName,
+                    imagen1: imagenNiveldos, // Enviar la imagen en base64
+                    numerodeimagenes: 1
                 }
             });
             console.log("Datos enviados: ", datosParaEnviar);
@@ -263,10 +259,14 @@ export default function modificarPreguntas() {
     };
 
 
-    //cerrar modal advertencia
-    const handleModalClose = () => {
-        setShowModal(false);
+    const handleImageRemove = (field) => {
+        if (field === 'imagenNiveldos') {
+            setImagenNiveldos(null);
+        } else if (field === 'imagenNiveltres') {
+            setImagenNiveltres(null);
+        }
     };
+
 
     return (
         <>
@@ -279,7 +279,7 @@ export default function modificarPreguntas() {
 
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '89%' }} display={'flex'} flexDirection={'column'}>
                                     <div className='TitleOpVend'>
-                                        <p>Modificar dudas e inquietudes</p>
+                                        <p>Modificar dudas e inquietudes</p> 
                                     </div>
                                     <div className="contMainResolverDudas ModifMain">
                                         <div className="mainButtonsModifi">
@@ -313,29 +313,18 @@ export default function modificarPreguntas() {
                                                     <div className='AccionesInputs'>
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelUno[activeIndexUno].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'nombreniveldos', 1)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelUno[activeIndexUno].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveldos', 1)} />
-                                                        {/*Imagen 1 */}
-                                                        <div className="InputaDDIMGS">
-                                                            <PiSquareThin className="squareInputaDDIMGS" />
-                                                            <input type="file" id="imageInput" accept=".jpg,.png,.jpeg" onChange={handleImageChange1} className="imageInput" />
-                                                            {image1 ? <img src={image1} className="photoInputaDDIMGS" /> : <MdAddPhotoAlternate className="photoInputaDDIMGS" />}
+                                                        <div className="frstImageSelectedModif">
+                                                            {!imagenNiveldos && <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'imagenNiveldos')} />}
+                                                            {imagenNiveldos && <img src={imagenNiveldos} alt="Imagen seleccionada" />}
+                                                            {imagenNiveldos && <button onClick={() => handleImageRemove('imagenNiveldos')}>Eliminar imagen 1</button>}
                                                         </div>
-                                                        {image1 && <button onClick={handleImageRemove1}>Eliminar imagen</button>}
-                                                        {/*fin Imagen 1 */}
-                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelUno[activeIndexUno].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
-                                                        {/*Imagen 2 */}
-                                                        <div className="InputaDDIMGS">
-                                                            <PiSquareThin className="squareInputaDDIMGS" />
-                                                            <input type="file" id="imageInput" accept=".jpg,.png,.jpeg" onChange={handleImageChange2} className="imageInput" />
-                                                            {image2 ? <img src={image2} className="photoInputaDDIMGS" /> : <MdAddPhotoAlternate className="photoInputaDDIMGS" />}
-                                                        </div>
-                                                        {image2 && <button onClick={handleImageRemove2}>Eliminar imagen</button>} 
-                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelUno[activeIndexUno].descripcionniveltres || ''} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro || ''} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
                                                         <button onClick={() => handleSave(activeIndexUno, 1)}>Guardar</button>
                                                     </div>
                                                 )}
                                             </div>
                                         )}
-
                                         {active === 2 && (
                                             <div className="ModifDudasMisCompras">
                                                 <div className='TitleOpVend'>
@@ -356,8 +345,8 @@ export default function modificarPreguntas() {
                                                     <div className='AccionesInputs'>
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelDos[activeIndexDos].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexDos, 'nombreniveldos', 2)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelDos[activeIndexDos].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionniveldos', 2)} />
-                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelDos[activeIndexDos].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionniveltres', 2)} />
-                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelDos[activeIndexDos].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionnivelcuatro', 2)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelDos[activeIndexDos].descripcionniveltres || ''} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionniveltres', 2)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelDos[activeIndexDos].descripcionnivelcuatro || ''} onChange={(e) => handleInputChange(e, activeIndexDos, 'descripcionnivelcuatro', 2)} />
                                                         <button onClick={() => handleSave(activeIndexDos, 2)}>Guardar</button>
                                                     </div>
                                                 )}
@@ -384,8 +373,8 @@ export default function modificarPreguntas() {
                                                     <div className='AccionesInputs'>
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelTres[activeIndexTres].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexTres, 'nombreniveldos', 3)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelTres[activeIndexTres].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionniveldos', 3)} />
-                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelTres[activeIndexTres].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionniveltres', 3)} />
-                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelTres[activeIndexTres].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionnivelcuatro', 3)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelTres[activeIndexTres].descripcionniveltres || ''} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionniveltres', 3)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelTres[activeIndexTres].descripcionnivelcuatro || ''} onChange={(e) => handleInputChange(e, activeIndexTres, 'descripcionnivelcuatro', 3)} />
                                                         <button onClick={() => handleSave(activeIndexTres, 3)}>Guardar</button>
                                                     </div>
                                                 )}

@@ -62,6 +62,7 @@ export default function facturacion() {
                     url: URL_BD_MR + "13",
                     params,
                 });
+                setUidUser(res.data[0].uid)
                 setUser(res.data[0])
             } catch (error) {
                 console.error("Error al leer los datos del usuario", error);
@@ -80,7 +81,7 @@ export default function facturacion() {
                     method: "post",
                     url: URL_BD_MR + "65",
                     params,
-                }); 
+                });
                 // Ordenamos las direcciones por fecha de creación y seleccionamos la más reciente
                 const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
                 setDireccion(direccionesOrdenadas[0])
@@ -90,6 +91,131 @@ export default function facturacion() {
         };
         obtenerDireccionUsuario();
     }, [datosusuarios]);
+
+
+
+    const estadosDespacho = {
+        40: "Alistando la factura",
+        41: "Venta enviada",
+        42: "Venta entregada",
+        43: "Venta finalizada"
+    };
+
+    const estadosVenta = {
+        50: "Alistando la factura",
+        51: "Venta enviada",
+        52: "Venta entregada",
+        53: "Venta finalizada"
+    };
+
+    const [UidUser, setUidUser] = useState("");
+    const [facturas, setFacturas] = useState([]);
+
+    //Obtenngo las facturas del usuario y mapeo tambien el producto, y tambien el usuario comprador
+    useEffect(() => {
+        const obtenerVentasUsuario = async () => {
+            let params = {
+                uidvendedor: UidUser,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "106",
+                    params,
+                });
+                if (res.data && res.data.listarmisventas) {
+                    let facturas = await Promise.all(
+                        res.data.listarmisventas.map(async (factura) => {
+                            // Obtén los detalles del producto
+                            const detallesProducto = await obtenerNombreProducto(factura.idproducto);
+                            // Obtén los detalles del comprador 
+                            const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
+                            const total = factura.cantidad * factura.preciodeventa - factura.retencion - factura.impuestos + factura.precioenvio;
+
+                            return {
+                                ...factura,
+                                estadodeldespacho: estadosDespacho[factura.estadodeldespacho],
+                                estadodelaventa: estadosVenta[factura.estadodelaventa],
+                                fechadeventa1: factura.fechacompra ? factura.fechacompra.slice(0, 10) : null,
+                                fechadeventa: factura.fechacompra ? factura.fechacompra.slice(0, 10) : null,
+                                fechaentrega: factura.fechaentrega ? factura.fechaentrega.slice(0, 10) : null,
+                                fechadespacho: factura.fechadespacho ? factura.fechadespacho.slice(0, 10) : null,
+                                fechadevolucion: factura.fechadevolucion ? factura.fechadevolucion.slice(0, 10) : null,
+                                fechadepago: factura.fechadepago ? factura.fechadepago.slice(0, 10) : null,
+                                nuevoValor: factura.preciodeventa + factura.precioenvio,
+                                nombreProducto: detallesProducto.nombreProducto,
+                                salePrice: formattedSalePrice,
+                                nombreImagen: detallesProducto.nombreImagen,
+                                nombreUsuario: detallesProducto.usuario,
+                                total
+                            };
+                        })
+                    );
+                    // Ordena las facturas por fechacompra
+                    facturas.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra));
+                    setFacturas(facturas);
+                    console.log("Mis facturas:", facturas)
+                } else {
+                    console.error("Error: res.data o res.data.listarvtasusuariovende es undefined");
+                }
+            } catch (error) {
+                console.error("Error al leer las facturas:", error);
+            }
+        };
+        if (UidUser) {
+            obtenerVentasUsuario();
+        }
+    }, [UidUser]);
+
+    //función para obtener datos del producto
+    async function obtenerNombreProducto(idproducto) {
+        let params = {
+            idarticulo: idproducto,
+        };
+
+        try {
+            const res = await axios({
+                method: "post",
+                url: URL_BD_MR + "18",
+                params,
+            });
+            const idPrdoductRuta = res.data[0].id;
+            const nombreProducto = res.data[0].name;
+            const salePrice = res.data[0].sale_price;
+            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
+            const usuario = res.data[0].usuario;
+
+            return { nombreProducto, salePrice, nombreImagen, usuario, idPrdoductRuta };
+
+        } catch (error) {
+            console.error("Error al obtener el nombre del producto", error);
+        }
+    }
+
+
+    // Función para renderizar los detalles de la última factura
+    const renderUltimaFactura = () => {
+        if (facturas.length > 0) {
+            const ultimaFactura = facturas[0];
+
+            // Limita el nombre del producto a 40 caracteres
+            const nombreProductoCorto = ultimaFactura.nombreProducto.slice(0, 40);
+
+            return (
+                <div>
+                    <div>
+                        <p>Impuestos y retenciones</p>
+                    </div>
+                    <p>Factura venta "{nombreProductoCorto}..."</p>
+                    <p>Retención de ${ultimaFactura.retencion.toLocaleString('en-US')}</p>
+                    <p>Impuestos de ${ultimaFactura.impuestos.toLocaleString('en-US')}</p>
+                </div>
+            );
+        } else {
+            return <p>No hay facturas disponibles</p>;
+        }
+    };
+
 
     return (
         <>
@@ -121,26 +247,22 @@ export default function facturacion() {
                                                 <div>
                                                     <p>Facturas por pagar</p>
                                                 </div>
-                                                <p>Factura venta “VALEO 98023 Mazda 3...” </p>
+                                                <p>Factura factura “VALEO 98023 Mazda 3...” </p>
                                                 <div className="statePaymentFacturacion">Pendiente de pago</div>
                                                 <p>La factura vence el XX-XX-XX</p>
                                             </div>
                                             <div className="buttonFactVermas">
-                                                <div onClick={() => router.push({ pathname: './resFactura'})}>Ver más</div>
+                                                <div onClick={() => router.push({ pathname: './resFactura' })}>Ver más</div>
                                             </div>
                                         </div>
 
                                         <div className="segdoSubcontFactu">
-                                            <div>
-                                                <div>
-                                                    <p>Impuestos y retenciones</p>
-                                                </div>
-                                                <p>Factura venta “VALEO 98023 Mazda 3...” </p>
-                                                <p>Retención del XXXXX</p>
-                                                <p>Impuestos del XXXXX</p>
-                                            </div>
+                                            {renderUltimaFactura()}
                                             <div className="buttonFactVermas">
-                                                <div onClick={() => router.push({ pathname: './resFactura'})}>Ver más</div>
+                                                <div onClick={() => router.push({
+                                                    pathname: './resFactura',
+                                                    query: { ultimaFactura: JSON.stringify(facturas[0]) }
+                                                })}>Ver más</div>
                                             </div>
                                         </div>
 
@@ -149,7 +271,7 @@ export default function facturacion() {
                                     {user && direccion ? (
                                         <Grid item xs={12} md={4} className="segdoContFacturacion" display={'flex'} flexDirection={'column'}>
                                             <div className="buttonMisFacts">
-                                                <button onClick={() => router.push({ pathname: './misFacturas'})}>Mis facturas</button>
+                                                <button onClick={() => router.push({ pathname: './misFacturas' })}>Mis facturas</button>
                                             </div>
                                             <div className="contDataFactrs">
                                                 <div className="titleContDataFactrs">
@@ -171,7 +293,7 @@ export default function facturacion() {
                                                     <p>Dirección</p>
                                                     <p>{direccion.direccion}, {direccion.nombreciudad}, {direccion.nombre_dep}</p>
                                                 </div>
-                                                <div className="irDatosFact" onClick={() => router.push({ pathname: '../EditUsers/MisDatos'})}>
+                                                <div className="irDatosFact" onClick={() => router.push({ pathname: '../EditUsers/MisDatos' })}>
                                                     <p>Editar datos</p>
                                                     <HiOutlineChevronRight className="iconRightFact" />
                                                 </div>

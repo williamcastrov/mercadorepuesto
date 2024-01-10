@@ -47,9 +47,7 @@ export default function verVenta() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const [selectedFile, setSelectedFile] = useState();
-    const fileInput = useRef(null);
-    // Agrega "application/pdf" a la lista de tipos de archivos permitidos
-    const allowedFileTypes = ["image/jpeg", "image/png", "application/pdf"];
+    const fileInput = useRef(null); 
     const maxImageSize = 819200; // 800 KB en bytes
     const maxImageWidth = 1024;
     const maxImageHeight = 1024;
@@ -236,8 +234,7 @@ export default function verVenta() {
             setTextoMensajes("Ya existe una factura para esta venta y no es posible enviar de nuevo.");
         } else {
             // Crear un objeto FormData
-            let formData = new FormData();
-    
+            let formData = new FormData(); 
             // Agregar los demás campos a formData
             formData.append('idcomprador', venta.uidcomprador);
             formData.append('idproducto', venta.idproducto);
@@ -252,26 +249,15 @@ export default function verVenta() {
                 // Si estás enviando una imagen, envíala como base64
                 formData.append('imagen1', selectedImage);
             } else if (userFile) {
-                // Si estás enviando un PDF, envíalo como un archivo Blob
-                const blob = new Blob([userFile], { type: 'application/pdf' });
-                formData.append('imagen1', blob);
-            }
-    
-            // Configurar las opciones de axios. 
-            //  incluir la cabecera 'Content-Type': 'multipart/form-data'.
-            let axiosOptions = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            };
-    
+                // Si estás enviando un PDF
+                formData.append('imagen1', userFile);
+            } 
             // Antes de la solicitud, imprime los datos que estás enviando
             for (let pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
-            }
-    
+            } 
             try {
-                const response = await axios.post(URL_BD_MR + "109", formData, axiosOptions);
+                const response = await axios.post(URL_BD_MR + "109", formData);
                 console.log("Respuesta del servidor:", response.data); // Esto imprimirá la respuesta del servidor
     
                 setConfirmationOpen(true);
