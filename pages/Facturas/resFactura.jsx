@@ -111,7 +111,7 @@ export default function resFactura() {
 
 
                                     </Grid>
-                                    <Grid item xs={12} md={5} className="segdoContFacturacion">
+                                    <Grid item xs={12} md={5} className="segdoContFacturacion" display={'flex'} flexDirection={'column'}>
                                         <div className="contDataResFactura">
                                             <div className="DataContDataResFactura">
                                                 <p>Fecha de emisión</p>

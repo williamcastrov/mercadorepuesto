@@ -147,7 +147,7 @@ export default function facturacion() {
                                     </Grid>
 
                                     {user && direccion ? (
-                                        <Grid item xs={12} md={4} className="segdoContFacturacion">
+                                        <Grid item xs={12} md={4} className="segdoContFacturacion" display={'flex'} flexDirection={'column'}>
                                             <div className="buttonMisFacts">
                                                 <button onClick={() => router.push({ pathname: './misFacturas'})}>Mis facturas</button>
                                             </div>
