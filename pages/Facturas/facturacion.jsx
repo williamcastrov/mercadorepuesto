@@ -26,9 +26,12 @@ import { TfiEye } from "react-icons/tfi";
 
 import { HiOutlineChevronRight } from "react-icons/hi";
 
-
+import { useDispatch, useSelector } from "react-redux";
 
 export default function facturacion() {
+
+    const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+    console.log("Usuario Facturacion : ", datosusuarios);
 
 
     //NextRouter
@@ -45,6 +48,48 @@ export default function facturacion() {
         });
     }, []);
 
+    const [user, setUser] = useState(null);
+    const [direccion, setDireccion] = useState(null);
+
+    useEffect(() => {
+        const obtenerDatosUsuario = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "13",
+                    params,
+                });
+                setUser(res.data[0])
+            } catch (error) {
+                console.error("Error al leer los datos del usuario", error);
+            }
+        };
+        obtenerDatosUsuario();
+    }, [datosusuarios]);
+
+    useEffect(() => {
+        const obtenerDireccionUsuario = async () => {
+            let params = {
+                usuario: datosusuarios.uid,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "65",
+                    params,
+                }); 
+                // Ordenamos las direcciones por fecha de creación y seleccionamos la más reciente
+                const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
+                setDireccion(direccionesOrdenadas[0])
+            } catch (error) {
+                console.error("Error al leer la dirección del usuario", error);
+            }
+        };
+        obtenerDireccionUsuario();
+    }, [datosusuarios]);
 
     return (
         <>
@@ -81,7 +126,7 @@ export default function facturacion() {
                                                 <p>La factura vence el XX-XX-XX</p>
                                             </div>
                                             <div className="buttonFactVermas">
-                                                <div>Ver más</div>
+                                                <div onClick={() => router.push({ pathname: './resFactura'})}>Ver más</div>
                                             </div>
                                         </div>
 
@@ -95,41 +140,46 @@ export default function facturacion() {
                                                 <p>Impuestos del XXXXX</p>
                                             </div>
                                             <div className="buttonFactVermas">
-                                                <div>Ver más</div>
+                                                <div onClick={() => router.push({ pathname: './resFactura'})}>Ver más</div>
                                             </div>
                                         </div>
 
                                     </Grid>
-                                    <Grid item xs={12} md={4} className="segdoContFacturacion">
-                                        <div className="buttonMisFacts">
-                                            <button>Mis facturas</button>
-                                        </div>
-                                        <div className="contDataFactrs">
-                                            <div className="titleContDataFactrs">
-                                                <p>Datos facturación</p>
+
+                                    {user && direccion ? (
+                                        <Grid item xs={12} md={4} className="segdoContFacturacion">
+                                            <div className="buttonMisFacts">
+                                                <button onClick={() => router.push({ pathname: './misFacturas'})}>Mis facturas</button>
                                             </div>
-                                            <div className="dataFactrs">
-                                                <p>Nombres y apellidos</p>
-                                                <p>Juan Pablo Rojas</p>
+                                            <div className="contDataFactrs">
+                                                <div className="titleContDataFactrs">
+                                                    <p>Datos facturación</p>
+                                                </div>
+                                                <div className="dataFactrs">
+                                                    <p>Nombres y apellidos</p>
+                                                    <p>{user.primernombre && user.primernombre} {user.segundonombre && user.segundonombre} {user.primerapellido && user.primerapellido} {user.segundoapellido && user.segundoapellido}</p>
+                                                </div>
+                                                <div className="dataFactrs">
+                                                    <p>Documento</p>
+                                                    <p>{user.identificacion && user.identificacion}</p>
+                                                </div>
+                                                <div className="dataFactrs">
+                                                    <p>Correo electrónico</p>
+                                                    <p>{user.email && user.email}</p>
+                                                </div>
+                                                <div className="dataFactrs">
+                                                    <p>Dirección</p>
+                                                    <p>{direccion.direccion}, {direccion.nombreciudad}, {direccion.nombre_dep}</p>
+                                                </div>
+                                                <div className="irDatosFact" onClick={() => router.push({ pathname: '../EditUsers/MisDatos'})}>
+                                                    <p>Editar datos</p>
+                                                    <HiOutlineChevronRight className="iconRightFact" />
+                                                </div>
                                             </div>
-                                            <div className="dataFactrs">
-                                                <p>Documento</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Correo electrónico</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Dirección</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="irDatosFact">
-                                                <p>Editar datos</p>
-                                                <HiOutlineChevronRight className="iconRightFact"/>
-                                            </div>
-                                        </div>
-                                    </Grid>
+                                        </Grid>
+                                    ) : (
+                                        <p>Cargando datos del usuario...</p>
+                                    )}
                                 </Grid>
 
 

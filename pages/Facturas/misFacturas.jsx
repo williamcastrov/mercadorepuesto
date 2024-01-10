@@ -37,6 +37,8 @@ export default function misFacturas() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
+    const [selectedSortOption, setSelectedSortOption] = useState(null);
+
 
     //toppagewhilesign
     useEffect(() => {
@@ -46,6 +48,39 @@ export default function misFacturas() {
         });
     }, []);
 
+    //Seleccionar funcion por mas antiguo o mas nuevo
+    const handleSelect = (eventKey) => {
+        setSelectedSortOption(eventKey);
+
+        if (eventKey === "Más antiguo") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => new Date(a.fechacreacion) - new Date(b.fechacreacion))
+            );
+        } else if (eventKey === "Más reciente") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion))
+            );
+        } else if (eventKey === "Mayor precio") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => b.calificacion - a.calificacion)
+            );
+        } else if (eventKey === "Menor precio") {
+            setCalificaciones(prevCalificaciones =>
+                [...prevCalificaciones].sort((a, b) => a.calificacion - b.calificacion)
+            );
+        }
+    };
+
+    //Button de dropdown
+    const CustomDropdownButton = React.forwardRef(({ children, onClick }, ref) => (
+        <button
+            ref={ref}
+            onClick={onClick}
+            className="dropdowncustomMisFacturas"
+        >
+            {selectedSortOption ? `${selectedSortOption}` : "Ordenar por"}
+        </button>
+    ));
 
 
     return (
@@ -88,7 +123,40 @@ export default function misFacturas() {
                                             }
                                         />
 
-                                        <p>BUscar</p>
+                                        <Dropdown onSelect={handleSelect} className="dropFactura">
+                                            <Dropdown.Toggle
+                                                as={CustomDropdownButton}
+                                                id="dropdown-basic"
+                                            >
+                                                {selectedSortOption ? `Ordenar por ${selectedSortOption}` : "Ordenar por"}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu className="tamañocajaoptionsVendedor">
+                                                <Dropdown.Item
+                                                    eventKey="Más antiguo"
+                                                    className="itemsdropdownVerVenta"
+                                                >
+                                                    Más antiguo
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    eventKey="Más reciente"
+                                                    className="itemsdropdownVerVenta"
+                                                >
+                                                    Más reciente
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    eventKey="Mayor precio"
+                                                    className="itemsdropdownVerVenta"
+                                                >
+                                                    Mayor precio
+                                                </Dropdown.Item>
+                                                <Dropdown.Item
+                                                    eventKey="Menor precio"
+                                                    className="itemsdropdownVerVenta"
+                                                >
+                                                    Menor precio
+                                                </Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
                                     </div>
 
                                     <div className="dataMainFacturas">

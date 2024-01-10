@@ -33687,4 +33687,96 @@ label {
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
+.contDataResFactura{
+    margin-left: 4rem;
+    width: 84%;
+    background-color: #F0F1F5;
+    padding: 2rem;
+    border-radius: 10px; 
+}
+ 
+.DataContDataResFactura{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+}
+.DataContDataResFactura p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.DataContDataResFactura span p{
+    font-size: 16px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.DataContDataResFactura span button{
+    background-color:#00BF15;
+    color: #2D2E83;
+    margin-right: 2rem;
+    cursor: default;
+}
+
+.contDataResFacturaDownload{
+    margin-top: 2rem;
+    margin-left: 4rem;
+    width: 84%;
+    background-color: #F0F1F5;
+    padding: 3rem; 
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    border-radius: 10px; 
+    display: flex;
+    justify-content: space-between;
+}
+.contDataResFacturaDownload div{
+    display: flex;
+    align-items: center;
+    gap: 4.5rem;
+}
+.contDataResFacturaDownload p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.contDataResFacturaDownload div svg{
+    font-size: 25px;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.dropFactura {
+    width: 15%;
+    max-width: 15%;
+    min-width: 15%;
+}
+.dropdowncustomMisFacturas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 44px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 18px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    background-color: white;
+}
+
+.dropdowncustomMisFacturas::after {
+    background-color: white;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
 /*Fin styles facturación*/

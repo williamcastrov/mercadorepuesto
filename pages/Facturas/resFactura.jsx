@@ -112,32 +112,48 @@ export default function resFactura() {
 
                                     </Grid>
                                     <Grid item xs={12} md={5} className="segdoContFacturacion">
-                                        <div className="buttonMisFacts">
-                                            <button>Mis facturas</button>
+                                        <div className="contDataResFactura">
+                                            <div className="DataContDataResFactura">
+                                                <p>Fecha de emisión</p>
+                                                <span>
+                                                    <p>DD-MM-AAAA</p>
+                                                </span>
+                                            </div>
+
+                                            <div className="DataContDataResFactura">
+                                                <p>Fecha de vencimiento</p>
+                                                <span>
+                                                    <p>DD-MM-AAAA</p>
+                                                </span>
+                                            </div>
+
+                                            <div className="DataContDataResFactura">
+                                                <p>Estado del pago</p>
+                                                <span>
+                                                    <button>PAGADA</button>
+                                                </span>
+                                            </div>
+
+                                            <div className="DataContDataResFactura">
+                                                <p>Fecha y concepto pago</p>
+                                                <span>
+                                                    <p>$ XXX.XXX,XX</p>
+                                                </span>
+                                            </div>
+
+                                            <div className="DataContDataResFactura">
+                                                <p>Por pagar</p>
+                                                <span>
+                                                    <p>$ XXX.XXX,XX</p>
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div className="contDataFactrs">
-                                            <div className="titleContDataFactrs">
-                                                <p>Datos facturación</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Nombres y apellidos</p>
-                                                <p>Juan Pablo Rojas</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Documento</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Correo electrónico</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="dataFactrs">
-                                                <p>Dirección</p>
-                                                <p>1009878219</p>
-                                            </div>
-                                            <div className="irDatosFact">
-                                                <p>Editar datos</p>
-                                                <HiOutlineChevronRight className="iconRightFact" />
+
+                                        <div className="contDataResFacturaDownload">
+                                            <p>Descargar</p>
+                                            <div>
+                                                <BsFiletypePdf className="pdfIcon" />
+                                                <RiFileExcel2Fill className="ExcelIcon" />
                                             </div>
                                         </div>
                                     </Grid>
