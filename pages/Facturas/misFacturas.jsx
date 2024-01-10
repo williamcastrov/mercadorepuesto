@@ -26,6 +26,8 @@ import { TfiEye } from "react-icons/tfi";
 
 import { HiOutlineChevronRight } from "react-icons/hi";
 
+import { BsFiletypePdf } from "react-icons/bs";
+import { RiFileExcel2Fill } from "react-icons/ri";
 
 
 export default function misFacturas() {
@@ -90,7 +92,33 @@ export default function misFacturas() {
                                     </div>
 
                                     <div className="dataMainFacturas">
+                                        <div className="topDataMainFacturas">
+                                            <p>Fecha de emisión</p>
+                                            <p>Concepto de facturación</p>
+                                            <p>Número de factura</p>
+                                            <p>Total facturado</p>
+                                            <p>Descargar</p>
+                                        </div>
 
+                                        <div className="MapDataMainFacturas">
+                                            <div className="MapDataMainFacturasDate">
+                                                <p>DD-MM-AAAA</p>
+                                            </div>
+                                            <div className="MapDataMainFacturasConcept">
+                                                <p>Servicios Mercado Repuesto</p>
+                                            </div>
+                                            <div className="MapDataMainFacturasNumber">
+                                                <p>ABC - 1234</p>
+                                            </div>
+                                            <div className="MapDataMainFacturasTotal">
+                                                <p>$ XXX.XXX,XX</p>
+                                            </div>
+                                            <div className="MapDataMainFacturasDownload">
+                                                <RiFileExcel2Fill className="ExcelIcon" />
+                                                <BsFiletypePdf className="pdfIcon" />
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </Grid>
 

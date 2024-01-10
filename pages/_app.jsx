@@ -102,7 +102,7 @@ function App({ Component, pageProps, props }) {
                         // Almacena los dispositivos vinculados en el estado de tu componente
                         setDispositivosVinculados(dispositivos);
                     } else {
-                        console.error("Error: res.data o res.data.listLinkedDevices es undefined");
+                       // console.error("Error: res.data o res.data.listLinkedDevices es undefined");
                     }
                 })
                 .catch(function (error) {

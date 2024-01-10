@@ -246,7 +246,7 @@ export default function dispVinculados() {
                         // Imprime los dispositivos vinculados en la consola
                         console.log("Dispositivos vinculados:", dispositivos);
                     } else {
-                        console.error("Error: res.data o res.data.listLinkedDevices es undefined");
+                        //console.error("Error: res.data o res.data.listLinkedDevices es undefined");
                     }
                 })
                 .catch(function (error) {

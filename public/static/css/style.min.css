@@ -33556,5 +33556,135 @@ label {
     border-radius: 10px;
     padding: 2rem;
 }
+.topDataMainFacturas{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.8rem;
+}
+.topDataMainFacturas p{ 
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+} 
 
+.MapDataMainFacturas{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.8rem;
+}
+.MapDataMainFacturas p{ 
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif; 
+} 
+.MapDataMainFacturasConcept p{
+    margin-left: 1.2rem;
+}
+.MapDataMainFacturasNumber p{
+    margin-left: 1rem !important;
+}
+.MapDataMainFacturasTotal p{
+    padding-left: 2rem;
+}
+.MapDataMainFacturasDownload{
+    display: flex;
+    gap: 17px;
+    color: #2C2E82;
+    fill: #2C2E82;
+    font-size: 25px;
+    margin-right: 8px;
+}
+.MapDataMainFacturas svg{
+    cursor: pointer;
+}
+
+
+
+
+.ResFacturaMain{
+    width: 98%;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    color: #2C2E82 !important; 
+}
+.ResFacturaMain div{
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+}
+.TopResFacturaMain p{
+    font-size: 20px !important;
+    color: #2C2E82 !important; 
+    font-weight: 600 !important;
+    font-family: "Jost", sans-serif;
+}
+ 
+.DataFacturaRes p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.TotalFactRes p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+
+}
+.TotalFactRes{
+        margin-bottom: 0 !important;
+}
+.segdoSubcontFactuRes{
+    width: 98%;
+  display: flex; 
+  margin-top: 2.5rem;
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
+  background-color: #F0F1F5;
+  border-radius: 10px;
+  padding: 2rem; 
+  color: #2C2E82 !important; 
+  flex-direction: column;
+}
+.DudsSobreFact{
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.DudsSobreFact p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.DudsSobreFact svg{
+    font-size: 40px !important;
+    color: #2D2E83;
+}
+.DudaRandomRes p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.DudaRandomRes{
+    margin-bottom: 1.5rem;
+}
+.RespuestaRandomRes p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
 /*Fin styles facturación*/

@@ -225,10 +225,10 @@ export default function verVenta() {
     const confirmarEnvio = async () => {
         // Aquí puedes verificar si la factura ya existe
         const facturaExistente = await verificarFacturaExistente();
-
+    
         // Cierra el modal de confirmación
         setShowModal2(false);
-
+    
         if (facturaExistente) {
             // Muestra el modal de aviso
             setShowModal(true);
@@ -237,7 +237,7 @@ export default function verVenta() {
         } else {
             // Crear un objeto FormData
             let formData = new FormData();
-
+    
             // Agregar los demás campos a formData
             formData.append('idcomprador', venta.uidcomprador);
             formData.append('idproducto', venta.idproducto);
@@ -246,16 +246,17 @@ export default function verVenta() {
             formData.append('numerodeventa', venta.numerodeaprobacion);
             formData.append('nombreimagen1', imageName + extension);
             formData.append('numerodeimagenes', 1);
-
+    
             // Verificar si estás enviando una imagen o un PDF
             if (selectedImage) {
                 // Si estás enviando una imagen, envíala como base64
                 formData.append('imagen1', selectedImage);
             } else if (userFile) {
-                // Si estás enviando un PDF, envíalo como un archivo
-                formData.append('document', userFile);
+                // Si estás enviando un PDF, envíalo como un archivo Blob
+                const blob = new Blob([userFile], { type: 'application/pdf' });
+                formData.append('imagen1', blob);
             }
-
+    
             // Configurar las opciones de axios. 
             //  incluir la cabecera 'Content-Type': 'multipart/form-data'.
             let axiosOptions = {
@@ -263,12 +264,16 @@ export default function verVenta() {
                     'Content-Type': 'multipart/form-data'
                 }
             };
-
+    
+            // Antes de la solicitud, imprime los datos que estás enviando
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
+    
             try {
                 const response = await axios.post(URL_BD_MR + "109", formData, axiosOptions);
-
-                console.log(response.data);
-
+                console.log("Respuesta del servidor:", response.data); // Esto imprimirá la respuesta del servidor
+    
                 setConfirmationOpen(true);
                 // Restablece el archivo seleccionado y el texto del botón
                 setSelectedFile(null);
@@ -292,6 +297,7 @@ export default function verVenta() {
             }
         }
     };
+    
     //Función para verificar si una factura existe por el numero de venta
     // Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {

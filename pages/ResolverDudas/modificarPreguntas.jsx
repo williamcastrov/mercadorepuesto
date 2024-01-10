@@ -36,7 +36,9 @@ export default function modificarPreguntas() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
-
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModal, setShowModal] = useState(false); //Estado de modal
 
 
     useEffect(() => {
@@ -78,6 +80,9 @@ export default function modificarPreguntas() {
                     }
                     return false;
                 });
+                console.log("Datos nivel 1: ", datosNivelUno)
+                console.log("Datos nivel 2: ", datosNivelDos)
+                console.log("Datos nivel 3: ", datosNivelTres)
                 setDatosNivelUno(datosNivelUno);
                 setDatosNivelDos(datosNivelDos);
                 setDatosNivelTres(datosNivelTres);
@@ -93,18 +98,21 @@ export default function modificarPreguntas() {
 
     // Función para manejar el cambio de los inputs y textareas
     const handleInputChange = (event, index, field, nivel) => {
+        let newDatos;
         if (nivel === 1) {
-            const newDatosNivelUno = [...datosNivelUno];
-            newDatosNivelUno[index][field] = event.target.value;
-            setDatosNivelUno(newDatosNivelUno);
+            newDatos = [...datosNivelUno];
         } else if (nivel === 2) {
-            const newDatosNivelDos = [...datosNivelDos];
-            newDatosNivelDos[index][field] = event.target.value;
-            setDatosNivelDos(newDatosNivelDos);
+            newDatos = [...datosNivelDos];
         } else if (nivel === 3) {
-            const newDatosNivelTres = [...datosNivelTres];
-            newDatosNivelTres[index][field] = event.target.value;
-            setDatosNivelTres(newDatosNivelTres);
+            newDatos = [...datosNivelTres];
+        }
+        newDatos[index][field] = event.target.value;
+        if (nivel === 1) {
+            setDatosNivelUno(newDatos);
+        } else if (nivel === 2) {
+            setDatosNivelDos(newDatos);
+        } else if (nivel === 3) {
+            setDatosNivelTres(newDatos);
         }
     };
 
@@ -150,10 +158,14 @@ export default function modificarPreguntas() {
         return true;
     };
 
+    // Enviar los datos
     const enviarDatos = async (dato) => {
         try {
+            const datosParaEnviar = { ...dato };
+            delete datosParaEnviar.uniqueId;
+
             // Imprimir los datos que se van a enviar en la consola
-            console.log("Datos a enviar: ", dato);
+            console.log("Datos a enviar: ", datosParaEnviar);
 
             const res = await axios({
                 method: "post",
@@ -166,7 +178,7 @@ export default function modificarPreguntas() {
                     descripcionnivelcuatro: dato.descripcionnivelcuatro
                 }
             });
-            console.log("Datos enviados: ", dato);
+            console.log("Datos enviados: ", datosParaEnviar);
             console.log("Respuesta del servidor al enviar datos: ", res.data)
             // Si la solicitud fue exitosa, muestra el modal con un mensaje de éxito
             setTituloMensajes('Datos enviados');
@@ -178,9 +190,7 @@ export default function modificarPreguntas() {
         }
     };
 
-    const [tituloMensajes, setTituloMensajes] = useState("");
-    const [textoMensajes, setTextoMensajes] = useState("");
-    const [showModal, setShowModal] = useState(false); //Estado de modal
+
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
@@ -231,8 +241,8 @@ export default function modificarPreguntas() {
                                                     <div className='AccionesInputs'>
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelUno[activeIndexUno].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'nombreniveldos', 1)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelUno[activeIndexUno].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveldos', 1)} />
-                                                        <textarea placeholder="Segundo parrafo" value={datosNivelUno[activeIndexUno].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
-                                                        <textarea placeholder="Tercer parrafo" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
+                                                        <textarea placeholder="Descripcion nivel tres" value={datosNivelUno[activeIndexUno].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
+                                                        <textarea placeholder="Descripcion nivel cuatro" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
                                                         <button onClick={() => handleSave(activeIndexUno, 1)}>Guardar</button>
                                                     </div>
                                                 )}
