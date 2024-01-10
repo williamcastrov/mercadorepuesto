@@ -76,7 +76,7 @@ export default function Respuestas() {
             // Si la página se recarga, pasa null a obtenerDatos
             const datosObtenidos = await obtenerDatos(null);
             setDatos(datosObtenidos);
-    
+
             let indices = [];
             if (datosObtenidos.length >= 3) {
                 while (indices.length < 3) {
@@ -88,7 +88,7 @@ export default function Respuestas() {
             }
             setIndicesAleatorios(indices);
         };
-    
+
         obtenerYSeleccionarDatos();
     }, []);
 
@@ -129,15 +129,19 @@ export default function Respuestas() {
                                                 <div>
                                                     <p>{datoParsed ? datoParsed.descripcionniveldos : 'Cargando...'}</p>
                                                 </div>
+                                                
                                                 <div className="imagenRespuestaDuda">
                                                     <img src="https://i.postimg.cc/2866G3fh/35.png" alt="" />
                                                 </div>
+                                               
                                                 <div>
                                                     <p>{datoParsed ? datoParsed.descripcionniveltres : 'Cargando...'}</p>
                                                 </div>
+                                                {/* 
                                                 <div className="imagenRespuestaDuda imagen2Respuesta">
                                                     <img src="https://i.postimg.cc/2866G3fh/35.png" alt="" />
                                                 </div>
+                                                */}
                                                 <div className="descrip4">
                                                     <p>{datoParsed ? datoParsed.descripcionnivelcuatro : 'Cargando...'}</p>
                                                 </div>

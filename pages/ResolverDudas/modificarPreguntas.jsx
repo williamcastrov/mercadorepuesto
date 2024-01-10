@@ -21,10 +21,15 @@ import { getLeeIra } from "../../store/leeira/action";
 import { useParams } from 'react-router-dom';
 import BuscarComponente from "./BuscarComponente";
 import ModalMensajes from "../mensajes/ModalMensajes";
-
+import { BsSquare } from "react-icons/bs";
+import { MdAddPhotoAlternate } from "react-icons/md";
+import { PiBracketsSquareLight } from "react-icons/pi";
+import { PiSquareThin } from "react-icons/pi";
+import shortid from "shortid";
 
 
 export default function modificarPreguntas() {
+
     const [activeIdDos, setActiveIdDos] = useState(null);
     const [activeIndexUno, setActiveIndexUno] = useState(0);
     const [activeIndexDos, setActiveIndexDos] = useState(0);
@@ -47,6 +52,73 @@ export default function modificarPreguntas() {
             block: "start",
         });
     }, []);
+
+
+    
+
+
+    const [image1, setImage1] = useState(null);
+    const [base64Image1, setBase64Image1] = useState(null);
+    const [imageName1, setImageName1] = useState(null);
+    const [extension1, setExtension1] = useState(null);
+
+    const [image2, setImage2] = useState(null);
+    const [base64Image2, setBase64Image2] = useState(null);
+    const [imageName2, setImageName2] = useState(null);
+    const [extension2, setExtension2] = useState(null);
+
+    const handleImageChange1 = (e) => {
+        handleImageChange(e, setImage1, setBase64Image1, setImageName1, setExtension1);
+    }
+
+    const handleImageChange2 = (e) => {
+        handleImageChange(e, setImage2, setBase64Image2, setImageName2, setExtension2);
+    }
+
+    const handleImageChange = (e, setImage, setBase64Image, setImageName, setExtension) => {
+        if (e.target.files[0]) {
+            const reader = new FileReader();
+            const file = e.target.files[0];
+            reader.onloadend = () => {
+                // Convertir la imagen a base64
+                const base64Image = reader.result;
+                setBase64Image(base64Image);
+
+                // Generar un ID único para la imagen
+                let uniqueImageName = shortid.generate();
+                setImageName(uniqueImageName);
+
+                // Obtener la extensión del archivo
+                let extension = "." + base64Image.substring(base64Image.indexOf("/") + 1, base64Image.indexOf(";base64"));
+                setExtension(extension);
+
+                setImage(URL.createObjectURL(file));
+            }
+            reader.readAsDataURL(file);
+        }
+        e.target.value = null; // Restablecer el valor del input de archivo
+    }
+
+    const handleImageRemove1 = () => {
+        handleImageRemove(setImage1, setBase64Image1, setImageName1, setExtension1);
+    }
+
+    const handleImageRemove2 = () => {
+        handleImageRemove(setImage2, setBase64Image2, setImageName2, setExtension2);
+    }
+
+    const handleImageRemove = (setImage, setBase64Image, setImageName, setExtension) => {
+        setImage(null);
+        setBase64Image(null);
+        setImageName(null);
+        setExtension(null);
+    }
+
+
+
+
+
+
 
 
     useEffect(() => {
@@ -241,7 +313,22 @@ export default function modificarPreguntas() {
                                                     <div className='AccionesInputs'>
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelUno[activeIndexUno].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'nombreniveldos', 1)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelUno[activeIndexUno].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveldos', 1)} />
+                                                        {/*Imagen 1 */}
+                                                        <div className="InputaDDIMGS">
+                                                            <PiSquareThin className="squareInputaDDIMGS" />
+                                                            <input type="file" id="imageInput" accept=".jpg,.png,.jpeg" onChange={handleImageChange1} className="imageInput" />
+                                                            {image1 ? <img src={image1} className="photoInputaDDIMGS" /> : <MdAddPhotoAlternate className="photoInputaDDIMGS" />}
+                                                        </div>
+                                                        {image1 && <button onClick={handleImageRemove1}>Eliminar imagen</button>}
+                                                        {/*fin Imagen 1 */}
                                                         <textarea placeholder="Descripcion nivel tres" value={datosNivelUno[activeIndexUno].descripcionniveltres} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
+                                                        {/*Imagen 2 */}
+                                                        <div className="InputaDDIMGS">
+                                                            <PiSquareThin className="squareInputaDDIMGS" />
+                                                            <input type="file" id="imageInput" accept=".jpg,.png,.jpeg" onChange={handleImageChange2} className="imageInput" />
+                                                            {image2 ? <img src={image2} className="photoInputaDDIMGS" /> : <MdAddPhotoAlternate className="photoInputaDDIMGS" />}
+                                                        </div>
+                                                        {image2 && <button onClick={handleImageRemove2}>Eliminar imagen</button>} 
                                                         <textarea placeholder="Descripcion nivel cuatro" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
                                                         <button onClick={() => handleSave(activeIndexUno, 1)}>Guardar</button>
                                                     </div>
