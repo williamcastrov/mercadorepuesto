@@ -64,7 +64,7 @@ export default function resFactura() {
                                     </div>
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <Grid item xs={12} md={7} className="primerContFacturacion" >
+                                    <Grid item xs={12} md={7} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
 
                                         <div className="ResFacturaMain">
                                             <div className="TopResFacturaMain">

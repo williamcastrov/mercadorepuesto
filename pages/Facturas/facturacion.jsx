@@ -105,7 +105,7 @@ export default function facturacion() {
                                     </div>
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <Grid item xs={12} md={8} className="primerContFacturacion" >
+                                    <Grid item xs={12} md={8} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
 
                                         <div className="primerSubcontFactu">
                                             <div>
