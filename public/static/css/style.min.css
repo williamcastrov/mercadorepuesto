@@ -33639,14 +33639,23 @@ label {
     font-weight: 500;
     font-family: "Jost", sans-serif; 
 } 
-.MapDataMainFacturasConcept p{
-    margin-left: 1.2rem;
+.MapDataMainFacturasNumber{
+    width: 100px;
+    text-align: end;
 }
 .MapDataMainFacturasNumber p{
-    margin-left: 1rem !important;
+    margin-right: 1.5rem;
 }
+.MapDataMainFacturasConcept{
+    width: 250px;
+    text-align: end;
+}
+.MapDataMainFacturasTotal{
+    width: 150px;
+    text-align: end;
+} 
 .MapDataMainFacturasTotal p{
-    padding-left: 2rem;
+    margin-right: 2rem;
 }
 .MapDataMainFacturasDownload{
     display: flex;
