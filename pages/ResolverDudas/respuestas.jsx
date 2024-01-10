@@ -33,7 +33,7 @@ export default function Respuestas() {
     const [datos, setDatos] = useState([]);
     const [indicesAleatorios, setIndicesAleatorios] = useState([]);
     const router = useRouter();
-    const { id, dato } = router.query;
+    const { dato } = router.query;
     const datoParsed = dato ? JSON.parse(dato) : null;
 
 
@@ -51,25 +51,32 @@ export default function Respuestas() {
         });
     }, []);
 
-    // Función para consumir el endpoint 116
-    const obtenerDatos = async () => {
+    // Modifica la función para aceptar un parámetro
+    const obtenerDatos = async (nombreniveluno) => {
         try {
             const res = await axios({
                 method: "post",
                 url: URL_BD_MR + "116",
             });
-            return res.data.resolverdudasdos;
+            // Si nombreniveluno es null, retorna todos los datos
+            if (!nombreniveluno) {
+                return res.data.resolverdudasdos;
+            }
+            // Si nombreniveluno no es null, filtra los datos
+            return res.data.resolverdudasdos.filter(dato => dato.nombreniveluno === nombreniveluno);
         } catch (error) {
             console.error("Error al leer los datos", error);
             return [];
         }
     };
-    // Luego, en un efecto de React, puedes obtener los datos y los índices aleatorios
+
+    // Luego, en el efecto de React, pasa el valor de nombreniveluno a la función
     useEffect(() => {
         const obtenerYSeleccionarDatos = async () => {
-            const datosObtenidos = await obtenerDatos();
+            // Si la página se recarga, pasa null a obtenerDatos
+            const datosObtenidos = await obtenerDatos(null);
             setDatos(datosObtenidos);
-
+    
             let indices = [];
             if (datosObtenidos.length >= 3) {
                 while (indices.length < 3) {
@@ -81,10 +88,9 @@ export default function Respuestas() {
             }
             setIndicesAleatorios(indices);
         };
-
+    
         obtenerYSeleccionarDatos();
     }, []);
-
 
     return (
         <>
@@ -145,7 +151,12 @@ export default function Respuestas() {
                                                 <p>Te podría interesar</p>
                                             </div>
                                             {indicesAleatorios.map((indice, i) => {
+                                                // Verifica si el dato existe antes de intentar acceder a nombreniveldos
                                                 const dato = datos[indice];
+                                                if (!dato) {
+                                                    return null; // Retorna null o algún componente de relleno
+                                                }
+
                                                 let className = "contTitulosDudas";
                                                 if (i === 0) {
                                                     className += " startContDudas"; // Agrega la clase al primer elemento
