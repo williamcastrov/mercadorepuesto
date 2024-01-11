@@ -116,37 +116,37 @@ export default function resFactura() {
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={7} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
+                                        {ultimaFactura && (
+                                            <div className="ResFacturaMain">
+                                                <div className="TopResFacturaMain">
+                                                    <p>Facturas en curso</p>
+                                                </div>  
+                                                <div className="DataFacturaRes">
+                                                    <p>Cargos por venta</p>
+                                                    <p>${ultimaFactura?.retencion?.toLocaleString('en-US')}</p>
+                                                </div>
 
-                                        <div className="ResFacturaMain">
-                                            <div className="TopResFacturaMain">
-                                                <p>Facturas en curso</p>
-                                            </div>
-                                            <div className="DataFacturaRes">
-                                                <p>Cargos por venta</p>
-                                                <p>${ultimaFactura?.retencion?.toLocaleString('en-US')}</p>
-                                            </div>
+                                                <div className="DataFacturaRes">
+                                                    <p>Cargos por envío</p>
+                                                    <p>${ultimaFactura.precioenvio?.toLocaleString('en-US')}</p>
+                                                </div>
 
-                                            <div className="DataFacturaRes">
-                                                <p>Cargos por envío</p>
-                                                <p>${ultimaFactura.precioenvio?.toLocaleString('en-US')}</p>
-                                            </div>
+                                                <div className="DataFacturaRes">
+                                                    <p>Impuestos</p>
+                                                    <p>${ultimaFactura.impuestos?.toLocaleString('en-US')}</p>
+                                                </div>
 
-                                            <div className="DataFacturaRes">
-                                                <p>Impuestos</p>
-                                                <p>${ultimaFactura.impuestos?.toLocaleString('en-US')}</p>
-                                            </div>
+                                                <div className="DataFacturaRes">
+                                                    <p>Retenciones</p>
+                                                    <p>${ultimaFactura.retencion?.toLocaleString('en-US')}</p>
+                                                </div>
 
-                                            <div className="DataFacturaRes">
-                                                <p>Retenciones</p>
-                                                <p>${ultimaFactura.retencion?.toLocaleString('en-US')}</p>
+                                                <div className="TotalFactRes">
+                                                    <p>Total facturado</p>
+                                                    <p>${ultimaFactura.total?.toLocaleString('en-US')}</p>
+                                                </div> 
                                             </div>
-
-                                            <div className="TotalFactRes">
-                                                <p>Total facturado</p>
-                                                <p>${ultimaFactura.total?.toLocaleString('en-US')}</p>
-                                            </div>
-                                        </div>
-
+                                        )}
                                         <div className="segdoSubcontFactuRes">
                                             <div className="DudsSobreFact">
                                                 <p>¿Dudas sobre tu factura?</p>
@@ -167,7 +167,7 @@ export default function resFactura() {
                                             <div className="DataContDataResFactura">
                                                 <p>Fecha de emisión</p>
                                                 <span>
-                                                    <p>{ultimaFactura.fechadeventa}</p>
+                                                    <p>ultimaFactura.fechadeventa</p>
                                                 </span>
                                             </div>
 
