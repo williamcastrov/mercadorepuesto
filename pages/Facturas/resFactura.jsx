@@ -123,27 +123,27 @@ export default function resFactura() {
                                             </div>
                                             <div className="DataFacturaRes">
                                                 <p>Cargos por venta</p>
-                                                <p>${ultimaFactura.retencion.toLocaleString('en-US')}</p>
+                                                <p>${ultimaFactura?.retencion?.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
                                                 <p>Cargos por envío</p>
-                                                <p>${ultimaFactura.precioenvio.toLocaleString('en-US')}</p>
+                                                <p>${ultimaFactura.precioenvio?.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
                                                 <p>Impuestos</p>
-                                                <p>${ultimaFactura.impuestos.toLocaleString('en-US')}</p>
+                                                <p>${ultimaFactura.impuestos?.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="DataFacturaRes">
                                                 <p>Retenciones</p>
-                                                <p>${ultimaFactura.retencion.toLocaleString('en-US')}</p>
+                                                <p>${ultimaFactura.retencion?.toLocaleString('en-US')}</p>
                                             </div>
 
                                             <div className="TotalFactRes">
                                                 <p>Total facturado</p>
-                                                <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
+                                                <p>${ultimaFactura.total?.toLocaleString('en-US')}</p>
                                             </div>
                                         </div>
 
