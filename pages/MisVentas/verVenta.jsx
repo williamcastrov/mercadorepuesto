@@ -47,7 +47,7 @@ export default function verVenta() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const [selectedFile, setSelectedFile] = useState();
-    const fileInput = useRef(null); 
+    const fileInput = useRef(null);
     const maxImageSize = 819200; // 800 KB en bytes
     const maxImageWidth = 1024;
     const maxImageHeight = 1024;
@@ -131,8 +131,9 @@ export default function verVenta() {
             setExtension(extension);
 
             if (file.type === "application/pdf") {
-                setUserFile(file);  // Aquí se establece el archivo del usuario si es un PDF
-                setSelectedPDF(URL.createObjectURL(file));
+                const blob = new Blob([file], { type: "application/pdf" });
+                setUserFile(blob);
+                setSelectedPDF(URL.createObjectURL(blob));
             } else {
                 setSelectedImage(base64Image);
             }
@@ -223,10 +224,10 @@ export default function verVenta() {
     const confirmarEnvio = async () => {
         // Aquí puedes verificar si la factura ya existe
         const facturaExistente = await verificarFacturaExistente();
-    
+
         // Cierra el modal de confirmación
         setShowModal2(false);
-    
+
         if (facturaExistente) {
             // Muestra el modal de aviso
             setShowModal(true);
@@ -234,7 +235,7 @@ export default function verVenta() {
             setTextoMensajes("Ya existe una factura para esta venta y no es posible enviar de nuevo.");
         } else {
             // Crear un objeto FormData
-            let formData = new FormData(); 
+            let formData = new FormData();
             // Agregar los demás campos a formData
             formData.append('idcomprador', venta.uidcomprador);
             formData.append('idproducto', venta.idproducto);
@@ -243,7 +244,7 @@ export default function verVenta() {
             formData.append('numerodeventa', venta.numerodeaprobacion);
             formData.append('nombreimagen1', imageName + extension);
             formData.append('numerodeimagenes', 1);
-    
+
             // Verificar si estás enviando una imagen o un PDF
             if (selectedImage) {
                 // Si estás enviando una imagen, envíala como base64
@@ -251,15 +252,15 @@ export default function verVenta() {
             } else if (userFile) {
                 // Si estás enviando un PDF
                 formData.append('imagen1', userFile);
-            } 
+            }
             // Antes de la solicitud, imprime los datos que estás enviando
             for (let pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
-            } 
+            }
             try {
                 const response = await axios.post(URL_BD_MR + "109", formData);
                 console.log("Respuesta del servidor:", response.data); // Esto imprimirá la respuesta del servidor
-    
+
                 setConfirmationOpen(true);
                 // Restablece el archivo seleccionado y el texto del botón
                 setSelectedFile(null);
@@ -283,7 +284,7 @@ export default function verVenta() {
             }
         }
     };
-    
+
     //Función para verificar si una factura existe por el numero de venta
     // Función para verificar si una factura existe por el numero de venta
     const verificarFacturaExistente = async () => {

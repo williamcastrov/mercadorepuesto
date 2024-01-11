@@ -44,6 +44,14 @@ export default function modificarPreguntas() {
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
     const [showModal, setShowModal] = useState(false); //Estado de modal
+    const [extension, setExtension] = useState("");
+    const [imagenNiveldos, setImagenNiveldos] = useState(null);
+    const [imagenNiveltres, setImagenNiveltres] = useState(null);
+    const [imageName, setImageName] = useState("");
+    const [nombreImagenServidor2, setNombreImagenServidor2] = useState("");
+    const [imagenNivelcuatro, setImagenNivelcuatro] = useState(null);
+    const [nombreImagenServidor3, setNombreImagenServidor3] = useState("");
+    const [nombreImagenServidor, setNombreImagenServidor] = useState("");
 
 
     useEffect(() => {
@@ -58,15 +66,7 @@ export default function modificarPreguntas() {
     const handleModalClose = () => {
         setShowModal(false);
     };
-
-
-
-
-
-
-
-
-
+ 
 
 
     useEffect(() => {
@@ -76,6 +76,11 @@ export default function modificarPreguntas() {
                     method: "post",
                     url: URL_BD_MR + "116",
                 });
+                // Asegúrate de que 'resolverdudasdos' es un array y tiene al menos un elemento
+                if (Array.isArray(res.data.resolverdudasdos) && res.data.resolverdudasdos.length > 0) {
+                    // Accede a 'nombreimagen1' del primer objeto en 'resolverdudasdos'
+                    setNombreImagenServidor(res.data.resolverdudasdos[0].nombreimagen1);
+                }
                 let idCounter = 1;
                 const datosNivelUno = res.data.resolverdudasdos.filter(dato => {
                     if (dato.niveluno === 1) {
@@ -114,7 +119,9 @@ export default function modificarPreguntas() {
         obtenerDatos();
     }, []); // Se ejecuta cada vez que se actualizan los datos
 
-
+    useEffect(() => {
+        console.log("Nombre imagen de DB: ", nombreImagenServidor);
+    }, [nombreImagenServidor]);
 
     // Función para manejar el cambio de los inputs y textareas
     const handleInputChange = (event, index, field, nivel) => {
@@ -179,22 +186,15 @@ export default function modificarPreguntas() {
         return true;
     };
 
-    const [extension, setExtension] = useState("");
-    const [imagenNiveldos, setImagenNiveldos] = useState(null);
-    const [imagenNiveltres, setImagenNiveltres] = useState(null);
-    const [imageName, setImageName] = useState("");
+
 
     const handleImageUpload = async (event, field) => {
         const reader = new FileReader();
         const file = event.target.files[0];
         reader.onloadend = () => {
-            // Convertir la imagen a base64
             const base64Image = reader.result;
-
-            // Generar un ID único para la imagen
             let uniqueImageName = shortid.generate();
             uniqueImageName = uniqueImageName.substring(0, 11);
-
             let extension =
                 "." +
                 base64Image.substring(
@@ -206,13 +206,17 @@ export default function modificarPreguntas() {
 
             if (field === 'imagenNiveldos') {
                 setImagenNiveldos(base64Image);
+                setNombreImagenServidor(uniqueImageName + extension);
             } else if (field === 'imagenNiveltres') {
                 setImagenNiveltres(base64Image);
+                setNombreImagenServidor2(uniqueImageName + extension);
+            } else if (field === 'imagenNivelcuatro') {
+                setImagenNivelcuatro(base64Image);
+                setNombreImagenServidor3(uniqueImageName + extension);
             }
         };
 
         if (file) {
-            // Leer la imagen como una URL de datos
             reader.readAsDataURL(file);
         }
         event.target.value = null;
@@ -225,36 +229,34 @@ export default function modificarPreguntas() {
         try {
             const datosParaEnviar = { ...dato };
             delete datosParaEnviar.uniqueId;
-
-            // Generar un ID único para la imagen
             let uniqueImageName = imageName + extension;
-
-            // Imprimir los datos que se van a enviar en la consola
             console.log("Datos a enviar: ", datosParaEnviar);
 
             const res = await axios({
                 method: "post",
                 url: URL_BD_MR + "118",
                 params: {
-                    id: dato.uniqueId, // Usar el ID único
+                    id: dato.uniqueId,
                     nombreniveldos: dato.nombreniveldos,
                     descripcionniveldos: dato.descripcionniveldos,
                     descripcionniveltres: dato.descripcionniveltres,
                     descripcionnivelcuatro: dato.descripcionnivelcuatro,
                     nombreimagen1: uniqueImageName,
-                    imagen1: imagenNiveldos, // Enviar la imagen en base64
+                    imagen1: imagenNiveldos,
+                    nombreimagen2: nombreImagenServidor2,
+                    imagen2: imagenNiveltres,
+                    nombreimagen3: nombreImagenServidor3,
+                    imagen3: imagenNivelcuatro,
                     numerodeimagenes: 1
                 }
             });
             console.log("Datos enviados: ", datosParaEnviar);
             console.log("Respuesta del servidor al enviar datos: ", res.data)
-            // Si la solicitud fue exitosa, muestra el modal con un mensaje de éxito
             setTituloMensajes('Datos enviados');
             setTextoMensajes('Los datos se han enviado correctamente.');
             setShowModal(true);
         } catch (error) {
             console.error("Error al actualizar los datos", error);
-            // Maneja el error según tus necesidades
         }
     };
 
@@ -262,8 +264,10 @@ export default function modificarPreguntas() {
     const handleImageRemove = (field) => {
         if (field === 'imagenNiveldos') {
             setImagenNiveldos(null);
+            setNombreImagenServidor("");
         } else if (field === 'imagenNiveltres') {
             setImagenNiveltres(null);
+            // Si tienes un estado similar para la imagen de nivel tres, puedes hacer lo mismo aquí
         }
     };
 
@@ -279,7 +283,7 @@ export default function modificarPreguntas() {
 
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? '100%' : '89%' }} display={'flex'} flexDirection={'column'}>
                                     <div className='TitleOpVend'>
-                                        <p>Modificar dudas e inquietudes</p> 
+                                        <p>Modificar dudas e inquietudes</p>
                                     </div>
                                     <div className="contMainResolverDudas ModifMain">
                                         <div className="mainButtonsModifi">
@@ -287,8 +291,6 @@ export default function modificarPreguntas() {
                                                 <button className={`buttonActiveModif ${active === 1 ? 'active' : ''}`} onClick={() => setActive(1)}>Preguntas mis compras</button>
                                                 <button className={`buttonActiveModif ${active === 2 ? 'active' : ''}`} onClick={() => setActive(2)}>Preguntas mis ventas</button>
                                                 <button className={`buttonActiveModif ${active === 3 ? 'active' : ''}`} onClick={() => setActive(3)}>Preguntas mis datos</button>
-
-
                                             </div>
                                         </div>
 
@@ -314,17 +316,69 @@ export default function modificarPreguntas() {
                                                         <input type="text" className='InputFormsUsers' placeholder="Titulo de duda en mis compras" value={datosNivelUno[activeIndexUno].nombreniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'nombreniveldos', 1)} />
                                                         <textarea placeholder="Descripcion de duda en mis compras" value={datosNivelUno[activeIndexUno].descripcionniveldos} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveldos', 1)} />
                                                         <div className="frstImageSelectedModif">
-                                                            {!imagenNiveldos && <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 'imagenNiveldos')} />}
-                                                            {imagenNiveldos && <img src={imagenNiveldos} alt="Imagen seleccionada" />}
-                                                            {imagenNiveldos && <button onClick={() => handleImageRemove('imagenNiveldos')}>Eliminar imagen 1</button>}
+                                                            <div onClick={() => document.getElementById('inputImagenNiveldos').click()}>
+                                                                {nombreImagenServidor || 'Seleccionar imagen'}
+                                                            </div>
+                                                            <input
+                                                                id="inputImagenNiveldos"
+                                                                type="file"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleImageUpload(e, 'imagenNiveldos')}
+                                                                style={{ display: nombreImagenServidor ? 'none' : 'block' }}
+                                                            />
+                                                            {nombreImagenServidor && (
+                                                                <>
+                                                                    <img src={imagenNiveldos} alt="Imagen seleccionada" />
+                                                                    <button onClick={() => handleImageRemove('imagenNiveldos')}>Eliminar imagen 1</button>
+                                                                </>
+                                                            )}
                                                         </div>
                                                         <textarea placeholder="Descripcion nivel tres" value={datosNivelUno[activeIndexUno].descripcionniveltres || ''} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionniveltres', 1)} />
+                                                        <div className="frstImageSelectedModif">
+                                                            <div onClick={() => document.getElementById('inputImagenNiveltres').click()}>
+                                                                {nombreImagenServidor2 || 'Seleccionar imagen'}
+                                                            </div>
+                                                            <input
+                                                                id="inputImagenNiveltres"
+                                                                type="file"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleImageUpload(e, 'imagenNiveltres')}
+                                                                style={{ display: nombreImagenServidor2 ? 'none' : 'block' }}
+                                                            />
+                                                            {nombreImagenServidor2 && (
+                                                                <>
+                                                                    <img src={imagenNiveltres} alt="Imagen seleccionada" />
+                                                                    <button onClick={() => handleImageRemove('imagenNiveltres')}>Eliminar imagen 2</button>
+                                                                </>
+                                                            )}
+                                                        </div>
                                                         <textarea placeholder="Descripcion nivel cuatro" value={datosNivelUno[activeIndexUno].descripcionnivelcuatro || ''} onChange={(e) => handleInputChange(e, activeIndexUno, 'descripcionnivelcuatro', 1)} />
+
+                                                        <div className="frstImageSelectedModif">
+                                                            <div onClick={() => document.getElementById('inputImagenNivelcuatro').click()}>
+                                                                {nombreImagenServidor3 || 'Seleccionar imagen'}
+                                                            </div>
+                                                            <input
+                                                                id="inputImagenNivelcuatro"
+                                                                type="file"
+                                                                accept="image/*"
+                                                                onChange={(e) => handleImageUpload(e, 'imagenNivelcuatro')}
+                                                                style={{ display: nombreImagenServidor3 ? 'none' : 'block' }}
+                                                            />
+                                                            {nombreImagenServidor3 && (
+                                                                <>
+                                                                    <img src={imagenNivelcuatro} alt="Imagen seleccionada" />
+                                                                    <button onClick={() => handleImageRemove('imagenNivelcuatro')}>Eliminar imagen 3</button>
+                                                                </>
+                                                            )}
+                                                        </div>
+
                                                         <button onClick={() => handleSave(activeIndexUno, 1)}>Guardar</button>
                                                     </div>
                                                 )}
                                             </div>
                                         )}
+
                                         {active === 2 && (
                                             <div className="ModifDudasMisCompras">
                                                 <div className='TitleOpVend'>

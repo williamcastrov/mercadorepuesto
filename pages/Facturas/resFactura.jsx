@@ -33,7 +33,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { jsPDF } from "jspdf";
 import { saveAs } from 'file-saver';
 import { utils, writeFile } from 'xlsx';
-import { useDispatch, useSelector } from "react-redux";
+
 
 export default function resFactura() {
 

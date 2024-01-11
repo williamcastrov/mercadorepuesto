@@ -150,9 +150,7 @@ export default function facturacion() {
                                 total
                             };
                         })
-                    );
-                    // Ordena las facturas por fechacompra
-                    facturas.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra));
+                    ); 
                     setFacturas(facturas);
                     console.log("Mis facturas:", facturas)
                 } else {
