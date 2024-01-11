@@ -120,7 +120,7 @@ export default function resFactura() {
                                             <div className="ResFacturaMain">
                                                 <div className="TopResFacturaMain">
                                                     <p>Facturas en curso</p>
-                                                </div>  
+                                                </div>
                                                 <div className="DataFacturaRes">
                                                     <p>Cargos por venta</p>
                                                     <p>${ultimaFactura?.retencion?.toLocaleString('en-US')}</p>
@@ -144,7 +144,7 @@ export default function resFactura() {
                                                 <div className="TotalFactRes">
                                                     <p>Total facturado</p>
                                                     <p>${ultimaFactura.total?.toLocaleString('en-US')}</p>
-                                                </div> 
+                                                </div>
                                             </div>
                                         )}
                                         <div className="segdoSubcontFactuRes">
@@ -191,13 +191,14 @@ export default function resFactura() {
                                                     <p>$ XXX.XXX,XX</p>
                                                 </span>
                                             </div>
-
-                                            <div className="DataContDataResFactura DataContDataResFacturaTotal">
-                                                <p>Por pagar</p>
-                                                <span>
-                                                    <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
-                                                </span>
-                                            </div>
+                                            {ultimaFactura && (
+                                                <div className="DataContDataResFactura DataContDataResFacturaTotal">
+                                                    <p>Por pagar</p>
+                                                    <span>
+                                                        <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
+                                                    </span>
+                                                </div>
+                                            )}
                                         </div>
 
                                         <div className="contDataResFacturaDownload">
