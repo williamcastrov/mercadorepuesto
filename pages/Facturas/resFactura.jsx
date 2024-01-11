@@ -43,6 +43,10 @@ export default function resFactura() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
+    const ultimaCompra = router.query.ultimaCompra ? JSON.parse(router.query.ultimaCompra) : null;
+    const producto = router.query.producto ? JSON.parse(router.query.producto) : null;
+    const ultimaFactura = router.query.ultimaFactura ? JSON.parse(router.query.ultimaFactura) : null;
+
 
     //toppagewhilesign
     useEffect(() => {
@@ -52,53 +56,39 @@ export default function resFactura() {
         });
     }, []);
 
-    const ultimaFactura = router.query.ultimaFactura ? JSON.parse(router.query.ultimaFactura) : null;
+    let total = 0;
+    if (producto && ultimaCompra) {
+        total = producto.salePrice - ultimaCompra.impuestos - ultimaCompra.retencion - ultimaCompra.preciodelservicio - ultimaCompra.precioenvio;
+    }
 
-    console.log(ultimaFactura);
+    let fechaDeCompra = null;
+    if (ultimaCompra && ultimaCompra.fechacompra) {
+        const fecha = new Date(ultimaCompra.fechacompra);
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const ano = fecha.getFullYear();
+        fechaDeCompra = `${dia}-${mes}-${ano}`;
+    }
+
+    let fechaDePago = null;
+    if (ultimaCompra && ultimaCompra.fechadepago) {
+        const fecha = new Date(ultimaCompra.fechadepago);
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const ano = fecha.getFullYear();
+        fechaDePago = `${dia}-${mes}-${ano}`;
+    }
+
+    let fechaDeVencimiento = null;
+    if (ultimaCompra && ultimaCompra.fechadevencimiento) {
+        const fecha = new Date(ultimaCompra.fechadevencimiento);
+        const dia = String(fecha.getDate()).padStart(2, '0');
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const ano = fecha.getFullYear();
+        fechaDeVencimiento = `${dia}-${mes}-${ano}`;
+    }
 
 
-
-
-    const descargarPDF = () => {
-        if (ultimaFactura) {
-            const doc = new jsPDF();
-
-            doc.text(`Total facturado: $${ultimaFactura.total.toLocaleString('en-US')}`, 10, 10);
-            doc.text(`Precio de envío: $${ultimaFactura.precioenvio.toLocaleString('en-US')}`, 10, 20);
-            // Agrega más datos aquí...
-
-            doc.save("factura.pdf");
-        } else {
-            console.error("No hay datos de factura disponibles para descargar.");
-        }
-    };
-
-
-    const descargarExcel = () => {
-        if (ultimaFactura) {
-            // Crear un nuevo libro de trabajo
-            const wb = utils.book_new();
-
-            // Crear una hoja de trabajo
-            const ws_data = [
-                ['Total facturado', 'Precio de envío'],
-                [ultimaFactura.total, ultimaFactura.precioenvio]
-            ];
-            const ws = utils.aoa_to_sheet(ws_data);
-
-            // Añadir la hoja de trabajo al libro de trabajo
-            utils.book_append_sheet(wb, ws, "Factura");
-
-            // Escribir el libro de trabajo en un Blob
-            const wbout = writeFile(wb, 'factura.xlsx', { type: 'array' });
-            const blob = new Blob([wbout], { type: 'application/octet-stream' });
-
-            // Guardar el archivo
-            saveAs(blob, 'factura.xlsx');
-        } else {
-            console.error("No hay datos de factura disponibles para descargar.");
-        }
-    };
 
 
     return (
@@ -116,37 +106,37 @@ export default function resFactura() {
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={7} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
-                                        {ultimaFactura && (
-                                            <div className="ResFacturaMain">
-                                                <div className="TopResFacturaMain">
-                                                    <p>Facturas en curso</p>
-                                                </div>
-                                                <div className="DataFacturaRes">
-                                                    <p>Cargos por venta</p>
-                                                    <p>${ultimaFactura?.retencion?.toLocaleString('en-US')}</p>
-                                                </div>
 
-                                                <div className="DataFacturaRes">
-                                                    <p>Cargos por envío</p>
-                                                    <p>${ultimaFactura.precioenvio?.toLocaleString('en-US')}</p>
-                                                </div>
-
-                                                <div className="DataFacturaRes">
-                                                    <p>Impuestos</p>
-                                                    <p>${ultimaFactura.impuestos?.toLocaleString('en-US')}</p>
-                                                </div>
-
-                                                <div className="DataFacturaRes">
-                                                    <p>Retenciones</p>
-                                                    <p>${ultimaFactura.retencion?.toLocaleString('en-US')}</p>
-                                                </div>
-
-                                                <div className="TotalFactRes">
-                                                    <p>Total facturado</p>
-                                                    <p>${ultimaFactura.total?.toLocaleString('en-US')}</p>
-                                                </div>
+                                        <div className="ResFacturaMain">
+                                            <div className="TopResFacturaMain">
+                                                <p>Facturas en curso</p>
                                             </div>
-                                        )}
+                                            <div className="DataFacturaRes">
+                                                <p>Cargos por venta</p>
+                                                <p>${ultimaCompra && ultimaCompra.preciodelservicio ? ultimaCompra.preciodelservicio.toLocaleString('en-US') : 'No disponible'}</p>
+                                            </div>
+
+                                            <div className="DataFacturaRes">
+                                                <p>Cargos por envío</p>
+                                                <p>${ultimaCompra && ultimaCompra.precioenvio ? ultimaCompra.precioenvio.toLocaleString('en-US') : 'No disponible'}</p>
+                                            </div>
+
+                                            <div className="DataFacturaRes">
+                                                <p>Impuestos</p>
+                                                <p>${ultimaCompra && ultimaCompra.impuestos ? ultimaCompra.impuestos.toLocaleString('en-US') : 'No disponible'}</p>
+                                            </div>
+
+                                            <div className="DataFacturaRes">
+                                                <p>Retenciones</p>
+                                                <p>${ultimaCompra && ultimaCompra.retencion ? ultimaCompra.retencion.toLocaleString('en-US') : 'No disponible'}</p>
+                                            </div>
+
+                                            <div className="TotalFactRes">
+                                                <p>Total facturado</p>
+                                                <p>${total.toLocaleString('en-US')}</p>
+                                            </div>
+                                        </div>
+
                                         <div className="segdoSubcontFactuRes">
                                             <div className="DudsSobreFact">
                                                 <p>¿Dudas sobre tu factura?</p>
@@ -156,7 +146,7 @@ export default function resFactura() {
                                                 <p>¿Cómo se calcula los impuestos?</p>
                                             </div>
                                             <div className="RespuestaRandomRes">
-                                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus cupiditate ad, fuga mollitia, autem dignissimos beatae animi ipsa, ex odio ipsam. Modi necessitatibus repellendus voluptatem pariatur fuga maiores ea saepe?</p>
+                                                <p>Espacio para texto...</p>
                                             </div>
                                         </div>
 
@@ -167,45 +157,52 @@ export default function resFactura() {
                                             <div className="DataContDataResFactura">
                                                 <p>Fecha de emisión</p>
                                                 <span>
-                                                    <p>ultimaFactura.fechadeventa</p>
+                                                    <p>{fechaDeCompra}</p>
                                                 </span>
                                             </div>
 
                                             <div className="DataContDataResFactura">
                                                 <p>Fecha de vencimiento</p>
                                                 <span>
-                                                    <p>DD-MM-AAAA</p>
+                                                    <p>{fechaDeVencimiento} </p>
                                                 </span>
                                             </div>
 
                                             <div className="DataContDataResFactura">
                                                 <p>Estado del pago</p>
                                                 <span>
-                                                    <button>PAGADA</button>
+                                                    <button>{ultimaCompra && ultimaCompra.nombreestadopago ? ultimaCompra.nombreestadopago : 'No disponible'}</button>
                                                 </span>
                                             </div>
 
                                             <div className="DataContDataResFactura">
-                                                <p>Fecha y concepto pago</p>
+                                                <p>Fecha de pago</p>
                                                 <span>
-                                                    <p>$ XXX.XXX,XX</p>
+                                                    <p>{fechaDePago}</p>
                                                 </span>
                                             </div>
-                                            {ultimaFactura && (
-                                                <div className="DataContDataResFactura DataContDataResFacturaTotal">
-                                                    <p>Por pagar</p>
-                                                    <span>
-                                                        <p>${ultimaFactura.total.toLocaleString('en-US')}</p>
-                                                    </span>
-                                                </div>
-                                            )}
+
+                                            <div className="DataContDataResFactura">
+                                                <p>Concepto de pago</p>
+                                                <span>
+                                                    <p>{ultimaCompra && ultimaCompra.nombreconceptopago ? ultimaCompra.nombreconceptopago : 'No disponible'}</p>
+                                                </span>
+                                            </div>
+
+                                            <div className="DataContDataResFactura DataContDataResFacturaTotal">
+                                                <p>Por pagar</p>
+                                                <span>
+                                                    <p>$total</p>
+                                                </span>
+                                            </div>
+
                                         </div>
 
                                         <div className="contDataResFacturaDownload">
                                             <p>Descargar</p>
                                             <div>
-                                                <BsFiletypePdf onClick={descargarPDF} className="pdfIcon" />
-                                                <RiFileExcel2Fill className="ExcelIcon" onClick={descargarExcel} />
+                                                <BsFiletypePdf className="pdfIcon"/>
+                                                <RiFileExcel2Fill className="ExcelIcon" />
                                             </div>
                                         </div>
                                     </Grid>

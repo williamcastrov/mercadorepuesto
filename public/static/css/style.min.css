@@ -33769,6 +33769,10 @@ label {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2.5rem;
+ 
+}
+.DataContDataResFactura span p{
+    text-align: end;
 }
 .DataContDataResFactura p{
     font-size: 18px !important;
@@ -33784,8 +33788,7 @@ label {
 }
 .DataContDataResFactura span button{
     background-color:#00BF15;
-    color: #2D2E83;
-    margin-right: 2rem;
+    color: #2D2E83; 
     cursor: default;
 }
 .DataContDataResFacturaTotal{

@@ -1,45 +1,28 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
-import SearchIcon from '@material-ui/icons/Search';
-import { Dropdown } from "react-bootstrap";
-import { NextRouter } from "next/router";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { AiOutlineRight } from 'react-icons/ai';
-import { GrNext } from "react-icons/gr";
-import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
-import { IoIosInformationCircle } from "react-icons/io";
-import { IoMdClose } from 'react-icons/io';
-import { PiSquareThin } from 'react-icons/pi';
-import ModalMensajes from "../mensajes/ModalMensajes";
-import { IoIosSquareOutline } from "react-icons/io";
-import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
-import shortid from "shortid";
-import { FaCheckCircle } from "react-icons/fa";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
-import { TfiEye } from "react-icons/tfi";
-
+import { URL_BD_MR } from "../../helpers/Constants";
 import { HiOutlineChevronRight } from "react-icons/hi";
-
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function facturacion() {
 
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
-    console.log("Usuario Facturacion : ", datosusuarios);
-
-
+    // console.log("Usuario Facturacion : ", datosusuarios);
+    const [producto, setProducto] = useState({});
+    const [compraReciente, setCompraReciente] = useState({});
     //NextRouter
     const router = useRouter();
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
-
+    const [user, setUser] = useState(null);
+    const [direccion, setDireccion] = useState(null);
+    const [UidUser, setUidUser] = useState("");
+    const [compraRecienteEstado70, setCompraRecienteEstado70] = useState(null);
+    const [productoEstado70, setProductoEstado70] = useState(null);
     //toppagewhilesign
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -48,9 +31,7 @@ export default function facturacion() {
         });
     }, []);
 
-    const [user, setUser] = useState(null);
-    const [direccion, setDireccion] = useState(null);
-
+    //función para obtener datos de usuario loggeado
     useEffect(() => {
         const obtenerDatosUsuario = async () => {
             let params = {
@@ -65,12 +46,13 @@ export default function facturacion() {
                 setUidUser(res.data[0].uid)
                 setUser(res.data[0])
             } catch (error) {
-                console.error("Error al leer los datos del usuario", error);
+                //    console.error("Error al leer los datos del usuario", error);
             }
         };
         obtenerDatosUsuario();
     }, [datosusuarios]);
 
+    //función para obtener direccion de usuario
     useEffect(() => {
         const obtenerDireccionUsuario = async () => {
             let params = {
@@ -86,87 +68,58 @@ export default function facturacion() {
                 const direccionesOrdenadas = res.data.listardireccionesusuario.sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion));
                 setDireccion(direccionesOrdenadas[0])
             } catch (error) {
-                console.error("Error al leer la dirección del usuario", error);
+                // console.error("Error al leer la dirección del usuario", error);
             }
         };
         obtenerDireccionUsuario();
     }, [datosusuarios]);
 
 
-
-    const estadosDespacho = {
-        40: "Alistando la factura",
-        41: "Venta enviada",
-        42: "Venta entregada",
-        43: "Venta finalizada"
-    };
-
-    const estadosVenta = {
-        50: "Alistando la factura",
-        51: "Venta enviada",
-        52: "Venta entregada",
-        53: "Venta finalizada"
-    };
-
-    const [UidUser, setUidUser] = useState("");
-    const [facturas, setFacturas] = useState([]);
-
-    //Obtenngo las facturas del usuario y mapeo tambien el producto, y tambien el usuario comprador
+    //Función para obtener factura comparando con UId loggeado del vendedor o no
     useEffect(() => {
-        const obtenerVentasUsuario = async () => {
-            let params = {
-                uidvendedor: UidUser,
-            };
+        const ObtenerFacturas = async () => {
             try {
                 const res = await axios({
                     method: "post",
-                    url: URL_BD_MR + "106",
-                    params,
+                    url: URL_BD_MR + "121",
+                    params: {
+                        uidvendedor: UidUser
+                    }
                 });
-                if (res.data && res.data.listarmisventas) {
-                    let facturas = await Promise.all(
-                        res.data.listarmisventas.map(async (factura) => {
-                            // Obtén los detalles del producto
-                            const detallesProducto = await obtenerNombreProducto(factura.idproducto);
-                            // Obtén los detalles del comprador 
-                            const formattedSalePrice = detallesProducto.salePrice.toLocaleString();
-                            const total = factura.cantidad * factura.preciodeventa - factura.retencion - factura.impuestos + factura.precioenvio;
+                console.log('Datos del endPoint 121:', res.data);
+                const comprasUsuario = res.data.listarcompras;
 
-                            return {
-                                ...factura,
-                                estadodeldespacho: estadosDespacho[factura.estadodeldespacho],
-                                estadodelaventa: estadosVenta[factura.estadodelaventa],
-                                fechadeventa1: factura.fechacompra ? factura.fechacompra.slice(0, 10) : null,
-                                fechadeventa: factura.fechacompra ? factura.fechacompra.slice(0, 10) : null,
-                                fechaentrega: factura.fechaentrega ? factura.fechaentrega.slice(0, 10) : null,
-                                fechadespacho: factura.fechadespacho ? factura.fechadespacho.slice(0, 10) : null,
-                                fechadevolucion: factura.fechadevolucion ? factura.fechadevolucion.slice(0, 10) : null,
-                                fechadepago: factura.fechadepago ? factura.fechadepago.slice(0, 10) : null,
-                                nuevoValor: factura.preciodeventa + factura.precioenvio,
-                                nombreProducto: detallesProducto.nombreProducto,
-                                salePrice: formattedSalePrice,
-                                nombreImagen: detallesProducto.nombreImagen,
-                                nombreUsuario: detallesProducto.usuario,
-                                total
-                            };
-                        })
-                    ); 
-                    setFacturas(facturas);
-                    console.log("Mis facturas:", facturas)
+                if (comprasUsuario.length > 0) {
+                    // Obtener la compra más reciente
+                    const compraReciente = comprasUsuario.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra))[0];
+                    console.log('Compra más reciente:', compraReciente);
+                    setCompraReciente(compraReciente);
+
+                    // Llamamos a ObtDatosProducto aquí
+                    ObtDatosProducto(compraReciente.idproducto)
+                        .then(producto => setProducto(producto));
+
+                    // Obtener la compra más reciente con estado 70
+                    const comprasEstado70 = comprasUsuario.filter(compra => compra.estadodelpago === 70);
+                    if (comprasEstado70.length > 0) {
+                        const compraRecienteEstado70 = comprasEstado70.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra))[0];
+                        console.log('Compra más reciente con estado 70:', compraRecienteEstado70);
+                        setCompraRecienteEstado70(compraRecienteEstado70);
+                    } else {
+                        console.log('No hay compras con estado 70 para este usuario');
+                    }
                 } else {
-                    console.error("Error: res.data o res.data.listarvtasusuariovende es undefined");
+                    console.log('No hay compras para este usuario');
                 }
             } catch (error) {
-                console.error("Error al leer las facturas:", error);
+                console.error("Error al leer los datos de las compras", error);
             }
         };
-        if (UidUser) {
-            obtenerVentasUsuario();
-        }
+        ObtenerFacturas();
     }, [UidUser]);
 
-    //función para obtener datos del producto
-    async function obtenerNombreProducto(idproducto) {
+    //obtener los datos del producto
+    async function ObtDatosProducto(idproducto) {
         let params = {
             idarticulo: idproducto,
         };
@@ -177,40 +130,53 @@ export default function facturacion() {
                 url: URL_BD_MR + "18",
                 params,
             });
-            const idPrdoductRuta = res.data[0].id;
             const nombreProducto = res.data[0].name;
             const salePrice = res.data[0].sale_price;
-            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
-            const usuario = res.data[0].usuario;
 
-            return { nombreProducto, salePrice, nombreImagen, usuario, idPrdoductRuta };
-
+            return { nombreProducto, salePrice };
         } catch (error) {
             console.error("Error al obtener el nombre del producto", error);
         }
     }
 
-
-    // Función para renderizar los detalles de la última factura
-    const renderUltimaFactura = () => {
-        if (facturas.length > 0) {
-            const ultimaFactura = facturas[0];
-
+    // Función para renderizar los detalles de la última compra
+    const renderUltimaCompra = () => {
+        if (Object.keys(compraReciente).length > 0) {
             // Limita el nombre del producto a 40 caracteres
-            const nombreProductoCorto = ultimaFactura.nombreProducto.slice(0, 40);
+            const nombreProductoCorto = producto && producto.nombreProducto ? producto.nombreProducto.slice(0, 40) : "";
 
             return (
                 <div>
                     <div>
                         <p>Impuestos y retenciones</p>
                     </div>
-                    <p>Factura venta "{nombreProductoCorto}..."</p>
-                    <p>Retención de ${ultimaFactura.retencion.toLocaleString('en-US')}</p>
-                    <p>Impuestos de ${ultimaFactura.impuestos.toLocaleString('en-US')}</p>
+                    <p>Compra venta "{nombreProductoCorto}..."</p>
+                    <p>Retención de ${compraReciente.retencion.toLocaleString('en-US')}</p>
+                    <p>Impuestos de ${compraReciente.impuestos.toLocaleString('en-US')}</p>
                 </div>
             );
         } else {
             return <p>No hay facturas disponibles</p>;
+        }
+    };
+
+    const renderUltimaCompraEstado70 = () => {
+        if (compraRecienteEstado70 && productoEstado70) {
+            // Limita el nombre del producto a 40 caracteres
+            const nombreProductoCorto = productoEstado70.nombreProducto ? productoEstado70.nombreProducto.slice(0, 40) : "";
+    
+            return (
+                <div>
+                    <div>
+                        <p>Impuestos y retenciones</p>
+                    </div>
+                    <p>Compra venta "{nombreProductoCorto}..."</p>
+                    <p>Retención de ${compraRecienteEstado70.retencion.toLocaleString('en-US')}</p>
+                    <p>Impuestos de ${compraRecienteEstado70.impuestos.toLocaleString('en-US')}</p>
+                </div>
+            );
+        } else {
+            return <p>No hay facturas con estado 70 disponibles</p>;
         }
     };
 
@@ -232,6 +198,7 @@ export default function facturacion() {
                                     <Grid item xs={12} md={8} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
 
                                         <div className="primerSubcontFactu">
+                                         
                                             <div>
                                                 <p>Facturas en curso</p>
                                             </div>
@@ -255,11 +222,11 @@ export default function facturacion() {
                                         </div>
 
                                         <div className="segdoSubcontFactu">
-                                            {renderUltimaFactura()}
+                                            {renderUltimaCompra()}
                                             <div className="buttonFactVermas">
                                                 <div onClick={() => router.push({
                                                     pathname: './resFactura',
-                                                    query: { ultimaFactura: JSON.stringify(facturas[0]) }
+                                                    query: { ultimaCompra: JSON.stringify(compraReciente), producto: JSON.stringify(producto) }
                                                 })}>Ver más</div>
                                             </div>
                                         </div>

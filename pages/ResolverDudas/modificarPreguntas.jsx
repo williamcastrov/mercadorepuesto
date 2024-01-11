@@ -247,7 +247,7 @@ export default function modificarPreguntas() {
                     imagen2: imagenNiveltres,
                     nombreimagen3: nombreImagenServidor3,
                     imagen3: imagenNivelcuatro,
-                    numerodeimagenes: 1
+                    numerodeimagenes: 3
                 }
             });
             console.log("Datos enviados: ", datosParaEnviar);
