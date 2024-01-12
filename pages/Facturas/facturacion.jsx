@@ -22,7 +22,9 @@ export default function facturacion() {
     const [direccion, setDireccion] = useState(null);
     const [UidUser, setUidUser] = useState("");
     const [compraRecienteEstado70, setCompraRecienteEstado70] = useState(null);
+    const [compraRecienteEstado71, setCompraRecienteEstado71] = useState(null);
     const [productoEstado70, setProductoEstado70] = useState(null);
+    const [productoEstado71, setProductoEstado71] = useState(null);
     //toppagewhilesign
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -30,6 +32,20 @@ export default function facturacion() {
             block: "start",
         });
     }, []);
+
+
+    //función para formatear la fecha en cuando la factura estará lista
+    const formatearFecha = (fechaCompra) => {
+        let fechaDeCompra = null;
+        if (fechaCompra) {
+            const fecha = new Date(fechaCompra);
+            const dia = String(fecha.getDate()).padStart(2, '0');
+            const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+            const ano = fecha.getFullYear();
+            fechaDeCompra = `${dia}-${mes}-${ano}`;
+        }
+        return fechaDeCompra;
+    }
 
     //función para obtener datos de usuario loggeado
     useEffect(() => {
@@ -105,8 +121,26 @@ export default function facturacion() {
                         const compraRecienteEstado70 = comprasEstado70.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra))[0];
                         console.log('Compra más reciente con estado 70:', compraRecienteEstado70);
                         setCompraRecienteEstado70(compraRecienteEstado70);
+
+                        // Llamamos a ObtDatosProducto aquí para el producto con estado 70
+                        ObtDatosProducto(compraRecienteEstado70.idproducto)
+                            .then(producto => setProductoEstado70(producto));
                     } else {
                         console.log('No hay compras con estado 70 para este usuario');
+                    }
+
+                    // Obtener la compra más reciente con estado 71
+                    const comprasEstado71 = comprasUsuario.filter(compra => compra.estadodelpago === 71);
+                    if (comprasEstado71.length > 0) {
+                        const compraRecienteEstado71 = comprasEstado71.sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra))[0];
+                        console.log('Compra más reciente con estado 71:', compraRecienteEstado71);
+                        setCompraRecienteEstado71(compraRecienteEstado71);
+
+                        // Llamamos a ObtDatosProducto aquí para el producto con estado 71
+                        ObtDatosProducto(compraRecienteEstado71.idproducto)
+                            .then(producto => setProductoEstado71(producto));
+                    } else {
+                        console.log('No hay compras con estado 71 para este usuario');
                     }
                 } else {
                     console.log('No hay compras para este usuario');
@@ -150,7 +184,7 @@ export default function facturacion() {
                     <div>
                         <p>Impuestos y retenciones</p>
                     </div>
-                    <p>Compra venta "{nombreProductoCorto}..."</p>
+                    <p>Factura venta "{nombreProductoCorto}..."</p>
                     <p>Retención de ${compraReciente.retencion.toLocaleString('en-US')}</p>
                     <p>Impuestos de ${compraReciente.impuestos.toLocaleString('en-US')}</p>
                 </div>
@@ -164,22 +198,55 @@ export default function facturacion() {
         if (compraRecienteEstado70 && productoEstado70) {
             // Limita el nombre del producto a 40 caracteres
             const nombreProductoCorto = productoEstado70.nombreProducto ? productoEstado70.nombreProducto.slice(0, 40) : "";
-    
+
+            // Formatea la fecha de vencimiento
+            const fechaDeVencimiento = formatearFecha(compraRecienteEstado70.fechadevencimiento);
+
             return (
-                <div>
+                <div className="primerSubcontFactu">
                     <div>
-                        <p>Impuestos y retenciones</p>
+                        <p>Facturas en curso</p>
                     </div>
-                    <p>Compra venta "{nombreProductoCorto}..."</p>
-                    <p>Retención de ${compraRecienteEstado70.retencion.toLocaleString('en-US')}</p>
-                    <p>Impuestos de ${compraRecienteEstado70.impuestos.toLocaleString('en-US')}</p>
+                    <p>Factura venta "{nombreProductoCorto}..."</p>
+                    <p>{compraRecienteEstado70.nombreestadopago}</p>
+                    <p>La factura estará lista el {fechaDeVencimiento}</p>
                 </div>
             );
         } else {
-            return <p>No hay facturas con estado 70 disponibles</p>;
+            return <p>No hay facturas en curso disponibles.</p>;
         }
     };
 
+    const renderUltimaCompraEstado71 = () => {
+        if (compraRecienteEstado71 && productoEstado71) {
+            // Limita el nombre del producto a 40 caracteres
+            const nombreProductoCorto = productoEstado71.nombreProducto ? productoEstado71.nombreProducto.slice(0, 40) : "";
+
+            // Formatea la fecha de vencimiento
+            const fechaDeVencimiento = formatearFecha(compraRecienteEstado71.fechadevencimiento);
+
+            return (
+                <div className="segdoSubcontFactu">
+                    <div>
+                        <div>
+                            <p>Facturas por pagar</p>
+                        </div>
+                        <p>Factura venta "{nombreProductoCorto}..."</p>
+                        <div className="statePaymentFacturacion">{compraRecienteEstado71.nombreestadopago}</div>
+                        <p>La factura vence el {fechaDeVencimiento}</p>
+                    </div>
+                    <div className="buttonFactVermas">
+                        <div onClick={() => router.push({
+                            pathname: './resFactura',
+                            query: { ultimaCompra: JSON.stringify(compraRecienteEstado71), producto: JSON.stringify(productoEstado71) }
+                        })}>Ver más</div>
+                    </div>
+                </div>
+            );
+        } else {
+            return <p>No hay facturas por pagar disponibles.</p>;
+        }
+    };
 
     return (
         <>
@@ -197,29 +264,9 @@ export default function facturacion() {
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={8} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
 
-                                        <div className="primerSubcontFactu">
-                                         
-                                            <div>
-                                                <p>Facturas en curso</p>
-                                            </div>
-                                            <p>Factura venta “VALEO 98023 Mazda 3...” </p>
-                                            <p>Venta en curso</p>
-                                            <p>La factura estará lista el XX-XX-XX</p>
-                                        </div>
+                                        {renderUltimaCompraEstado70()}
 
-                                        <div className="segdoSubcontFactu">
-                                            <div>
-                                                <div>
-                                                    <p>Facturas por pagar</p>
-                                                </div>
-                                                <p>Factura factura “VALEO 98023 Mazda 3...” </p>
-                                                <div className="statePaymentFacturacion">Pendiente de pago</div>
-                                                <p>La factura vence el XX-XX-XX</p>
-                                            </div>
-                                            <div className="buttonFactVermas">
-                                                <div onClick={() => router.push({ pathname: './resFactura' })}>Ver más</div>
-                                            </div>
-                                        </div>
+                                        {renderUltimaCompraEstado71()} 
 
                                         <div className="segdoSubcontFactu">
                                             {renderUltimaCompra()}
