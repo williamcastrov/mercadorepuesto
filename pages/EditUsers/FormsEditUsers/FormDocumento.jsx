@@ -90,6 +90,7 @@ export default function FormDocumento() {
                     setNombresDos(res.data[0].segundonombre);
                     setApellidos(res.data[0].primerapellido);
                     setApellidosDos(res.data[0].segundoapellido);
+                    setTipoDocumentoSeleccionado(res.data[0].tipoidentificacion);
                     setNroDocumentoSeleccionado(res.data[0].identificacion);
                     setSelectedItem(res.data[0].nombredocumento);
                 })
@@ -164,7 +165,7 @@ export default function FormDocumento() {
             segundonombre: nombresDos,
             primerapellido: apellidos,
             segundoapellido: apellidosDos,
-            razonsocial: ".",
+            razonsocial: datosUsuario.razonsocial,
             tipoidentificacion: tipoDocumentoSeleccionado,
             identificacion: nroDocumentoSeleccionado,
             celular: datosUsuario.celular,

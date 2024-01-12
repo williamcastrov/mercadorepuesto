@@ -44,7 +44,7 @@ export default function resFactura() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const ultimaCompra = router.query.ultimaCompra ? JSON.parse(router.query.ultimaCompra) : null;
-    const producto = router.query.producto ? JSON.parse(router.query.producto) : null; 
+    const producto = router.query.producto ? JSON.parse(router.query.producto) : null;
 
 
     //toppagewhilesign
@@ -64,7 +64,7 @@ export default function resFactura() {
     if (ultimaCompra && ultimaCompra.fechacompra) {
         const fecha = new Date(ultimaCompra.fechacompra);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const ano = fecha.getFullYear();
         fechaDeCompra = `${dia}-${mes}-${ano}`;
     }
@@ -73,7 +73,7 @@ export default function resFactura() {
     if (ultimaCompra && ultimaCompra.fechadepago) {
         const fecha = new Date(ultimaCompra.fechadepago);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0');  
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const ano = fecha.getFullYear();
         fechaDePago = `${dia}-${mes}-${ano}`;
     }
@@ -82,13 +82,59 @@ export default function resFactura() {
     if (ultimaCompra && ultimaCompra.fechadevencimiento) {
         const fecha = new Date(ultimaCompra.fechadevencimiento);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0');  
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');
         const ano = fecha.getFullYear();
         fechaDeVencimiento = `${dia}-${mes}-${ano}`;
     }
 
+    //Función para descargar pdf
+    const descargarPDF = () => {
+        if (ultimaCompra) {
+            const doc = new jsPDF();
 
 
+            doc.text(`Fecha de compra: ${(ultimaCompra.fechacompra)}`, 10, 10);
+            doc.text(`Fecha de entrega: ${(ultimaCompra.fechaentrega)}`, 10, 20);
+            doc.text(`Fecha de devolución: ${(ultimaCompra.fechadevolucion)}`, 10, 30);
+            doc.text(`Fecha de pago: ${(ultimaCompra.fechadepago)}`, 10, 40);
+            doc.text(`Fecha de vencimiento: ${(ultimaCompra.fechadevencimiento)}`, 10, 50);
+            doc.text(`Precio del servicio: $${ultimaCompra.preciodelservicio}`, 10, 60);
+            doc.text(`Precio de envío: $${ultimaCompra.precioenvio}`, 10, 70);
+            doc.text(`Retención: $${ultimaCompra.retencion}`, 10, 80);
+            doc.text(`Impuestos: $${ultimaCompra.impuestos}`, 10, 90);
+            doc.text(`Identificación: ${ultimaCompra.identificacion}`, 10, 100);
+            doc.text(`Email: ${ultimaCompra.email}`, 10, 110);
+            doc.text(`Celular: ${ultimaCompra.celular}`, 10, 120);
+            doc.text(`Nombres: ${ultimaCompra.nombres}`, 10, 130);
+            doc.text(`ID del producto: ${ultimaCompra.idproductovehiculo}`, 10, 140);
+            doc.text(`Título del producto: ${ultimaCompra.titulonombre}`, 10, 150);
+            doc.text(`Medio de pago: ${ultimaCompra.mediodepago}`, 10, 160);
+            doc.text(`Estado del pago: ${ultimaCompra.nombreestadopago}`, 10, 170);
+            doc.text(`Concepto del pago: ${ultimaCompra.nombreconceptopago}`, 10, 180);
+
+            doc.save("factura.pdf");
+        } else {
+            console.error("No hay datos de factura disponibles para descargar.");
+        }
+    };
+
+    // Función para descargar en formato Excel
+    const descargarExcel = () => {
+        if (ultimaCompra) {
+            const wb = utils.book_new();
+            const ws_data = [
+                ['Fecha de compra', 'Fecha de entrega', 'Fecha de devolución', 'Fecha de pago', 'Fecha de vencimiento', 'Precio del servicio', 'Precio de envío', 'Retención', 'Impuestos', 'Identificación', 'Email', 'Celular', 'Nombres', 'ID del producto', 'Título del producto', 'Medio de pago', 'Estado del pago', 'Concepto del pago'],
+                [ultimaCompra.fechacompra, ultimaCompra.fechaentrega, ultimaCompra.fechadevolucion, ultimaCompra.fechadepago, ultimaCompra.fechadevencimiento, ultimaCompra.preciodelservicio, ultimaCompra.precioenvio, ultimaCompra.retencion, ultimaCompra.impuestos, ultimaCompra.identificacion, ultimaCompra.email, ultimaCompra.celular, ultimaCompra.nombres, ultimaCompra.idproductovehiculo, ultimaCompra.titulonombre, ultimaCompra.mediodepago, ultimaCompra.nombreestadopago, ultimaCompra.nombreconceptopago]
+            ];
+            const ws = utils.aoa_to_sheet(ws_data);
+            utils.book_append_sheet(wb, ws, "Factura");
+            const wbout = writeFile(wb, 'factura.xlsx', { type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            saveAs(blob, 'factura.xlsx');
+        } else {
+            console.error("No hay datos de factura disponibles para descargar.");
+        }
+    };
 
     return (
         <>
@@ -180,12 +226,14 @@ export default function resFactura() {
                                                 </span>
                                             </div>
 
-                                            <div className="DataContDataResFactura">
-                                                <p>Fecha de pago</p>
-                                                <span>
-                                                    <p>{fechaDePago}</p>
-                                                </span>
-                                            </div>
+                                            {ultimaCompra && ultimaCompra.estadodelpago !== 71 && (
+                                                <div className="DataContDataResFactura">
+                                                    <p>Fecha de pago</p>
+                                                    <span>
+                                                        <p>{fechaDePago}</p>
+                                                    </span>
+                                                </div>
+                                            )}
 
                                             <div className="DataContDataResFactura">
                                                 <p>Concepto de pago</p>
@@ -197,7 +245,7 @@ export default function resFactura() {
                                             <div className="DataContDataResFactura DataContDataResFacturaTotal">
                                                 <p>Por pagar</p>
                                                 <span>
-                                                    <p>$total</p>
+                                                    <p>${total.toLocaleString('en-US')}</p>
                                                 </span>
                                             </div>
 
@@ -206,8 +254,8 @@ export default function resFactura() {
                                         <div className="contDataResFacturaDownload">
                                             <p>Descargar</p>
                                             <div>
-                                                <BsFiletypePdf className="pdfIcon" />
-                                                <RiFileExcel2Fill className="ExcelIcon" />
+                                                <BsFiletypePdf className="pdfIcon" onClick={descargarPDF} />
+                                                <RiFileExcel2Fill className="ExcelIcon" onClick={descargarExcel} />
                                             </div>
                                         </div>
                                     </Grid>
