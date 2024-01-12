@@ -33854,4 +33854,15 @@ label {
     background-repeat: no-repeat !important;
     background-position: center center !important;
 }
+.buttonGreenRes {
+    background-color: green;
+}
+
+.buttonRedRes {
+    background-color: red;
+}
+
+.button-default {
+    background-color: default; /* Reemplaza 'default' con el color que desees */
+}
 /*Fin styles facturación*/

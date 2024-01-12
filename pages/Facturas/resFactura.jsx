@@ -171,7 +171,13 @@ export default function resFactura() {
                                             <div className="DataContDataResFactura">
                                                 <p>Estado del pago</p>
                                                 <span>
-                                                    <button>{ultimaCompra && ultimaCompra.nombreestadopago ? ultimaCompra.nombreestadopago : 'No disponible'}</button>
+                                                    <button style={{
+                                                        backgroundColor: ultimaCompra && ultimaCompra.estadodelpago === 70 ? '#00BF15' :
+                                                            ultimaCompra && ultimaCompra.estadodelpago === 71 ? 'red' :
+                                                                'default'
+                                                    }}>
+                                                        {ultimaCompra && ultimaCompra.nombreestadopago ? ultimaCompra.nombreestadopago : 'No disponible'}
+                                                    </button>
                                                 </span>
                                             </div>
 
@@ -201,7 +207,7 @@ export default function resFactura() {
                                         <div className="contDataResFacturaDownload">
                                             <p>Descargar</p>
                                             <div>
-                                                <BsFiletypePdf className="pdfIcon"/>
+                                                <BsFiletypePdf className="pdfIcon" />
                                                 <RiFileExcel2Fill className="ExcelIcon" />
                                             </div>
                                         </div>
