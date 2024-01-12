@@ -29,6 +29,7 @@ export default function misFacturas() {
     const [direccion, setDireccion] = useState(null);
     const [UidUser, setUidUser] = useState("");
     const [comprasUsuario, setComprasUsuario] = useState([]);
+    const [descargando, setDescargando] = useState(false);
 
     //toppagewhilesign
     useEffect(() => {
@@ -102,34 +103,6 @@ export default function misFacturas() {
         obtenerDatosUsuario();
     }, [datosusuarios]);
 
-    //función para obtener datos del producto
-    async function obtenerNombreProducto(idproducto) {
-        let params = {
-            idarticulo: idproducto,
-        };
-
-        try {
-            const res = await axios({
-                method: "post",
-                url: URL_BD_MR + "18",
-                params,
-            });
-            const idPrdoductRuta = res.data[0].id;
-            const nombreProducto = res.data[0].name;
-            const salePrice = res.data[0].sale_price;
-            const nombreImagen = res.data[0].images[0].name; // Asegúrate de que la imagen exista
-            const usuario = res.data[0].usuario;
-
-            return { nombreProducto, salePrice, nombreImagen, usuario, idPrdoductRuta };
-
-        } catch (error) {
-            console.error("Error al obtener el nombre del producto", error);
-        }
-    }
-
-
- 
-
 
 
     //Función para obtener factura comparando con UId loggeado del vendedor o no
@@ -146,6 +119,7 @@ export default function misFacturas() {
                     params
                 });
                 console.log('Datos del endPoint 121:', res.data);
+
                 setComprasUsuario(res.data.listarcompras); // Guardamos todas las compras del usuario
                 console.log(comprasUsuario)
             } catch (error) {
@@ -155,26 +129,7 @@ export default function misFacturas() {
         ObtenerFacturas();
     }, [UidUser]);
 
-    //obtener los datos del producto
-    async function ObtDatosProducto(idproducto) {
-        let params = {
-            idarticulo: idproducto,
-        };
 
-        try {
-            const res = await axios({
-                method: "post",
-                url: URL_BD_MR + "18",
-                params,
-            });
-            const nombreProducto = res.data[0].name;
-            const salePrice = res.data[0].sale_price;
-
-            return { nombreProducto, salePrice };
-        } catch (error) {
-            console.error("Error al obtener el nombre del producto", error);
-        }
-    }
 
     const formatearFecha = (fechaCompra) => {
         let fechaDeCompra = null;
@@ -188,14 +143,12 @@ export default function misFacturas() {
         return fechaDeCompra;
     }
 
-    const filtrarCompras = (compras, numeroFactura) => {
+    const filtrarFacturas = (compras, numeroFactura) => {
         const numeroFacturaString = String(numeroFactura);
         return compras.filter(compra => compra.numeroctaxcobrar && String(compra.numeroctaxcobrar).includes(numeroFacturaString));
     }
 
-    const comprasFiltradas = filtrarCompras(comprasUsuario, busqueda);
-
-
+    const comprasFiltradas = filtrarFacturas(comprasUsuario, busqueda);
 
     const descargarPDF = (compra) => {
         event.stopPropagation();
@@ -226,26 +179,32 @@ export default function misFacturas() {
     }
 
     const descargarExcel = (compra) => {
-        event.stopPropagation();
-        // Crear un nuevo libro de trabajo
-        const wb = utils.book_new();
+        if (!descargando) {
+            setDescargando(true);
+            event.stopPropagation();
+            // Crear un nuevo libro de trabajo
+            const wb = utils.book_new();
 
-        // Crear una hoja de trabajo
-        const ws_data = [
-            ['Fecha de compra', 'Fecha de entrega', 'Fecha de devolución', 'Fecha de pago', 'Fecha de vencimiento', 'Precio del servicio', 'Precio de envío', 'Retención', 'Impuestos', 'Identificación', 'Email', 'Celular', 'Nombres', 'ID del producto', 'Título del producto', 'Medio de pago', 'Estado del pago', 'Concepto del pago'],
-            [formatearFecha(compra.fechacompra), formatearFecha(compra.fechaentrega), formatearFecha(compra.fechadevolucion), formatearFecha(compra.fechadepago), formatearFecha(compra.fechadevencimiento), compra.preciodelservicio, compra.precioenvio, compra.retencion, compra.impuestos, compra.identificacion, compra.email, compra.celular, compra.nombres, compra.idproductovehiculo, compra.titulonombre, compra.mediodepago, compra.nombreestadopago, compra.nombreconceptopago]
-        ];
-        const ws = utils.aoa_to_sheet(ws_data);
+            // Crear una hoja de trabajo
+            const ws_data = [
+                ['Fecha de compra', 'Fecha de entrega', 'Fecha de devolución', 'Fecha de pago', 'Fecha de vencimiento', 'Precio del servicio', 'Precio de envío', 'Retención', 'Impuestos', 'Identificación', 'Email', 'Celular', 'Nombres', 'ID del producto', 'Título del producto', 'Medio de pago', 'Estado del pago', 'Concepto del pago'],
+                [formatearFecha(compra.fechacompra), formatearFecha(compra.fechaentrega), formatearFecha(compra.fechadevolucion), formatearFecha(compra.fechadepago), formatearFecha(compra.fechadevencimiento), compra.preciodelservicio, compra.precioenvio, compra.retencion, compra.impuestos, compra.identificacion, compra.email, compra.celular, compra.nombres, compra.idproductovehiculo, compra.titulonombre, compra.mediodepago, compra.nombreestadopago, compra.nombreconceptopago]
+            ];
+            const ws = utils.aoa_to_sheet(ws_data);
 
-        // Añadir la hoja de trabajo al libro de trabajo
-        utils.book_append_sheet(wb, ws, "Factura");
+            // Añadir la hoja de trabajo al libro de trabajo
+            utils.book_append_sheet(wb, ws, "Factura");
 
-        // Escribir el libro de trabajo en un Blob
-        const wbout = writeFile(wb, 'factura.xlsx', { type: 'array' });
-        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+            // Escribir el libro de trabajo en un Blob
+            const wbout = writeFile(wb, 'factura.xlsx', { type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/octet-stream' });
 
-        // Guardar el archivo
-        saveAs(blob, 'factura.xlsx');
+            // Guardar el archivo
+            saveAs(blob, 'factura.xlsx');
+
+            // Al final de la descarga, restablece el estado de 'descargando'
+            setDescargando(false);
+        }
     }
 
     return (
@@ -339,6 +298,10 @@ export default function misFacturas() {
                                             comprasFiltradas.map((compra, index) => {
                                                 const fechaDeCompra = formatearFecha(compra.fechacompra);
 
+                                                let total = compra.preciodelservicio + compra.impuestos + compra.retencion + compra.precioenvio;
+
+                                                // Formateamos el total con separadores de miles
+                                                let totalFormateado = total.toLocaleString('en-US');
                                                 return (
                                                     <div className="MapDataMainFacturas" key={index}>
                                                         <div className="MapDataMainFacturasDate">
@@ -351,7 +314,7 @@ export default function misFacturas() {
                                                             <p>{compra.numeroctaxcobrar}</p>
                                                         </div>
                                                         <div className="MapDataMainFacturasTotal">
-                                                            <p>$20000</p>
+                                                            <p>${totalFormateado}</p> {/* Aquí renderizamos el total */}
                                                         </div>
                                                         <div className="MapDataMainFacturasDownload">
                                                             <RiFileExcel2Fill className="ExcelIcon" onClick={() => descargarExcel(compra)} />
@@ -361,10 +324,10 @@ export default function misFacturas() {
                                                 );
                                             })
                                         ) : (
-                                            <p>No se encontró ese número de factura.</p>
+                                            <p>No hay compras para mostrar</p>
                                         )}
-                                    </div> 
-                                </Grid> 
+                                    </div>
+                                </Grid>
                             </div>
                         </div>
                     </div>

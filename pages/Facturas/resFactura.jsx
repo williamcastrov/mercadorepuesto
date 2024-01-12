@@ -44,8 +44,7 @@ export default function resFactura() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const ultimaCompra = router.query.ultimaCompra ? JSON.parse(router.query.ultimaCompra) : null;
-    const producto = router.query.producto ? JSON.parse(router.query.producto) : null;
-    const ultimaFactura = router.query.ultimaFactura ? JSON.parse(router.query.ultimaFactura) : null;
+    const producto = router.query.producto ? JSON.parse(router.query.producto) : null; 
 
 
     //toppagewhilesign
@@ -58,14 +57,14 @@ export default function resFactura() {
 
     let total = 0;
     if (producto && ultimaCompra) {
-        total = producto.salePrice - ultimaCompra.impuestos - ultimaCompra.retencion - ultimaCompra.preciodelservicio - ultimaCompra.precioenvio;
+        total = ultimaCompra.preciodelservicio + ultimaCompra.impuestos + ultimaCompra.retencion + ultimaCompra.precioenvio;
     }
 
     let fechaDeCompra = null;
     if (ultimaCompra && ultimaCompra.fechacompra) {
         const fecha = new Date(ultimaCompra.fechacompra);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); 
         const ano = fecha.getFullYear();
         fechaDeCompra = `${dia}-${mes}-${ano}`;
     }
@@ -74,7 +73,7 @@ export default function resFactura() {
     if (ultimaCompra && ultimaCompra.fechadepago) {
         const fecha = new Date(ultimaCompra.fechadepago);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');  
         const ano = fecha.getFullYear();
         fechaDePago = `${dia}-${mes}-${ano}`;
     }
@@ -83,7 +82,7 @@ export default function resFactura() {
     if (ultimaCompra && ultimaCompra.fechadevencimiento) {
         const fecha = new Date(ultimaCompra.fechadevencimiento);
         const dia = String(fecha.getDate()).padStart(2, '0');
-        const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript van de 0 a 11
+        const mes = String(fecha.getMonth() + 1).padStart(2, '0');  
         const ano = fecha.getFullYear();
         fechaDeVencimiento = `${dia}-${mes}-${ano}`;
     }

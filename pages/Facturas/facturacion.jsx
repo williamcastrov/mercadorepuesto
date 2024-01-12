@@ -190,7 +190,11 @@ export default function facturacion() {
                 </div>
             );
         } else {
-            return <p>No hay facturas disponibles</p>;
+            return  (
+                <div className="segdoSubcontFactu">
+                    <div><p>No hay facturas disponibles.</p></div>
+                </div>
+            );
         }
     };
 
@@ -213,7 +217,11 @@ export default function facturacion() {
                 </div>
             );
         } else {
-            return <p>No hay facturas en curso disponibles.</p>;
+            return (
+                <div className="segdoSubcontFactu">
+                    <div><p>No hay facturas en curso disponibles.</p></div>
+                </div>
+            );
         }
     };
 
@@ -244,7 +252,11 @@ export default function facturacion() {
                 </div>
             );
         } else {
-            return <p>No hay facturas por pagar disponibles.</p>;
+            return (
+                <div className="segdoSubcontFactu">
+                    <div><p>No hay facturas por pagar disponibles.</p></div>
+                </div>
+            );
         }
     };
 
@@ -266,7 +278,7 @@ export default function facturacion() {
 
                                         {renderUltimaCompraEstado70()}
 
-                                        {renderUltimaCompraEstado71()} 
+                                        {renderUltimaCompraEstado71()}
 
                                         <div className="segdoSubcontFactu">
                                             {renderUltimaCompra()}
