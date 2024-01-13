@@ -1,35 +1,15 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
-import SearchIcon from '@material-ui/icons/Search';
-import { Dropdown } from "react-bootstrap";
-import { NextRouter } from "next/router";
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { AiOutlineRight } from 'react-icons/ai';
 import { GrNext } from "react-icons/gr";
-import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
-import { IoIosInformationCircle } from "react-icons/io";
-import { IoMdClose } from 'react-icons/io';
-import { PiSquareThin } from 'react-icons/pi';
-import ModalMensajes from "../mensajes/ModalMensajes";
-import { IoIosSquareOutline } from "react-icons/io";
-import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
-import shortid from "shortid";
-import { FaCheckCircle } from "react-icons/fa";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
-import { TfiEye } from "react-icons/tfi";
-
-import { HiOutlineChevronRight } from "react-icons/hi";
-
+import { URL_BD_MR } from "../../helpers/Constants";
 import { BsFiletypePdf } from "react-icons/bs";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { IoIosInformationCircleOutline } from "react-icons/io";
-
 import { jsPDF } from "jspdf";
 import { saveAs } from 'file-saver';
 import { utils, writeFile } from 'xlsx';
@@ -38,7 +18,7 @@ import { utils, writeFile } from 'xlsx';
 export default function resFactura() {
 
 
-
+    const [dudaVendedor, setDudaVendedor] = useState(null);
     const router = useRouter();//NextRouter
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
@@ -136,6 +116,24 @@ export default function resFactura() {
         }
     };
 
+    //funcion para obtener duda del vendedor
+    useEffect(() => {
+        const dudasVendedor = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "126",
+                });
+                console.log(res.data);
+                setDudaVendedor(res.data);
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+            }
+        };
+        dudasVendedor();
+    }, []);
+
+
     return (
         <>
             <div ref={irA}>
@@ -145,9 +143,18 @@ export default function resFactura() {
                             <div className="ps-page__header" > </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <div className='TitleOpVend'>
-                                        <p>Resumen factura</p>
-                                    </div>
+                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
+                                        <Link
+                                            className="linkMisv"
+                                            underline="none"
+                                            href="./"
+                                            onClick={(e) => { e.preventDefault(); router.push('./facturacion') }}
+
+                                        >
+                                            <p className="VerVentaLink">Facturación</p>
+                                        </Link>
+                                        <p className="VerVentaLink">Resumen factura</p>
+                                    </Breadcrumbs>
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <Grid item xs={12} md={7} className="primerContFacturacion" display={'flex'} flexDirection={'column'}>
@@ -182,19 +189,20 @@ export default function resFactura() {
                                             </div>
                                         </div>
 
-                                        <div className="segdoSubcontFactuRes">
-                                            <div className="DudsSobreFact">
-                                                <p>¿Dudas sobre tu factura?</p>
-                                                <IoIosInformationCircleOutline />
+                                        {dudaVendedor && dudaVendedor.listaresoldudasvende.map((item) => (
+                                            <div key={item.id} className="segdoSubcontFactuRes">
+                                                <div className="DudsSobreFact">
+                                                    <p>¿Dudas sobre tu factura?</p>
+                                                    <IoIosInformationCircleOutline />
+                                                </div>
+                                                <div className="DudaRandomRes">
+                                                    <p>{item.nombre || "Espacio de título..."}</p>
+                                                </div>
+                                                <div className="RespuestaRandomRes">
+                                                    <p>{item.descripcion || "Espacio para texto descripción..."}</p>
+                                                </div>
                                             </div>
-                                            <div className="DudaRandomRes">
-                                                <p>¿Cómo se calcula los impuestos?</p>
-                                            </div>
-                                            <div className="RespuestaRandomRes">
-                                                <p>Espacio para texto...</p>
-                                            </div>
-                                        </div>
-
+                                        ))}
 
                                     </Grid>
                                     <Grid item xs={12} md={5} className="segdoContFacturacion" display={'flex'} flexDirection={'column'}>

@@ -32703,7 +32703,7 @@ label {
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
-}
+} 
 
 .subTitleOpVend p {
     margin-bottom: 3rem;
@@ -33865,4 +33865,37 @@ label {
 .button-default {
     background-color: default; /* Reemplaza 'default' con el color que desees */
 }
+.linkMisvResF{
+    margin-bottom: 3rem;
+}
+.modifDudaVendedorContainer{
+    display: flex;
+    flex-direction: column;
+    width: 590px;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 3px solid #f1f2f6;
+}
+.modifDudaVendedorContainer input{
+    margin-bottom: 3rem !important;
+}
+.modifDudaVendedorContainer textarea{
+    background-color: #f1f2f6;
+    padding: 2rem;
+    border-radius: 10px;
+    min-height: 18rem;
+    margin-bottom: 3rem;
+    color: #2D2E83;
+}
+.modifDudaVendedorContainer button{
+    width: 150px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    align-items: center;
+    padding: 1rem;
+    margin: 0 auto; 
+}
+
 /*Fin styles facturación*/
