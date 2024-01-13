@@ -143,7 +143,7 @@ export default function resFactura() {
                             <div className="ps-page__header" > </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9',  marginBottom:'3rem' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
+                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9', marginBottom: '3rem' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
                                         <Link
                                             className="linkMisv"
                                             underline="none"
@@ -189,20 +189,23 @@ export default function resFactura() {
                                             </div>
                                         </div>
 
-                                        {dudaVendedor && dudaVendedor.listaresoldudasvende.map((item) => (
-                                            <div key={item.id} className="segdoSubcontFactuRes">
-                                                <div className="DudsSobreFact">
-                                                    <p>¿Dudas sobre tu factura?</p>
-                                                    <IoIosInformationCircleOutline />
-                                                </div>
-                                                <div className="DudaRandomRes">
-                                                    <p>{item.nombre || "Espacio de título..."}</p>
-                                                </div>
-                                                <div className="RespuestaRandomRes">
-                                                    <p>{item.descripcion || "Espacio para texto descripción..."}</p>
-                                                </div>
+
+                                        <div className="segdoSubcontFactuRes">
+                                            <div className="DudsSobreFact">
+                                                <p>¿Dudas sobre tu factura?</p>
+                                                <IoIosInformationCircleOutline />
                                             </div>
-                                        ))}
+                                            {dudaVendedor && dudaVendedor.listaresoldudasvende.sort((a, b) => a.id - b.id).map((item) => (
+                                                <div className="DudasResFactura" key={item.id}>
+                                                    <div className="DudaRandomRes">
+                                                        <p>{item.nombre || "Espacio de título..."}</p>
+                                                    </div>
+                                                    <div className="RespuestaRandomRes">
+                                                        <p>{item.descripcion || "Espacio para texto descripción..."}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
 
                                     </Grid>
                                     <Grid item xs={12} md={5} className="segdoContFacturacion" display={'flex'} flexDirection={'column'}>

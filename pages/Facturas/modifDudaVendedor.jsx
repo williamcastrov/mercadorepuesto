@@ -42,8 +42,10 @@ export default function modifDudaVendedor() {
 
 
     const [dudaVendedor, setDudaVendedor] = useState(null);
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
+    const [nombres, setNombres] = useState([]);
+    const [descripciones, setDescripciones] = useState([]);
+
+
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
@@ -78,8 +80,8 @@ export default function modifDudaVendedor() {
                 console.log(res.data);
                 setDudaVendedor(res.data);
                 if (res.data.listaresoldudasvende.length > 0) {
-                    setNombre(res.data.listaresoldudasvende[0].nombre);
-                    setDescripcion(res.data.listaresoldudasvende[0].descripcion);
+                    setNombres(res.data.listaresoldudasvende.map(item => item.nombre));
+                    setDescripciones(res.data.listaresoldudasvende.map(item => item.descripcion));
                 }
             } catch (error) {
                 console.error("Error al leer los datos", error);
@@ -88,13 +90,13 @@ export default function modifDudaVendedor() {
         dudasVendedor();
     }, []);
 
-    const actualizarDatos = async () => {
+    const actualizarDatos = async (id, nombre, descripcion) => {
         try {
             const res = await axios({
                 method: "post",
                 url: URL_BD_MR + "127",
                 params: {
-                    id: dudaVendedor.listaresoldudasvende[0].id,
+                    id,
                     nombre,
                     descripcion,
                 },
@@ -108,7 +110,7 @@ export default function modifDudaVendedor() {
         }
     };
 
-    
+
     return (
         <>
             <div ref={irA}>
@@ -119,15 +121,19 @@ export default function modifDudaVendedor() {
                             <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                     <div className='TitleOpVend'>
-                                        <p>Modificar duda vendedor</p>
+                                        <p>Modificar dudas vendedor</p>
                                     </div>
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <div className="modifDudaVendedorContainer">
-                                        <input className="InputFormsUsers" type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
-                                        <textarea value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
-                                        <button onClick={actualizarDatos}>Guardar</button>
-                                    </div>
+
+                                    {dudaVendedor && dudaVendedor.listaresoldudasvende.sort((a, b) => a.id - b.id).map((item, index) => (
+                                        <div className="modifDudaVendedorContainer" key={item.id}>
+                                            <input className="InputFormsUsers" type="text" value={nombres[index]} onChange={(e) => setNombres(nombres.map((nombre, i) => i === index ? e.target.value : nombre))} />
+                                            <textarea value={descripciones[index]} onChange={(e) => setDescripciones(descripciones.map((descripcion, i) => i === index ? e.target.value : descripcion))} />
+                                            <button onClick={() => actualizarDatos(item.id, nombres[index], descripciones[index])}>Guardar</button>
+                                        </div>
+                                    ))}
+
                                 </Grid>
                                 <ModalMensajes
                                     shown={showModal}

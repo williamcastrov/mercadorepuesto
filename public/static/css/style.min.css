@@ -33718,7 +33718,7 @@ label {
   display: flex; 
   margin-top: 2.5rem;
   padding-top: 2.5rem !important;
-  padding-bottom: 2.5rem !important;
+  padding-bottom: -5rem !important;
   background-color: #F0F1F5;
   border-radius: 10px;
   padding: 2rem; 
@@ -33875,6 +33875,7 @@ label {
     padding: 2rem;
     border-radius: 10px;
     border: 3px solid #f1f2f6;
+    margin-bottom: 3.5rem;
 }
 .modifDudaVendedorContainer input{
     margin-bottom: 3rem !important;
@@ -33903,4 +33904,8 @@ label {
 .VerVentaLinkPres{
     margin-bottom: 3rem;
 }
+.DudasResFactura{
+    margin-bottom: 3.5rem;
+}
+
 /*Fin styles facturación*/
