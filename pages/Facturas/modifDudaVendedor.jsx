@@ -1,51 +1,16 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
-import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
-import axios from 'axios';
-import SearchIcon from '@material-ui/icons/Search';
-import { Dropdown } from "react-bootstrap";
-import { NextRouter } from "next/router";
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import { useHistory } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { AiOutlineRight } from 'react-icons/ai';
-import { GrNext } from "react-icons/gr";
-import { URL_BD_MR, URL_IMAGES_RESULTS } from "../../helpers/Constants";
-import { IoIosInformationCircle } from "react-icons/io";
-import { IoMdClose } from 'react-icons/io';
-import { PiSquareThin } from 'react-icons/pi';
-import ModalMensajes from "../mensajes/ModalMensajes";
-import { IoIosSquareOutline } from "react-icons/io";
-import ModalMensajesEliminar from "../mensajes/ModalMensajesEliminar";
-import shortid from "shortid";
-import { FaCheckCircle } from "react-icons/fa";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
-import { TfiEye } from "react-icons/tfi";
-
-import { HiOutlineChevronRight } from "react-icons/hi";
-
-import { BsFiletypePdf } from "react-icons/bs";
-import { RiFileExcel2Fill } from "react-icons/ri";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-
-import { jsPDF } from "jspdf";
-import { saveAs } from 'file-saver';
-import { utils, writeFile } from 'xlsx';
-
-
-
-
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
+import React, { useEffect, useState, useRef } from "react"; 
+import axios from 'axios'; 
+import { URL_BD_MR } from "../../helpers/Constants"; 
+import ModalMensajes from "../mensajes/ModalMensajes";  
 
 export default function modifDudaVendedor() {
 
 
     const [dudaVendedor, setDudaVendedor] = useState(null);
     const [nombres, setNombres] = useState([]);
-    const [descripciones, setDescripciones] = useState([]);
-
-
+    const [descripciones, setDescripciones] = useState([]); 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
@@ -90,6 +55,7 @@ export default function modifDudaVendedor() {
         dudasVendedor();
     }, []);
 
+    //Función para actualizar datos
     const actualizarDatos = async (id, nombre, descripcion) => {
         try {
             const res = await axios({

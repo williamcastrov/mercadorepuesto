@@ -198,10 +198,10 @@ export default function resFactura() {
                                             {dudaVendedor && dudaVendedor.listaresoldudasvende.sort((a, b) => a.id - b.id).map((item) => (
                                                 <div className="DudasResFactura" key={item.id}>
                                                     <div className="DudaRandomRes">
-                                                        <p>{item.nombre || "Espacio de título..."}</p>
+                                                        <p>{item.nombre}</p>
                                                     </div>
                                                     <div className="RespuestaRandomRes">
-                                                        <p>{item.descripcion || "Espacio para texto descripción..."}</p>
+                                                        <p>{item.descripcion}</p>
                                                     </div>
                                                 </div>
                                             ))}
