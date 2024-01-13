@@ -143,7 +143,7 @@ export default function resFactura() {
                             <div className="ps-page__header" > </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
+                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9',  marginBottom:'3rem' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
                                         <Link
                                             className="linkMisv"
                                             underline="none"
