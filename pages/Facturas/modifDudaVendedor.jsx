@@ -94,8 +94,8 @@ export default function modifDudaVendedor() {
 
                                     {dudaVendedor && dudaVendedor.listaresoldudasvende.sort((a, b) => a.id - b.id).map((item, index) => (
                                         <div className="modifDudaVendedorContainer" key={item.id}>
-                                            <input className="InputFormsUsers" type="text" value={nombres[index]} onChange={(e) => setNombres(nombres.map((nombre, i) => i === index ? e.target.value : nombre))} />
-                                            <textarea value={descripciones[index]} onChange={(e) => setDescripciones(descripciones.map((descripcion, i) => i === index ? e.target.value : descripcion))} />
+                                            <input className="InputFormsUsers" type="text" value={nombres[index]} onChange={(e) => setNombres(nombres.map((nombre, i) => i === index ? e.target.value : nombre))} placeholder="Titulo de ayuda para vendedor" />
+                                            <textarea value={descripciones[index]} onChange={(e) => setDescripciones(descripciones.map((descripcion, i) => i === index ? e.target.value : descripcion))} placeholder="Descripción de ayuda para vendedor"/>
                                             <button onClick={() => actualizarDatos(item.id, nombres[index], descripciones[index])}>Guardar</button>
                                         </div>
                                     ))}
