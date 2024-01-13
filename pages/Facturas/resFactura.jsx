@@ -151,9 +151,9 @@ export default function resFactura() {
                                             onClick={(e) => { e.preventDefault(); router.push('./facturacion') }}
 
                                         >
-                                            <p className="VerVentaLink">Facturación</p>
+                                            <p className="VerVentaLink VerVentaLinkPres">Facturación</p>
                                         </Link>
-                                        <p className="VerVentaLink">Resumen factura</p>
+                                        <p className="VerVentaLink VerVentaLinkPres">Resumen factura</p>
                                     </Breadcrumbs>
                                 </Grid>
                                 <Grid className="contMainFacturacion" container style={{ width: isMdDown ? '100%' : '90%' }}>
