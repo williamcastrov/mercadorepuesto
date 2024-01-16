@@ -12,6 +12,10 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import UpArrowIcon from "./svgs/UpArrowIcon";
 import { closeWindow } from "./utils/functions";
+import axios from 'axios';
+import { URL_BD_MR } from "../../../helpers/Constants"; //Api 
+import EnviarA from "./modules/EnviarA";
+
 
 interface Props {
     slim?: boolean;
@@ -58,13 +62,40 @@ const Header = ({ slim }: Props) => {
         let inicia = null;
         localStorage.setItem("placeholdersearch", JSON.stringify(inicia));
     }
- 
+
 
     useEffect(() => {
         callFilters();
     }, []);
+
+
+    // Función para obtener el mensaje de bienvenida
+    const [mensajeBienvenida, setMensajeBienvenida] = useState("");
+
+    useEffect(() => {
+        const obtenerMensajeBienvenida = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "132",
+                });
+                console.log(res.data);
+                if (res.data.listmensaje.length > 0) {
+                    setMensajeBienvenida(res.data.listmensaje[0].mensaje);
+                }
+            } catch (error) {
+                console.error("Error al leer los datos", error);
+            }
+        };
+        obtenerMensajeBienvenida();
+    }, []);
+
+
     return (
         <CloseWindowContext.Provider value={closeWindow}>
+            <div className="CarruselLetras">
+                <p>{mensajeBienvenida}</p>
+            </div>
             <Container slim={slim} className="base-styles-provider">
                 <header ref={Header}>
                     <div className="top-side">
@@ -75,7 +106,7 @@ const Header = ({ slim }: Props) => {
                                         priority
                                         src="/static/img/logomr.png"
                                         alt="logo mercado repuesto"
-                                        onClick={()=> iniciarInputBuscador() }
+                                        onClick={() => iniciarInputBuscador()}
                                         layout="fill"
                                         sizes="100%"
                                         objectFit="contain"
@@ -89,7 +120,8 @@ const Header = ({ slim }: Props) => {
                             content={buttonContent}
                             ref={searcherButton}
                         />
-                    </div>
+                       <EnviarA/>
+                    </div> 
                     <div className="filter-container">
                         <>
                             {filters ? (
@@ -139,7 +171,7 @@ const Container = styled.div<ContainerProps>`
                 align-items: center;
                 display: grid;
                 ${({ slim }) =>
-                    !slim ? "grid-template-columns: 20% 60% 20%;" : ""}
+        !slim ? "grid-template-columns: 20% 60% 20%;" : ""}
             }
 
             .image-container {

@@ -18,6 +18,12 @@ import HeaderDefault from "~/components/shared/headers/HeaderDefault";
 import { useDispatch, useSelector } from "react-redux";
 import { getVariablesGeneralesMrp } from "../store/variablesgeneralesmrp/action";
 import Header from "../components/elements/header/Header";
+import CategoriasRecomendadas from "../components/partials/homepages/home-1/CategoriasRecomendadas";
+import AyudaUsuarios from "../components/partials/homepages/home-1/AyudaUsuarios";
+import ImagenVendedor from "../components/partials/homepages/home-1/ImagenVendedor";
+import ElegirMarca from "../components/partials/homepages/home-1/ElegirMarca";
+import MasVendidosEstaSemana from "../components/partials/homepages/home-1/MasVendidosEstaSemana";
+import RecomendadosParaTi from "../components/partials/homepages/home-1/RecomendadosParaTi";
 
 /*
 Sentry.init({
@@ -45,8 +51,12 @@ const HomeDefaultPage = () => {
         <Container header={<HeaderDefault classes="without-border" />}>
             <main id="homepage-one">
                 <HomeOneTopBanners />
-                <HomeOnePromotions />
-                <PopularCategories />
+                <CategoriasRecomendadas/> 
+                <AyudaUsuarios/>
+                <ImagenVendedor/>
+                <ElegirMarca/>
+                <MasVendidosEstaSemana/>
+                <RecomendadosParaTi/>
                 <BestDealOfWeek />
                 <FollowInstagram />
             </main>

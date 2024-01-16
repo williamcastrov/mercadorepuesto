@@ -21,6 +21,9 @@ import img4 from "../../../../public/imagescategorias/categorias3.png";
 import img5 from "../../../../public/imagescategorias/categorias5.jpg";
 import img6 from "../../../../public/imagescategorias/categorias6.jpg";
 
+import { IoIosArrowDown } from "react-icons/io";
+
+
 const ModuleHeaderSupplies = (props) => {
     const router = useRouter();
     const [classCategorias, setClassCategorias] = useState(
@@ -197,7 +200,7 @@ const ModuleHeaderSupplies = (props) => {
                     onMouseOver={onSelecciono}
                     onMouseOut={outSelecciono}>
                     <span>Categorías</span>
-                    <IoIosArrowForward />
+                    <IoIosArrowDown />
                 </span>
             </button>
             <div className={classContent}>

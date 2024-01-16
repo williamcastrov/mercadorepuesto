@@ -94,7 +94,7 @@ function InteractiveShopping(props) {
                 onMouseOver={onSelecciono}
                 onMouseOut={outSelecciono}
             >
-                <span onClick={() => enviadatoslocalstorage()} >Buscador_Interactivo </span>
+                <span onClick={() => enviadatoslocalstorage()} >Buscador interactivo </span>
             </button>
         </div>
     );

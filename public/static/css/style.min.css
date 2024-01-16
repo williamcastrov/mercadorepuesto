@@ -27435,6 +27435,7 @@ label {
     margin-left: 127px !important;
     width: 557px !important;
     height: 20px !important;
+    margin-right: 15rem;
 }
 
 .tamañocajainputsearchicon {
@@ -27445,7 +27446,7 @@ label {
     width: 55px !important;
     border-top-right-radius: 7px !important;
     border-end-end-radius: 7px !important;
-    height: 41px !important;
+    height: 41px !important; 
     background-color: #2D2E83 !important;
 }
 
@@ -33605,7 +33606,9 @@ label {
     margin: 0 auto;
     justify-content: center; 
 }
-
+.contMainMisFacturas2{
+    margin-top: -2rem !important;
+}
 .contTopMisFacturas{
     width: 100%;
     display: flex;
@@ -33907,5 +33910,102 @@ label {
 .DudasResFactura{
     margin-bottom: 3.5rem;
 }
+.contMainFacturacionDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border: 3px solid #f1f2f6;
+}
+.contMainFacturacionDiv input{
+    margin-bottom: 3rem !important;
+    width: 700px;
+}
+.contMainFacturacionDiv button{
+    width: 150px;
+    background-color: #2D2E83;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    align-items: center;
+    padding: 1rem;
+    margin: 0 auto; 
+}
+
+
 
 /*Fin styles facturación*/
+
+
+
+
+
+
+/*Inicio nuevos estilos homepage*/
+
+/*Inicio carrusel texto*/
+.CarruselLetras{
+    width: 100%;
+    background-color: #F0F1F5;
+    height: 36px;
+    color: #2D2E83;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CarruselLetras p{
+    color: #2D2E83;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: "Jost", sans-serif;
+}
+
+
+
+/*Fin carrusel texto*/
+
+
+
+/*Inicio estilos categorias recomendadas*/
+.mainContCategoriasRecomendadas{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #F0F1F5;
+}
+.titleCatRec{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2D2E83;
+} 
+
+/*Fin estilos categorias recomendadas*/
+
+
+/*Inicio navbar nuevos estilos*/
+.UbicacionIzquierda{
+    margin-left: 5.2rem;
+    display: flex; 
+    align-items: center; 
+}
+.UbicacionIzquierda svg{
+    font-size: 37px;
+    color: #03037D;
+    fill: #03037D;
+}
+.UbicacionIzquierda div p{
+    font-size: 15px;
+    color: #03037D;
+}
+.PEnviarA{
+    margin-bottom: -.5rem;
+    margin-top: .3rem;
+}
+/*Fin navbar nuevos estilos*/
+
+
+
+/*Fin nuevos estilos homepage*/

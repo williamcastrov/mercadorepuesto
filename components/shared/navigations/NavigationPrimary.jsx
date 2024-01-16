@@ -10,6 +10,7 @@ import InteractiveShopping from "../InteractiveShopping/InteractiveShopping";
 import MyGarage from "../MyGarage/MyGarage";
 //import ModuleHeaderSwichers from "~/components/shared/headers/modules/ModuleHeaderSwitcher";
 import ModuleHeaderActions from "~/components/shared/headers/modules/ModuleHeaderActions";
+import ModuleMisCompras from "../headers/modules/ModuleMisCompras";
 
 const NavigationPrimary = (props) => {
     const { categorias, setCategorias } = props;
@@ -38,22 +39,18 @@ const NavigationPrimary = (props) => {
         }
         getMainMenu(queries);
     }, [stateInf]);
-//<ModuleHeaderCategories categorias={categorias} setCategorias={setCategorias} />
-//<ModuleHeaderSupplies />
+ 
+    //CAMBIOS JP
+
     return (
         <nav className="navigation--primary ">
             <div className="container ">
                 <div className="navigation__left posicion">
                     <ModuleHeaderSupplies />
                     <InteractiveShopping />
-                    <ModuleHeaderVender />
-                    <MyGarage />
-                    <div className="navigation__menu">
-                        <Menu
-                            source={mainMenu}
-                            className="menu menu--desktop"
-                        />
-                    </div>
+                    <ModuleMisCompras/>
+                    <ModuleHeaderVender />   
+                     
                 </div>
                 <div className="navigation__right">
                     <ModuleHeaderActions/>
@@ -61,7 +58,5 @@ const NavigationPrimary = (props) => {
             </div>
         </nav>
     );
-};
-//  <ModuleHeaderContactNumber />
-//<ModuleHeaderSwichers/>
+}; 
 export default NavigationPrimary;

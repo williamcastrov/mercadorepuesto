@@ -16,7 +16,7 @@ const HomeOnePromotions = () => {
                                 <span className="ps-promo__badge">New</span>
                                 <h4 className="mb-20 ps-promo__name">
                                     Caja de Herramienta <br />
-                                    Klatter
+                                    Klatter 
                                 </h4>
                                 <a className="ps-promo__btn" href="/shop">
                                     More

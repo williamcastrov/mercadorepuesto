@@ -12,12 +12,13 @@ import { useSelector } from "react-redux";
 import { jsPDF } from "jspdf";
 import { saveAs } from 'file-saver';
 import { utils, writeFile } from 'xlsx';
-
-
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import { GrNext } from "react-icons/gr";
 
 export default function misFacturas() {
 
-
+    const router = useRouter();//NextRouter
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
@@ -216,11 +217,20 @@ export default function misFacturas() {
                             <div className="ps-page__header" > </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: '28rem' }}>
                                 <Grid className="contDataUsers" container style={{ width: isMdDown ? '100%' : '90%' }}>
-                                    <div className='TitleOpVend'>
-                                        <p>Mis facturas</p>
-                                    </div>
+                                    <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9', marginBottom: '3rem' }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
+                                        <Link
+                                            className="linkMisv"
+                                            underline="none"
+                                            href="./"
+                                            onClick={(e) => { e.preventDefault(); router.push('./facturacion') }}
+
+                                        >
+                                            <p className="VerVentaLink VerVentaLinkPres">Facturación</p>
+                                        </Link>
+                                        <p className="VerVentaLink VerVentaLinkPres">Mis facturas</p>
+                                    </Breadcrumbs>
                                 </Grid>
-                                <Grid className="contMainMisFacturas" container style={{ width: isMdDown ? '100%' : '90%' }}>
+                                <Grid className="contMainMisFacturas contMainMisFacturas2" container style={{ width: isMdDown ? '100%' : '90%', marginTop:'-1rem' }}>
                                     <div className="contTopMisFacturas">
                                         <InputBase
                                             value={busqueda}
