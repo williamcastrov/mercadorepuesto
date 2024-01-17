@@ -2,10 +2,8 @@ import React from "react";
 
 const ImagenVendedor = () => {
     return (
-        <div className="mainContCategoriasRecomendadas">
-             <div className="titleCatRec">
-                <h2>Imagen vendedor</h2>
-             </div> 
+        <div className="mainContImgVendedor">
+              <img src="https://i.postimg.cc/7Y7x1Pjm/Banner.png" alt="" />
         </div>
     );
 };

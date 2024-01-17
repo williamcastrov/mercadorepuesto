@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEditData } from "../../../../store/editdata/action";
 import { getDuplicarPrd } from "../../../../store/duplicarprd/action";
 
-const ModuleMisCompras = () => {
+const ModuleHeaderHistorial = () => {
 
     
     const router = useRouter();
@@ -42,10 +42,11 @@ const ModuleMisCompras = () => {
                 className={classVender}
                 onMouseOver={onSelecciono}
                 onMouseOut={outSelecciono}>
-                <span onClick={() => vender()}>Mis compras</span>
+                <span>Historial</span>
             </button>
         </div>
     );
 };
 
-export default ModuleMisCompras;
+export default ModuleHeaderHistorial;
+ 

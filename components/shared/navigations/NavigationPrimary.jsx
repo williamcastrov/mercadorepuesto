@@ -11,6 +11,8 @@ import MyGarage from "../MyGarage/MyGarage";
 //import ModuleHeaderSwichers from "~/components/shared/headers/modules/ModuleHeaderSwitcher";
 import ModuleHeaderActions from "~/components/shared/headers/modules/ModuleHeaderActions";
 import ModuleMisCompras from "../headers/modules/ModuleMisCompras";
+import ModuleHeaderHistorial from "../headers/modules/ModuleHeaderHistorial";
+import ModuleHeaderAyudaPQR from "../headers/modules/ModuleHeaderAyudaPQR";
 
 const NavigationPrimary = (props) => {
     const { categorias, setCategorias } = props;
@@ -49,8 +51,9 @@ const NavigationPrimary = (props) => {
                     <ModuleHeaderSupplies />
                     <InteractiveShopping />
                     <ModuleMisCompras/>
+                    <ModuleHeaderHistorial/>
                     <ModuleHeaderVender />   
-                     
+                    <ModuleHeaderAyudaPQR/> 
                 </div>
                 <div className="navigation__right">
                     <ModuleHeaderActions/>

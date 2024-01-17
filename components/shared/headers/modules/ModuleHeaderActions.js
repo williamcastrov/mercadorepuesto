@@ -9,6 +9,13 @@ import { getDataShoppingCart } from "../../../../store/datashoppingcart/action";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { URL_BD_MR } from "../../../../helpers/Constants";
+import { IoCartOutline } from "react-icons/io5";
+import { GoHeart } from "react-icons/go";
+import { HiOutlineShoppingCart } from "react-icons/hi2";
+import { LiaBellSolid } from "react-icons/lia";
+import { RxBell } from "react-icons/rx";
+import { IoChevronDown } from "react-icons/io5";
+import { IoChevronUp } from "react-icons/io5";
 
 //Firebase
 import firebase from "../../../../utilities/firebase";
@@ -33,8 +40,9 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const numberitemswishlist = useSelector((state) => state.wishlist.datawishlist);
     const numberitemsshoppingcart = useSelector((state) => state.datashoppingcart.datashoppingcart);
-    //console.log("DATOS USUARIO STATE : ", datosusuarios);
+    console.log("DATOS USUARIO STATE : ", datosusuarios);
     //console.log("DATOS MODELOS : ", numberitemsshoppingcart);
+    const [isOpen, setIsOpen] = useState(false);
 
     function handleOpenDrawer(e) {
         e.preventDefault();
@@ -139,25 +147,58 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
         );
     }
 
+
+    const [datosUsuario, setDatosUsuario] = useState(null);
+
+    useEffect(() => {
+        const leerDatosUsuario = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "13",
+                params,
+            })
+                .then((res) => {
+                    setDatosUsuario(res.data[0]);
+                })
+                .catch(function (error) {
+                    console.error("Error al leer los datos del usuario", error);
+                });
+        };
+
+        leerDatosUsuario();
+    }, [datosusuarios]);
+
+
     return (
         <ul className="header__actions">
             {searchBtnView}
             {
                 datosusuarios.logged ?
                     (
-                        <Dropdown className="dropdown-user-data" >
-                            <Dropdown.Toggle className="infousuario  p-2 " variant="secondary" id="dropdown-basic">
+                        <Dropdown className="dropNavbar" onToggle={(isOpen) => setIsOpen(isOpen)}>
+                            <Dropdown.Toggle className="infousuario" id="dropdown-basic">
                                 {
                                     datosusuarios.tipoidentificacion === 6 ?
                                         (
                                             <>
-                                                <i className="icon-user"></i>{" "} {datosusuarios.razonsocial}
+                                                {" "} {datosusuarios.razonsocial}{isOpen ? <IoChevronUp /> : <IoChevronDown />}
                                             </>
                                         )
                                         :
                                         (
                                             <>
-                                                <i className="icon-user"></i>{" "} {datosusuarios.name}
+                                                <div className="DropdownNavbar">
+                                                    <div className="BallDropdownNavbar">
+                                                        <p>{datosUsuario ? `${datosUsuario.primernombre[0]}${datosUsuario.primerapellido[0]}` : 'JP'}</p>
+                                                    </div>
+                                                    <div className="NameDropdownNavbar">
+                                                        {" "} {datosUsuario ? `${datosUsuario.primernombre} ${datosUsuario.primerapellido[0]}` : ''}{isOpen ? <IoChevronUp /> : <IoChevronDown />}
+                                                    </div>
+                                                </div>
                                             </>
                                         )
                                 }
@@ -173,16 +214,15 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                     :
                     (
                         <div className="headercrearcuenta">
-                            <Row className="ps-footer__fax">
-                                <Col lg={6}>
+                            <div className=" navCCC">
+                                <div>
                                     <div className="espaciotextocrearcuenta">
                                         <a className="textocrearcuenta" href="/my-account">
                                             Crea tu cuenta
                                         </a>
                                     </div>
-
-                                </Col>
-                                <Col lg={3}>
+                                </div>
+                                <div>
                                     <div className="espaciotextocrearcuenta">
                                         <Link href="/loginaccount">
                                             <a className="textocrearcuenta">
@@ -190,36 +230,50 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                                             </a>
                                         </Link>
                                     </div>
-                                </Col>
-                            </Row>
+                                </div>
+                            </div>
                         </div>
                     )
             }
+
+
+            <li onClick={() => reiniciarCtr()}>
+                <Link href="/shop/shopping-cart">
+                    <a className="header__action">
+                        <RxBell />
+                        <span className="header__action-badge ">
+                            {numberitemsshoppingcart ? numberitemsshoppingcart : 0}
+                        </span>
+                    </a>
+                </Link>
+            </li>
 
             <li className="ml-10"
                 onClick={() => reiniciarCtr()}
             >
                 <Link href="/shop/wishlist">
                     <a className="header__action">
-                        <i className="fa fa-heart-o mlmenos20"></i>
+                        <GoHeart className="mlmenos20" />
                         <span className="header__action-badge mlmenos10">
                             {numberitemswishlist ? numberitemswishlist : 0}
                         </span>
                     </a>
                 </Link>
             </li>
-            <li
-                onClick={() => reiniciarCtr()}
-            >
+
+
+            <li onClick={() => reiniciarCtr()}>
                 <Link href="/shop/shopping-cart">
                     <a className="header__action">
-                        <i className="icon-cart-empty mlmenos20"></i>
+                        <HiOutlineShoppingCart className="mlmenos20" />
                         <span className="header__action-badge mlmenos10">
                             {numberitemsshoppingcart ? numberitemsshoppingcart : 0}
                         </span>
                     </a>
                 </Link>
             </li>
+
+
         </ul>
     );
 };

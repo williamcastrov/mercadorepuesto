@@ -14907,10 +14907,11 @@ cursor: pointer;
 .headercrearcuenta {
     overflow: hidden !important;
     white-space: pre;
-}
+} 
+
 
 .textocrearcuenta {
-    font-size: 16px !important;
+    font-size: 15px !important; 
     color: #2D2E83 !important;
 }
 
@@ -29736,12 +29737,13 @@ label {
 }
 
 .infousuario {
-    width: 100px !important;
+    margin-right: -1rem;
+    width: 150px !important;
     font-size: 15px !important;
     border: none !important;
-    height: 30px !important;
-    background-color: #F1F2F6 !important;
+    height: 30px !important; 
     color: #2D2E83 !important;
+    align-items: center !important;
 }
 
 .datainfousuario {
@@ -33974,6 +33976,7 @@ label {
     display: flex;
     flex-direction: column;
     background-color: #F0F1F5;
+    min-height: 380px;
 }
 .titleCatRec{
     display: flex;
@@ -33981,8 +33984,167 @@ label {
     align-items: center;
     color: #2D2E83;
 } 
-
+.titleCatRecHDOS{
+    font-size: 28px;
+    font-family: "Jost", sans-serif;
+    font-weight: 600;
+    margin-top: 3.3rem;
+    margin-bottom: 3rem;
+}
+.CatRecomendadasBalls{
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
+}
+.BallcontBall{
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-color: white;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.contBall{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.contBallName p{
+    font-size: 16px;
+    color: #2D2E83;
+    text-align: center;
+} 
+.ImgBall{
+    width: 130px;
+}
 /*Fin estilos categorias recomendadas*/
+
+/*Inicio estilos ayuda usuarios*/
+.MainAyudaUsuarios{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.SubAyudaUsuarios{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.SubAyudaUsuariosSubcont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 450px; 
+    height: 430px;
+    position: relative;  
+}
+.UltSubAyudaUsuariosSubcont{
+    border-right: none !important;
+}
+.UltSubAyudaUsuariosSubcont::after { 
+    border-right: 0 solid black !important; 
+}
+.SubAyudaUsuariosSubcont::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    height: 60px;  
+    border-right: 3px solid #2D2E83;
+    transform: translateY(-50%);  
+}
+.SubAyudaUsuariosSubcont div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.SubAyudaUsuariosSubcont div svg{
+    font-size: 9rem;
+    color: #2D2E83;
+}
+.SubAyudaUsuariosSubcont div h6{
+    font-size: 20px;
+    color: #2D2E83;
+    font-weight: 700;
+}
+.SubAyudaUsuariosSubcont div p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.iconoContAyudaUsers{
+    margin-bottom: 2rem;
+}
+/*Fin estilos ayuda usuarios*/
+
+/*Inicio estilos imagen ayuda vendedor*/
+.mainContImgVendedor{
+    height: auto;
+    width: 100%;
+}
+.mainContImgVendedor img{
+    width: 100%;
+    height: 450px;
+    cursor: pointer;
+}
+/*Fin estilos imagen ayuda vendedor*/
+
+
+/*Inicio Estilos elegir marca*/
+.mainContElejirMarca{
+    width: 100%;
+    background-color: white;
+    min-height: 630px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.subContElejirMarca{
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center; 
+}
+.contBallMarcas{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.BallcontBallMarcas{
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    background-color: #F0F1F5;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ContElejirMarca{
+    display: flex;
+    flex-direction: column;
+}
+.subContElejirMarca2{
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 3rem;
+}
+/*Fin estilos elegir marca*/
+
+
 
 
 /*Inicio navbar nuevos estilos*/
@@ -34004,8 +34166,81 @@ label {
     margin-bottom: -.5rem;
     margin-top: .3rem;
 }
+
+.NameDropdownNavbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+.DropdownNavbar{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px; 
+}
+.BallDropdownNavbar{
+    border-radius: 100%;
+    background-color: #E8E8F1;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px !important;
+}
+.BallDropdownNavbar p{
+    font-size: 13px;
+    color: #2D2E83;
+}
+.navCCC{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+ 
+.infousuario:hover, .dropdown-basic:hover {
+    /* define aquí los estilos que quieres que se apliquen al pasar el mouse por encima */
+    background-color: transparent !important;
+}
+ 
+.infousuario:active, .dropdown-basic:active {
+    background-color: transparent !important;
+    border: none !important;
+}
+.infousuario, .dropdown-basic {
+    height: 40px !important;
+}
+.infousuario:focus, .dropdown-basic:focus {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.infousuario:active, .dropdown-basic:active,
+.infousuario:focus, .dropdown-basic:focus,
+.infousuario:focus-within, .dropdown-basic:focus-within {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.infousuario.show, .dropdown-basic.show {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
 /*Fin navbar nuevos estilos*/
 
+
+/*Banner nuevos estilos*/
+.section-bannerMR{
+    min-height: 400px;
+}
+
+/*Fin banner nuevos  estilos*/
 
 
 /*Fin nuevos estilos homepage*/

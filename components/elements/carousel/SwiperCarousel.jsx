@@ -42,7 +42,7 @@ const SwiperCarousel = ({
 
     function handleNext() {
         swiperRef.current.swiper.slideNext(300);
-    }
+    } 
 
     return (
         <>

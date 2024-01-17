@@ -35,6 +35,7 @@
         "js-cookie": "^2.2.1",
         "jspdf": "^2.5.1",
         "lodash": "^4.17.20",
+        "mdb-react-ui-kit": "^7.1.0",
         "moment": "^2.30.1",
         "next": "^12.1.1-canary.10",
         "next-redux-saga": "^4.1.2",
