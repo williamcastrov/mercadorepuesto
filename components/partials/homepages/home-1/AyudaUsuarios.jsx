@@ -4,7 +4,6 @@ import { PiHandCoinsBold } from "react-icons/pi";
 import { FaShippingFast } from "react-icons/fa";
 
 const AyudaUsuarios = () => {
-
     
     return (
         <div className="MainAyudaUsuarios">
