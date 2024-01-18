@@ -33,7 +33,9 @@ const ModuleMisCompras = () => {
     };
 
  
- 
+    const IrACompras = () => {
+        router.push("/MisCompras/misCompras");
+    };
 
 
     return (
@@ -42,7 +44,7 @@ const ModuleMisCompras = () => {
                 className={classVender}
                 onMouseOver={onSelecciono}
                 onMouseOut={outSelecciono}>
-                <span onClick={() => vender()}>Mis compras</span>
+                <span onClick={() => IrACompras()}>Mis compras</span>
             </button>
         </div>
     );

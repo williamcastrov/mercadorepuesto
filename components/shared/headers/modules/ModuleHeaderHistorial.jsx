@@ -32,7 +32,10 @@ const ModuleHeaderHistorial = () => {
         setClassVender("header__categories-toggle sinborder");
     };
 
- 
+  
+    const IrAhistorial = () => {
+        router.push("/Historial/historialProducts");
+    };
  
 
 
@@ -42,7 +45,7 @@ const ModuleHeaderHistorial = () => {
                 className={classVender}
                 onMouseOver={onSelecciono}
                 onMouseOut={outSelecciono}>
-                <span>Historial</span>
+                <span onClick={() => IrAhistorial()}>Historial</span>
             </button>
         </div>
     );

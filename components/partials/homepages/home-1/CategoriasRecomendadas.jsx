@@ -7,7 +7,7 @@ const CategoriasRecomendadas = () => {
     return (
         <div className="mainContCategoriasRecomendadas">
             <div className="titleCatRec">
-                <h2 className="titleCatRecHDOS">CATEGORIAS RECOMENDADAS</h2>
+                <h2 className="titleCatRecHDOS">Categorías recomendadas</h2>
             </div>
             <div className="CatRecomendadasBalls">
                 <div className="contBall">

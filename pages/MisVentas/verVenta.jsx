@@ -24,7 +24,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 import { TfiEye } from "react-icons/tfi";
 
-export default function verVenta() {
+export default function verVenta() { 
 
     //ModalDatosGUardados
     const [confirmationOpen, setConfirmationOpen] = useState(false);
@@ -253,10 +253,7 @@ export default function verVenta() {
                 // Si estás enviando un PDF
                 formData.append('imagen1', userFile);
             }
-            // Antes de la solicitud, imprime los datos que estás enviando
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ', ' + pair[1]);
-            }
+          
             try {
                 const response = await axios.post(URL_BD_MR + "109", formData);
                 console.log("Respuesta del servidor:", response.data); // Esto imprimirá la respuesta del servidor

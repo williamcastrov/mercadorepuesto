@@ -29,9 +29,7 @@ const HomeOneTopBanners = () => {
     return (
         <section className="section-bannerMR">
             <Grid container style={{ width: '100%', height: 'auto' }}>
-                <Grid item xs={6} style={{ padding: 0 }}>
-                    {/* Contenido del primer subcontenedor */}Hola1
-                </Grid>
+                <Grid item xs={6} style={{ padding: 0 }}/>  
                 <Grid item xs={6} style={{ padding: 0 }}>
 
                     <Carousel

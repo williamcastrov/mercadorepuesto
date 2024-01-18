@@ -56,9 +56,7 @@ const HomeDefaultPage = () => {
                 <ImagenVendedor/>
                 <ElegirMarca/>
                 <MasVendidosEstaSemana/>
-                <RecomendadosParaTi/>
-                <BestDealOfWeek />
-                <FollowInstagram />
+                <RecomendadosParaTi/>  
             </main>
         </Container>
     );

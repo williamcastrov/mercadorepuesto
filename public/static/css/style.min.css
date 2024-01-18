@@ -14907,11 +14907,11 @@ cursor: pointer;
 .headercrearcuenta {
     overflow: hidden !important;
     white-space: pre;
-} 
+}
 
 
 .textocrearcuenta {
-    font-size: 15px !important; 
+    font-size: 15px !important;
     color: #2D2E83 !important;
 }
 
@@ -27447,7 +27447,7 @@ label {
     width: 55px !important;
     border-top-right-radius: 7px !important;
     border-end-end-radius: 7px !important;
-    height: 41px !important; 
+    height: 41px !important;
     background-color: #2D2E83 !important;
 }
 
@@ -29741,7 +29741,7 @@ label {
     width: 150px !important;
     font-size: 15px !important;
     border: none !important;
-    height: 30px !important; 
+    height: 30px !important;
     color: #2D2E83 !important;
     align-items: center !important;
 }
@@ -32706,7 +32706,7 @@ label {
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
-} 
+}
 
 .subTitleOpVend p {
     margin-bottom: 3rem;
@@ -33230,7 +33230,7 @@ label {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .ModifDudasMisCompras input {
@@ -33304,7 +33304,7 @@ label {
 
 
 
-.InputaDDIMGS{
+.InputaDDIMGS {
     width: 60%;
     margin: 0 auto;
     align-items: center;
@@ -33315,23 +33315,26 @@ label {
     margin-top: -2rem;
 }
 
-.squareInputaDDIMGS{ 
-   font-size: 15rem;
-   color: #2C2E82 !important; 
+.squareInputaDDIMGS {
+    font-size: 15rem;
+    color: #2C2E82 !important;
 }
 
-.photoInputaDDIMGS{
-    color: #2C2E82 !important; 
+.photoInputaDDIMGS {
+    color: #2C2E82 !important;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50%; /* Ajusta este valor según tus necesidades */
-    height: 50%; /* Ajusta este valor según tus necesidades */
-    object-fit: contain; /* Asegura que la imagen se ajuste al espacio disponible sin distorsionarse */
+    width: 50%;
+    /* Ajusta este valor según tus necesidades */
+    height: 50%;
+    /* Ajusta este valor según tus necesidades */
+    object-fit: contain;
+    /* Asegura que la imagen se ajuste al espacio disponible sin distorsionarse */
 }
 
-.imageInput{
+.imageInput {
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -33399,18 +33402,20 @@ label {
     justify-content: center;
     margin-bottom: 3rem;
 }
-.ModifMain{
+
+.ModifMain {
     width: 80% !important;
 }
-.descrip4{
+
+.descrip4 {
     margin-top: 2.5rem !important;
 }
 
-.imagen2Respuesta{
+.imagen2Respuesta {
     margin-bottom: -2rem !important;
 }
 
-.frstImageSelectedModif{
+.frstImageSelectedModif {
     width: 70%;
     margin: 0 auto;
     align-items: center;
@@ -33418,15 +33423,17 @@ label {
     flex-direction: column;
     justify-content: center;
 }
-.frstImageSelectedModif img{
+
+.frstImageSelectedModif img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     /* o "cover" dependiendo de tu preferencia */
     max-width: 225px;
-    max-height: 225px; 
+    max-height: 225px;
     margin-bottom: 1.5rem;
 }
+
 /*fin resolver dudas*/
 
 
@@ -33439,15 +33446,16 @@ label {
     margin: 0;
     padding: .5rem;
     margin: 0 auto;
-    justify-content: center;  
+    justify-content: center;
 }
 
-.primerContFacturacion{
+.primerContFacturacion {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
-.primerSubcontFactu{
+
+.primerSubcontFactu {
     width: 98%;
     padding-top: 2.5rem !important;
     padding-bottom: 2.5rem !important;
@@ -33456,25 +33464,29 @@ label {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    color: #2C2E82 !important; 
+    color: #2C2E82 !important;
 }
-.primerSubcontFactu div{
+
+.primerSubcontFactu div {
     margin-bottom: 1.5rem;
 }
-.primerSubcontFactu div p{
+
+.primerSubcontFactu div p {
     font-size: 20px !important;
-    color: #2C2E82 !important; 
+    color: #2C2E82 !important;
     font-weight: 600 !important;
     font-family: "Jost", sans-serif;
 }
-.primerSubcontFactu p{
+
+.primerSubcontFactu p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.segdoSubcontFactu{
-      width: 98%;
+
+.segdoSubcontFactu {
+    width: 98%;
     display: flex;
     justify-content: space-between !important;
     margin-top: 2.5rem;
@@ -33482,29 +33494,34 @@ label {
     padding-bottom: 2.5rem !important;
     background-color: #F0F1F5;
     border-radius: 10px;
-    padding: 2rem; 
-    color: #2C2E82 !important; 
+    padding: 2rem;
+    color: #2C2E82 !important;
 }
-.buttonFactVermas{
-    display: flex; 
+
+.buttonFactVermas {
+    display: flex;
     align-items: flex-end;
 }
-.segdoSubcontFactu div div{
+
+.segdoSubcontFactu div div {
     margin-bottom: 1.5rem;
 }
-.segdoSubcontFactu div div p{ 
+
+.segdoSubcontFactu div div p {
     font-size: 20px !important;
-    color: #2C2E82 !important; 
+    color: #2C2E82 !important;
     font-weight: 600 !important;
     font-family: "Jost", sans-serif;
 }
-.segdoSubcontFactu div p{
+
+.segdoSubcontFactu div p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.buttonFactVermas div{
+
+.buttonFactVermas div {
     padding: 2rem;
     padding-left: 3.5rem !important;
     padding-right: 3.5rem !important;
@@ -33520,25 +33537,29 @@ label {
     margin-bottom: .8rem;
     cursor: pointer;
 }
-.statePaymentFacturacion{
+
+.statePaymentFacturacion {
     background-color: red;
     color: white;
     font-size: 18px;
     margin-bottom: 0 !important;
     width: 155px;
 }
-.segdoContFacturacion{
+
+.segdoContFacturacion {
     width: 100%;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
 }
-.buttonMisFacts{
+
+.buttonMisFacts {
     margin-bottom: 3rem;
-    width: 100%; 
+    width: 100%;
     margin-left: 4rem;
 }
-.buttonMisFacts button{
-    width: 84%; 
+
+.buttonMisFacts button {
+    width: 84%;
     background-color: #2C2E82;
     color: white;
     border-radius: 10px;
@@ -33546,37 +33567,42 @@ label {
     font-size: 18px;
     font-weight: 500;
 }
-.contDataFactrs{
-        margin-left: 4rem;
+
+.contDataFactrs {
+    margin-left: 4rem;
     width: 84%;
     background-color: #F0F1F5;
     padding: 2rem;
-    border-radius: 10px; 
+    border-radius: 10px;
 }
-.titleContDataFactrs{
+
+.titleContDataFactrs {
     margin-bottom: 1.5rem;
     margin-left: .5rem;
     margin-right: .5rem;
 }
-.titleContDataFactrs p{
+
+.titleContDataFactrs p {
     font-size: 20px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
 
-.dataFactrs{
-    margin-bottom: 2rem; 
+.dataFactrs {
+    margin-bottom: 2rem;
     margin-left: .5rem;
     margin-right: .5rem;
 }
-.dataFactrs p{
+
+.dataFactrs p {
     font-size: 16px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.irDatosFact{
+
+.irDatosFact {
     margin-left: .5rem;
     margin-right: .5rem;
     margin-top: 3rem !important;
@@ -33585,85 +33611,99 @@ label {
     align-items: center;
     cursor: pointer;
 }
-.irDatosFact p{
+
+.irDatosFact p {
     text-decoration: underline;
     font-size: 19px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.iconRightFact{
+
+.iconRightFact {
     color: #2D2E83;
     font-size: 18px;
 }
 
 
-.contMainMisFacturas{
+.contMainMisFacturas {
     display: flex !important;
-    flex-direction: column !important; 
+    flex-direction: column !important;
     margin-top: 2rem;
     display: flex;
     margin: 0;
     padding: .5rem;
     margin: 0 auto;
-    justify-content: center; 
+    justify-content: center;
 }
-.contMainMisFacturas2{
+
+.contMainMisFacturas2 {
     margin-top: -2rem !important;
 }
-.contTopMisFacturas{
+
+.contTopMisFacturas {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.5rem;
 }
-.dataMainFacturas{
+
+.dataMainFacturas {
     background-color: #F0F1F5;
     border-radius: 10px;
     padding: 2rem;
 }
-.topDataMainFacturas{
+
+.topDataMainFacturas {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.8rem;
 }
-.topDataMainFacturas p{ 
+
+.topDataMainFacturas p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
-} 
+}
 
-.MapDataMainFacturas{
+.MapDataMainFacturas {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.8rem;
 }
-.MapDataMainFacturas p{ 
+
+.MapDataMainFacturas p {
     font-size: 16px;
     color: #2D2E83;
     font-weight: 500;
-    font-family: "Jost", sans-serif; 
-} 
-.MapDataMainFacturasNumber{
+    font-family: "Jost", sans-serif;
+}
+
+.MapDataMainFacturasNumber {
     width: 100px;
     text-align: end;
 }
-.MapDataMainFacturasNumber p{
+
+.MapDataMainFacturasNumber p {
     margin-right: 1.5rem;
 }
-.MapDataMainFacturasConcept{
+
+.MapDataMainFacturasConcept {
     width: 250px;
     text-align: end;
 }
-.MapDataMainFacturasTotal{
+
+.MapDataMainFacturasTotal {
     width: 150px;
     text-align: end;
-} 
-.MapDataMainFacturasTotal p{
+}
+
+.MapDataMainFacturasTotal p {
     margin-right: 2rem;
 }
-.MapDataMainFacturasDownload{
+
+.MapDataMainFacturasDownload {
     display: flex;
     gap: 17px;
     color: #2C2E82;
@@ -33671,14 +33711,15 @@ label {
     font-size: 25px;
     margin-right: 8px;
 }
-.MapDataMainFacturas svg{
+
+.MapDataMainFacturas svg {
     cursor: pointer;
 }
 
 
 
 
-.ResFacturaMain{
+.ResFacturaMain {
     width: 98%;
     padding-top: 2.5rem !important;
     padding-bottom: 2.5rem !important;
@@ -33687,152 +33728,175 @@ label {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    color: #2C2E82 !important; 
+    color: #2C2E82 !important;
 }
-.ResFacturaMain div{
+
+.ResFacturaMain div {
     margin-bottom: 2rem;
     justify-content: space-between;
     display: flex;
     width: 100%;
 }
-.TopResFacturaMain p{
+
+.TopResFacturaMain p {
     font-size: 20px !important;
-    color: #2C2E82 !important; 
+    color: #2C2E82 !important;
     font-weight: 600 !important;
     font-family: "Jost", sans-serif;
 }
- 
-.DataFacturaRes p{
+
+.DataFacturaRes p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.TotalFactRes p{
+
+.TotalFactRes p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 
 }
-.TotalFactRes{
-        margin-bottom: 0 !important;
+
+.TotalFactRes {
+    margin-bottom: 0 !important;
 }
-.segdoSubcontFactuRes{
+
+.segdoSubcontFactuRes {
     width: 98%;
-  display: flex; 
-  margin-top: 2.5rem;
-  padding-top: 2.5rem !important;
-  padding-bottom: -5rem !important;
-  background-color: #F0F1F5;
-  border-radius: 10px;
-  padding: 2rem; 
-  color: #2C2E82 !important; 
-  flex-direction: column;
+    display: flex;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem !important;
+    padding-bottom: -5rem !important;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem;
+    color: #2C2E82 !important;
+    flex-direction: column;
 }
-.DudsSobreFact{
+
+.DudsSobreFact {
     width: 100%;
     justify-content: space-between;
     display: flex;
     align-items: center;
     margin-bottom: 1.5rem;
 }
-.DudsSobreFact p{
+
+.DudsSobreFact p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.DudsSobreFact svg{
+
+.DudsSobreFact svg {
     font-size: 40px !important;
     color: #2D2E83;
 }
-.DudaRandomRes p{
+
+.DudaRandomRes p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.DudaRandomRes{
+
+.DudaRandomRes {
     margin-bottom: 1.5rem;
 }
-.RespuestaRandomRes p{
+
+.RespuestaRandomRes p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.contDataResFactura{
+
+.contDataResFactura {
     margin-left: 4rem;
     width: 84%;
     background-color: #F0F1F5;
     padding: 2rem;
-    border-radius: 10px; 
+    border-radius: 10px;
 }
- 
-.DataContDataResFactura{
+
+.DataContDataResFactura {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2.5rem;
- 
+
 }
-.DataContDataResFactura span p{
+
+.DataContDataResFactura span p {
     text-align: end;
 }
-.DataContDataResFactura p{
+
+.DataContDataResFactura p {
     font-size: 18px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.DataContDataResFactura span p{
+
+.DataContDataResFactura span p {
     font-size: 16px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.DataContDataResFactura span button{
-    background-color:#00BF15;
-    color: #2D2E83; 
+
+.DataContDataResFactura span button {
+    background-color: #00BF15;
+    color: #2D2E83;
     cursor: default;
 }
-.DataContDataResFacturaTotal{
+
+.DataContDataResFacturaTotal {
     margin-bottom: .2rem !important;
 }
-.contDataResFacturaDownload{
+
+.contDataResFacturaDownload {
     margin-top: 2rem;
     margin-left: 4rem;
     width: 84%;
     background-color: #F0F1F5;
-    padding: 3rem; 
+    padding: 3rem;
     padding-top: 2rem !important;
     padding-bottom: 2rem !important;
-    border-radius: 10px; 
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
 }
-.contDataResFacturaDownload div{
+
+.contDataResFacturaDownload div {
     display: flex;
     align-items: center;
     gap: 4.5rem;
 }
-.contDataResFacturaDownload p{
+
+.contDataResFacturaDownload p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.contDataResFacturaDownload div svg{
+
+.contDataResFacturaDownload div svg {
     font-size: 25px;
     color: #2D2E83;
     cursor: pointer;
 }
+
 .dropFactura {
     width: 15%;
     max-width: 15%;
     min-width: 15%;
 }
-.dropdowncustomMisFacturas{
+
+.dropdowncustomMisFacturas {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -33859,6 +33923,7 @@ label {
     background-repeat: no-repeat !important;
     background-position: center center !important;
 }
+
 .buttonGreenRes {
     background-color: green;
 }
@@ -33868,12 +33933,15 @@ label {
 }
 
 .button-default {
-    background-color: default; /* Reemplaza 'default' con el color que desees */
+    background-color: default;
+    /* Reemplaza 'default' con el color que desees */
 }
-.linkMisvResF{
+
+.linkMisvResF {
     margin-bottom: 3rem;
 }
-.modifDudaVendedorContainer{
+
+.modifDudaVendedorContainer {
     display: flex;
     flex-direction: column;
     width: 590px;
@@ -33882,10 +33950,12 @@ label {
     border: 3px solid #f1f2f6;
     margin-bottom: 3.5rem;
 }
-.modifDudaVendedorContainer input{
+
+.modifDudaVendedorContainer input {
     margin-bottom: 3rem !important;
 }
-.modifDudaVendedorContainer textarea{
+
+.modifDudaVendedorContainer textarea {
     background-color: #f1f2f6;
     padding: 2rem;
     border-radius: 10px;
@@ -33893,7 +33963,8 @@ label {
     margin-bottom: 3rem;
     color: #2D2E83;
 }
-.modifDudaVendedorContainer button{
+
+.modifDudaVendedorContainer button {
     width: 150px;
     background-color: #2D2E83;
     color: white;
@@ -33901,18 +33972,22 @@ label {
     font-size: 15px;
     align-items: center;
     padding: 1rem;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
-.VerVentaLinkPres{
+
+.VerVentaLinkPres {
     margin-bottom: 3rem;
 }
-.VerVentaLinkPres{
+
+.VerVentaLinkPres {
     margin-bottom: 3rem;
 }
-.DudasResFactura{
+
+.DudasResFactura {
     margin-bottom: 3.5rem;
 }
-.contMainFacturacionDiv{
+
+.contMainFacturacionDiv {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -33921,11 +33996,13 @@ label {
     padding: 2rem;
     border: 3px solid #f1f2f6;
 }
-.contMainFacturacionDiv input{
+
+.contMainFacturacionDiv input {
     margin-bottom: 3rem !important;
     width: 700px;
 }
-.contMainFacturacionDiv button{
+
+.contMainFacturacionDiv button {
     width: 150px;
     background-color: #2D2E83;
     color: white;
@@ -33933,7 +34010,7 @@ label {
     font-size: 15px;
     align-items: center;
     padding: 1rem;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 
@@ -33948,7 +34025,7 @@ label {
 /*Inicio nuevos estilos homepage*/
 
 /*Inicio carrusel texto*/
-.CarruselLetras{
+.CarruselLetras {
     width: 100%;
     background-color: #F0F1F5;
     height: 36px;
@@ -33957,7 +34034,8 @@ label {
     justify-content: center;
     align-items: center;
 }
-.CarruselLetras p{
+
+.CarruselLetras p {
     color: #2D2E83;
     font-weight: 600;
     font-size: 13px;
@@ -33971,33 +34049,37 @@ label {
 
 
 /*Inicio estilos categorias recomendadas*/
-.mainContCategoriasRecomendadas{
+.mainContCategoriasRecomendadas {
     width: 100%;
     display: flex;
     flex-direction: column;
     background-color: #F0F1F5;
     min-height: 380px;
 }
-.titleCatRec{
+
+.titleCatRec {
     display: flex;
     justify-content: center;
     align-items: center;
     color: #2D2E83;
-} 
-.titleCatRecHDOS{
+}
+
+.titleCatRecHDOS {
     font-size: 28px;
     font-family: "Jost", sans-serif;
     font-weight: 600;
     margin-top: 3.3rem;
     margin-bottom: 3rem;
 }
-.CatRecomendadasBalls{
+
+.CatRecomendadasBalls {
     display: flex;
     gap: 2.5rem;
     justify-content: center;
     align-items: center;
 }
-.BallcontBall{
+
+.BallcontBall {
     height: 180px;
     width: 180px;
     border-radius: 50%;
@@ -34007,121 +34089,140 @@ label {
     align-items: center;
     justify-content: center;
 }
-.contBall{
+
+.contBall {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
-.contBallName p{
+
+.contBallName p {
     font-size: 16px;
     color: #2D2E83;
     text-align: center;
-} 
-.ImgBall{
+}
+
+.ImgBall {
     width: 130px;
 }
+
 /*Fin estilos categorias recomendadas*/
 
 /*Inicio estilos ayuda usuarios*/
-.MainAyudaUsuarios{
+.MainAyudaUsuarios {
     width: 100%;
     align-items: center;
     justify-content: center;
 }
-.SubAyudaUsuarios{
+
+.SubAyudaUsuarios {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .SubAyudaUsuariosSubcont {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 450px; 
+    width: 450px;
     height: 430px;
-    position: relative;  
+    position: relative;
 }
-.UltSubAyudaUsuariosSubcont{
+
+.UltSubAyudaUsuariosSubcont {
     border-right: none !important;
 }
-.UltSubAyudaUsuariosSubcont::after { 
-    border-right: 0 solid black !important; 
+
+.UltSubAyudaUsuariosSubcont::after {
+    border-right: 0 solid black !important;
 }
+
 .SubAyudaUsuariosSubcont::after {
     content: "";
     position: absolute;
     right: 0;
     top: 50%;
-    height: 60px;  
+    height: 60px;
     border-right: 3px solid #2D2E83;
-    transform: translateY(-50%);  
+    transform: translateY(-50%);
 }
-.SubAyudaUsuariosSubcont div{
+
+.SubAyudaUsuariosSubcont div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
-.SubAyudaUsuariosSubcont div svg{
+
+.SubAyudaUsuariosSubcont div svg {
     font-size: 9rem;
     color: #2D2E83;
 }
-.SubAyudaUsuariosSubcont div h6{
-    font-size: 20px;
+
+.SubAyudaUsuariosSubcont div h6 {
+    font-size: 19px;
     color: #2D2E83;
-    font-weight: 700;
+    font-weight: 600;
 }
-.SubAyudaUsuariosSubcont div p{
+
+.SubAyudaUsuariosSubcont div p {
     font-size: 18px;
     color: #2D2E83;
+    font-family: "Jost", sans-serif;
 }
-.iconoContAyudaUsers{
+
+.iconoContAyudaUsers {
     margin-bottom: 2rem;
 }
+
 /*Fin estilos ayuda usuarios*/
 
 /*Inicio estilos imagen ayuda vendedor*/
-.mainContImgVendedor{
+.mainContImgVendedor {
     height: auto;
     width: 100%;
 }
-.mainContImgVendedor img{
-    width: 100%;
-    height: 450px;
+
+.mainContImgVendedor img {
+    width: 100%; 
     cursor: pointer;
 }
+
 /*Fin estilos imagen ayuda vendedor*/
 
 
 /*Inicio Estilos elegir marca*/
-.mainContElejirMarca{
+.mainContElejirMarca {
     width: 100%;
     background-color: white;
     min-height: 630px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: center; 
 }
- 
-.subContElejirMarca{
+
+.subContElejirMarca {
     display: flex;
     gap: 2.5rem;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
-.contBallMarcas{
+
+.contBallMarcas {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
-.BallcontBallMarcas{
+
+.BallcontBallMarcas {
     height: 180px;
     width: 180px;
     border-radius: 50%;
@@ -34131,56 +34232,231 @@ label {
     align-items: center;
     justify-content: center;
 }
-.ContElejirMarca{
+
+.ContElejirMarca {
     display: flex;
     flex-direction: column;
 }
-.subContElejirMarca2{
+
+.subContElejirMarca2 {
     display: flex;
     gap: 2.5rem;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     margin-top: 3rem;
 }
+
 /*Fin estilos elegir marca*/
 
+/*Inicio estilos Mas vendidos esta semana*/
+.mainProductosMasVendidos{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.swiper-slide {
+    width: 200px; /* Ajusta este valor para cambiar el ancho de los slides */
+  }
+.mainMasVendidos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
+  }
+  
+  .SubMainMasVendidos {
+    width: 85%;
+    padding: 0 60px; /* Ajusta este valor para mover los botones de navegación */
+  }
+ 
+  .my-custom-prev-button,
+  .my-custom-next-button {
+    position: absolute;
+    top: 40%;
+    width: 50px;
+    height: 50px;
+    background-color: #F0F1F5;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    z-index: 99;
+    cursor: pointer;
+  }
+  
+
+  .my-custom-prev-button,
+  .my-custom-next-button svg{
+    font-size: 34px;
+    color: #2D2E83;
+  }
 
 
+  .my-custom-prev-button {
+    left: 90px; /* Ajusta este valor para mover el botón a la izquierda */
+  }
+  
+  .my-custom-next-button {
+    right: 90px; /* Ajusta este valor para mover el botón a la derecha */
+  }
+  .SlideSwiperImgDescuento {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
+  }
+  
+  .SlideSwiperImgDescuento img {  
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 170px;
+    max-height: 200px;
+    cursor: pointer;
+  }
+  
+  .circleDescuento {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    background-color: #2d2e83;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .SlideSwiper{
+    padding: 1.5rem;
+    padding-top: 3.5rem;
+  }
+  .SlideSwiperPrecioyTexto{
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  .precioProductoSwiper p{
+    color: #03037D; 
+    font-size: 16px;
+  }
+  .precio2ProductoSwiper{
+    margin-top: 1.5rem;
+    width: 100%;
+    text-align: start;
+  }
+  .precio2ProductoSwiper p{
+    color: #03037D; 
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .NombreProductoSwiper{ 
+    width: 100%;
+    text-align: start;
+    padding-right: 1rem;
+    margin-top: 2rem;
+  }
+  .NombreProductoSwiper p{
+    color: #03037D; 
+    font-size: 16px;
+  }
+  .CalificProductSwiper{
+    margin-top: 1.3rem;
+    width: 100%;
+    display: flex;
+    gap: 3px;
+    color: #03037D ; 
+    justify-content: flex-start;
+  }
+  .TitleMasvendidos{
+    width: 73%;
+    background-color: #03037D;
+    color: white;  
+    margin-bottom: 6rem; 
+    align-items: flex-start;
+    display: flex;
+    padding: .7rem;
+    padding-left: 1.5rem;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  .TitleMasvendidos p{
+    font-size: 24px;
+    color: white; 
+  }
+/*Fin estilos Mas vendidos esta semana*/
+
+/*Inicio estilos recomendados para ti productos*/
+.TitleRecomendados{
+    width: 60%;
+    background-color: #03037D;
+    color: white;  
+    margin-bottom: 6rem; 
+    align-items: flex-end;
+    justify-content: flex-end;
+    display: flex;
+    padding: .7rem;
+    padding-left: 1.5rem; 
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding-right: 1.5rem;
+  }
+  .TitleRecomendados p{
+    font-size: 24px;
+    color: white; 
+  }
+/*Fin estilos recomendados para ti productos*/
 
 /*Inicio navbar nuevos estilos*/
-.UbicacionIzquierda{
+.UbicacionIzquierda {
     margin-left: 5.2rem;
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
 }
-.UbicacionIzquierda svg{
+
+.UbicacionIzquierda svg {
     font-size: 37px;
     color: #03037D;
     fill: #03037D;
 }
-.UbicacionIzquierda div p{
+
+.UbicacionIzquierda div p {
     font-size: 15px;
     color: #03037D;
 }
-.PEnviarA{
+
+.PEnviarA {
     margin-bottom: -.5rem;
     margin-top: .3rem;
 }
 
-.NameDropdownNavbar{
+.NameDropdownNavbar {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     margin-top: 4px;
 }
-.DropdownNavbar{
+
+.DropdownNavbar {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    gap: 10px; 
+    gap: 10px;
 }
-.BallDropdownNavbar{
+
+.BallDropdownNavbar {
     border-radius: 100%;
     background-color: #E8E8F1;
     height: 30px;
@@ -34190,57 +34466,187 @@ label {
     justify-content: center;
     margin-bottom: 10px !important;
 }
-.BallDropdownNavbar p{
+
+.BallDropdownNavbar p {
     font-size: 13px;
     color: #2D2E83;
 }
-.navCCC{
+
+.navCCC {
     display: flex;
     flex-wrap: nowrap;
 }
 
- 
-.infousuario:hover, .dropdown-basic:hover {
+
+.infousuario:hover,
+.dropdown-basic:hover {
     /* define aquí los estilos que quieres que se apliquen al pasar el mouse por encima */
     background-color: transparent !important;
 }
- 
-.infousuario:active, .dropdown-basic:active {
+
+.infousuario:active,
+.dropdown-basic:active {
     background-color: transparent !important;
     border: none !important;
 }
-.infousuario, .dropdown-basic {
+
+.infousuario,
+.dropdown-basic {
     height: 40px !important;
 }
-.infousuario:focus, .dropdown-basic:focus {
+
+.infousuario:focus,
+.dropdown-basic:focus {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
 }
-.infousuario:active, .dropdown-basic:active,
-.infousuario:focus, .dropdown-basic:focus,
-.infousuario:focus-within, .dropdown-basic:focus-within {
+
+.infousuario:active,
+.dropdown-basic:active,
+.infousuario:focus,
+.dropdown-basic:focus,
+.infousuario:focus-within,
+.dropdown-basic:focus-within {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
 }
-.infousuario.show, .dropdown-basic.show {
+
+.infousuario.show,
+.dropdown-basic.show {
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
     outline: none !important;
 }
+
 /*Fin navbar nuevos estilos*/
 
 
 /*Banner nuevos estilos*/
-.section-bannerMR{
+.section-bannerMR {
     min-height: 400px;
-}
-
+} 
 /*Fin banner nuevos  estilos*/
 
 
+/*Inicio estilos nuevo footer*/
+.FooterWebPage{
+    width: 100%;
+    height: 485px;
+    padding-top: 6.3rem;
+    padding-right: 10rem;
+    padding-left: 10rem;
+    padding-bottom: 1rem;
+    background-color: #2D2E83;
+    color: white;
+}
+.SubFooterWebPage{
+    border-top: 1px solid rgba(254, 211, 42, 0.5);
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+.infoContainerFooter{
+    display: flex; 
+    margin-bottom: 1rem;
+}
+.infoContainerFooterMain{
+    display: flex; 
+    margin-bottom: 4rem;
+}
+
+.DerechosContainer{
+    display: flex;  
+}
+.DerechosContainer p{
+    color: white;
+    font-size: 16px; 
+}
+.imagenFooterLogo{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.imagenFooterLogo img{
+    width: 160px;
+}
+.infoContainerFooterMain div p{
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}
+.footerData{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+.footerData span{ 
+    font-size: 16px;
+    font-weight: 500;
+}
+.footerData2{
+    display: flex;
+    flex-direction: column;
+    margin-top: 6rem;
+}
+.footerData2 span{ 
+    font-size: 16px;
+    font-weight: 500;
+}
+.footerDataMain{
+    margin-right: 8.2rem;
+}
+.infoMediosPagoFooter{
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+}
+.SubInfoMediosPagoFooter{
+    border-top: 1px solid rgba(254, 211, 42, 0.5);
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.DerechosContainerMain{
+    border-top: 1px solid rgba(254, 211, 42, 0.5);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.medioPagoFooter{
+    display: flex;
+    gap: 10px;
+}
+.medioPagoFooter img{
+    width: 55px;
+}
+.Wompi img{
+    width: 65px;
+    margin-top: -21px;
+}
+.mainMedioPagoFooter{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: -21px;
+    color: white;
+}
+.mainMedioPagoFooter p{
+    color: white;
+    font-size: 16px;
+}
+
+/*Fin estilos nuevo footer*/
 /*Fin nuevos estilos homepage*/

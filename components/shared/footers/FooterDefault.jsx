@@ -1,51 +1,82 @@
-import React from "react";
-import ModuleFooterTopResult from "~/components/shared/footers/modules/ModuleFooterTopResult";
-import ModuleFooterAddress from "~/components/shared/footers/modules/ModuleFooterAddress";
-import ModuleFooterContact from "~/components/shared/footers/modules/ModuleFooterContact";
-import WidgetFooterLinks from "~/components/shared/widgets/footer/WidgetFooterLinks";
-import ModuleFooterBottom from "~/components/shared/footers/modules/ModuleFooterBottom";
-import FooterLinks from "~/public/static/data/footer.json";
+import React from "react"; 
+import { Grid } from "@mui/material";
 
 const FooterDefault = () => {
     return (
-        <footer className="ps-footer ps-footer--1">
-            <ModuleFooterTopResult />
-            <div className="container">
-                <div className="ps-footer__middle">
-                    <div className="row">
-                        <div className="col-12 col-lg-7">
-                            <div className="row ps-footer__information">
-                                <div className="col-12 col-lg-4 col-md-4 col-sm-12">
-                                    <ModuleFooterAddress />
-                                </div>
-                                <div className="col-12 col-lg-8 col-md-8 col-sm-12">
-                                    <ModuleFooterContact />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-lg-5">
-                            <div className="row">
-                                <div className="col-6 col-md-4">
-                                    <WidgetFooterLinks
-                                        source={FooterLinks.information}
-                                    />
-                                </div>
-                                <div className="col-6 col-md-4">
-                                    <WidgetFooterLinks
-                                        source={FooterLinks.account}
-                                    />
-                                </div>
-                                <div className="col-6 col-md-4">
-                                    <WidgetFooterLinks
-                                        source={FooterLinks.store}
-                                    />
-                                </div>
-                            </div>
+        <footer className="FooterWebPage">
+            <Grid container style={{ width: '100%' }} className="SubFooterWebPage">
+                <Grid container style={{ width: '90%' }} className="infoContainerFooterMain">
+                    <div className="footerDataMain">
+                        <p>HAZ PARTE DE NUESTRO <br /> EQUIPO</p>
+                        <div className="footerData">
+                            <span>Registrarme</span>
+                            <span>Iniciar sesión</span>
+                            <span>Vender</span>
+                            <span>Comprar</span>
                         </div>
                     </div>
-                </div>
-                <ModuleFooterBottom />
-            </div>
+
+                    <div className="footerDataMain">
+                        <p>AYUDA</p>
+                        <div className="footerData2">
+                            <span>Necesito ayuda</span>
+                            <span>PQRS</span>
+                            <span>Centro de ayuda</span>
+                            <span>Terminos y condiciones</span>
+                            <span>Tratamiento de datos</span>
+                        </div>
+                    </div>
+
+                    <div className="footerDataMain">
+                        <p>SECCIONES POPULARES</p>
+                        <div className="footerData2">
+                            <span>Buscador interactivo</span>
+                            <span>Vender</span>
+                            <span>Comprar</span>
+                            <span>Categorías</span>
+                        </div>
+                    </div>
+
+                    <div className="footerDataMain">
+                        <p>CONTÁCTANOS</p>
+                        <div className="footerData2">
+                            <span>PQRS</span>
+                            <span>Facebook</span>
+                            <span>Instagram</span>
+                            <span>Tiktok</span>
+                            <span>Youtube</span>
+                        </div>
+                    </div>
+                    <div className="imagenFooterLogo">
+                        <img src="https://i.postimg.cc/v8gHVrF9/Logo-Blanco.png" alt="" />
+                    </div>
+                </Grid>
+
+                <Grid container style={{ width: '100%' }} className="SubInfoMediosPagoFooter">
+                    <Grid container style={{ width: '90%' }} className="infoContainerFooter" display={'flex'} justifyContent={'space-between'}>
+                        <div className="mainMedioPagoFooter">
+                            <p>Medios de pago:</p>
+                            <div className="medioPagoFooter">
+                                <img src="https://i.postimg.cc/RhCH9GZN/Efecty.png" alt="" />
+                                <img src="https://i.postimg.cc/BnRHDxMV/Nequi.png" alt="" />
+                                <img src="https://i.postimg.cc/HxgMvTG0/Mastercard.png" alt="" />
+                                <img src="https://i.postimg.cc/g0RRKn7k/Bancolombia.png" alt="" />
+                                <img src="https://i.postimg.cc/QtJTRvs2/PSE.png" alt="" />
+                            </div>
+                        </div>
+                        <div className="Wompi">
+                            <img src="https://i.postimg.cc/Hnf85mt7/Wompi.png" alt="" />
+                        </div>
+                    </Grid>
+                </Grid>
+
+                <Grid container style={{ width: '100%' }} className="DerechosContainerMain">
+                    <Grid container style={{ width: '90%' }} className="DerechosContainer" display={'flex'} justifyContent={'center'}>
+                            <p>Todos los derechos reservados de Mercado Repuesto 2024©</p>
+                    </Grid>
+                </Grid>
+
+            </Grid>
         </footer>
     );
 };
