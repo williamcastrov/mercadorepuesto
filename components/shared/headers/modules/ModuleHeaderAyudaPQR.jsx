@@ -33,6 +33,9 @@ const ModuleHeaderAyudaPQR = () => {
     };
 
  
+    const IrADudas = () => {
+        router.push("/ResolverDudas");
+    };
  
 
 
@@ -42,7 +45,7 @@ const ModuleHeaderAyudaPQR = () => {
                 className={classVender}
                 onMouseOver={onSelecciono}
                 onMouseOut={outSelecciono}>
-                <span>Ayuda/PQR</span>
+                <span onClick={() => IrADudas()}>Ayuda/PQR</span>
             </button>
         </div>
     );

@@ -1,7 +1,8 @@
-import React, { } from "react";
 import { Grid, } from '@mui/material';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import Carousel from 'react-bootstrap/Carousel';
-
+import { URL_BD_MR, URL_IMAGES_RESULTSSMS } from "../../../../helpers/Constants";
 const HomeOneTopBanners = () => {
 
     const prevIcon = "https://i.postimg.cc/FsbgSDBn/prevIcon.png"; // Imagen para el botón "anterior"
@@ -25,53 +26,41 @@ const HomeOneTopBanners = () => {
         />
     );
 
+    const [imagenes, setImagenes] = useState([]);
+
+    useEffect(() => {
+        const obtenerImagenes = async () => {
+            try {
+                const res = await axios({
+                    method: "POST",
+                    url: URL_BD_MR + "129",
+                });
+                setImagenes(res.data.listimgcarrusel);
+            } catch (error) {
+                console.error("Error al leer las imágenes", error);
+            }
+        };
+        obtenerImagenes();
+    }, []);
+
 
     return (
         <section className="section-bannerMR">
             <Grid container style={{ width: '100%', height: 'auto' }}>
-                <Grid item xs={6} style={{ padding: 0 }}/>  
+                <Grid item xs={6} style={{ padding: 0 }} />
                 <Grid item xs={6} style={{ padding: 0 }}>
 
-                    <Carousel
-                        slide={false}
-                        nextIcon={<CustomButton iconUrl={nextIcon} />}
-                        prevIcon={<CustomButton iconUrl={prevIcon} />}
-                        nextLabel=""
-                        prevLabel=""
-                    >
-                        <Carousel.Item interval={4000}>
-                            <img
-                                className="d-block w-100"
-                                src="https://i.postimg.cc/FFZmVqBM/banner.png"
-                                alt="First slide"
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item interval={4000}>
-                            <img
-                                className="d-block w-100"
-                                src="https://i.postimg.cc/wTQCpmpn/banner2.png"
-                                alt="Second slide"
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                        </Carousel.Item>
-                        <Carousel.Item interval={4000}>
-                            <img
-                                className="d-block w-100"
-                                src="https://i.postimg.cc/zGD9XGDv/banner3.png"
-                                alt="Third slide"
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                        </Carousel.Item>
-
-                        <Carousel.Item interval={4000}>
-                            <img
-                                className="d-block w-100"
-                                src="https://i.postimg.cc/sgvYLs2b/baner-Carro.jpg"
-                                alt="four slide"
-                                style={{ width: '100%', height: 'auto' }}
-                            />
-                        </Carousel.Item>
+                    <Carousel slide={false} nextIcon={<CustomButton iconUrl={nextIcon} />} prevIcon={<CustomButton iconUrl={prevIcon} />} nextLabel="" prevLabel="">
+                        {imagenes.map((imagen, index) => (
+                            <Carousel.Item key={imagen.id} interval={4000}>
+                                <img
+                                    className="d-block w-100"
+                                    src={`${URL_IMAGES_RESULTSSMS}${imagen.nombreimagen}`}
+                                    alt={`Imagen ${index + 1}`}
+                                    style={{ width: '100%', height: 'auto' }}
+                                />
+                            </Carousel.Item>
+                        ))}
                     </Carousel>
 
 

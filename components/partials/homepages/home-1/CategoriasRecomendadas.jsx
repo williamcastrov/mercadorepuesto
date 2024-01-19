@@ -15,8 +15,8 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/QMnY90yW/volante.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>ACCESORIOS <br />
-                            INTERIOR</p>
+                        <p>Accesorios <br />
+                            interior</p>
                     </div>
                 </div>
 
@@ -25,8 +25,8 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/brvTnH8W/Carro.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>ACCESORIOS <br />
-                            EXTERIOR</p>
+                        <p>Accesorios <br />
+                            exterior</p>
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/x8j6f3Bc/Farola.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>ILUMINACIÓN</p>
+                        <p>Iluminación</p>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/G2gyDPHB/Parlante.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>SONIDO</p>
+                        <p>Sonido</p>
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/85zvsXPQ/Gasolina.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>LUBRICANTES</p>
+                        <p>Lubricantes</p>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@ const CategoriasRecomendadas = () => {
                         <img src="https://i.postimg.cc/Rh0T5Vnt/llantas.png" alt="" className="ImgBall" />
                     </div>
                     <div className="contBallName">
-                        <p>LLANTAS Y RINES</p>
+                        <p>Llantas y rines</p>
                     </div>
                 </div>
             </div>

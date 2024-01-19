@@ -1,7 +1,12 @@
-import React from "react"; 
+import React from "react";
 import { Grid } from "@mui/material";
+import { useRouter } from "next/router";
 
 const FooterDefault = () => {
+
+
+    const router = useRouter();
+
     return (
         <footer className="FooterWebPage">
             <Grid container style={{ width: '100%' }} className="SubFooterWebPage">
@@ -9,19 +14,19 @@ const FooterDefault = () => {
                     <div className="footerDataMain">
                         <p>HAZ PARTE DE NUESTRO <br /> EQUIPO</p>
                         <div className="footerData">
-                            <span>Registrarme</span>
-                            <span>Iniciar sesión</span>
-                            <span>Vender</span>
-                            <span>Comprar</span>
+                            <span onClick={() =>  router.push({pathname: '/my-account'}).then(() => window.location.reload())}>Registrarme</span>
+                            <span onClick={() =>  router.push({pathname: '/loginaccount'}).then(() => window.location.reload())}>Iniciar sesión</span>
+                            <span onClick={() => router.push({pathname: '/CreateProduct/createproduct'})}>Vender</span>
+                            <span onClick={() => router.push({pathname: '/'})}>Comprar</span>
                         </div>
                     </div>
 
                     <div className="footerDataMain">
                         <p>AYUDA</p>
                         <div className="footerData2">
-                            <span>Necesito ayuda</span>
+                            <span onClick={() => router.push({pathname: '/ResolverDudas'})}>Necesito ayuda</span>
                             <span>PQRS</span>
-                            <span>Centro de ayuda</span>
+                            <span onClick={() => router.push({pathname: '/ResolverDudas'})}>Centro de ayuda</span>
                             <span>Terminos y condiciones</span>
                             <span>Tratamiento de datos</span>
                         </div>
@@ -30,9 +35,9 @@ const FooterDefault = () => {
                     <div className="footerDataMain">
                         <p>SECCIONES POPULARES</p>
                         <div className="footerData2">
-                            <span>Buscador interactivo</span>
-                            <span>Vender</span>
-                            <span>Comprar</span>
+                            <span onClick={() => router.push({pathname: '/searchinteractive/searchinteractive'})}>Buscador interactivo </span>
+                            <span onClick={() => router.push({pathname: '/CreateProduct/createproduct'})}>Vender</span>
+                            <span onClick={() => router.push({pathname: '/'})}>Comprar</span>
                             <span>Categorías</span>
                         </div>
                     </div>
@@ -72,7 +77,7 @@ const FooterDefault = () => {
 
                 <Grid container style={{ width: '100%' }} className="DerechosContainerMain">
                     <Grid container style={{ width: '90%' }} className="DerechosContainer" display={'flex'} justifyContent={'center'}>
-                            <p>Todos los derechos reservados de Mercado Repuesto 2024©</p>
+                        <p>Todos los derechos reservados de Mercado Repuesto 2024©</p>
                     </Grid>
                 </Grid>
 

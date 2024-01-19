@@ -44,8 +44,8 @@ const MasVendidosEstaSemana = () => {
     }, []);
 
     return (
-        <div className="mainProductosMasVendidos"> 
-            <Grid container style={{ width: '100%' }}> 
+        <div className="mainProductosMasVendidos">
+            <Grid container style={{ width: '100%' }}>
                 <Grid item xs={6} style={{ padding: 0, marginTop: '2rem' }} />
                 <Grid item xs={6} style={{ padding: 0, height: '60px' }} display={'flex'} justifyContent={'flex-end'} alignItems={'flex-end'}>
                     <div className="TitleMasvendidos">
@@ -68,29 +68,18 @@ const MasVendidosEstaSemana = () => {
                                     <SwiperSlide key={index} style={{ borderRight: '0.5px solid rgba(128, 128, 128, 0.1)' }}>
                                         <div className="SlideSwiper">
                                             <div className="SlideSwiperImgDescuento">
-                                                <img src={`${URL_IMAGES_RESULTS}${product.images[0].name}`} alt="" onClick={() => router.push(`/product/${product.id}`)} />
-                                                <div className="circleDescuento">-22%</div>
+                                                <div className="subSlideSwiperImgDescuento">
+                                                    <img src={`${URL_IMAGES_RESULTS}${product.images[0].name}`} alt="" onClick={() => router.push(`/product/${product.id}`)} />
+                                                    <div className="circleDescuento">-22%</div>
+                                                </div>
+                                               
                                             </div>
                                             <div className="SlideSwiperPrecioyTexto">
-                                                <div className="precioProductoSwiper">
-                                                    <p>${product.sale_price.toLocaleString('en-US')}</p>
-                                                </div>
                                                 <div className="NombreProductoSwiper">
-                                                    <p>{product.name}</p>
+                                                    <p onClick={() => router.push(`/product/${product.id}`)}>{product.name}</p>
                                                 </div>
                                                 <div className="precio2ProductoSwiper">
                                                     <p>${product.sale_price.toLocaleString('en-US')}</p>
-                                                </div>
-                                                <div className="CalificProductSwiper">
-                                                    {[1, 2, 3, 4, 5].map((index) => (
-                                                        <RiSettings5Fill
-                                                            key={index}
-                                                            size={16}
-                                                            style={{
-                                                                color: '#03037D'
-                                                            }}
-                                                        />
-                                                    ))}
                                                 </div>
                                             </div>
                                         </div>

@@ -73,26 +73,13 @@ const RecomendadosParaTi = () => {
                                                 <div className="circleDescuento">-22%</div>
                                             </div>
                                             <div className="SlideSwiperPrecioyTexto">
-                                                <div className="precioProductoSwiper">
-                                                    <p>${product.sale_price.toLocaleString('en-US')}</p>
-                                                </div>
+                                               
                                                 <div className="NombreProductoSwiper">
                                                     <p>{product.name}</p>
                                                 </div>
                                                 <div className="precio2ProductoSwiper">
                                                     <p>${product.sale_price.toLocaleString('en-US')}</p>
-                                                </div>
-                                                <div className="CalificProductSwiper">
-                                                    {[1, 2, 3, 4, 5].map((index) => (
-                                                        <RiSettings5Fill
-                                                            key={index}
-                                                            size={16}
-                                                            style={{
-                                                                color: '#03037D'
-                                                            }}
-                                                        />
-                                                    ))}
-                                                </div>
+                                                </div> 
                                             </div>
                                         </div>
                                     </SwiperSlide>

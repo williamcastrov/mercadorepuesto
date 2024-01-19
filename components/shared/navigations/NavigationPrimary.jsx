@@ -9,8 +9,7 @@ import menu from "~/public/static/data/menu.json";
 import InteractiveShopping from "../InteractiveShopping/InteractiveShopping";
 import MyGarage from "../MyGarage/MyGarage";
 //import ModuleHeaderSwichers from "~/components/shared/headers/modules/ModuleHeaderSwitcher";
-import ModuleHeaderActions from "~/components/shared/headers/modules/ModuleHeaderActions";
-import ModuleMisCompras from "../headers/modules/ModuleMisCompras";
+import ModuleHeaderActions from "~/components/shared/headers/modules/ModuleHeaderActions"; 
 import ModuleHeaderHistorial from "../headers/modules/ModuleHeaderHistorial";
 import ModuleHeaderAyudaPQR from "../headers/modules/ModuleHeaderAyudaPQR";
 
@@ -50,9 +49,8 @@ const NavigationPrimary = (props) => {
                 <div className="navigation__left posicion">
                     <ModuleHeaderSupplies />
                     <InteractiveShopping />
-                    <ModuleMisCompras/>
-                    <ModuleHeaderHistorial/>
-                    <ModuleHeaderVender />   
+                     <ModuleHeaderVender /> 
+                    <ModuleHeaderHistorial/> 
                     <ModuleHeaderAyudaPQR/> 
                 </div>
                 <div className="navigation__right">

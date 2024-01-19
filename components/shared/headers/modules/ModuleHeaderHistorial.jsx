@@ -37,7 +37,7 @@ const ModuleHeaderHistorial = () => {
         router.push("/Historial/historialProducts");
     };
  
-
+ 
 
     return (
         <div className="header__supplies ps-dropdown--fullscreen">

@@ -79,7 +79,7 @@ const Header = ({ slim }: Props) => {
                     method: "post",
                     url: URL_BD_MR + "132",
                 });
-                console.log(res.data);
+               // console.log(res.data);
                 if (res.data.listmensaje.length > 0) {
                     setMensajeBienvenida(res.data.listmensaje[0].mensaje);
                 }

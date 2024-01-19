@@ -40,7 +40,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
     const numberitemswishlist = useSelector((state) => state.wishlist.datawishlist);
     const numberitemsshoppingcart = useSelector((state) => state.datashoppingcart.datashoppingcart);
-    console.log("DATOS USUARIO STATE : ", datosusuarios);
+    //console.log("DATOS USUARIO STATE : ", datosusuarios);
     //console.log("DATOS MODELOS : ", numberitemsshoppingcart);
     const [isOpen, setIsOpen] = useState(false);
 

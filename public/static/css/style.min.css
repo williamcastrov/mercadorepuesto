@@ -34199,22 +34199,57 @@ label {
 /*Inicio Estilos elegir marca*/
 .mainContElejirMarca {
     width: 100%;
-    background-color: white;
-    min-height: 630px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-}
-
-.subContElejirMarca {
-    display: flex;
-    gap: 2.5rem;
     justify-content: center;
     align-items: center;
+    position: relative;
+    height: 620px; 
+  }
+  .BotonPrev,
+  .BotonSig {
+    position: absolute;
+    top: 40%;
+    width: 50px;
+    height: 50px;
+    background-color: #F0F1F5;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 13px;
+    z-index: 99;
+    cursor: pointer;
+  }
+  
+  .BotonPrev,
+  .BotonSig svg {
+    font-size: 34px;
+    color: #2D2E83;
+  }
+  
+  .BotonPrev {
+    left: 120px;
+  }
+  
+  .BotonSig {
+    right: 120px;
+  }
+  
+ 
+
+
+  .subContElejirMarca { 
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    width: 90%;
+    justify-items: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
-.contBallMarcas {
+.contBallMarcas { 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34223,8 +34258,8 @@ label {
 }
 
 .BallcontBallMarcas {
-    height: 180px;
-    width: 180px;
+    height: 170px;
+    width: 170px;
     border-radius: 50%;
     background-color: #F0F1F5;
     margin-bottom: 1rem;
@@ -34232,11 +34267,7 @@ label {
     align-items: center;
     justify-content: center;
 }
-
-.ContElejirMarca {
-    display: flex;
-    flex-direction: column;
-}
+ 
 
 .subContElejirMarca2 {
     display: flex;
@@ -34245,6 +34276,10 @@ label {
     align-items: center;
     margin-top: 3rem;
 }
+
+.ContElejirMarca{
+    width: 85%;    padding: 0 60px;
+}   
 
 /*Fin estilos elegir marca*/
 
@@ -34312,8 +34347,15 @@ label {
     align-items: center;
     position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
   }
-  
-  .SlideSwiperImgDescuento img {  
+  .subSlideSwiperImgDescuento{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
+    height: 200px;
+  }
+  .subSlideSwiperImgDescuento img{
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -34322,7 +34364,7 @@ label {
     max-height: 200px;
     cursor: pointer;
   }
-  
+ 
   .circleDescuento {
     position: absolute;
     top: -30px;
@@ -34370,6 +34412,7 @@ label {
   .NombreProductoSwiper p{
     color: #03037D; 
     font-size: 16px;
+    cursor: pointer;
   }
   .CalificProductSwiper{
     margin-top: 1.3rem;
@@ -34558,7 +34601,8 @@ label {
 }
 .infoContainerFooterMain{
     display: flex; 
-    margin-bottom: 4rem;
+    flex-wrap: nowrap;
+    margin-bottom: 4rem; 
 }
 
 .DerechosContainer{
@@ -34589,6 +34633,7 @@ label {
 .footerData span{ 
     font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
 }
 .footerData2{
     display: flex;
@@ -34598,9 +34643,10 @@ label {
 .footerData2 span{ 
     font-size: 16px;
     font-weight: 500;
+    cursor: pointer;
 }
 .footerDataMain{
-    margin-right: 8.2rem;
+    margin-right: 6rem;
 }
 .infoMediosPagoFooter{
     display: flex;  
@@ -34649,4 +34695,85 @@ label {
 }
 
 /*Fin estilos nuevo footer*/
+
+
+
+/*Inicio estilos apartado para subir imagenes al carrusel */
+.SubirImagenesCarruselBanner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;  
+}
+.SubirImagenesCarruselBannerDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    border: 3px solid black;
+}
+.SubirImagenesCarruselBanner p{
+    font-size: 18px;
+    color: #03037D;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+.SubirImagenesCarruselBanner div img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 500px;
+    max-height: 300px; 
+}
+ 
+.SubirImagenesCarruselBannerDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    border: 3px solid lightgray;
+    border-radius: 10px;
+}
+.SubirImagenesCarruselBanner span button{
+    background-color:  #03037D;
+    padding: 1rem;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 15px;
+}
+.SeleccionarImagenIndex{
+    margin-top: 1.5rem;
+    width: 100% !important;
+    border: 0 !important;
+    display: flex !important;
+        justify-content: space-between !important;
+} 
+.ActImgButton{
+    background-color:  #03037D;
+    padding: 1rem;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 40px;
+    margin-bottom: 1rem;
+}
+.buttonsEliminarImgs{
+    display: flex;
+    flex-direction: column;
+}
+.ElimImgButton{
+    padding: 1rem;
+    color: red;
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 15px;
+    height: 40px;
+    border: 2px solid red;
+}
+/*Fin estilos apartado para subir imagenes al carrusel */
 /*Fin nuevos estilos homepage*/
