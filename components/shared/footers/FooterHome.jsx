@@ -12,13 +12,13 @@ const FooterDefault = () => {
             <div className="container">
                 <div className="row ps-footer__information">
                     <div className="col-12 col-lg-4 col-md-4 col-sm-12">
-                        <ModuleFooterAddress />
+                     {/*  <ModuleFooterAddress />*/}  
                     </div>
                     <div className="col-12 col-lg-8 col-md-8 col-sm-12">
-                        <ModuleFooterContact />
-                    </div>
+                       {/*<ModuleFooterContact /> */} 
+                    </div> 
                 </div>
-                <ModuleFooterBottom />
+             {/* <ModuleFooterBottom />*/}   
             </div>
         </footer>
     );

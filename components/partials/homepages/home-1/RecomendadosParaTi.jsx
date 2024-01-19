@@ -46,7 +46,7 @@ const RecomendadosParaTi = () => {
 
     return (
         <div className="mainProductosMasVendidos">
-            <Grid container style={{ width: '100%' }}> 
+            <Grid container style={{ width: '100%' }}>
                 <Grid item xs={6} style={{ padding: 0, height: '60px' }} display={'flex'} justifyContent={'flex-start'} alignItems={'flex-end'}>
                     <div className="TitleRecomendados">
                         <p>Recomendados para ti</p>
@@ -69,17 +69,19 @@ const RecomendadosParaTi = () => {
                                     <SwiperSlide key={index} style={{ borderRight: '0.5px solid rgba(128, 128, 128, 0.1)' }}>
                                         <div className="SlideSwiper">
                                             <div className="SlideSwiperImgDescuento">
-                                                <img src={`${URL_IMAGES_RESULTS}${product.images[0].name}`} alt="" onClick={() => router.push(`/product/${product.id}`)} />
-                                                <div className="circleDescuento">-22%</div>
+                                                <div className="subSlideSwiperImgDescuento">
+                                                    <img src={`${URL_IMAGES_RESULTS}${product.images[0].name}`} alt="" onClick={() => router.push(`/product/${product.id}`)} />
+                                                    <div className="circleDescuento">-22%</div>
+                                                </div>
+
                                             </div>
                                             <div className="SlideSwiperPrecioyTexto">
-                                               
                                                 <div className="NombreProductoSwiper">
-                                                    <p>{product.name}</p>
+                                                    <p onClick={() => router.push(`/product/${product.id}`)}>{product.name}</p>
                                                 </div>
                                                 <div className="precio2ProductoSwiper">
                                                     <p>${product.sale_price.toLocaleString('en-US')}</p>
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
                                     </SwiperSlide>

@@ -30,6 +30,16 @@ import {
     calculateCartQuantity,
 } from "~/utilities/ecomerce-helpers";
 
+
+
+
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
+
+
+
 const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -173,6 +183,34 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     }, [datosusuarios]);
 
 
+
+
+
+
+
+
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+    useEffect(() => {
+        const preventScrolling = e => e.preventDefault();
+        window.addEventListener('scroll', preventScrolling);
+        return () => window.removeEventListener('scroll', preventScrolling);
+    }, []);
+
+
+
+
+
     return (
         <ul className="header__actions">
             {searchBtnView}
@@ -237,16 +275,37 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             }
 
 
-            <li onClick={() => reiniciarCtr()}>
-                <Link href="/shop/shopping-cart">
-                    <a className="header__action">
-                        <RxBell />
-                        <span className="header__action-badge ">
-                            {numberitemsshoppingcart ? numberitemsshoppingcart : 0}
-                        </span>
-                    </a>
-                </Link>
+            <li onClick={handleClick}>
+                <a className="header__action">
+                    <RxBell />
+                    <span className="header__action-badge ">
+                        {numberitemsshoppingcart ? numberitemsshoppingcart : 0}
+                    </span>
+
+                </a>
             </li>
+             
+                <Popover
+                    disablePortal
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                    }}
+                >
+                    <Box sx={{ p: 2 }}>
+                        <Typography>¡Aquí puedes poner tus notificaciones!</Typography>
+                    </Box>
+                </Popover>
+         
+
 
             <li className="ml-10"
                 onClick={() => reiniciarCtr()}

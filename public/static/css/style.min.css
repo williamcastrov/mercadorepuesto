@@ -34234,11 +34234,7 @@ label {
   
   .BotonSig {
     right: 120px;
-  }
-  
- 
-
-
+  }  
   .subContElejirMarca { 
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -34599,10 +34595,11 @@ label {
     display: flex; 
     margin-bottom: 1rem;
 }
-.infoContainerFooterMain{
-    display: flex; 
+.infoContainerFooterMain {
+    display: flex;
     flex-wrap: nowrap;
-    margin-bottom: 4rem; 
+    overflow: auto;  /* Permite el desplazamiento horizontal */
+    margin-bottom: 4rem;
 }
 
 .DerechosContainer{
@@ -34613,6 +34610,7 @@ label {
     font-size: 16px; 
 }
 .imagenFooterLogo{
+    width: 20%;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -34646,7 +34644,8 @@ label {
     cursor: pointer;
 }
 .footerDataMain{
-    margin-right: 6rem;
+    width: 20%;  
+    margin-right: 30px;
 }
 .infoMediosPagoFooter{
     display: flex;  
@@ -34776,4 +34775,177 @@ label {
     border: 2px solid red;
 }
 /*Fin estilos apartado para subir imagenes al carrusel */
+
+
+/*Inicio nuevos estilos pantalla nueva de comprar o vender repuestos*/
+.newContHomepage{
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 99.9vh;
+    overflow: hidden;
+    display: flex;
+}
+.leftContainerHome{
+    padding: 2rem;
+    height: 99.9vh;
+    min-width: 450px;
+    background-color: #03037D;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.leftContainerHomeLogo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.leftContainerHomeLogo img{
+    width: 280px;
+}
+.leftContainerHomeButtons{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 130px;
+}
+.leftContainerHomeButtons button{
+    width: 250px;
+    border-radius: 12px;
+    background-color: transparent; 
+    border: 5px solid #FAB900;
+    font-size: 33px;
+    font-weight: 700;
+    color: #FAB900;
+    margin-bottom: 3rem;
+}
+.leftContainerHomeStock{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.leftContainerHomeStock p{
+    font-size: 17px;
+    color: white;
+    margin-bottom: 1.5;
+    font-weight: 500;
+}
+.leftContainerHomeLogo{
+  margin-bottom: 80px; /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
+}
+.RightContainerHome{
+    width: 100%;
+    height: 99.9vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.fisrTitleHomepage {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 5px; /* Ajusta el espaciado según tus necesidades */
+    text-align: center; /* Centra el texto dentro del contenedor */
+    color: #2D2E83;
+   
+  }
+  .fisrTitleHomepage p{
+    color: #2D2E83;
+    font-size: 50px;
+    font-weight: 600;
+  }
+  .fisrTitleHomepage::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%; /* Centra el inicio de la línea en el 50% del contenedor */
+    transform: translateX(-50%); /* Centra la línea con respecto al texto */
+    width: 70%; /* Ajusta la longitud de la "línea" según tus necesidades */
+    height: 3px; /* Ajusta el grosor de la "línea" según tus necesidades */
+    background-color: #2D2E83; /* Ajusta el color según tus preferencias */
+  }
+
+  .icon1home {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    text-align: center; /* Alinea el texto dentro del contenedor */
+  }
+  
+  .icon1home {
+    position: relative;
+  }
+  
+  .icon1home img {
+    display: block; /* Asegura que la imagen sea un bloque para manejar el espacio correctamente */
+    margin: 0 auto; /* Centra la imagen horizontalmente */
+    width: 110px;
+    height: 110px;
+  }
+  
+  .icon1home svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    font-size: 55px;
+    color: #FAB900;
+    fill: #FAB900;
+    /* Ajusta los estilos adicionales del icono según tus necesidades */
+  }
+  .iconosHome{
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+  }
+ 
+  .iconHomeMain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .textIconHome{
+    display: flex;
+    width: 100%;
+    text-align: center;
+  }
+  .textIconHome p{
+    text-align: center;
+    width: 100%;
+    color: #2D2E83;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .titleAmarillo{
+    background-color: #FAB900; 
+    align-items: center;
+    justify-content: center;
+    display: flex;  
+    width: 500px; 
+    margin: 0 auto;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+  }
+  .titleAmarillo p{
+    font-size: 45px;
+    font-weight: 600;
+    color: white;
+  }
+/*Inicio nuevos estilos pantalla nueva de comprar o vender repuestos*/
+
+
 /*Fin nuevos estilos homepage*/

@@ -1,76 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css';
-import { HiChevronLeft } from "react-icons/hi2";
-import { HiChevronRight } from "react-icons/hi2";
-
-
-import Acura from '../../../../public/static/img/Marcas/acura.png';
-import Alfaromeo from '../../../../public/static/img/Marcas/AlfaRomeo.png';
-import Bajaj from '../../../../public/static/img/Marcas/bajaj.png';
-
-SwiperCore.use([Navigation, Pagination]);
-
-
+import 'swiper/swiper-bundle.css'; 
+SwiperCore.use([Navigation, Pagination]); 
 
 const ElegirMarca = () => {
 
     const [loaded, setLoaded] = useState(false);
-    const [products, setProducts] = useState([]);
     const navigationPrevRef = React.useRef(null);
     const navigationNextRef = React.useRef(null);
 
     const marcas = [
-        { nombre: 'Bmw', imagen: 'https://i.postimg.cc/cCMM7V3D/bmw.png' },
-        { nombre: 'Chevrolet', imagen: 'https://i.postimg.cc/xT26kPmx/chevrolet.png' },
-        { nombre: 'Dodge', imagen: 'https://i.postimg.cc/W4GKzbpK/dodge-Nuevo.png' },
-        { nombre: 'Ford', imagen: 'https://i.postimg.cc/B6FCb8nf/ford.png' },
-        { nombre: 'Citroen', imagen: 'https://i.postimg.cc/8PmtLrB1/citroen.png' },
-        { nombre: 'Honda', imagen: 'https://i.postimg.cc/bYb6N5ZS/honda.png' },
-        { nombre: 'Jeep', imagen: 'https://i.postimg.cc/9QX1bFJy/jeep.png' },
-        { nombre: 'Mercedes-benz', imagen: 'https://i.postimg.cc/rsLNr8D0/mercedes.png' },
-        { nombre: 'Audi', imagen: 'https://i.postimg.cc/xdhR9GYP/audi.png' },
-        { nombre: 'Cupra', imagen: 'https://i.postimg.cc/LsnDdQdX/cupra.png' },
+        { nombre: 'Bmw', imagen: '/static/img/Marcas/bmw.png' },
+        { nombre: 'Chevrolet', imagen: '/static/img/Marcas/chevrolet.png' },
+        { nombre: 'Dodge', imagen: '/static/img/Marcas/dodge.png' },
+        { nombre: 'Ford', imagen: '/static/img/Marcas/ford.png' },
+        { nombre: 'Citroen', imagen: '/static/img/Marcas/citroen.png' },
+        { nombre: 'Honda', imagen: '/static/img/Marcas/honda.png' },
+        { nombre: 'Jeep', imagen: '/static/img/Marcas/jeep.png' },
+        { nombre: 'Mercedes-benz', imagen: '/static/img/Marcas/mercedes.png' },
+        { nombre: 'Audi', imagen: '/static/img/Marcas/audi.png' },
+        { nombre: 'Cupra', imagen: '/static/img/Marcas/cupra.png' },
     ];
 
     const marcasDos = [
-        { nombre: 'Acura', imagen: Acura},
-        { nombre: 'Alfa romeo', imagen: Alfaromeo },
-        { nombre: 'Bajaj', imagen: Bajaj },
-        { nombre: 'Bugatti', imagen: '../../../../public/static/img/Marcas/Bugatti.png' },
-        { nombre: 'Ducati', imagen: '../../../../public/static/img/Marcas/Ducati.png' },
-        { nombre: 'Fiat', imagen: '../../../../public/static/img/Marcas/fiat.png' },
-        { nombre: 'Foton', imagen: '../../../../public/static/img/Marcas/foton.png' },
-        { nombre: 'Freightliner', imagen: '../../../../public/static/img/Marcas/freightliner.png' },
-        { nombre: 'Gmc', imagen: '../../../../public/static/img/Marcas/Gmc.png' },
-        { nombre: 'Harley', imagen: '../../../../public/static/img/Marcas/HaerleyDavinson.png' },
+        { nombre: 'Acura', imagen: '/static/img/Marcas/acura.png' },
+        { nombre: 'Alfa romeo', imagen: '/static/img/Marcas/AlfaRomeo.png' },
+        { nombre: 'Bajaj', imagen: '/static/img/Marcas/bajaj.png' },
+        { nombre: 'Bugatti', imagen: '/static/img/Marcas/Bugatti.png' },
+        { nombre: 'Ducati', imagen: '/static/img/Marcas/Ducati.png' },
+        { nombre: 'Fiat', imagen: '/static/img/Marcas/fiat.png' },
+        { nombre: 'Foton', imagen: '/static/img/Marcas/foton.png' },
+        { nombre: 'Freightliner', imagen: '/static/img/Marcas/freightliner.png' },
+        { nombre: 'Gmc', imagen: '/static/img/Marcas/Gmc.png' },
+        { nombre: 'Harley', imagen: '/static/img/Marcas/HaerleyDavinson.png' },
     ];
 
     const marcasTres = [
-        { nombre: 'Hino', imagen: '../../../../public/static/img/Marcas/hino.png' },
-        { nombre: 'Hyunday', imagen: '../../../../public/static/img/Marcas/Hyunday.png' },
-        { nombre: 'Isuzu', imagen: '../../../../public/static/img/Marcas/isuzu.png' },
-        { nombre: 'Kenworth', imagen: '../../../../public/static/img/Marcas/kenworth.png' },
-        { nombre: 'Kia', imagen: '../../../../public/static/img/Marcas/Kia.png' },
-        { nombre: 'Ktm', imagen: '../../../../public/static/img/Marcas/ktm.png' },
-        { nombre: 'Lamborghini', imagen: '../../../../public/static/img/Marcas/Lambo.png' },
-        { nombre: 'Mitsubishi', imagen: '../../../../public/static/img/Marcas/Mitsubishi.png' },
-        { nombre: 'Nissan', imagen: '../../../../public/static/img/Marcas/Nissan.png' },
-        { nombre: 'Tesla', imagen: '../../../../public/static/img/Marcas/Tesla.png' },
+        { nombre: 'Hino', imagen: '/static/img/Marcas/hino.png' },
+        { nombre: 'Hyunday', imagen: '/static/img/Marcas/Hyunday.png' },
+        { nombre: 'Isuzu', imagen: '/static/img/Marcas/isuzu.png' },
+        { nombre: 'Kenworth', imagen: '/static/img/Marcas/kenworth.png' },
+        { nombre: 'Kia', imagen: '/static/img/Marcas/Kia.png' },
+        { nombre: 'Ktm', imagen: '/static/img/Marcas/ktm.png' },
+        { nombre: 'Lamborghini', imagen: '/static/img/Marcas/Lambo.png' },
+        { nombre: 'Mitsubishi', imagen: '/static/img/Marcas/Mitsubishi.png' },
+        { nombre: 'Nissan', imagen: '/static/img/Marcas/Nissan.png' },
+        { nombre: 'Tesla', imagen: '/static/img/Marcas/Tesla.png' },
     ];
 
     const marcasCuatro = [
-        { nombre: 'Porsche', imagen: '../../../../public/static/img/Marcas/posrsche.png' },
-        { nombre: 'Ram', imagen: '../../../../public/static/img/Marcas/Ram.png' },
-        { nombre: 'Renault', imagen: '../../../../public/static/img/Marcas/Renault.png' },
-        { nombre: 'Royal enfield', imagen: '../../../../public/static/img/Marcas/RoyalEnfield.png' },
-        { nombre: 'Suzuki', imagen: '../../../../public/static/img/Marcas/suzuki.png' },
-        { nombre: 'Toyota', imagen: '../../../../public/static/img/Marcas/toyota.png' },
-        { nombre: 'Triumph', imagen: '../../../../public/static/img/Marcas/triumph.png' },
-        { nombre: 'Volvo', imagen: '../../../../public/static/img/Marcas/Volvo.png' },
-        { nombre: 'Wolkswagen', imagen: '../../../../public/static/img/Marcas/wolkswagen.png' },
-        { nombre: 'Yamaha', imagen: '../../../../public/static/img/Marcas/yamaha.png' },
+        { nombre: 'Porsche', imagen: '/static/img/Marcas/posrsche.png' },
+        { nombre: 'Ram', imagen: '/static/img/Marcas/Ram.png' },
+        { nombre: 'Renault', imagen: '/static/img/Marcas/Renault.png' },
+        { nombre: 'Royal enfield', imagen: '/static/img/Marcas/RoyalEnfield.png' },
+        { nombre: 'Suzuki', imagen: '/static/img/Marcas/suzuki.png' },
+        { nombre: 'Toyota', imagen: '/static/img/Marcas/toyota.png' },
+        { nombre: 'Triumph', imagen: '/static/img/Marcas/triumph.png' },
+        { nombre: 'Volvo', imagen: '/static/img/Marcas/Volvo.png' },
+        { nombre: 'Wolkswagen', imagen: '/static/img/Marcas/wolkswagen.png' },
+        { nombre: 'Yamaha', imagen: '/static/img/Marcas/yamaha.png' },
     ];
 
 

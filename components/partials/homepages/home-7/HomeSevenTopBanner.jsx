@@ -8,6 +8,13 @@ import { getEditData } from "../../../../store/editdata/action";
 import { getAddEdToCart } from "../../../../store/addedtocart/action";
 import { getDuplicarPrd } from "../../../../store/duplicarprd/action";
 
+
+import { RiPoliceCarFill } from "react-icons/ri";
+import { FaBusAlt } from "react-icons/fa";
+import { IoCarSport } from "react-icons/io5"; //electrico
+import { BsBusFrontFill } from "react-icons/bs"; //camion 
+import { RiMotorbikeFill } from "react-icons/ri";
+
 const HomeSevenTopBanner = (props) => {
     const { setSelectedForm } = props;
     const dispatch = useDispatch();
@@ -64,68 +71,98 @@ const HomeSevenTopBanner = (props) => {
         dispatch(getAddEdToCart(row));
         localStorage.setItem("addedtocart", JSON.stringify(row));
         let datprd = [];
-        localStorage.setItem("duplicarprd",JSON.stringify(datprd));
-        localStorage.setItem("vehproductos",JSON.stringify(datprd));
+        localStorage.setItem("duplicarprd", JSON.stringify(datprd));
+        localStorage.setItem("vehproductos", JSON.stringify(datprd));
         dispatch(getDuplicarPrd(0));
     };
 
     return (
         <div className="ps-top-banners">
-            <div className="ps-banner--home-seven">
-                <div className="ps-logomr">
-                    <img
-                        className="ps-logomr"
-                        src="/static/img/logomr.png"
-                        alt="logo"
-                    />
-                    <img
-                        className="ps-logomr"
-                        src="/static/img/banderacolombia.jpg"
-                        alt="logo"
-                    />
+           
+                <div className="newContHomepage" style={{ backgroundImage: 'url("https://i.postimg.cc/mDg6RjS7/Fondoinicio2.png")' }}>
+                    <div className="leftContainerHome">
+                        <div className="leftContainerHomeLogo">
+                            <img src="/static/img/LogoBlancoMR/LogoBlancoMR.png" alt="" />
+                        </div>
+                        <div className="leftContainerHomeButtons">
+                            <button onClick={comprar}>COMPRAR</button>
+                            <button onClick={vender}>VENDER</button>
+                        </div>
+                        <div className="leftContainerHomeStock">
+                            <p>REPUESTOS EN STOCK: 1234</p>
+                            <p>REPUESTOS CARGANDOSE EN TIEMPO REAL: 1234</p>
+                        </div>
+                    </div>
+
+
+                    <div className="RightContainerHome">
+                        <div className="middleRightContainerHome">
+                            <div className="fisrTitleHomepage">
+                                <p>ACCESORIOS Y REPUESTOS</p>
+                            </div>
+                            <div className="titleAmarillo">
+                                <p>PARA TU VEHICULO</p>
+                            </div>
+                            <div className="iconosHome">
+
+                                <div className="iconHomeMain">
+                                    <div className="icon1home">
+                                        <img src="/static/img/LogoBlancoMR/CirculoAzul.png" alt="" />
+                                        <RiPoliceCarFill />
+                                    </div>
+                                    <div className="textIconHome">
+                                        <p>CARROS Y <br />CAMIONETAS</p>
+                                    </div>
+                                </div>
+
+                                <div className="iconHomeMain">
+                                    <div className="icon1home">
+                                        <img src="/static/img/LogoBlancoMR/CirculoAzul.png" alt="" />
+                                        <RiMotorbikeFill /> 
+                                    </div>
+                                    <div className="textIconHome">
+                                        <p>MOTOS</p>
+                                    </div>
+                                </div>
+
+                                <div className="iconHomeMain">
+                                    <div className="icon1home">
+                                        <img src="/static/img/LogoBlancoMR/CirculoAzul.png" alt="" />
+                                        <BsBusFrontFill />
+                                    </div>
+                                    <div className="textIconHome">
+                                        <p>CAMIONES</p>
+                                    </div>
+                                </div>
+
+                                <div className="iconHomeMain">
+                                    <div className="icon1home">
+                                        <img src="/static/img/LogoBlancoMR/CirculoAzul.png" alt="" />
+                                        <FaBusAlt />
+                                    </div>
+                                    <div className="textIconHome">
+                                        <p>BUSES Y <br /> VANS</p>
+                                    </div>
+                                </div>
+
+                                <div className="iconHomeMain">
+                                    <div className="icon1home">
+                                        <img src="/static/img/LogoBlancoMR/CirculoAzul.png" alt="" />
+                                        <IoCarSport />
+                                    </div>
+                                    <div className="textIconHome">
+                                        <p>ELECTRICOS</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="botoncompravende">
-                    <Row>
-                        <Col md={4}>
-                            <Card
-                                className="cardcomprar"
-                                style={{ width: "15rem", height: "7rem" }}>
-                                <Card.Body>
-                                    <Card.Title
-                                        className="textbotoncompravende"
-                                        onClick={comprar}>
-                                        COMPRAR TU REPUESTO
-                                        <br />
-                                        <i
-                                            className="fa fa-cart-plus"
-                                            aria-hidden="true"></i>
-                                    </Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={4}>
-                            <Card
-                                className="cardvender"
-                                style={{ width: "15rem", height: "7rem" }}>
-                                <Card.Body>
-                                    <Card.Title
-                                        className="textbotoncompravende"
-                                        onClick={vender}>
-                                        VENDER TU REPUESTO
-                                        <br />
-                                        <i
-                                            className="fa fa-shopping-bag"
-                                            aria-hidden="true"></i>
-                                    </Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </div>
-                <h4 className="textorepuestosstock">
-                    Repuestos en Sctock : 12,345{" "}
-                </h4>
-            </div>
+
+
+
+            
         </div>
     );
 };
