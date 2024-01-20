@@ -448,7 +448,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                                 <div className='notifContIcono'>
                                     {transaccion.tipo === 'compra' ? <PiBasketBold /> :
                                         transaccion.tipo === 'venta' ? <MdOutlineSell /> :
-                                            transaccion.tipo === 'pregunta' ? <FaQuestion /> :
+                                            transaccion.tipo === 'pregunta' ? <RxQuestionMarkCircled /> :
                                                 <TbMessageDown />}
                                 </div>
                                 <div className='notifContenido'>
