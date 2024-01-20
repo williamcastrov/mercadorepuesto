@@ -10,23 +10,25 @@ const FooterDefault = () => {
     return (
         <footer className="FooterWebPage">
             <Grid container style={{ width: '100%' }} className="SubFooterWebPage">
-                <Grid container style={{ width: '90%' }} className="infoContainerFooterMain">
+                <div className="SubcMainFooter" >
+
+                  
                     <div className="footerDataMain">
                         <p>HAZ PARTE DE NUESTRO <br /> EQUIPO</p>
                         <div className="footerData">
-                            <span onClick={() =>  router.push({pathname: '/my-account'}).then(() => window.location.reload())}>Registrarme</span>
-                            <span onClick={() =>  router.push({pathname: '/loginaccount'}).then(() => window.location.reload())}>Iniciar sesión</span>
-                            <span onClick={() => router.push({pathname: '/CreateProduct/createproduct'})}>Vender</span>
-                            <span onClick={() => router.push({pathname: '/'})}>Comprar</span>
+                            <span onClick={() => router.push({ pathname: '/my-account' }).then(() => window.location.reload())}>Registrarme</span>
+                            <span onClick={() => router.push({ pathname: '/loginaccount' }).then(() => window.location.reload())}>Iniciar sesión</span>
+                            <span onClick={() => router.push({ pathname: '/CreateProduct/createproduct' })}>Vender</span>
+                            <span onClick={() => router.push({ pathname: '/' })}>Comprar</span>
                         </div>
                     </div>
 
                     <div className="footerDataMain">
                         <p>AYUDA</p>
                         <div className="footerData2">
-                            <span onClick={() => router.push({pathname: '/ResolverDudas'})}>Necesito ayuda</span>
+                            <span onClick={() => router.push({ pathname: '/ResolverDudas' })}>Necesito ayuda</span>
                             <span>PQRS</span>
-                            <span onClick={() => router.push({pathname: '/ResolverDudas'})}>Centro de ayuda</span>
+                            <span onClick={() => router.push({ pathname: '/ResolverDudas' })}>Centro de ayuda</span>
                             <span>Terminos y condiciones</span>
                             <span>Tratamiento de datos</span>
                         </div>
@@ -35,13 +37,12 @@ const FooterDefault = () => {
                     <div className="footerDataMain">
                         <p>SECCIONES POPULARES</p>
                         <div className="footerData2">
-                            <span onClick={() => router.push({pathname: '/searchinteractive/searchinteractive'})}>Buscador interactivo </span>
-                            <span onClick={() => router.push({pathname: '/CreateProduct/createproduct'})}>Vender</span>
-                            <span onClick={() => router.push({pathname: '/'})}>Comprar</span>
+                            <span onClick={() => router.push({ pathname: '/searchinteractive/searchinteractive' })}>Buscador interactivo </span>
+                            <span onClick={() => router.push({ pathname: '/CreateProduct/createproduct' })}>Vender</span>
+                            <span onClick={() => router.push({ pathname: '/' })}>Comprar</span>
                             <span>Categorías</span>
                         </div>
                     </div>
-
                     <div className="footerDataMain">
                         <p>CONTÁCTANOS</p>
                         <div className="footerData2">
@@ -52,10 +53,10 @@ const FooterDefault = () => {
                             <span>Youtube</span>
                         </div>
                     </div>
-                    <div className="imagenFooterLogo">
+                    <div className="footerDataMain footerDataMainIMG">
                         <img src="https://i.postimg.cc/v8gHVrF9/Logo-Blanco.png" alt="" />
                     </div>
-                </Grid>
+                </div>
 
                 <Grid container style={{ width: '100%' }} className="SubInfoMediosPagoFooter">
                     <Grid container style={{ width: '90%' }} className="infoContainerFooter" display={'flex'} justifyContent={'space-between'}>
