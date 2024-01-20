@@ -10,9 +10,7 @@ const FooterDefault = () => {
     return (
         <footer className="FooterWebPage">
             <Grid container style={{ width: '100%' }} className="SubFooterWebPage">
-                <div className="SubcMainFooter" >
-
-                  
+                <div className="SubcMainFooter" > 
                     <div className="footerDataMain">
                         <p>HAZ PARTE DE NUESTRO <br /> EQUIPO</p>
                         <div className="footerData">
@@ -23,7 +21,7 @@ const FooterDefault = () => {
                         </div>
                     </div>
 
-                    <div className="footerDataMain">
+                    <div className="footerDataMain ">
                         <p>AYUDA</p>
                         <div className="footerData2">
                             <span onClick={() => router.push({ pathname: '/ResolverDudas' })}>Necesito ayuda</span>
@@ -43,7 +41,7 @@ const FooterDefault = () => {
                             <span>Categorías</span>
                         </div>
                     </div>
-                    <div className="footerDataMain">
+                    <div className="footerDataMainContactanos footerDataMain">
                         <p>CONTÁCTANOS</p>
                         <div className="footerData2">
                             <span>PQRS</span>

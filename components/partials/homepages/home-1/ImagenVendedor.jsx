@@ -10,7 +10,7 @@ const ImagenVendedor = () => {
 
     return (
         <div className="mainContImgVendedor">
-              <img src="https://i.postimg.cc/QCXh03N6/Dise-o-sin-t-tulo.png" alt=""  onClick={crearProductos}/>
+              <img src="https://i.postimg.cc/QMyLvxpc/6.png" alt=""  onClick={crearProductos}/>
         </div>
     );
 };

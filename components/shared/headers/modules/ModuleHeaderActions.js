@@ -31,9 +31,19 @@ import {
 } from "~/utilities/ecomerce-helpers";
 
 
+import NotificacionesComponente from "./NotificacionesComponente";
 
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import { Box } from "@mui/material";
 
- 
+import { PiBasketBold } from "react-icons/pi"; //Icono para compra - como comprador 
+import { TbMessageHeart } from "react-icons/tb";//icono para cuando se califico el vendedor - como vendedor
+import { MdOutlineSell } from "react-icons/md"; //Iocno para cuando se hace venta - como vendedor
+import { RiCheckDoubleLine } from "react-icons/ri"; //para cuando hizo la entrega - como vendedor
+import { TbAlertCircle } from "react-icons/tb";
+import { RxQuestionMarkCircled } from "react-icons/rx"; //para cuando le hacen una pregunta en preguntas y respuestas
+import { TbMessageDown } from "react-icons/tb"; //respuesta de vendedor - como comprador
 
 
 const ModuleHeaderActions = ({ ecomerce, search = false }) => {
@@ -181,13 +191,165 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
 
 
 
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+
+    const [preguntas, setPreguntas] = useState([]);
+    const [compras, setCompras] = useState([]);
+    const [ventas, setVentas] = useState([]);
+    const [transaccionesRecientes, setTransaccionesRecientes] = useState([]);
+    const [respuestas, setRespuestas] = useState([]);
+
+    useEffect(() => {
+        const leerRespuestas = async () => {
+            let params = {
+                uidcomprador: datosusuarios.uid,
+            };
+
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "5211",
+                params,
+            })
+                .then((res) => {
+                    console.log("Respuestas del usuario para notificaciones:", res.data.listpreguntacompra);
+                    // Agregamos una propiedad 'tipo' a cada compra
+                    const comprasConTipo = res.data.listpreguntacompra.map(respuesta => ({ ...respuesta, tipo: 'respuesta' }));
+                    setRespuestas(comprasConTipo);
+                })
+                .catch(function (error) {
+                    console.error("Error al leer los respuestas del usuario", error);
+                });
+        };
+
+        leerRespuestas();
+    }, []);
 
 
 
- 
+    useEffect(() => {
+        const leerComrpasUsuario = async () => {
+            let params = {
+                uidcomprador: datosusuarios.uid,
+            };
+
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "103",
+                params,
+            })
+                .then((res) => {
+                    console.log("Compras del usuario para notificaciones:", res.data.listarmiscompras);
+                    // Agregamos una propiedad 'tipo' a cada compra
+                    const comprasConTipo = res.data.listarmiscompras.map(compra => ({ ...compra, tipo: 'compra' }));
+                    setCompras(comprasConTipo);
+                })
+                .catch(function (error) {
+                    console.error("Error al leer los compras del usuario", error);
+                });
+        };
+
+        leerComrpasUsuario();
+    }, []);
+
+    useEffect(() => {
+        const leerVentasUsuario = async () => {
+            let params = {
+                uidvendedor: datosusuarios.uid,
+            };
+
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "106",
+                params,
+            })
+                .then((res) => {
+                    console.log("Ventas del usuario para notificaciones:", res.data.listarmisventas);
+                    // Agregamos una propiedad 'tipo' a cada venta
+                    const ventasConTipo = res.data.listarmisventas.map(venta => ({ ...venta, tipo: 'venta' }));
+                    setVentas(ventasConTipo);
+                })
+                .catch(function (error) {
+                    console.error("Error al leer los compras del usuario", error);
+                });
+        };
+
+        leerVentasUsuario();
+    }, []);
 
 
+    useEffect(() => {
+        const leerPreguntasRecientes = async () => {
+            let params = {
+                uidvendedor: datosusuarios.uid,
+            };
 
+            await axios({
+                method: "post",
+                url: URL_BD_MR + "52",
+                params,
+            })
+                .then((res) => {
+                    console.log("Preguntas recientes del usuario:", res.data.listarpreguntavend);
+                    // Filtramos las preguntas para incluir solo las que están en estado 80 y no tienen una pregunta correspondiente en estado 81
+                    const preguntasFiltradas = res.data.listarpreguntavend.filter(pregunta =>
+                        pregunta.estado === 80 &&
+                        !res.data.listarpreguntavend.some(p => p.idpregunta === pregunta.idpregunta && p.estado === 81)
+                    );
+                    // Agregamos una propiedad 'tipo' a cada pregunta
+                    const preguntasConTipo = preguntasFiltradas.map(pregunta => ({ ...pregunta, tipo: 'pregunta' }));
+                    setPreguntas(preguntasConTipo);
+                })
+                .catch(function (error) {
+                    console.error("Error al leer las preguntas recientes del usuario", error);
+                });
+        };
+
+        leerPreguntasRecientes();
+    }, []);
+
+    useEffect(() => {
+        // Unimos las compras, las ventas, las preguntas y las respuestas en una sola lista
+        const transacciones = [...compras, ...ventas, ...preguntas, ...respuestas];
+
+        // Ordenamos las transacciones por fecha
+        transacciones.sort((a, b) => new Date(b.fechacompra || b.fechacreacion) - new Date(a.fechacompra || a.fechacreacion));
+
+        // Nos quedamos con las 4 transacciones más recientes
+        const recientes = transacciones.slice(0, 4);
+
+        console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
+
+        setTransaccionesRecientes(recientes);
+    }, [compras, ventas, preguntas, respuestas]); // Este useEffect se ejecutará cada vez que cambien las compras, las ventas, las preguntas o las respuestas // Este useEffect se ejecutará cada vez que cambien las compras, las ventas o las preguntas
+
+    const irAPagina = (transaccion) => {
+        // Supongamos que tienes rutas separadas para compras y ventas
+        if (transaccion.tipo === 'compra') {
+            router.push('/MisCompras/misCompras');
+        } else if (transaccion.tipo === 'venta') {
+            router.push('/MisVentas/misVentas');
+        }
+        else if (transaccion.tipo === 'pregunta') {
+            router.push('/PreguntasYrespuestas/preguntasSobreMisProductos');
+        }
+        else if (transaccion.tipo === 'respuesta') {
+            router.push('/PreguntasYrespuestas/preguntasRealizadasPorUsuario');
+        }
+        
+
+    };
 
     return (
         <ul className="header__actions">
@@ -254,16 +416,55 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
 
 
             <li >
-                <a className="header__action">
+                <a className="header__action" onClick={handleClick} >
                     <RxBell />
-                    <span className="header__action-badge ">
-                        {numberitemsshoppingcart ? numberitemsshoppingcart : 0}
+                    <span className="header__action-badge">
+                        {transaccionesRecientes.length ? transaccionesRecientes.length : 0}
                     </span>
-
                 </a>
             </li>
-             
-            
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                disableScrollLock={true}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                <div className="MainContainerAlertas">
+                    <div className="subMainContainerAlertas">
+                        <p>Notificaciones</p>
+                    </div>
+                    <div className="SubMainAlertasContenido">
+                        {transaccionesRecientes.map((transaccion, index) => (
+                            <div className='notifCont' key={index} onClick={() => irAPagina(transaccion)}>
+                                <div className='notifContIcono'>
+                                    {transaccion.tipo === 'compra' ? <PiBasketBold /> :
+                                        transaccion.tipo === 'venta' ? <MdOutlineSell /> :
+                                            transaccion.tipo === 'pregunta' ? <FaQuestion /> :
+                                                <TbMessageDown />}
+                                </div>
+                                <div className='notifContenido'>
+                                    <p>
+                                        {transaccion.tipo === 'compra' ? 'Felicidades! compraste un producto' :
+                                            transaccion.tipo === 'venta' ? 'Felicidades! vendiste un producto' :
+                                                transaccion.tipo === 'pregunta' ? 'Tienes una nueva pregunta' :
+                                                    'Tienes una nueva respuesta'}
+                                    </p>
+                                    <p>Toca para ver más</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Popover>
 
             <li className="ml-10"
                 onClick={() => reiniciarCtr()}

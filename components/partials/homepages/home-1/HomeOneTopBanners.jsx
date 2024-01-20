@@ -7,7 +7,7 @@ const HomeOneTopBanners = () => {
 
     const prevIcon = "https://i.postimg.cc/FsbgSDBn/prevIcon.png"; // Imagen para el botón "anterior"
     const nextIcon = "https://i.postimg.cc/kXPvDkfb/nextIcon.png"; // Imagen para el botón "siguiente" 
-
+    const [imagenes, setImagenes] = useState([]);
     // Componente personalizado para los botones
     const CustomButton = ({ iconUrl }) => (
         <span
@@ -24,9 +24,7 @@ const HomeOneTopBanners = () => {
             }}
             aria-hidden="true"
         />
-    );
-
-    const [imagenes, setImagenes] = useState([]);
+    ); 
 
     useEffect(() => {
         const obtenerImagenes = async () => {

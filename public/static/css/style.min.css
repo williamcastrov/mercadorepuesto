@@ -34703,18 +34703,23 @@ label {
   }
   
   .footerDataMain {
-    flex: 1;  
+    flex: 1.3;  /* Aumenta este valor para hacer los contenedores más anchos */
     padding-bottom: 2.5rem;
-  }
+}
 
   .footerDataMain img{
-    width: 150px;
+    width: 88%;
   }
+.footerDataMainContactanos{
+    flex: 1 !important; 
+}
+
   .footerDataMainIMG{
+    flex: 1 !important;  /* Disminuye este valor para hacer el último contenedor más estrecho */
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -34833,7 +34838,7 @@ label {
     align-items: center;
 }
 .leftContainerHomeLogo img{
-    width: 280px;
+    width: 300px;
 }
 .leftContainerHomeButtons{
     display: flex;
@@ -34841,7 +34846,7 @@ label {
     width: 100%;
     justify-content: center;
     align-items: center;
-    margin-bottom: 130px;
+    margin-bottom: 100px;
 }
 .leftContainerHomeButtons button{
     width: 250px;
@@ -34867,7 +34872,7 @@ label {
     font-weight: 500;
 }
 .leftContainerHomeLogo{
-  margin-bottom: 80px; /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
+  margin-bottom: 30px; /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
 }
 .RightContainerHome{
     width: 100%;
@@ -34974,7 +34979,74 @@ label {
     font-weight: 600;
     color: white;
   }
+
 /*Inicio nuevos estilos pantalla nueva de comprar o vender repuestos*/
 
+
+/*Inicio estilos notificaciones*/
+
+.MainContainerAlertas{
+    width: 345px; 
+}
+.subMainContainerAlertas{
+    width: 100%;
+    border-bottom: 1px solid #2D2E83;
+    padding: .7rem; 
+    background-color:  #e8e8f1;
+}
+.subMainContainerAlertas p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #2D2E83;  
+}
+
+.SubMainAlertasContenido {
+    padding: .7rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 100px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .SubMainAlertasContenido p{
+    font-size: 14px;
+    font-weight: 600;
+    color: #2D2E83;  
+}
+
+.notifCont{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%; 
+    margin-bottom: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    transition: background-color 0.3s ease; 
+    cursor: pointer;
+}
+
+.notifCont:hover {
+    background-color: #e8e8f1;  
+  }
+.notifContIcono{
+    width: 55px;
+    height: 55px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px solid #2D2E83;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.notifContIcono svg{
+    color: #2D2E83;  
+    font-size: 30px !important;
+}
+ 
+/*Fin estilos notificaciones*/
 
 /*Fin nuevos estilos homepage*/
