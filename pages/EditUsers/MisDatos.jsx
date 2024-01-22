@@ -33,6 +33,8 @@ export default function MisDatos() {
     const [correoElectronico, setCorreoElectronico] = useState("");
     const [nroDocumentoSeleccionado, setNroDocumentoSeleccionado] = useState("");
     const [tipoDocumentoSeleccionado, setTipoDocumentoSeleccionado] = useState("");
+ 
+
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
@@ -44,21 +46,7 @@ export default function MisDatos() {
                     method: "post",
                     url: URL_BD_MR + "13",
                     params,
-                });
-
-                // Actualiza el estado con los datos adicionales que necesitas
-                setDatosUsuario(res.data[0]);
-                setNombres(res.data[0].primernombre);
-                setNombresDos(res.data[0].segundonombre);
-                setApellidos(res.data[0].primerapellido);
-                setApellidosDos(res.data[0].segundoapellido);
-                setTelefonoRecibeSeleccionado(res.data[0].celular);
-                setCorreoElectronico(res.data[0].email);
-                setNroDocumentoSeleccionado(res.data[0].identificacion);
-                setTipoDocumentoSeleccionado(res.data[0].nombredocumento)
-
-                // Agrega más setState según sea necesario
-
+                }); 
             } catch (error) {
                 console.error("Error al leer los datos del usuario", error);
                 // Maneja el error según tus necesidades

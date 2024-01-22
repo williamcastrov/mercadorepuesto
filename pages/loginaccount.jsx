@@ -31,6 +31,8 @@ import {
 import { format } from "prettier";
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
 
+
+
 const LoginAccount = () => {
     const router = useRouter();
     const dispatch = useDispatch();
@@ -82,7 +84,7 @@ const LoginAccount = () => {
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
 
     const [inputControlEmail, setInputControlEmail] = useState(
-        "form-control ps-form__input basecolorinput eliminarborde"
+        "form-controlNuevo ps-form__inputNuevo"
     );
 
     //const [agregarCarrito, setagregarCarrito] = useState(false);
@@ -243,7 +245,7 @@ const LoginAccount = () => {
                                         "itemsresolverdudas",
                                         JSON.stringify("Ok")
                                     );
-                                }  
+                                }
 
                                 else if (ira == 11) {
                                     let datitem = JSON.parse(
@@ -315,7 +317,7 @@ const LoginAccount = () => {
                                                 .then((res) => {
                                                     router.push(
                                                         datitem.ruta +
-                                                            datitem.idproducto
+                                                        datitem.idproducto
                                                     );
 
                                                     localStorage.setItem(
@@ -965,7 +967,7 @@ const LoginAccount = () => {
 
         if (!formData.email) {
             setInputControlEmail(
-                "form-control ps-form__input alertboton basecolorinput"
+                "form-controlNuevo ps-form__inputNuevo"
             );
             setShowModalMensajes(true);
             setTituloMensajes("Recuperar contraseña");
@@ -1033,104 +1035,73 @@ const LoginAccount = () => {
 
                 <div className="container">
                     <div className="ps-page__header"></div>
-                    <div className="ps-page__content">
-                        <div className="row">
-                            <div className="col-12 col-md-6">
-                                <form onChange={onChange}>
-                                    <div className="ps-form--review">
-                                        <h2 className="ps-form__title">
-                                            Iniciar sesión
-                                        </h2>
-                                        <div className="ps-form__group">
-                                            <label className="ps-form__label">
-                                                * Correo electrónico
-                                            </label>
-                                            <input
-                                                className={inputControlEmail}
-                                                name="email"
-                                                type="email"
-                                            />
-                                        </div>
-                                        <div className="ps-form__group">
-                                            <label className="ps-form__label">
-                                                * Contraseña
-                                            </label>
-                                            <div className="input-group">
-                                                <input
-                                                    className="contraseñainputiniciarsesion"
-                                                    name="password"
-                                                    type={classNamePassword}
-                                                />
-                                                <div>
-                                                    <a
-                                                        className={classNameEye}
-                                                        href="#"
-                                                        onClick={
-                                                            mostrarContraseña
-                                                        }></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="ps-form__submit">
-                                            <div>
-                                                <p className="tamañotextocrearproductodos">
-                                                    Sugerencia: Si no estas
-                                                    registrado en Mercado
-                                                    Repuesto, primero debes
-                                                    crear tu usuario, una cuenta
-                                                    te permite estar al tanto de
-                                                    las novedades de nuestro
-                                                    sitio.
-                                                </p>
-                                            </div>
 
-                                            <Row>
-                                                <div
-                                                    className="botoningresariniciarsesion apuntador"
-                                                    onClick={login}>
-                                                    Ingresar
-                                                </div>
-                                                <div className="mt-10 ml-3 form-check">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="remember"
-                                                    />
-                                                    <label
-                                                        className="form-check-label"
-                                                        htmlFor="remember">
-                                                        Recuérdame
-                                                    </label>
-                                                </div>
-                                                <div
-                                                    className="ml-35 botonolvidastecontraseña apuntador"
-                                                    onClick={() =>
-                                                        textoMedioToken()
-                                                    }>
-                                                    ¿Olvidaste tu contraseña?
-                                                </div>
-                                                {user ? (
-                                                    <div
-                                                        className="ps-btn ps-btn--warning"
-                                                        href="/my-additionaldata">
-                                                        Datos Adicionales
-                                                    </div>
-                                                ) : null}
-                                            </Row>
-                                        </div>
-                                    </div>
-                                </form>
-                                <br />
-                                <h3 className="ml-250 mt-10"> Ó </h3>
+                    <form onChange={onChange}>
+                        <div className="LoginNewContainer">
+                            <img src="/static/img/favicon_2.png" alt="" />
 
-                                <div
-                                    className="botoncrearcuenta mt-20 apuntador"
-                                    onClick={() => crearCuenta()}>
-                                    Crear tu cuenta
+                            <div className="inputContLogin inputContLoginCorreo">
+                                <p>* Correo electronico</p>
+                                <input className={inputControlEmail} name="email" type="email" />
+                            </div>
+                            <div className="inputContLogin inputContLoginContraseña">
+                                <p>* Contraseña</p>
+                                <div className="input-group">
+                                    <input
+                                        className="contraseñainputiniciarsesion"
+                                        name="password"
+                                        type={classNamePassword}
+                                    />
+                                    <a
+                                        className={classNameEye}
+                                        href="#"
+                                        onClick={
+                                            mostrarContraseña
+                                        }></a>
+
                                 </div>
                             </div>
+                            <div className="partebajaLogin">
+                                <div className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        id="remember"
+                                    />
+                                    <label
+                                        className="form-check-label"
+                                        htmlFor="remember">
+                                        Recuérdame
+                                    </label>
+                                </div>
+
+                                <p onClick={() => textoMedioToken()}>¿Olvidaste tu contraseña?</p>
+                            </div>
+                            {user ? (
+                                <div
+                                    className="ps-btn ps-btn--warning"
+                                    href="/my-additionaldata">
+                                    Datos Adicionales
+                                </div>
+                            ) : null}
+                            <div className="ContbuttonEntrarLogin">
+                                <div className="buttonEntrarLogin" onClick={login}>
+                                    Ingresar
+                                </div>
+                            </div>
+                            <div className="Otext">
+                                <p>O</p>
+                            </div>
+                            <div className="CrearcuentaCont">
+                                <p onClick={() => crearCuenta()}>Crea tu cuenta</p>
+                            </div>
+                            <div className="Otext">
+                                <p>Sugerencia: Si no estas registrado en Mercado Repuesto, primero debes crear tu usuario, una cuenta te permite estar al tanto de las novedades de nuestro sitio.</p>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
+
                 </div>
             </div>
 

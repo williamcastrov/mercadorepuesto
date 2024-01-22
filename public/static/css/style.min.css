@@ -24077,7 +24077,7 @@ ol {
 }
 
 .colorinput {
-    background-color: #E8F0FE !important;
+    background-color: #f1f2f6 !important;
     font-size: 16px;
     border-radius: 10px !important;
     margin-left: -30px;
@@ -24085,7 +24085,7 @@ ol {
 }
 
 .contraseñainputiniciarsesion {
-    width: 538px !important;
+    width: 238px !important;
     font-size: 15px;
     padding: 15px;
     background-color: #E8F0FE;
@@ -35048,5 +35048,99 @@ label {
 }
  
 /*Fin estilos notificaciones*/
+
+
+
+/*Inicio nuevos estilos login*/
+.LoginNewContainer{
+    min-width: 440px;
+    height: auto;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 3px solid #f1f2f6;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+.LoginNewContainer img{
+    width: 220px;
+    margin: 2rem;
+}
+.ps-form__inputNuevo{
+    background-color: #f1f2f6 !important;
+    width: 340px !important;
+    border-radius: 10px;
+    height: 45px !important;
+    padding: 9px 15px;
+    color: #2D2E83;
+    font-size: 15px;
+}
+
+.contraseñainputiniciarsesion {
+    background-color: #f1f2f6 !important;
+    width: 340px !important;
+    border-radius: 10px;
+    height: 45px !important;
+    padding: 9px 15px;
+    color: #2D2E83;
+}
+.inputContLoginCorreo{
+    margin-top: 2rem !important;
+}
+.inputContLogin p{
+    font-size: 15px;
+    color: #2D2E83; 
+}
+.inputContLoginContraseña{
+    margin-top: 2.5rem;
+}
+.partebajaLogin{
+    margin-top: 1.5rem;
+    width: 340px !important;
+    display: flex;
+    justify-content: space-between;
+}
+.ContbuttonEntrarLogin{
+    width: 340px !important;
+    margin-top: 2rem;
+}
+.buttonEntrarLogin{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    height: 42px !important;
+    font-size: 17px;
+    color: white;
+    background-color: #03037D;
+    align-items: center;
+    cursor: pointer;
+}
+.partebajaLogin p{
+    font-size: 15px;
+    color: #2D2E83; 
+    cursor: pointer;
+}
+.Otext{
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    width: 340px !important;
+    display: flex;
+}
+.Otext p{
+    font-size: 15px;
+    color: #2D2E83;  
+}
+.CrearcuentaCont p{
+    font-size: 17px;
+    cursor: pointer;
+    color: #2D2E83;  
+}
+
+/*Fin nuevos estilos login*/
 
 /*Fin nuevos estilos homepage*/

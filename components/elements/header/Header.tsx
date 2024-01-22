@@ -104,7 +104,7 @@ const Header = ({ slim }: Props) => {
                                 <a className="image-container">
                                     <Image
                                         priority
-                                        src="/static/img/logomr.png"
+                                        src="/static/img/logomr.png" 
                                         alt="logo mercado repuesto"
                                         onClick={() => iniciarInputBuscador()}
                                         layout="fill"
