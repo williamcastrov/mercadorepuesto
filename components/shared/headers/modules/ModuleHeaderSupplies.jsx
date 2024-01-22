@@ -206,16 +206,16 @@ const ModuleHeaderSupplies = (props) => {
             <div className={classContent}>
                 <div className="visualizacioncategorias">
                     <div className="mega-menu__row  mtmenos31">
-                        <div className="mega-menu__column col-12 col-sm-3 mt-1">
+                        <div className="col-12 col-sm-3 mt-1 megaMenuUu">
                             {categorias &&
                                 categorias.map((item, id) => (
                                     <Row>
                                         {item.id == itemCategoria ? (
                                             <Col
-                                                xl={6}
-                                                lg={6}
-                                                md={6}
-                                                sm={6}
+                                                xl={8}
+                                                lg={8}
+                                                md={8}
+                                                sm={8}
                                                 className="resaltaitemmodalcategoria mt-3"
                                                 onMouseOver={(e) =>
                                                     activar(item)
@@ -235,16 +235,11 @@ const ModuleHeaderSupplies = (props) => {
                                                 {item.nombre}
                                             </Col>
                                         )}
-                                        <Col xl={2} lg={2} md={2} sm={2}>
-                                            {item.id == itemCategoria ? (
-                                                <IoIosArrowForward className="tamañoflechacategorias mt-3" />
-                                            ) : null}
-                                        </Col>
                                     </Row>
                                 ))}
                         </div>
 
-                        <div className="mega-menu__column col-sm-6 col-md-10 mlmenos50 mt-2">
+                        <div className="mega-menu__column col-sm-5 col-md-9 mlmenos10 mt-2">
                             <div className="textoadvertenciaproductos">
                                 <Row>
                                     <Col xl={3} lg={3} md={3} sm={3}>
@@ -272,11 +267,10 @@ const ModuleHeaderSupplies = (props) => {
                                     </Col>
                                 </Row>
                             </div>
-                            <div className="linea"></div>
 
                             {subcategoriasSeleccionada &&
                                 subcategoriasSeleccionada.map((item) => (
-                                    <Row>
+                                    <Row className="RowSubcategorias">
                                         <Col
                                             xl={6}
                                             lg={6}
@@ -310,7 +304,7 @@ const ModuleHeaderSupplies = (props) => {
                                                     }
                                                     onMouseOut={cerrarEjemplos}>
                                                     {item.id1 ==
-                                                    itemSubCategoria ? (
+                                                        itemSubCategoria ? (
                                                         <InfoIcon
                                                             style={{
                                                                 fontSize: 20,
@@ -352,7 +346,7 @@ const ModuleHeaderSupplies = (props) => {
                                                     }
                                                     onMouseOut={cerrarEjemplos}>
                                                     {item.id2 ==
-                                                    itemSubCategoria ? (
+                                                        itemSubCategoria ? (
                                                         <InfoIcon
                                                             style={{
                                                                 fontSize: 20,
@@ -364,62 +358,28 @@ const ModuleHeaderSupplies = (props) => {
                                     </Row>
                                 ))}
                         </div>
-                        {/*
-                        <div className="mega-menu__column col-12 col-sm-4 col-md-3">
-                            <div className="mega-menu__product">
-                                <CountDown
-                                    time="12 31 2021, 6:00 am"
-                                    format="MM DD YYYY, h:mm a"
-                                />
-                                {product && (
-                                    <ProductWithAvaiable product={product} />
-                                )}
-                            </div>
-                        </div>
-                        */}
+
                     </div>
                     {ejemplos ? (
-                        <div className="divubicaejemplosuno">
-                            <Row>
-                                <Col xl={2} lg={2} md={2} sm={2}></Col>
-                                <Col xl={2} lg={2} md={2} sm={2}>
-                                    <img
-                                        src={img1.src}
-                                        alt=""
-                                        width="120px"
-                                        height="120px"
-                                    />
-                                </Col>
-                                <Col xl={2} lg={2} md={2} sm={2}>
-                                    <img
-                                        src={img2.src}
-                                        alt=""
-                                        width="120px"
-                                        height="120px"
-                                    />
-                                </Col>
-                                <Col xl={2} lg={2} md={2} sm={2}>
-                                    <img
-                                        src={img5.src}
-                                        alt=""
-                                        width="120px"
-                                        height="120px"
-                                    />
-                                </Col>
-                                <Col xl={2} lg={2} md={2} sm={2}>
-                                    <img
-                                        src={img4.src}
-                                        alt=""
-                                        width="120px"
-                                        height="120px"
-                                    />
-                                </Col>
-                            </Row>
+                        <div className="containerImagensCategoriasTop">
+                            <div className="divubicaejemplosuno">
+                                <img src={img1.src} alt="" />
+                                <img src={img2.src} alt="" />
+                                <img src={img2.src} alt="" />
+                                <img src={img4.src} alt="" />
+                                <img src={img5.src} alt="" />
+                            </div>
                         </div>
+
                     ) : null}
                 </div>
                 {showModalEjemplos ? (
-                    <h2 className="ml-170 textocategorias">{textoEjemplos}</h2>
+                    <div className="textosCategorias">
+                        <div>
+                            <h2>{textoEjemplos}</h2>
+                        </div> 
+                    </div>
+
                 ) : null}
             </div>
         </div>

@@ -1221,6 +1221,23 @@ const MyAccountScreen = () => {
         setInputControlApellidos("form-control ps-form__input");
     };
 
+
+    const customStyles = {
+        control: (base, state) => ({
+            ...base,
+            border: state.isFocused ? 0 : 0,
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': {
+                border: state.isFocused ? 0 : 0
+            }
+        }),
+        menu: (provided, state) => ({
+            ...provided,
+            border: 'none',
+            boxShadow: 'none'
+        })
+    };
+
     return (
         <Container title="Mi Cuenta">
             <div className="ps-page ps-page--inner" id="myaccount">
@@ -1243,36 +1260,23 @@ const MyAccountScreen = () => {
                                                     <div className="form-control ps-form__input basecolorinput">
                                                         <select
                                                             className="custom-select ps-form__labelselect"
-                                                            onChange={(e) =>
-                                                                handleChangeTipoIdentificacion(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }>
-                                                            <option
-                                                                selected
-                                                                className="select-fontsize ps-form__label">
-                                                                Seleccione tipo
-                                                                de
-                                                                identificación
+                                                            onChange={(e) => handleChangeTipoIdentificacion(e.target.value)}
+                                                            style={{
+                                                                border: 'none', // quitar bordes
+                                                                backgroundColor: 'green', // color de fondo verde
+                                                                outline: 'none', // quitar el contorno al seleccionar
+                                                            }}
+                                                        >
+                                                            <option selected className="select-fontsize ps-form__label">
+                                                                Seleccione tipo de identificación
                                                             </option>
-                                                            {tiposId &&
-                                                                tiposId.map(
-                                                                    (
-                                                                        itemselect
-                                                                    ) => {
-                                                                        return (
-                                                                            <option
-                                                                                value={
-                                                                                    itemselect.id
-                                                                                }>
-                                                                                {itemselect.tipoidentificacion +
-                                                                                    " - " +
-                                                                                    itemselect.descripcion}
-                                                                            </option>
-                                                                        );
-                                                                    }
-                                                                )}
+                                                            {tiposId && tiposId.map((itemselect) => {
+                                                                return (
+                                                                    <option value={itemselect.id}>
+                                                                        {itemselect.tipoidentificacion + " - " + itemselect.descripcion}
+                                                                    </option>
+                                                                );
+                                                            })}
                                                         </select>
                                                     </div>
                                                 </Col>

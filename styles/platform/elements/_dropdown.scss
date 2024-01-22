@@ -22,14 +22,16 @@
 
 .ps-dropdown__fullscreen {
     .ps-dropdown__content {
+        border: 3px solid #2C2E82;
         position: absolute;
         top: 100%;
         left: 0;
-        width: 1000px !important;
+        width: 900px !important;
         z-index: 100;
-        padding: 30px 0;
+        padding: 40px 0; 
         background-color: #fff;
         @include hidden;
+        border-radius: 5px;
         transform: scale3d(1, 1, 0);
         transition: all 0.4s ease;
     }
