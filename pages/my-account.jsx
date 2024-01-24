@@ -20,7 +20,7 @@ import NumberFormat from "react-number-format";
 import Moment from "moment";
 import IngresoFotosDocsNit from "./CreateUsers/ingresofotosdocsnit";
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../helpers/Constants";
-
+import { Select, MenuItem } from '@mui/material';
 //Firebase
 import firebase from "../utilities/firebase";
 import {
@@ -1244,42 +1244,35 @@ const MyAccountScreen = () => {
                 <div className="container">
                     <div className="ps-page__header"></div>
                     <div className="ps-page__content ps-account">
-                        <div className="row">
+                        <div className="row containerRegistrarse">
+
+
                             {!datosusuarios.logged ? (
                                 <div className="col-12 col-md-8">
                                     <form onChange={onChange}>
                                         <div className="ps-form--review">
-                                            <h2 className="ps-form__title">
-                                                Registrarse
-                                            </h2>
+                                            <img src="/static/img/favicon_2.png" alt="" />
                                             <Row>
                                                 <Col xs lg={6}>
-                                                    <label className="ps-form__label">
-                                                        Tipo Identificación
-                                                    </label>
+                                                    <label className="ps-form__label">Tipo Identificación</label>
                                                     <div className="form-control ps-form__input basecolorinput">
                                                         <select
                                                             className="custom-select ps-form__labelselect"
                                                             onChange={(e) => handleChangeTipoIdentificacion(e.target.value)}
-                                                            style={{
-                                                                border: 'none', // quitar bordes
-                                                                backgroundColor: 'green', // color de fondo verde
-                                                                outline: 'none', // quitar el contorno al seleccionar
-                                                            }}
                                                         >
                                                             <option selected className="select-fontsize ps-form__label">
                                                                 Seleccione tipo de identificación
                                                             </option>
-                                                            {tiposId && tiposId.map((itemselect) => {
-                                                                return (
-                                                                    <option value={itemselect.id}>
-                                                                        {itemselect.tipoidentificacion + " - " + itemselect.descripcion}
+                                                            {tiposId &&
+                                                                tiposId.map((itemselect) => (
+                                                                    <option key={itemselect.id} value={itemselect.id}>
+                                                                        {`${itemselect.tipoidentificacion} - ${itemselect.descripcion}`}
                                                                     </option>
-                                                                );
-                                                            })}
+                                                                ))}
                                                         </select>
                                                     </div>
                                                 </Col>
+
                                             </Row>
                                             <br />
                                             {tipoIdentificacion == 6 ? (
@@ -1287,316 +1280,109 @@ const MyAccountScreen = () => {
                                                     <Row>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Número de
-                                                                    identificación
-                                                                </label>
+                                                                <label className="ps-form__label">Número de identificación</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlIdentificacion
-                                                                    }
+                                                                    className={inputControlIdentificacion}
                                                                     type="numeric"
                                                                     name="identificacion"
-                                                                    //onFocus={unFocus}
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaIdentificacion(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onClick={
-                                                                        resetNumeroIdentificacion
-                                                                    }
+                                                                    onBlur={(e) => validaIdentificacion(e.target.value)}
+                                                                    onClick={resetNumeroIdentificacion}
                                                                 />
                                                             </div>
                                                             {activaMensajeIdentificacion ? (
-                                                                <h4 className="mensajeerrornombreusuario">
-                                                                    {
-                                                                        mensajeIdentificacion
-                                                                    }
-                                                                </h4>
+                                                                <h4 className="mensajeerrornombreusuario">{mensajeIdentificacion}</h4>
                                                             ) : null}
                                                         </Col>
-                                                        <Col xs lg={2}>
-                                                            <div className="ps-form__group">
-                                                                <label className="ps-form__label ps-btn--warning">
-                                                                    Prefijo *
-                                                                </label>
-                                                                <input
-                                                                    className={
-                                                                        inputControlTelefono
-                                                                    }
-                                                                    defaultValue={
-                                                                        "+57"
-                                                                    }
-                                                                    name="prefijo"
-                                                                    type="text"
-                                                                    disabled
-                                                                />
-                                                            </div>
-                                                        </Col>
-                                                        <Col xs lg={4}>
-                                                            <div className="ps-form__group">
-                                                                <label className="ps-form__label ps-btn--warning">
-                                                                    Número
-                                                                    telefónico *
-                                                                </label>
-                                                                <input
-                                                                    className={
-                                                                        inputControlTelefono
-                                                                    }
-                                                                    onChange={
-                                                                        onChangeDatoTelefono
-                                                                    }
-                                                                    onClick={
-                                                                        resetTelefono
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaTelefono(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    name="telefono"
-                                                                    type="text"
-                                                                />
-                                                            </div>
-                                                        </Col>
-                                                        {activaMensajePhone ? (
-                                                            <h4 className="mensajeerroringresophone">
-                                                                {mensajePhone}
-                                                            </h4>
-                                                        ) : null}
+
                                                     </Row>
+
                                                     <Row>
                                                         <Col xs lg={12}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Razon Social
-                                                                </label>
+                                                                <label className="ps-form__label">Razon Social</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlRazonSocial
-                                                                    }
+                                                                    className={inputControlRazonSocial}
                                                                     placeholder="Ej: Mercado Repuesto S.A.S."
                                                                     name="razonsocial"
                                                                     type="text"
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaRazonSocial(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaTelefono(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    onBlur={(e) => validaRazonSocial(e.target.value)}
+                                                                    onClick={(e) => validaTelefono(e.target.value)}
                                                                 />
                                                                 {activaMensajeRazonSocial ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeRazonSocial
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeRazonSocial}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                     </Row>
+
                                                     <Row>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Dirección de
-                                                                    correo *
-                                                                </label>
+                                                                <label className="ps-form__label">Dirección de correo *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlEmail
-                                                                    }
+                                                                    className={inputControlEmail}
                                                                     name="email"
                                                                     type="email"
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onFocus={
-                                                                        reiniciarEmail
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaRazonSocial(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    onBlur={(e) => validaEmail(e.target.value)}
+                                                                    onFocus={reiniciarEmail}
+                                                                    onClick={(e) => validaRazonSocial(e.target.value)}
                                                                 />
                                                                 {activaMensajeEmail ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeEmail
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeEmail}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Confirme
-                                                                    dirección de
-                                                                    correo *
-                                                                </label>
+                                                                <label className="ps-form__label">Confirme dirección de correo *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlConfirmarEmail
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaConfirmaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onFocus={
-                                                                        reiniciarConfirmarEmail
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    className={inputControlConfirmarEmail}
+                                                                    onBlur={(e) => validaConfirmaEmail(e.target.value)}
+                                                                    onFocus={reiniciarConfirmarEmail}
+                                                                    onClick={(e) => validaEmail(e.target.value)}
                                                                     name="emaildos"
                                                                     type="email"
                                                                 />
                                                                 {activaMensajeConfirmarEmail ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeConfirmarEmail
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeConfirmarEmail}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
+
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Contraseña *
-                                                                </label>
+                                                                <label className="ps-form__label">Contraseña *</label>
                                                                 <div className="input-group">
                                                                     <input
-                                                                        className={
-                                                                            inputControlClave
-                                                                        }
-                                                                        onBlur={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onClick={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaConfirmaEmail(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onFocus={
-                                                                            onFocusContraseña
-                                                                        }
+                                                                        className={inputControlClave}
+                                                                        onBlur={(e) => validaClave(e.target.value)}
+                                                                        onClick={(e) => validaConfirmaEmail(e.target.value)}
+                                                                        onFocus={onFocusContraseña}
                                                                         type="password"
                                                                         name="password"
                                                                     />
                                                                 </div>
                                                                 {activaMensajeContraseña ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeContraseña
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeContraseña}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Confirme
-                                                                    contraseña *
-                                                                </label>
+                                                                <label className="ps-form__label">Confirme contraseña *</label>
                                                                 <div className="input-group">
                                                                     <input
-                                                                        className={
-                                                                            inputControlConfirmeClave
-                                                                        }
-                                                                        onBlur={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaConfirmarClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onClick={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onFocus={
-                                                                            onFocusConfirmarContraseña
-                                                                        }
+                                                                        className={inputControlConfirmeClave}
+                                                                        onBlur={(e) => validaConfirmarClave(e.target.value)}
+                                                                        onClick={(e) => validaClave(e.target.value)}
+                                                                        onFocus={onFocusConfirmarContraseña}
                                                                         type="password"
                                                                         name="passworddos"
                                                                     />
                                                                 </div>
                                                                 {activaMensajeConfirmarContraseña ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeConfirmarContraseña
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeConfirmarContraseña}</h4>
                                                                 ) : null}
-                                                                {/*
-                                                                    <div className="input-group-append">
-                                                                        <a
-                                                                            className="fa fa-eye-slash toogle-password"
-                                                                            href="#"></a>
-                                                                    </div>*/}
                                                             </div>
                                                         </Col>
                                                     </Row>
@@ -1606,51 +1392,25 @@ const MyAccountScreen = () => {
                                                     <Row>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Número de
-                                                                    identificación
-                                                                </label>
+                                                                <label className="ps-form__label">Número de identificación</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlIdentificacion
-                                                                    }
+                                                                    className={inputControlIdentificacion}
                                                                     type="numeric"
                                                                     name="identificacion"
-                                                                    //onFocus={unFocus}
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaIdentificacion(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onClick={
-                                                                        resetNumeroIdentificacion
-                                                                    }
+                                                                    onBlur={(e) => validaIdentificacion(e.target.value)}
+                                                                    onClick={resetNumeroIdentificacion}
                                                                 />
                                                             </div>
                                                             {activaMensajeIdentificacion ? (
-                                                                <h4 className="mensajeerrornombreusuario">
-                                                                    {
-                                                                        mensajeIdentificacion
-                                                                    }
-                                                                </h4>
+                                                                <h4 className="mensajeerrornombreusuario">{mensajeIdentificacion}</h4>
                                                             ) : null}
                                                         </Col>
                                                         <Col xs lg={2}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label ps-btn--warning">
-                                                                    Prefijo *
-                                                                </label>
+                                                                <label className="ps-form__label ps-btn--warning">Prefijo *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlTelefono
-                                                                    }
-                                                                    defaultValue={
-                                                                        "+57"
-                                                                    }
+                                                                    className={inputControlTelefono}
+                                                                    defaultValue="+57"
                                                                     name="prefijo"
                                                                     type="text"
                                                                     disabled
@@ -1659,317 +1419,127 @@ const MyAccountScreen = () => {
                                                         </Col>
                                                         <Col xs lg={4}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label ps-btn--warning">
-                                                                    Número
-                                                                    telefónico *
-                                                                </label>
+                                                                <label className="ps-form__label ps-btn--warning">Número telefónico *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlTelefono
-                                                                    }
-                                                                    onChange={
-                                                                        onChangeDatoTelefono
-                                                                    }
-                                                                    onClick={
-                                                                        resetTelefono
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaTelefono(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    className={inputControlTelefono}
+                                                                    onChange={onChangeDatoTelefono}
+                                                                    onClick={resetTelefono}
+                                                                    onBlur={(e) => validaTelefono(e.target.value)}
                                                                     name="telefono"
                                                                     type="text"
                                                                 />
                                                             </div>
                                                             {activaMensajePhone ? (
-                                                                <h4 className="mensajeerroringresophonedos">
-                                                                    {
-                                                                        mensajePhone
-                                                                    }
-                                                                </h4>
+                                                                <h4 className="mensajeerroringresophonedos">{mensajePhone}</h4>
                                                             ) : null}
                                                         </Col>
                                                     </Row>
+
                                                     <Row>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Nombres
-                                                                </label>
+                                                                <label className="ps-form__label">Nombres</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlNombres
-                                                                    }
+                                                                    className={inputControlNombres}
                                                                     placeholder="Ej: Juan"
                                                                     name="primernombre"
                                                                     type="text"
-                                                                    onFocus={
-                                                                        onFocusNombres
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaNombre(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaTelefono(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    onFocus={onFocusNombres}
+                                                                    onBlur={(e) => validaNombre(e.target.value)}
+                                                                    onClick={(e) => validaTelefono(e.target.value)}
                                                                 />
                                                                 {activaMensajeNombre ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeNombre
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeNombre}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Apellidos
-                                                                </label>
+                                                                <label className="ps-form__label">Apellidos</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlApellidos
-                                                                    }
+                                                                    className={inputControlApellidos}
                                                                     placeholder="Ej: López Álvarez"
                                                                     name="primerapellido"
                                                                     type="text"
-                                                                    onFocus={
-                                                                        onFocusApellidos
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaApellido(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaNombre(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    onFocus={onFocusApellidos}
+                                                                    onBlur={(e) => validaApellido(e.target.value)}
+                                                                    onClick={(e) => validaNombre(e.target.value)}
                                                                 />
                                                                 {activaMensajeApellido ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeApellido
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeApellido}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                     </Row>
+
                                                     <Row>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Dirección de
-                                                                    correo *
-                                                                </label>
+                                                                <label className="ps-form__label">Dirección de correo *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlEmail
-                                                                    }
+                                                                    className={inputControlEmail}
                                                                     name="email"
                                                                     type="email"
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onFocus={
-                                                                        reiniciarEmail
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaApellido(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    onBlur={(e) => validaEmail(e.target.value)}
+                                                                    onFocus={reiniciarEmail}
+                                                                    onClick={(e) => validaApellido(e.target.value)}
                                                                 />
                                                                 {activaMensajeEmail ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeEmail
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeEmail}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Confirme
-                                                                    dirección de
-                                                                    correo *
-                                                                </label>
+                                                                <label className="ps-form__label">Confirme dirección de correo *</label>
                                                                 <input
-                                                                    className={
-                                                                        inputControlConfirmarEmail
-                                                                    }
-                                                                    onBlur={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaConfirmaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                    onFocus={
-                                                                        reiniciarConfirmarEmail
-                                                                    }
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        validaEmail(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
+                                                                    className={inputControlConfirmarEmail}
+                                                                    onBlur={(e) => validaConfirmaEmail(e.target.value)}
+                                                                    onFocus={reiniciarConfirmarEmail}
+                                                                    onClick={(e) => validaEmail(e.target.value)}
                                                                     name="emaildos"
                                                                     type="email"
                                                                 />
                                                                 {activaMensajeConfirmarEmail ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeConfirmarEmail
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeConfirmarEmail}</h4>
                                                                 ) : null}
                                                             </div>
                                                         </Col>
+
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Contraseña *
-                                                                </label>
+                                                                <label className="ps-form__label">Contraseña *</label>
                                                                 <div className="input-group">
                                                                     <input
-                                                                        className={
-                                                                            inputControlClave
-                                                                        }
-                                                                        onBlur={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onClick={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaConfirmaEmail(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onFocus={
-                                                                            onFocusContraseña
-                                                                        }
+                                                                        className={inputControlClave}
+                                                                        onBlur={(e) => validaClave(e.target.value)}
+                                                                        onClick={(e) => validaConfirmaEmail(e.target.value)}
+                                                                        onFocus={onFocusContraseña}
                                                                         type="password"
                                                                         name="password"
                                                                     />
                                                                 </div>
                                                                 {activaMensajeContraseña ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeContraseña
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeContraseña}</h4>
                                                                 ) : null}
-                                                                {/*
-                                                                    <div className="input-group-append">
-                                                                        <a
-                                                                            className="fa fa-eye-slash toogle-password"
-                                                                            href="#"></a>
-                                                                    </div>*/}
                                                             </div>
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
-                                                                <label className="ps-form__label">
-                                                                    Confirme
-                                                                    contraseña *
-                                                                </label>
+                                                                <label className="ps-form__label">Confirme contraseña *</label>
                                                                 <div className="input-group">
                                                                     <input
-                                                                        className={
-                                                                            inputControlConfirmeClave
-                                                                        }
-                                                                        onBlur={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaConfirmarClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onClick={(
-                                                                            e
-                                                                        ) =>
-                                                                            validaClave(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                        onFocus={
-                                                                            onFocusConfirmarContraseña
-                                                                        }
+                                                                        className={inputControlConfirmeClave}
+                                                                        onBlur={(e) => validaConfirmarClave(e.target.value)}
+                                                                        onClick={(e) => validaClave(e.target.value)}
+                                                                        onFocus={onFocusConfirmarContraseña}
                                                                         type="password"
                                                                         name="passworddos"
                                                                     />
                                                                 </div>
                                                                 {activaMensajeConfirmarContraseña ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeConfirmarContraseña
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeConfirmarContraseña}</h4>
                                                                 ) : null}
-                                                                {/*
-                                                                    <div className="input-group-append">
-                                                                        <a
-                                                                            className="fa fa-eye-slash toogle-password"
-                                                                            href="#"></a>
-                                                                    </div>*/}
                                                             </div>
                                                         </Col>
                                                     </Row>
@@ -1978,95 +1548,51 @@ const MyAccountScreen = () => {
 
                                             {tipoIdentificacion ? (
                                                 <div>
-                                                    <Row>
+                                                    <Row style={{marginTop:'-1.5rem'}}>
                                                         <Col xs lg={6}>
                                                             <br />
-                                                            <div
-                                                                className={
-                                                                    inputControlRobot
-                                                                }>
+                                                            <div className={inputControlRobot}>
                                                                 <ReCAPTCHA
-                                                                    ref={
-                                                                        captcha
-                                                                    }
+                                                                    ref={captcha}
                                                                     sitekey="6Ld9HvkdAAAAAO7MeibRy8PNVMApQu5xC2vzqGF6"
-                                                                    onChange={
-                                                                        onChangeNoSoyRobot
-                                                                    }
+                                                                    onChange={onChangeNoSoyRobot}
                                                                 />
                                                             </div>
                                                             {activaMensajeRobot ? (
-                                                                <h4 className="mensajeerrornombreusuario">
-                                                                    {
-                                                                        mensajeRobot
-                                                                    }
-                                                                </h4>
+                                                                <h4 className="mensajeerrornombreusuario">{mensajeRobot}</h4>
                                                             ) : null}
                                                         </Col>
                                                         <Col xs lg={6}>
                                                             <p className="ps-form__text">
-                                                                Sugerencia: La
-                                                                contraseña debe
-                                                                tener ocho
-                                                                caracteres como
-                                                                mínimo. Para
-                                                                mayor seguridad,
-                                                                debe incluir
-                                                                letras
-                                                                minúsculas,
-                                                                mayusculas,
-                                                                números y
-                                                                símbolos como !
-                                                                " ? $ % ^ &amp;
-                                                                ).
+                                                                Sugerencia: La contraseña debe tener ocho caracteres como mínimo. Para mayor seguridad, debe incluir letras minúsculas, mayúsculas, números y símbolos como ! " ? $ % ^ &amp; ).
                                                             </p>
                                                         </Col>
                                                     </Row>
+
                                                     <br />
-                                                    <div className="ps-form__submit">
-                                                        <Row>
-                                                            <Col xs lg={2}>
-                                                                <div
-                                                                    className="ps-btn"
-                                                                    onClick={
-                                                                        registrarse
-                                                                    }>
-                                                                    Registrarse
-                                                                </div>
-                                                            </Col>
-                                                            <Col
-                                                                className={
-                                                                    inputControlTerminos
-                                                                }
-                                                                xs
-                                                                lg={5}>
+                                                    <div className="footerFormCrearCuenta">
+                                                        <div className="subcontFooterForm">
+                                                            <div className={inputControlTerminos}>
                                                                 <div className="form-check">
                                                                     <input
                                                                         className="form-check-input"
                                                                         type="checkbox"
                                                                         id="remember"
-                                                                        onClick={
-                                                                            aceptarTerminos
-                                                                        }
+                                                                        onClick={aceptarTerminos}
                                                                     />
-                                                                    <label
-                                                                        className="form-check-label"
-                                                                        htmlFor="remember">
-                                                                        Acepto
-                                                                        términos
-                                                                        y
-                                                                        condiciones
+                                                                    <label className="form-check-label" htmlFor="remember">
+                                                                        Acepto términos y condiciones
                                                                     </label>
                                                                 </div>
                                                                 {activaMensajeTerminos ? (
-                                                                    <h4 className="mensajeerrornombreusuario">
-                                                                        {
-                                                                            mensajeTerminos
-                                                                        }
-                                                                    </h4>
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeTerminos}</h4>
                                                                 ) : null}
-                                                            </Col>
-                                                        </Row>
+                                                            </div>
+                                                            <div className="BotónRegistrarse" onClick={registrarse}>
+                                                                Registrarse
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             ) : null}

@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ModuleHeaderPromotions from "~/components/shared/headers/modules/ModuleHeaderPromotions";
 //import Menu from "~/components/elements/menu/Menu";
-import header_supplies from "~/public/static/data/header_supplies.json";
-import CountDown from "~/components/elements/CountDown";
 import useGetProducts from "~/hooks/useGetProducts";
-import ProductWithAvaiable from "~/components/elements/products/ProductWithAvaiable";
-import { IoIosArrowForward } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
-import { Row, Col, Modal, Button, ButtonGroup, Table } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Link from "next/link";
 import MenuDropdown from "~/components/elements/menu/MenuDropdown";
 import MegaMenu from "~/components/elements/menu/MegaMenu";
@@ -16,10 +10,8 @@ import { useRouter } from "next/router";
 import ModuleMenuHomepages from "~/components/elements/menu/modules/ModuleMenuHomepages";
 import img1 from "../../../../public/imagescategorias/categorias1.jpg";
 import img2 from "../../../../public/imagescategorias/categorias2.jpg";
-import img3 from "../../../../public/imagescategorias/categorias3.jpg";
 import img4 from "../../../../public/imagescategorias/categorias3.png";
 import img5 from "../../../../public/imagescategorias/categorias5.jpg";
-import img6 from "../../../../public/imagescategorias/categorias6.jpg";
 
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -192,196 +184,81 @@ const ModuleHeaderSupplies = (props) => {
         setClassCategorias("header__categories-toggle sinborder");
     };
 
+    const [shadowClass, setShadowClass] = useState("shadow--hidden");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const [open, setOpen] = React.useState(false);
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+
+
     return (
-        <div className="header__supplies ps-dropdown__fullscreen">
-            <button className={classCategorias}>
+        <div className="header__supplies">
+            <button className={classCategorias} >
                 <span
-                    onClick={abrirCerrarCategorias}
                     onMouseOver={onSelecciono}
                     onMouseOut={outSelecciono}>
                     <span>Categorías</span>
                     <IoIosArrowDown />
                 </span>
             </button>
-            <div className={classContent}>
-                <div className="visualizacioncategorias">
-                    <div className="mega-menu__row  mtmenos31">
-                        <div className="col-12 col-sm-3 mt-1 megaMenuUu">
-                            {categorias &&
-                                categorias.map((item, id) => (
-                                    <Row>
-                                        {item.id == itemCategoria ? (
-                                            <Col
-                                                xl={8}
-                                                lg={8}
-                                                md={8}
-                                                sm={8}
-                                                className="resaltaitemmodalcategoria mt-3"
-                                                onMouseOver={(e) =>
-                                                    activar(item)
-                                                }>
-                                                {item.nombre}
-                                            </Col>
-                                        ) : (
-                                            <Col
-                                                xl={6}
-                                                lg={6}
-                                                md={6}
-                                                sm={6}
-                                                className="itemscategorias mt-3"
-                                                onMouseOver={(e) =>
-                                                    activar(item)
-                                                }>
-                                                {item.nombre}
-                                            </Col>
-                                        )}
-                                    </Row>
-                                ))}
-                        </div>
 
-                        <div className="mega-menu__column col-sm-5 col-md-9 mlmenos10 mt-2">
-                            <div className="textoadvertenciaproductos">
-                                <Row>
-                                    <Col xl={3} lg={3} md={3} sm={3}>
-                                        {nombreCategoria}
-                                    </Col>
-                                    <Col
-                                        xl={2}
-                                        lg={2}
-                                        md={2}
-                                        sm={2}
-                                        className="ml-38">
-                                        <div className="fondodivseleccionticategoria  mt-10">
-                                            <InfoIcon
-                                                className="iconoinfomaterialcategoria"
-                                                onMouseOver={(e) =>
-                                                    activarEjemplos()
-                                                }
-                                                onMouseOut={(e) =>
-                                                    desactivarEjemplos()
-                                                }
-                                                style={{
-                                                    fontSize: 26,
-                                                }}></InfoIcon>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </div>
+            
 
-                            {subcategoriasSeleccionada &&
-                                subcategoriasSeleccionada.map((item) => (
-                                    <Row className="RowSubcategorias">
-                                        <Col
-                                            xl={6}
-                                            lg={6}
-                                            md={6}
-                                            sm={6}
-                                            className="itemssubcategorias"
-                                            onMouseOver={(e) =>
-                                                activarsubcategoria(item.id1)
-                                            }>
-                                            <Row>
-                                                <Col
-                                                    xl={8}
-                                                    lg={8}
-                                                    md={8}
-                                                    sm={8}
-                                                    onClick={(e) =>
-                                                        buscarProductos(
-                                                            item.palabraclaveuna
-                                                        )
-                                                    }
-                                                    className="mt-2">
-                                                    {item.nombre1}
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}
-                                                    onMouseOver={(e) =>
-                                                        mostrarEjemplos()
-                                                    }
-                                                    onMouseOut={cerrarEjemplos}>
-                                                    {item.id1 ==
-                                                        itemSubCategoria ? (
-                                                        <InfoIcon
-                                                            style={{
-                                                                fontSize: 20,
-                                                            }}></InfoIcon>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col
-                                            xl={6}
-                                            lg={6}
-                                            md={6}
-                                            sm={6}
-                                            className="itemssubcategorias"
-                                            onMouseOver={(e) =>
-                                                activarsubcategoria(item.id2)
-                                            }>
-                                            <Row>
-                                                <Col
-                                                    xl={8}
-                                                    lg={8}
-                                                    md={8}
-                                                    sm={8}
-                                                    onClick={(e) =>
-                                                        buscarProductos(
-                                                            item.palabraclavedos
-                                                        )
-                                                    }
-                                                    className="mt-2">
-                                                    {item.nombre2}
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}
-                                                    onMouseOver={(e) =>
-                                                        mostrarEjemplos()
-                                                    }
-                                                    onMouseOut={cerrarEjemplos}>
-                                                    {item.id2 ==
-                                                        itemSubCategoria ? (
-                                                        <InfoIcon
-                                                            style={{
-                                                                fontSize: 20,
-                                                            }}></InfoIcon>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                    </Row>
-                                ))}
-                        </div>
 
-                    </div>
-                    {ejemplos ? (
-                        <div className="containerImagensCategoriasTop">
-                            <div className="divubicaejemplosuno">
-                                <img src={img1.src} alt="" />
-                                <img src={img2.src} alt="" />
-                                <img src={img2.src} alt="" />
-                                <img src={img4.src} alt="" />
-                                <img src={img5.src} alt="" />
-                            </div>
-                        </div>
-
-                    ) : null}
-                </div>
-                {showModalEjemplos ? (
-                    <div className="textosCategorias">
-                        <div>
-                            <h2>{textoEjemplos}</h2>
-                        </div> 
-                    </div>
-
-                ) : null}
-            </div>
         </div>
     );
 };

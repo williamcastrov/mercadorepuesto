@@ -20,7 +20,7 @@ import Moment from "moment";
 import ModalLogin from "./mensajes/ModalMensajes";
 //Constantes
 import { URL_BD_MR, URL_IMAGES_RESULTS } from "../helpers/Constants";
-
+import InfoIcon from "@material-ui/icons/Info";
 //Firebase
 import firebase from "../utilities/firebase";
 import {
@@ -575,7 +575,7 @@ const LoginAccount = () => {
                     setShowModalMensajes(true);
                     setTituloMensajes("Control de acceso");
                     setTextoMensajes(
-                        "Error al Intentar la Conexion... Intente mas Tarde!"
+                        "Error al Intentar ingresar, asegurate de los datos estén correctos."
                     );
                     //router.push("/");
                 });
@@ -1147,137 +1147,80 @@ const LoginAccount = () => {
 
             {showModalMedio ? (
                 <div
-                    className="mlmenos650 modal-fondo"
+                    className="modal-fondo mtmenos15"
                     onClick={() => {
                         closeModalOlvidasteContraseña();
-                    }}>
+                    }}
+                >
                     <div
-                        className="modal-contenido redondearmodal"
+                        className="modal-mensajesLogin redondearventamensajes"
                         onClick={(e) => {
-                            // do not close modal if anything inside modal content is clicked
+                            // Evitar que se cierre el modal si se hace clic en su contenido
                             e.stopPropagation();
-                        }}>
+                        }}
+                    >
+                        {/* Contenido del modal */}
                         <Row>
-                            <Col xl={10} lg={10} md={10} sm={10}>
-                                {!recuperar ? (
-                                    <h2 className="titulopasarela">
-                                        POR QUE MEDIO DESEA RECIBIR EL TOKEN
-                                    </h2>
-                                ) : (
-                                    <div>
-                                        <h2 className="ml-10">
-                                            Para recuperar tu contraseña te
-                                            vamos a enviar un código de
-                                            verificación
-                                        </h2>
-                                        <h2 className="ml-10 mt-20 labeltexto mb-10">
-                                            ¿Por dónde quieres recibirlo?
-                                        </h2>
-                                    </div>
-                                )}
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <div className="iconoventanamensajes mtmenos14">
+                                    <InfoIcon style={{ fontSize: 45 }} />
+                                </div>
                             </Col>
-                            <hr />
-                            <Col xl={2} lg={2} md={2} sm={2}>
-                                <h1
-                                    className="mtmenos10 ml-50"
+                            <Col xl={9} lg={9} md={9} sm={9}>
+                                <div className="ml-30 titulodetaildescription">
+                                    Recuperar contraseña
+                                </div>
+                            </Col>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <button
+                                    type="button"
+                                    className="cerrarmodal ml-40 sinborder colorbase"
                                     data-dismiss="modal"
-                                    onClick={onCloseModalMedioToken}>
-                                    {" "}
-                                    X{" "}
-                                </h1>
+                                    onClick={() => {
+                                        closeModalOlvidasteContraseña();
+                                    }}
+                                >
+                                    X
+                                </button>
                             </Col>
                         </Row>
-                        <br />
-                        <div>
-                            <Row>
-                                <Col xl={12} lg={12} md={12} sm={12}>
-                                    <div
-                                        onClick={tokenmensajetexto}
-                                        className="cajaopcionesrecuperarcuentados"
-                                        onMouseOver={pasarmousesms}
-                                        onMouseOut={salirmousesms}>
-                                        <Row>
-                                            <Col
-                                                xl={1}
-                                                lg={1}
-                                                md={1}
-                                                sm={1}
-                                                className="ml-4 mt-2">
-                                                <i
-                                                    className="tamañoiconorecuperarcontraseña fa fa-commenting-o"
-                                                    aria-hidden="true"></i>
-                                            </Col>
-                                            <Col
-                                                xl={9}
-                                                lg={9}
-                                                md={9}
-                                                sm={9}
-                                                className="textotuproductoestaen">
-                                                SMS - Mensaje de Texto
-                                                <br />
-                                                Al número celular terminado en{" "}
-                                                {cortartelefono}
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <br />
-                            <Row>
-                                <Col xl={12} lg={12} md={12} sm={12}>
-                                    <div
-                                        className="cajaopcionesrecuperarcuentados"
-                                        onClick={tokenwhatsapp}
-                                        onMouseOver={pasarmousewhatsapp}
-                                        onMouseOut={salirmousewhatsapp}>
-                                        <Row>
-                                            <Col
-                                                xl={1}
-                                                lg={1}
-                                                md={1}
-                                                sm={1}
-                                                className="ml-4 mt-3">
-                                                <i
-                                                    className="tamañoiconorecuperarcontraseña mlmenos1 fa fa-whatsapp"
-                                                    aria-hidden="true"></i>
-                                            </Col>
-                                            <Col
-                                                xl={9}
-                                                lg={9}
-                                                md={9}
-                                                sm={9}
-                                                className="textotuproductoestaen">
-                                                WhatsApp
-                                                <br />
-                                                Al número celular terminado en{" "}
-                                                {cortartelefono}
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Col>
-                            </Row>
-                            <br />
+
+                        <div className="mt-35 textoventanamensajes">
+                            <div>
+                                Para recuperar tu contraseña te
+                                vamos a enviar un código de
+                                verificación
+                            </div>
                         </div>
-                        <div className="mb-20">
-                            <Row>
-                                <Col xs lg={8}>
-                                    <div>
-                                        <h3
-                                            className={classNameverificar}
-                                            onClick={onCloseModalVerificar}
-                                            onMouseOver={
-                                                pasarmouseverificarotraforma
-                                            }
-                                            onMouseOut={
-                                                salirmouseverificarotraforma
-                                            }>
-                                            Verificar de otra forma
-                                        </h3>
-                                        <br />
-                                    </div>
-                                </Col>
-                            </Row>
+
+                        <div className="mt-15 textoventanamensajes">
+                            <div>
+                                ¿Por dónde deseas recibirlo?
+                            </div>
                         </div>
+
+                        <div className="mt-15 textoventanamensajes">
+                            <button className="RecuperarContraseñaSMS" onClick={tokenmensajetexto} onMouseOver={pasarmousesms}
+                                onMouseOut={salirmousesms}>
+                                SMS - Mensaje de Texto
+                                <br />
+                                Al número celular terminado en{" "}
+                                {cortartelefono}
+                            </button>
+                        </div>
+
+
+                        <div className="mt-15 textoventanamensajes">
+                            <button className="RecuperarContraseñaSMS" onClick={tokenwhatsapp}
+                                onMouseOver={pasarmousewhatsapp}
+                                onMouseOut={salirmousewhatsapp}>
+                                WhatsApp
+                                <br />
+                                Al número celular terminado en{" "}
+                                {cortartelefono}
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             ) : null}

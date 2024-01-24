@@ -155,7 +155,7 @@ a:hover {
 }
 
 .botonrapidoproduct:hover {
-    background-color: #E8F0FE !important;
+    background-color: #000000 !important;
 }
 
 a,
@@ -295,7 +295,7 @@ iframe {
     font-size: 14px !important;
     height: 30px;
     padding: 5px;
-    width: 250px;
+    width: 330px;
     /*background-image: url("../../../public/static/img/flecha.png") !important;*/
     /*aquí deberás escribir la ruta de la imagen que utilizarás como flecha del desplegable*/
     background-image: url("../../../public/static/img/flechaazulpng_3.png") !important;
@@ -1798,6 +1798,7 @@ textarea.form-control {
     padding-inline-start: 27px;
     transition: all .35s ease-in-out 0s;
     cursor: pointer;
+    color: #2D2E83;
 }
 
 .form-check .form-check-label::before {
@@ -23420,6 +23421,8 @@ ol {
     padding: 25px;
 }
 
+
+
 .modal-mensajes-seller {
     margin-top: -220px !important;
     width: 650px !important;
@@ -24373,7 +24376,7 @@ ol {
 }
 
 .basecolorinput {
-    background-color: #E8F0FE !important;
+    background-color: S !important;
 }
 
 .botonterminapublicacion {
@@ -35040,7 +35043,31 @@ label {
     color: #2D2E83;
     font-size: 15px;
 }
+.ps-form__inputNuevo:focus{
+    outline: none;
+    box-shadow: none;
+    color: #00BF15;
+}
+.ps-form__inputNuevo:-webkit-autofill {
+    -webkit-text-fill-color: #2D2E83 !important;
+}
+.ps-form__inputNuevo:-webkit-autofill,
+.ps-form__inputNuevo:-webkit-autofill:hover,
+.ps-form__inputNuevo:-webkit-autofill:focus,
+.ps-form__inputNuevo:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f1f2f6 inset !important;
+}
 
+
+.contraseñainputiniciarsesion:-webkit-autofill {
+    -webkit-text-fill-color: #2D2E83 !important;
+}
+.contraseñainputiniciarsesion:-webkit-autofill,
+.contraseñainputiniciarsesion:-webkit-autofill:hover,
+.contraseñainputiniciarsesion:-webkit-autofill:focus,
+.contraseñainputiniciarsesion:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f1f2f6 inset !important;
+}
 .contraseñainputiniciarsesion {
     background-color: #f1f2f6 !important;
     width: 340px !important;
@@ -35101,8 +35128,25 @@ label {
     font-size: 17px;
     cursor: pointer;
     color: #2D2E83;  
-}
 
+}
+.CrearcuentaCont p:hover{
+    text-decoration: underline;
+}
+.modal-mensajesLogin { 
+    width: 550px !important;
+    height: 410px !important;
+    background-color: white;
+    padding: 25px;
+}
+.RecuperarContraseñaSMS{
+    font-size: 15px;
+    background-color: #e8f0fe;
+    padding: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    border-radius: 15px;
+}
 /*Fin nuevos estilos login*/
 
 /*Inicio estilos de categorias izquierda */
@@ -35142,7 +35186,7 @@ label {
     margin-right: 15px;
 }
 .visualizacioncategorias {
-    width: 900px !important;
+    width: 1200px !important;
     height: auto !important; 
     transition: height 0.3s ease; /* Agrega una transición de 0.3 segundos con efecto ease */
 }
@@ -35153,7 +35197,7 @@ label {
     color: #2D2E83 !important;
     padding: 1.5rem;
     border-radius: 10px;
-}
+} 
 .divubicaejemplosuno { 
     width: 674.3px !important;
     margin-right: 6px;
@@ -35203,4 +35247,58 @@ label {
     text-decoration: underline;
 }
 /*Fin estilos de categorias izquierda */
+
+
+/*Nuevos estilos registrarse*/
+.containerRegistrarse{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    margin-top: 5rem;
+
+}
+.containerRegistrarse img{
+    width: 220px;
+    margin: 3rem;
+    margin-bottom: 4.5rem;
+    margin: 0 auto;
+}
+.ps-form--review{
+    border: 3px solid #f1f2f6;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+.footerFormCrearCuenta{
+    width: 100%;
+}
+.subcontFooterForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.BotónRegistrarse{
+    width: 230px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    height: 42px !important;
+    font-size: 17px;
+    color: white;
+    background-color: #03037D;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 2rem;
+}
+.form-check{
+    margin-right: 3rem !important;
+}
+
+/*Fin Nuevos estilos registrarse*/
+
 /*Fin nuevos estilos homepage*/

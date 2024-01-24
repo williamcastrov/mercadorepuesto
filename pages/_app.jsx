@@ -395,9 +395,7 @@ function App({ Component, pageProps, props }) {
 
             // Coloca los datos en state arreglo de categorias
             dispatch(getDatosGenerales(DataGeneral));
-            dispatch(getDuplicarPrd(0));
-            localStorage.setItem('categorias', JSON.stringify(DataGeneral.vgl_categorias));
-            localStorage.setItem('subcategorias', JSON.stringify(DataGeneral.vgl_subcategorias));
+            dispatch(getDuplicarPrd(0)); 
             localStorage.setItem("editdata", JSON.stringify(false));
         }
         datageneral(0);

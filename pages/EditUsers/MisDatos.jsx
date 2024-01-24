@@ -159,7 +159,7 @@ export default function MisDatos() {
                                                 className="modal-fondo mtmenos15"
                                                 onClick={() => {
                                                     cerrarModal();
-                                                }}
+                                                }} 
                                             >
                                                 <div
                                                     className="modal-mensajes-login redondearventamensajes"
