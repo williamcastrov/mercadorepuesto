@@ -8,7 +8,7 @@ const MenuDropdown = ({ source }) => {
                 <Link href={source.url}>
                     <a>{source.text}</a>
                 </Link>
-            }
+            } 
             {source.subMenu && (
                 <ul className={source.subClass}>
                     {source.subMenu.map((subMenuItem, index) => (

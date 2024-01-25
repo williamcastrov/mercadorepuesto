@@ -5089,7 +5089,7 @@ body::after {
 }
 
 .modal-content {
-    width: 1000px !important;
+    width: 1230px !important;
 }
 
 .infosubcategorias {
@@ -5131,7 +5131,7 @@ body::after {
     font-size: 16px !important;
 }
 
- 
+
 
 .prueba {
     color: #2D2E83 !important;
@@ -5639,16 +5639,15 @@ body::after {
 }
 
 .modalpropietario {
-    margin-top: 100px !important;
-    margin-left: 310px !important;
+    margin: 0 auto !important;
     width: 680px !important;
     height: 700px !important;
 }
 
 .modalrecuperarcuenta {
-    margin-left: 350px !important;
+    margin-left: 420px !important;
     margin-top: 100px !important;
-    width: 640px !important;
+    width: 630px !important;
     height: 800px !important;
 
 }
@@ -6385,17 +6384,22 @@ body::after {
 }
 
 .alertbotonterminos {
-    margin-left: 50px !important;
-    width: 50px !important;
-    height: 50px !important;
+    height: 55px !important;
     border: solid 1px red !important;
-    border-radius: 30px !important;
+    border-radius: 10px !important;
+    margin-left: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .alertbotonrobot {
-    width: 304px !important;
+    width: 307px !important;
     height: 78px !important;
     border: solid 1px red !important;
+    margin-left: 6.6rem;
+    margin-bottom: 5px;
 }
 
 .cerrarmodal {
@@ -6740,11 +6744,13 @@ body::after {
     color: red !important;
     margin-left: -125px !important;
     width: 400px !important;
+    font-size: 15px;
 }
 
 .mensajeerrornombreusuario {
     color: red !important;
     margin-left: 0px !important;
+    font-size: 15px;
 }
 
 .cajasedanimagenesmotorelectrico {
@@ -7181,15 +7187,11 @@ cursor: pointer;
 .seccionesvehiculotexto {
     margin-top: 20px !important;
     text-align: center !important;
+    font-size: 18px;
 }
 
 .textoimagenesilustrativas {
-    background-color: #F0F2F5 !important;
-    width: 25px !important;
-    border: solid white !important;
-    height: 45px !important;
-    margin-left: 235px !important;
-    font-size: 146px !important;
+    font-size: 18px !important;
     color: #2D2E83 !important;
 }
 
@@ -14853,6 +14855,7 @@ cursor: pointer;
 }
 
 .ps-account .ps-form__group .toogle-password {
+
     min-width: 30px;
     padding-right: 10px;
     background-color: #f0f2f5;
@@ -24050,6 +24053,7 @@ ol {
     border-radius: 10px !important;
     margin-left: -30px;
     margin-top: 15px;
+    color: #2D2E83;
 }
 
 .contraseñainputiniciarsesion {
@@ -24172,6 +24176,13 @@ ol {
     color: #2D2E83;
     text-align: center;
     font-size: 22px;
+}
+
+.textoventanamensajesNuevo {
+    width: 500px !important;
+    color: #2D2E83;
+    text-align: center;
+    font-size: 18px;
 }
 
 .textoventanamensajescerrar {
@@ -24347,7 +24358,7 @@ ol {
 }
 
 .modal-backdrop.show {
-    opacity: 0.2 !important;
+    opacity: 0.1 !important;
     margin-top: 300px !important;
     height: 400px !important;
 }
@@ -24821,6 +24832,8 @@ ol {
     font-size: 14px !important;
     white-space: nowrap !important;
 }
+
+
 
 .itemsdropdowncustomvalidar {
     color: #2D2E83 !important;
@@ -34154,7 +34167,7 @@ label {
 }
 
 .mainContImgVendedor img {
-    width: 100%; 
+    width: 100%;
     cursor: pointer;
 }
 
@@ -34169,10 +34182,11 @@ label {
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 620px; 
-  }
-  .BotonPrev,
-  .BotonSig {
+    height: 620px;
+}
+
+.BotonPrev,
+.BotonSig {
     position: absolute;
     top: 40%;
     width: 50px;
@@ -34185,22 +34199,23 @@ label {
     border-radius: 13px;
     z-index: 99;
     cursor: pointer;
-  }
-  
-  .BotonPrev,
-  .BotonSig svg {
+}
+
+.BotonPrev,
+.BotonSig svg {
     font-size: 34px;
     color: #2D2E83;
-  }
-  
-  .BotonPrev {
+}
+
+.BotonPrev {
     left: 120px;
-  }
-  
-  .BotonSig {
+}
+
+.BotonSig {
     right: 120px;
-  }  
-  .subContElejirMarca { 
+}
+
+.subContElejirMarca {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
@@ -34210,7 +34225,7 @@ label {
     margin: 0 auto;
 }
 
-.contBallMarcas { 
+.contBallMarcas {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34228,7 +34243,7 @@ label {
     align-items: center;
     justify-content: center;
 }
- 
+
 
 .subContElejirMarca2 {
     display: flex;
@@ -34238,14 +34253,15 @@ label {
     margin-top: 3rem;
 }
 
-.ContElejirMarca{
-    width: 85%;    padding: 0 60px;
-}   
+.ContElejirMarca {
+    width: 85%;
+    padding: 0 60px;
+}
 
 /*Fin estilos elegir marca*/
 
 /*Inicio estilos Mas vendidos esta semana*/
-.mainProductosMasVendidos{
+.mainProductosMasVendidos {
     width: 100%;
     height: 600px;
     display: flex;
@@ -34253,25 +34269,30 @@ label {
     justify-content: center;
     flex-direction: column;
 }
+
 .swiper-slide {
-    width: 200px; /* Ajusta este valor para cambiar el ancho de los slides */
-  }
+    width: 200px;
+    /* Ajusta este valor para cambiar el ancho de los slides */
+}
+
 .mainMasVendidos {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
-  }
-  
-  .SubMainMasVendidos {
+    position: relative;
+    /* Asegúrate de que este contenedor tenga posición relativa */
+}
+
+.SubMainMasVendidos {
     width: 85%;
-    padding: 0 60px; /* Ajusta este valor para mover los botones de navegación */
-  }
- 
-  .my-custom-prev-button,
-  .my-custom-next-button {
+    padding: 0 60px;
+    /* Ajusta este valor para mover los botones de navegación */
+}
+
+.my-custom-prev-button,
+.my-custom-next-button {
     position: absolute;
     top: 40%;
     width: 50px;
@@ -34284,39 +34305,46 @@ label {
     border-radius: 50%;
     z-index: 99;
     cursor: pointer;
-  }
-  
+}
 
-  .my-custom-prev-button,
-  .my-custom-next-button svg{
+
+.my-custom-prev-button,
+.my-custom-next-button svg {
     font-size: 34px;
     color: #2D2E83;
-  }
+}
 
 
-  .my-custom-prev-button {
-    left: 90px; /* Ajusta este valor para mover el botón a la izquierda */
-  }
-  
-  .my-custom-next-button {
-    right: 90px; /* Ajusta este valor para mover el botón a la derecha */
-  }
-  .SlideSwiperImgDescuento {
+.my-custom-prev-button {
+    left: 90px;
+    /* Ajusta este valor para mover el botón a la izquierda */
+}
+
+.my-custom-next-button {
+    right: 90px;
+    /* Ajusta este valor para mover el botón a la derecha */
+}
+
+.SlideSwiperImgDescuento {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
-  }
-  .subSlideSwiperImgDescuento{
+    position: relative;
+    /* Asegúrate de que este contenedor tenga posición relativa */
+}
+
+.subSlideSwiperImgDescuento {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Asegúrate de que este contenedor tenga posición relativa */
+    position: relative;
+    /* Asegúrate de que este contenedor tenga posición relativa */
     height: 200px;
-  }
-  .subSlideSwiperImgDescuento img{
+}
+
+.subSlideSwiperImgDescuento img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -34324,9 +34352,9 @@ label {
     max-width: 170px;
     max-height: 200px;
     cursor: pointer;
-  }
- 
-  .circleDescuento {
+}
+
+.circleDescuento {
     position: absolute;
     top: -30px;
     left: 0;
@@ -34338,88 +34366,101 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .SlideSwiper{
+}
+
+.SlideSwiper {
     padding: 1.5rem;
     padding-top: 3.5rem;
-  }
-  .SlideSwiperPrecioyTexto{
+}
+
+.SlideSwiperPrecioyTexto {
     width: 100%;
     justify-content: center;
     display: flex;
     align-items: center;
     flex-direction: column;
-  }
-  .precioProductoSwiper p{
-    color: #03037D; 
+}
+
+.precioProductoSwiper p {
+    color: #03037D;
     font-size: 16px;
-  }
-  .precio2ProductoSwiper{
+}
+
+.precio2ProductoSwiper {
     margin-top: 1.5rem;
     width: 100%;
     text-align: start;
-  }
-  .precio2ProductoSwiper p{
-    color: #03037D; 
+}
+
+.precio2ProductoSwiper p {
+    color: #03037D;
     font-size: 18px;
     font-weight: 600;
-  }
-  .NombreProductoSwiper{ 
+}
+
+.NombreProductoSwiper {
     width: 100%;
     text-align: start;
     padding-right: 1rem;
     margin-top: 2rem;
-  }
-  .NombreProductoSwiper p{
-    color: #03037D; 
+}
+
+.NombreProductoSwiper p {
+    color: #03037D;
     font-size: 16px;
     cursor: pointer;
-  }
-  .CalificProductSwiper{
+}
+
+.CalificProductSwiper {
     margin-top: 1.3rem;
     width: 100%;
     display: flex;
     gap: 3px;
-    color: #03037D ; 
+    color: #03037D;
     justify-content: flex-start;
-  }
-  .TitleMasvendidos{
+}
+
+.TitleMasvendidos {
     width: 73%;
     background-color: #03037D;
-    color: white;  
-    margin-bottom: 6rem; 
+    color: white;
+    margin-bottom: 6rem;
     align-items: flex-start;
     display: flex;
     padding: .7rem;
     padding-left: 1.5rem;
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;
-  }
-  .TitleMasvendidos p{
+}
+
+.TitleMasvendidos p {
     font-size: 24px;
-    color: white; 
-  }
+    color: white;
+}
+
 /*Fin estilos Mas vendidos esta semana*/
 
 /*Inicio estilos recomendados para ti productos*/
-.TitleRecomendados{
+.TitleRecomendados {
     width: 60%;
     background-color: #03037D;
-    color: white;  
-    margin-bottom: 6rem; 
+    color: white;
+    margin-bottom: 6rem;
     align-items: flex-end;
     justify-content: flex-end;
     display: flex;
     padding: .7rem;
-    padding-left: 1.5rem; 
+    padding-left: 1.5rem;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
     padding-right: 1.5rem;
-  }
-  .TitleRecomendados p{
+}
+
+.TitleRecomendados p {
     font-size: 24px;
-    color: white; 
-  }
+    color: white;
+}
+
 /*Fin estilos recomendados para ti productos*/
 
 /*Inicio navbar nuevos estilos*/
@@ -34533,12 +34574,13 @@ label {
 /*Banner nuevos estilos*/
 .section-bannerMR {
     min-height: 400px;
-} 
+}
+
 /*Fin banner nuevos  estilos*/
 
 
 /*Inicio estilos nuevo footer*/
-.FooterWebPage{
+.FooterWebPage {
     width: 100%;
     height: 485px;
     padding-top: 6.3rem;
@@ -34548,112 +34590,129 @@ label {
     background-color: #2D2E83;
     color: white;
 }
-.SubFooterWebPage{
+
+.SubFooterWebPage {
     border-top: 1px solid rgba(254, 211, 42, 0.5);
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
-.infoContainerFooter{
-    display: flex; 
+
+.infoContainerFooter {
+    display: flex;
     margin-bottom: 1rem;
 }
+
 .infoContainerFooterMain {
     display: flex;
-    flex-wrap: nowrap;  /* Evita que los elementos se envuelvan a la siguiente línea */
-    overflow: auto;  /* Permite el desplazamiento horizontal */
+    flex-wrap: nowrap;
+    /* Evita que los elementos se envuelvan a la siguiente línea */
+    overflow: auto;
+    /* Permite el desplazamiento horizontal */
     margin-bottom: 4rem;
 }
 
 
-.DerechosContainer{
-    display: flex;  
+.DerechosContainer {
+    display: flex;
 }
-.DerechosContainer p{
+
+.DerechosContainer p {
     color: white;
-    font-size: 16px; 
+    font-size: 16px;
 }
-.imagenFooterLogo{
-    width: 150px;  /* Cambia esto al ancho que desees */
+
+.imagenFooterLogo {
+    width: 150px;
+    /* Cambia esto al ancho que desees */
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
 }
 
-.imagenFooterLogo img{
+.imagenFooterLogo img {
     width: 150px;
 }
- 
-.footerDataMain p{
-    color: white;    
+
+.footerDataMain p {
+    color: white;
     font-size: 17px;
     font-weight: 600;
 }
-.footerData{
+
+.footerData {
     display: flex;
     flex-direction: column;
     margin-top: 3rem;
 }
-.footerData span{ 
+
+.footerData span {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
 }
-.footerData2{
+
+.footerData2 {
     display: flex;
     flex-direction: column;
     margin-top: 6rem;
 }
-.footerData2 span{ 
+
+.footerData2 span {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
 }
- 
-.infoMediosPagoFooter{
-    display: flex;  
+
+.infoMediosPagoFooter {
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.SubInfoMediosPagoFooter{
+
+.SubInfoMediosPagoFooter {
     border-top: 1px solid rgba(254, 211, 42, 0.5);
     padding-top: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
-.DerechosContainerMain{
+.DerechosContainerMain {
     border-top: 1px solid rgba(254, 211, 42, 0.5);
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
-.medioPagoFooter{
+.medioPagoFooter {
     display: flex;
     gap: 10px;
 }
-.medioPagoFooter img{
+
+.medioPagoFooter img {
     width: 55px;
 }
-.Wompi img{
+
+.Wompi img {
     width: 65px;
     margin-top: -21px;
 }
-.mainMedioPagoFooter{
+
+.mainMedioPagoFooter {
     display: flex;
     align-items: center;
     gap: 1.5rem;
     margin-top: -21px;
     color: white;
 }
-.mainMedioPagoFooter p{
+
+.mainMedioPagoFooter p {
     color: white;
     font-size: 16px;
 }
@@ -34664,23 +34723,26 @@ label {
     width: 90%;
     display: flex;
     gap: 2rem;
-    justify-content: space-between; 
-  }
-  
-  .footerDataMain {
-    flex: 1.3;  /* Aumenta este valor para hacer los contenedores más anchos */
+    justify-content: space-between;
+}
+
+.footerDataMain {
+    flex: 1.3;
+    /* Aumenta este valor para hacer los contenedores más anchos */
     padding-bottom: 2.5rem;
 }
 
-  .footerDataMain img{
+.footerDataMain img {
     width: 88%;
-  }
-.footerDataMainContactanos{
-    flex: 1 !important; 
 }
 
-  .footerDataMainIMG{
-    flex: 1 !important;  /* Disminuye este valor para hacer el último contenedor más estrecho */
+.footerDataMainContactanos {
+    flex: 1 !important;
+}
+
+.footerDataMainIMG {
+    flex: 1 !important;
+    /* Disminuye este valor para hacer el último contenedor más estrecho */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34697,35 +34759,38 @@ label {
 
 
 /*Inicio estilos apartado para subir imagenes al carrusel */
-.SubirImagenesCarruselBanner{
+.SubirImagenesCarruselBanner {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;  
+    flex-direction: column;
 }
-.SubirImagenesCarruselBannerDiv{
+
+.SubirImagenesCarruselBannerDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
     border: 3px solid black;
 }
-.SubirImagenesCarruselBanner p{
+
+.SubirImagenesCarruselBanner p {
     font-size: 18px;
     color: #03037D;
     font-weight: 600;
     margin-bottom: 1.5rem;
 }
-.SubirImagenesCarruselBanner div img{
+
+.SubirImagenesCarruselBanner div img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     /* o "cover" dependiendo de tu preferencia */
     max-width: 500px;
-    max-height: 300px; 
+    max-height: 300px;
 }
- 
-.SubirImagenesCarruselBannerDiv{
+
+.SubirImagenesCarruselBannerDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34735,23 +34800,26 @@ label {
     border: 3px solid lightgray;
     border-radius: 10px;
 }
-.SubirImagenesCarruselBanner span button{
-    background-color:  #03037D;
+
+.SubirImagenesCarruselBanner span button {
+    background-color: #03037D;
     padding: 1rem;
     color: white;
     font-weight: 700;
     border-radius: 10px;
     font-size: 15px;
 }
-.SeleccionarImagenIndex{
+
+.SeleccionarImagenIndex {
     margin-top: 1.5rem;
     width: 100% !important;
     border: 0 !important;
     display: flex !important;
-        justify-content: space-between !important;
-} 
-.ActImgButton{
-    background-color:  #03037D;
+    justify-content: space-between !important;
+}
+
+.ActImgButton {
+    background-color: #03037D;
     padding: 1rem;
     color: white;
     font-weight: 700;
@@ -34760,11 +34828,13 @@ label {
     height: 40px;
     margin-bottom: 1rem;
 }
-.buttonsEliminarImgs{
+
+.buttonsEliminarImgs {
     display: flex;
     flex-direction: column;
 }
-.ElimImgButton{
+
+.ElimImgButton {
     padding: 1rem;
     color: red;
     font-weight: 700;
@@ -34773,11 +34843,12 @@ label {
     height: 40px;
     border: 2px solid red;
 }
+
 /*Fin estilos apartado para subir imagenes al carrusel */
 
 
 /*Inicio nuevos estilos pantalla nueva de comprar o vender repuestos*/
-.newContHomepage{
+.newContHomepage {
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -34785,7 +34856,8 @@ label {
     overflow: hidden;
     display: flex;
 }
-.leftContainerHome{
+
+.leftContainerHome {
     padding: 2rem;
     height: 99.9vh;
     min-width: 450px;
@@ -34796,16 +34868,19 @@ label {
     flex-direction: column;
     align-items: flex-start;
 }
-.leftContainerHomeLogo{
+
+.leftContainerHomeLogo {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.leftContainerHomeLogo img{
+
+.leftContainerHomeLogo img {
     width: 300px;
 }
-.leftContainerHomeButtons{
+
+.leftContainerHomeButtons {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -34813,124 +34888,146 @@ label {
     align-items: center;
     margin-bottom: 100px;
 }
-.leftContainerHomeButtons button{
+
+.leftContainerHomeButtons button {
     width: 250px;
     border-radius: 12px;
-    background-color: transparent; 
+    background-color: transparent;
     border: 5px solid #FAB900;
     font-size: 33px;
     font-weight: 700;
     color: #FAB900;
     margin-bottom: 3rem;
 }
-.leftContainerHomeStock{
+
+.leftContainerHomeStock {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.leftContainerHomeStock p{
+
+.leftContainerHomeStock p {
     font-size: 17px;
     color: white;
     margin-bottom: 1.5;
     font-weight: 500;
 }
-.leftContainerHomeLogo{
-  margin-bottom: 30px; /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
+
+.leftContainerHomeLogo {
+    margin-bottom: 30px;
+    /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
 }
-.RightContainerHome{
+
+.RightContainerHome {
     width: 100%;
-    height: 99.9vh; 
+    height: 99.9vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
- 
+
 .fisrTitleHomepage {
     position: relative;
     display: inline-block;
-    margin-bottom: 5px; /* Ajusta el espaciado según tus necesidades */
-    text-align: center; /* Centra el texto dentro del contenedor */
+    margin-bottom: 5px;
+    /* Ajusta el espaciado según tus necesidades */
+    text-align: center;
+    /* Centra el texto dentro del contenedor */
     color: #2D2E83;
-   
-  }
-  .fisrTitleHomepage p{
+
+}
+
+.fisrTitleHomepage p {
     color: #2D2E83;
     font-size: 50px;
     font-weight: 600;
-  }
-  .fisrTitleHomepage::after {
+}
+
+.fisrTitleHomepage::after {
     content: "";
     position: absolute;
     bottom: 0;
-    left: 50%; /* Centra el inicio de la línea en el 50% del contenedor */
-    transform: translateX(-50%); /* Centra la línea con respecto al texto */
-    width: 70%; /* Ajusta la longitud de la "línea" según tus necesidades */
-    height: 3px; /* Ajusta el grosor de la "línea" según tus necesidades */
-    background-color: #2D2E83; /* Ajusta el color según tus preferencias */
-  }
+    left: 50%;
+    /* Centra el inicio de la línea en el 50% del contenedor */
+    transform: translateX(-50%);
+    /* Centra la línea con respecto al texto */
+    width: 70%;
+    /* Ajusta la longitud de la "línea" según tus necesidades */
+    height: 3px;
+    /* Ajusta el grosor de la "línea" según tus necesidades */
+    background-color: #2D2E83;
+    /* Ajusta el color según tus preferencias */
+}
 
-  .icon1home {
+.icon1home {
     display: flex;
     align-items: center;
-    justify-content: center; 
-    text-align: center; /* Alinea el texto dentro del contenedor */
-  }
-  
-  .icon1home {
+    justify-content: center;
+    text-align: center;
+    /* Alinea el texto dentro del contenedor */
+}
+
+.icon1home {
     position: relative;
-  }
-  
-  .icon1home img {
-    display: block; /* Asegura que la imagen sea un bloque para manejar el espacio correctamente */
-    margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+.icon1home img {
+    display: block;
+    /* Asegura que la imagen sea un bloque para manejar el espacio correctamente */
+    margin: 0 auto;
+    /* Centra la imagen horizontalmente */
     width: 110px;
     height: 110px;
-  }
-  
-  .icon1home svg {
+}
+
+.icon1home svg {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     font-size: 55px;
     color: #FAB900;
     fill: #FAB900;
     /* Ajusta los estilos adicionales del icono según tus necesidades */
-  }
-  .iconosHome{
+}
+
+.iconosHome {
     display: flex;
     gap: 10px;
     align-items: flex-start;
     justify-content: center;
-  }
- 
-  .iconHomeMain{
+}
+
+.iconHomeMain {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  .textIconHome{
+}
+
+.textIconHome {
     display: flex;
     width: 100%;
     text-align: center;
-  }
-  .textIconHome p{
+}
+
+.textIconHome p {
     text-align: center;
     width: 100%;
     color: #2D2E83;
     font-size: 14px;
     font-weight: 600;
-  }
-  .titleAmarillo{
-    background-color: #FAB900; 
+}
+
+.titleAmarillo {
+    background-color: #FAB900;
     align-items: center;
     justify-content: center;
-    display: flex;  
-    width: 500px; 
+    display: flex;
+    width: 500px;
     margin: 0 auto;
     padding-right: 2rem;
     padding-left: 2rem;
@@ -34938,35 +35035,38 @@ label {
     padding-bottom: .5rem;
     margin-top: 4rem;
     margin-bottom: 5rem;
-  }
-  .titleAmarillo p{
+}
+
+.titleAmarillo p {
     font-size: 45px;
     font-weight: 600;
     color: white;
-  }
+}
 
 /*Inicio nuevos estilos pantalla nueva de comprar o vender repuestos*/
 
 
 /*Inicio estilos notificaciones*/
 
-.MainContainerAlertas{
-    width: 345px; 
+.MainContainerAlertas {
+    width: 345px;
 }
-.subMainContainerAlertas{
+
+.subMainContainerAlertas {
     width: 100%;
     border-bottom: 1px solid #2D2E83;
-    padding: .7rem; 
-    background-color:  #e8e8f1;
+    padding: .7rem;
+    background-color: #e8e8f1;
 }
-.subMainContainerAlertas p{
+
+.subMainContainerAlertas p {
     font-size: 14px;
     font-weight: 600;
-    color: #2D2E83;  
+    color: #2D2E83;
 }
 
 .SubMainAlertasContenido {
-    padding: .7rem; 
+    padding: .7rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -34974,30 +35074,31 @@ label {
     min-height: 100px;
     max-height: 400px;
     overflow-y: auto;
-  }
-
-  .SubMainAlertasContenido p{
-    font-size: 14px;
-    font-weight: 600;
-    color: #2D2E83;  
 }
 
-.notifCont{
+.SubMainAlertasContenido p {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2D2E83;
+}
+
+.notifCont {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 100%; 
+    width: 100%;
     margin-bottom: .5rem;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    transition: background-color 0.3s ease; 
+    transition: background-color 0.3s ease;
     cursor: pointer;
 }
 
 .notifCont:hover {
-    background-color: #e8e8f1;  
-  }
-.notifContIcono{
+    background-color: #e8e8f1;
+}
+
+.notifContIcono {
     width: 55px;
     height: 55px;
     background-color: white;
@@ -35007,17 +35108,18 @@ label {
     align-items: center;
     display: flex;
 }
-.notifContIcono svg{
-    color: #2D2E83;  
+
+.notifContIcono svg {
+    color: #2D2E83;
     font-size: 30px !important;
 }
- 
+
 /*Fin estilos notificaciones*/
 
 
 
 /*Inicio nuevos estilos login*/
-.LoginNewContainer{
+.LoginNewContainer {
     min-width: 440px;
     height: auto;
     max-width: 500px;
@@ -35030,11 +35132,13 @@ label {
     flex-direction: column;
     display: flex;
 }
-.LoginNewContainer img{
+
+.LoginNewContainer img {
     width: 220px;
     margin: 2rem;
 }
-.ps-form__inputNuevo{
+
+.ps-form__inputNuevo {
     background-color: #f1f2f6 !important;
     width: 340px !important;
     border-radius: 10px;
@@ -35043,14 +35147,16 @@ label {
     color: #2D2E83;
     font-size: 15px;
 }
-.ps-form__inputNuevo:focus{
+
+.ps-form__inputNuevo:focus {
     outline: none;
     box-shadow: none;
-    color: #00BF15;
 }
+
 .ps-form__inputNuevo:-webkit-autofill {
     -webkit-text-fill-color: #2D2E83 !important;
 }
+
 .ps-form__inputNuevo:-webkit-autofill,
 .ps-form__inputNuevo:-webkit-autofill:hover,
 .ps-form__inputNuevo:-webkit-autofill:focus,
@@ -35058,16 +35164,64 @@ label {
     -webkit-box-shadow: 0 0 0 30px #f1f2f6 inset !important;
 }
 
+.ps-form__inputNuevo {
+    background-color: #f1f2f6 !important;
+    width: 340px !important;
+    border-radius: 10px;
+    height: 45px !important;
+    padding: 9px 15px;
+    color: #2D2E83;
+    font-size: 15px;
+}
+
+
+
+.ps-form__input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.ps-form__input:-webkit-autofill {
+    -webkit-text-fill-color: #2D2E83 !important;
+}
+
+.ps-form__input:-webkit-autofill,
+.ps-form__input:-webkit-autofill:hover,
+.ps-form__input:-webkit-autofill:focus,
+.ps-form__input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f1f2f6 inset !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .contraseñainputiniciarsesion:-webkit-autofill {
     -webkit-text-fill-color: #2D2E83 !important;
 }
+
 .contraseñainputiniciarsesion:-webkit-autofill,
 .contraseñainputiniciarsesion:-webkit-autofill:hover,
 .contraseñainputiniciarsesion:-webkit-autofill:focus,
 .contraseñainputiniciarsesion:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px #f1f2f6 inset !important;
+    -webkit-text-fill-color: #2D2E83 !important;
 }
+
 .contraseñainputiniciarsesion {
     background-color: #f1f2f6 !important;
     width: 340px !important;
@@ -35076,27 +35230,33 @@ label {
     padding: 9px 15px;
     color: #2D2E83;
 }
-.inputContLoginCorreo{
+
+.inputContLoginCorreo {
     margin-top: 2rem !important;
 }
-.inputContLogin p{
+
+.inputContLogin p {
     font-size: 15px;
-    color: #2D2E83; 
+    color: #2D2E83;
 }
-.inputContLoginContraseña{
+
+.inputContLoginContraseña {
     margin-top: 2.5rem;
 }
-.partebajaLogin{
+
+.partebajaLogin {
     margin-top: 1.5rem;
     width: 340px !important;
     display: flex;
     justify-content: space-between;
 }
-.ContbuttonEntrarLogin{
+
+.ContbuttonEntrarLogin {
     width: 340px !important;
     margin-top: 2rem;
 }
-.buttonEntrarLogin{
+
+.buttonEntrarLogin {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -35108,50 +35268,92 @@ label {
     align-items: center;
     cursor: pointer;
 }
-.partebajaLogin p{
+
+.partebajaLogin p {
     font-size: 15px;
-    color: #2D2E83; 
+    color: #2D2E83;
     cursor: pointer;
 }
-.Otext{
+
+.Otext {
     justify-content: center;
     align-items: center;
     margin-top: 1.5rem;
     width: 340px !important;
     display: flex;
 }
-.Otext p{
+
+.Otext p {
     font-size: 15px;
-    color: #2D2E83;  
+    color: #2D2E83;
 }
-.CrearcuentaCont p{
+
+.CrearcuentaCont p {
     font-size: 17px;
     cursor: pointer;
-    color: #2D2E83;  
+    color: #2D2E83;
 
 }
-.CrearcuentaCont p:hover{
+
+.CrearcuentaCont p:hover {
     text-decoration: underline;
 }
-.modal-mensajesLogin { 
+
+.modal-mensajesLogin {
     width: 550px !important;
-    height: 410px !important;
+    height: 440px !important;
     background-color: white;
     padding: 25px;
 }
-.RecuperarContraseñaSMS{
+
+.modal-Verificar {
+    width: 550px !important;
+    height: 320px !important;
+    background-color: white;
+    padding: 25px;
+}
+
+.RecuperarContraseñaSMS {
     font-size: 15px;
-    background-color: #e8f0fe;
+    background-color: #f1f2f6;
     padding: 1rem;
     padding-right: 3rem;
     padding-left: 3rem;
-    border-radius: 15px;
+    border-radius: 10px;
 }
+
+.VerifOtraManerButon {
+    font-size: 15px;
+    width: 280px;
+    padding: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    border-radius: 10px;
+    background-color: #2d2e83 !important;
+    color: white !important;
+}
+
+.cerrarVerifButton {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 2rem;
+}
+
+.cerrarVerifButton button {
+    color: white;
+    background-color: #2d2e83;
+    border-radius: 10px;
+    height: 43px;
+    width: 100px;
+}
+
 /*Fin nuevos estilos login*/
 
 /*Inicio estilos de categorias izquierda */
-.megaMenuUu{ 
-    height: auto !important; 
+.megaMenuUu {
+    height: auto !important;
 }
 
 .resaltaitemmodalcategoria {
@@ -35167,8 +35369,9 @@ label {
     align-items: center;
     width: 50px;
     font-weight: 600;
-    display: flex; 
+    display: flex;
 }
+
 .itemscategorias {
     color: #2D2E83 !important;
     font-size: 16px !important;
@@ -35177,6 +35380,7 @@ label {
     margin-top: 5px !;
     font-weight: 600;
 }
+
 .mega-menu__row {
     display: flex;
     flex-flow: row nowrap;
@@ -35185,20 +35389,24 @@ label {
     margin-left: -15px;
     margin-right: 15px;
 }
+
 .visualizacioncategorias {
     width: 1200px !important;
-    height: auto !important; 
-    transition: height 0.3s ease; /* Agrega una transición de 0.3 segundos con efecto ease */
+    height: auto !important;
+    transition: height 0.3s ease;
+    /* Agrega una transición de 0.3 segundos con efecto ease */
 }
+
 .mega-menu__column {
-    padding-left: 15px; 
+    padding-left: 15px;
     width: 100px !important;
     background-color: #e0e2eb !important;
     color: #2D2E83 !important;
     padding: 1.5rem;
     border-radius: 10px;
-} 
-.divubicaejemplosuno { 
+}
+
+.divubicaejemplosuno {
     width: 674.3px !important;
     margin-right: 6px;
     height: 150px !important;
@@ -35212,78 +35420,276 @@ label {
     justify-content: center;
     padding-top: 2rem;
 }
-.containerImagensCategoriasTop{
+
+.containerImagensCategoriasTop {
     width: 99%;
-    display: flex; 
+    display: flex;
     justify-content: flex-end;
 }
-.textosCategorias{
+
+.textosCategorias {
     margin-top: 2rem;
     width: 99%;
-    display: flex; 
+    display: flex;
     justify-content: flex-end;
 }
-.divubicaejemplosuno img{   
+
+.divubicaejemplosuno img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     /* o "cover" dependiendo de tu preferencia */
     max-width: 113px;
-    max-height: 113px; 
+    max-height: 113px;
 }
-.textosCategorias div{
-    width: 674px !important; 
+
+.textosCategorias div {
+    width: 674px !important;
 }
-.textosCategorias div h2{
+
+.textosCategorias div h2 {
     font-size: 16px;
     font-weight: 600;
     color: #2D2E83 !important;
-} 
-.itemssubcategorias { 
-    color: #2D2E83 !important;
-    font-size: 16px !important; 
 }
-.itemssubcategorias:hover{
+
+.itemssubcategorias {
+    color: #2D2E83 !important;
+    font-size: 16px !important;
+}
+
+.itemssubcategorias:hover {
     text-decoration: underline;
 }
+
+
+
+
+
+
+
+
+
+.ContainerCategoriasLeft {
+    width: 1215px;
+    display: flex;
+    background-color: #ffffff;
+    padding-top: 1.8rem;
+    padding-right: 1.8rem;
+    padding-bottom: 1.8rem;
+    gap: 6rem;
+}
+
+.CategoriasUno {
+    display: flex;
+    flex-direction: column;
+}
+
+.CategoriasUno button {
+    padding-left: 1.5rem;
+    width: 170px;
+    margin-bottom: .2rem;
+    font-size: 17px;
+    color: #03037D;
+    height: 33px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: flex-start;
+}
+
+.subCategoriasLeft {
+    background-color: #e0e2eb;
+    border-radius: 12px;
+    padding: 1rem;
+    width: 100%;
+    padding-left: 2rem;
+    color: #03037D;
+    display: flex;
+
+
+}
+
+
+.contInfoCategoriasLeft {
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: .5rem;
+}
+
+ 
+
+.contInfoCategoriasLeftOne {
+    width: auto;
+
+}
+
+.ButtonSubCategorias { 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    align-items: center;
+}
+.ButtonSubCategorias:hover{
+    text-decoration: underline;
+    color: #1B35A2;
+}
+
+.textSubcategorias {
+    margin-bottom: .6rem;
+    
+}
+.textSubcategoriasDerecha{
+    margin-bottom: .6rem;
+    width: 300px; 
+} 
+.textSubcategorias p {
+    font-size: 16px;
+    color: #03037D;
+}
+.MainContainerCategoriasRight{
+    margin-bottom: 4rem;
+}
+ 
+
+.textSubcategorias svg {
+    font-size: 21px;
+    color: #03037D !important;
+}
+.TopcontDescripcionSubCat{
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;  
+}
+.TopcontDescripcionSubCat p{
+    font-size: 14px;
+    color: #03037D !important;
+
+}
+.descripCategoriatxt{
+    width: 90%;
+}
+.imgSubCategorias{
+    width: 100%;
+    margin-top: -.5rem;
+    display: flex;
+    gap: 1.7rem;
+}
+.imgSubCategorias img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 140px;
+    max-height: 140px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*Fin estilos de categorias izquierda */
 
 
 /*Nuevos estilos registrarse*/
-.containerRegistrarse{
+
+
+.tamañocajaoDropDownTipoDocumento {
+    margin-left: 5px !important;
+    width: 98% !important;
+    font-size: 16px !important;
+    background-color: #f1f2f6;
+}
+
+.DropDownTipoDocumento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 46px !important;
+    background-color: #f1f2f6 !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 16px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    padding-right: 13px;
+    /* Ajusta este valor según tus necesidades */
+}
+
+.DropDownTipoDocumento::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/FlechaAzulRegister.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+
+.itemsdropdownTipoDoc:hover {
+    background-color: #d3d4e4;
+}
+.itemsdropdownTipoDoc{
+    color: #2D2E83 !important;
+    height: 35px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+
+.containerRegistrarse {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
     margin-top: 5rem;
 
 }
-.containerRegistrarse img{
+
+.containerRegistrarse img {
     width: 220px;
     margin: 3rem;
     margin-bottom: 4.5rem;
     margin: 0 auto;
 }
-.ps-form--review{
+
+.ps-form--review {
     border: 3px solid #f1f2f6;
     padding: 2rem;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
 }
-.footerFormCrearCuenta{
+
+.footerFormCrearCuenta {
     width: 100%;
 }
-.subcontFooterForm{
+
+.subcontFooterForm {
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
-.BotónRegistrarse{
-    width: 230px;
+
+.BotónRegistrarse {
+    width: 300px;
     display: flex;
     justify-content: center;
     border-radius: 10px;
@@ -35295,8 +35701,27 @@ label {
     cursor: pointer;
     margin-top: 2rem;
 }
-.form-check{
+
+.form-check {
     margin-right: 3rem !important;
+}
+
+.SugerenciaCont {
+    margin-top: 2rem;
+    text-align: end;
+}
+
+.form-checkTerminos {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+}
+
+.TermsContainer {
+    margin-top: 1rem;
+    padding-left: 4rem;
+    display: flex;
+    align-items: flex-start;
 }
 
 /*Fin Nuevos estilos registrarse*/

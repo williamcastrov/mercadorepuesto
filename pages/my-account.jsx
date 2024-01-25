@@ -1,42 +1,39 @@
-import React, { useState, useEffect, useRef } from "react";
-import Container from "~/components/layouts/Container";
-import { validateEmail } from "../utilities/Validations";
-import useGetUsers from "~/hooks/useUsers";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Moment from "moment";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Col, Dropdown, Modal, Row } from "react-bootstrap";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useDispatch, useSelector } from "react-redux";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import axios from "axios";
-import shortid from "shortid";
-import UserRepository from "../repositories/UsersRepository";
-import ReadUserEmail from "../repositories/ReadUserEmail";
+import Container from "~/components/layouts/Container";
+import useGetUsers from "~/hooks/useUsers";
+import { URL_BD_MR } from "../helpers/Constants";
 import ActivateUserRepository from "../repositories/ActivateUserRepository";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Form, Button, Row, Col } from "react-bootstrap";
-import { getTokenRegistro } from "../store/tokenregistro/action";
-import Users from "~/repositories/Users";
-import ReCAPTCHA from "react-google-recaptcha";
-import NumberFormat from "react-number-format";
-import Moment from "moment";
+import ReadUserEmail from "../repositories/ReadUserEmail";
+import UserRepository from "../repositories/UsersRepository";
+import { validateEmail } from "../utilities/Validations";
 import IngresoFotosDocsNit from "./CreateUsers/ingresofotosdocsnit";
-import { URL_BD_MR, URL_IMAGES_RESULTS } from "../helpers/Constants";
-import { Select, MenuItem } from '@mui/material';
 //Firebase
-import firebase from "../utilities/firebase";
 import {
-    getAuth,
-    signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    getAuth,
     onAuthStateChanged,
-    updateProfile,
+    updateProfile
 } from "firebase/auth";
-import { format } from "prettier";
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
-import { set } from "lodash";
+import firebase from "../utilities/firebase";
+import ModalMensajes from "./mensajes/ModalMensajes";
+
 
 const MyAccountScreen = () => {
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState("");
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModalDos, setShowModalDos] = useState(false); //Estado de modal
 
     const captcha = useRef(null);
     const router = useRouter();
@@ -142,6 +139,15 @@ const MyAccountScreen = () => {
     const onCloseModalDocsJuridica = () => {
         setShowModalDocsNit(false);
     };
+
+
+
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModalDos(false);
+    };
+
+
 
     useEffect(() => {
         setCodigoToken(datosusuarios.token);
@@ -289,12 +295,9 @@ const MyAccountScreen = () => {
 
         if (!formOk) {
             console.log("FORM : ", formOk);
-            swal({
-                title: "Registro Usuarios",
-                text: "Hola, revisa la información ingresada!",
-                icon: "warning",
-                button: "Aceptar",
-            });
+            setTituloMensajes('Registro usuarios');
+            setTextoMensajes('Hola! revisa la información ingresada.');
+            setShowModalDos(true);
             return;
         } else {
             if (!noSoyRobot) {
@@ -605,8 +608,6 @@ const MyAccountScreen = () => {
     };
 
     const handleChangeTipoIdentificacion = (selectedOptions) => {
-        //console.log("TIPO IDENTIFICACIÓN : ", selectedOptions);
-        //alert("GENERICO");
         setTipoIdentificacion(selectedOptions);
     };
 
@@ -1222,21 +1223,27 @@ const MyAccountScreen = () => {
     };
 
 
-    const customStyles = {
-        control: (base, state) => ({
-            ...base,
-            border: state.isFocused ? 0 : 0,
-            boxShadow: state.isFocused ? 0 : 0,
-            '&:hover': {
-                border: state.isFocused ? 0 : 0
-            }
-        }),
-        menu: (provided, state) => ({
-            ...provided,
-            border: 'none',
-            boxShadow: 'none'
-        })
+
+    const CustomDropdownButton = React.forwardRef(({ children, onClick, href }, ref) => (
+        <button
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+            href={href}
+            className="DropDownTipoDocumento"
+        >
+            {children}
+        </button>
+    ));
+
+    const handleSelect = (value, nombre) => {
+        setSelectedItem(nombre);
+        setTipoIdentificacion(value);
     };
+
+    const [selectedItem, setSelectedItem] = useState("Seleccione tipo de identificación");
 
     return (
         <Container title="Mi Cuenta">
@@ -1255,21 +1262,28 @@ const MyAccountScreen = () => {
                                             <Row>
                                                 <Col xs lg={6}>
                                                     <label className="ps-form__label">Tipo Identificación</label>
-                                                    <div className="form-control ps-form__input basecolorinput">
-                                                        <select
-                                                            className="custom-select ps-form__labelselect"
-                                                            onChange={(e) => handleChangeTipoIdentificacion(e.target.value)}
-                                                        >
-                                                            <option selected className="select-fontsize ps-form__label">
-                                                                Seleccione tipo de identificación
-                                                            </option>
-                                                            {tiposId &&
-                                                                tiposId.map((itemselect) => (
-                                                                    <option key={itemselect.id} value={itemselect.id}>
-                                                                        {`${itemselect.tipoidentificacion} - ${itemselect.descripcion}`}
-                                                                    </option>
-                                                                ))}
-                                                        </select>
+                                                    <div >
+                                                        <Dropdown style={{ width: '100%' }} >
+                                                            <Dropdown.Toggle
+                                                                as={CustomDropdownButton}
+                                                                id="dropdown-basic"
+                                                            >
+                                                                {selectedItem}
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
+                                                                {tiposId &&
+                                                                    tiposId.map((itemselect) => (
+                                                                        <Dropdown.Item
+                                                                            className="itemsdropdownTipoDoc"
+                                                                            onClick={() => handleSelect(itemselect.id, `${itemselect.tipoidentificacion} - ${itemselect.descripcion}`)}
+                                                                            eventKey={itemselect.id}
+                                                                        >
+                                                                            {`${itemselect.tipoidentificacion} - ${itemselect.descripcion}`}
+                                                                        </Dropdown.Item>
+                                                                    ))
+                                                                }
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
                                                     </div>
                                                 </Col>
 
@@ -1279,7 +1293,7 @@ const MyAccountScreen = () => {
                                                 <div>
                                                     <Row>
                                                         <Col xs lg={6}>
-                                                            <div className="ps-form__group">
+                                                            <div className="ps-form__group" >
                                                                 <label className="ps-form__label">Número de identificación</label>
                                                                 <input
                                                                     className={inputControlIdentificacion}
@@ -1288,10 +1302,11 @@ const MyAccountScreen = () => {
                                                                     onBlur={(e) => validaIdentificacion(e.target.value)}
                                                                     onClick={resetNumeroIdentificacion}
                                                                 />
+                                                                {activaMensajeIdentificacion ? (
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeIdentificacion}</h4>
+                                                                ) : null}
                                                             </div>
-                                                            {activaMensajeIdentificacion ? (
-                                                                <h4 className="mensajeerrornombreusuario">{mensajeIdentificacion}</h4>
-                                                            ) : null}
+
                                                         </Col>
 
                                                     </Row>
@@ -1548,52 +1563,58 @@ const MyAccountScreen = () => {
 
                                             {tipoIdentificacion ? (
                                                 <div>
-                                                    <Row style={{marginTop:'-1.5rem'}}>
+                                                    <Row style={{ marginTop: '-1.5rem' }}>
                                                         <Col xs lg={6}>
                                                             <br />
-                                                            <div className={inputControlRobot}>
+
+                                                        </Col>
+                                                        <Col xs lg={6}>
+                                                            <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', paddingLeft: '2rem' }}>
                                                                 <ReCAPTCHA
                                                                     ref={captcha}
                                                                     sitekey="6Ld9HvkdAAAAAO7MeibRy8PNVMApQu5xC2vzqGF6"
                                                                     onChange={onChangeNoSoyRobot}
                                                                 />
                                                             </div>
-                                                            {activaMensajeRobot ? (
-                                                                <h4 className="mensajeerrornombreusuario">{mensajeRobot}</h4>
-                                                            ) : null}
-                                                        </Col>
-                                                        <Col xs lg={6}>
-                                                            <p className="ps-form__text">
-                                                                Sugerencia: La contraseña debe tener ocho caracteres como mínimo. Para mayor seguridad, debe incluir letras minúsculas, mayúsculas, números y símbolos como ! " ? $ % ^ &amp; ).
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-
-                                                    <br />
-                                                    <div className="footerFormCrearCuenta">
-                                                        <div className="subcontFooterForm">
-                                                            <div className={inputControlTerminos}>
-                                                                <div className="form-check">
-                                                                    <input
-                                                                        className="form-check-input"
-                                                                        type="checkbox"
-                                                                        id="remember"
-                                                                        onClick={aceptarTerminos}
-                                                                    />
-                                                                    <label className="form-check-label" htmlFor="remember">
-                                                                        Acepto términos y condiciones
-                                                                    </label>
-                                                                </div>
-                                                                {activaMensajeTerminos ? (
-                                                                    <h4 className="mensajeerrornombreusuario">{mensajeTerminos}</h4>
+                                                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                                                {activaMensajeRobot ? (
+                                                                    <h4 className="mensajeerrornombreusuario">{mensajeRobot}</h4>
                                                                 ) : null}
                                                             </div>
-                                                            <div className="BotónRegistrarse" onClick={registrarse}>
-                                                                Registrarse
-                                                            </div>
-                                                        </div>
 
-                                                    </div>
+
+
+                                                            <div className="SugerenciaCont">
+                                                                <p className="ps-form__text">
+                                                                    Sugerencia: La contraseña debe tener ocho caracteres como mínimo. Para mayor seguridad, debe incluir letras <br /> minúsculas, mayúsculas, números y símbolos como ! <br /> " ? $ % ^ &amp; ).
+                                                                </p>
+                                                            </div>
+
+                                                            <div className="TermsContainer">
+                                                                <div className={inputControlTerminos}>
+                                                                    <div className="form-check form-checkTerminos">
+                                                                        <input
+                                                                            className="form-check-input"
+                                                                            type="checkbox"
+                                                                            id="remember"
+                                                                            onClick={aceptarTerminos}
+                                                                        />
+                                                                        <label className="form-check-label" htmlFor="remember">
+                                                                            Acepto términos y condiciones
+                                                                        </label>
+                                                                    </div>
+                                                                    {activaMensajeTerminos ? (
+                                                                        <h4 className="mensajeerrornombreusuario">{mensajeTerminos}</h4>
+                                                                    ) : null}
+                                                                </div>
+                                                            </div>
+                                                            <div className="subcontFooterForm">
+                                                                <div className="BotónRegistrarse" onClick={registrarse}>
+                                                                    Registrarse
+                                                                </div>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             ) : null}
                                         </div>
@@ -1616,6 +1637,14 @@ const MyAccountScreen = () => {
                     console.log("MOSTRAR MODAL DOCS NIT : FALSE")
                 )}
             </div>
+
+            <ModalMensajes
+                shown={showModalDos}
+                close={handleModalClose}
+                titulo={tituloMensajes}
+                mensaje={textoMensajes}
+                tipo="error"
+            />
 
             <Modal className="cajatextodoctonit" show={showModalDocsNit}>
                 <Modal.Body>

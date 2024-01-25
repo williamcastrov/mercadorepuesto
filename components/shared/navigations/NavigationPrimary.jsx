@@ -33,7 +33,7 @@ const NavigationPrimary = (props) => {
             const MenuPrincipal = await MainMenuRepository.getMainMenu(0);
             //console.log("DATOS MENU BD : ", MenuPrincipal[0])
             //console.log("DATOS JSON : ", menu.main_menu)
-            setMainMenu(MenuPrincipal[0].main_menu)
+            //setMainMenu(MenuPrincipal[0].main_menu)
             setTimeout(function () {
                 setLoading(false);
             }, 200);

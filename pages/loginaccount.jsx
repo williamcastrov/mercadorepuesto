@@ -95,6 +95,7 @@ const LoginAccount = () => {
 
     const onCloseModalVerificar = () => {
         setShowModalVerificar(!showModalVerificar);
+        closeModalOlvidasteContraseña();
     };
 
     const onCloseModalPropietario = () => {
@@ -1185,7 +1186,7 @@ const LoginAccount = () => {
                             </Col>
                         </Row>
 
-                        <div className="mt-35 textoventanamensajes">
+                        <div className="mt-18 textoventanamensajesNuevo">
                             <div>
                                 Para recuperar tu contraseña te
                                 vamos a enviar un código de
@@ -1193,13 +1194,13 @@ const LoginAccount = () => {
                             </div>
                         </div>
 
-                        <div className="mt-15 textoventanamensajes">
+                        <div className="mt-15 textoventanamensajesNuevo">
                             <div>
                                 ¿Por dónde deseas recibirlo?
                             </div>
                         </div>
 
-                        <div className="mt-15 textoventanamensajes">
+                        <div className="mt-15 textoventanamensajesNuevo">
                             <button className="RecuperarContraseñaSMS" onClick={tokenmensajetexto} onMouseOver={pasarmousesms}
                                 onMouseOut={salirmousesms}>
                                 SMS - Mensaje de Texto
@@ -1210,7 +1211,7 @@ const LoginAccount = () => {
                         </div>
 
 
-                        <div className="mt-15 textoventanamensajes">
+                        <div className="mt-15 textoventanamensajesNuevo">
                             <button className="RecuperarContraseñaSMS" onClick={tokenwhatsapp}
                                 onMouseOver={pasarmousewhatsapp}
                                 onMouseOut={salirmousewhatsapp}>
@@ -1221,9 +1222,87 @@ const LoginAccount = () => {
                             </button>
                         </div>
 
+                        <div className="mt-24 textoventanamensajesNuevo">
+                            <button className="VerifOtraManerButon" onClick={onCloseModalVerificar}
+                                onMouseOver={
+                                    pasarmouseverificarotraforma
+                                }
+                                onMouseOut={
+                                    salirmouseverificarotraforma
+                                }>
+                                Verificar de otra forma
+                            </button>
+                        </div>
                     </div>
                 </div>
             ) : null}
+
+
+
+            {showModalVerificar ? (
+                <div
+                    className="modal-fondo mtmenos15"
+                    onClick={onCloseModalVerificar}
+                >
+                    <div
+                        className="modal-Verificar redondearventamensajes"
+                        onClick={(e) => { 
+                            e.stopPropagation();
+                        }}
+                    > 
+                        <Row>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <div className="iconoventanamensajes mtmenos14">
+                                    <InfoIcon style={{ fontSize: 45 }} />
+                                </div>
+                            </Col>
+                            <Col xl={9} lg={9} md={9} sm={9}>
+                                <div className="ml-30 titulodetaildescription">
+                                    Recuperar contraseña
+                                </div>
+                            </Col>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <button
+                                    type="button"
+                                    className="cerrarmodal ml-40 sinborder colorbase"
+                                    data-dismiss="modal"
+                                    onClick={() => {
+                                        onCloseModalVerificar();
+                                    }}
+                                >
+                                    X
+                                </button>
+                            </Col>
+                        </Row> 
+                        <div className="mt-18 textoventanamensajesNuevo">
+                            <div>
+                                Selecciona el medio para recuperar el acceso a tu cuenta.
+                            </div>
+                        </div> 
+
+                        <div className="mt-15 textoventanamensajesNuevo">
+                            <button className="RecuperarContraseñaSMS">
+                                Ingresa con Google
+                            </button>
+                        </div>
+
+                         <div className="mt-15 textoventanamensajesNuevo">
+                            <button className="RecuperarContraseñaSMS" onClick={tokenemail}   >
+                                Ingresa con tu e-mail
+                            </button>
+                        </div> 
+                        <div className="cerrarVerifButton">
+                            <button onClick={() => {onCloseModalVerificar();}}>
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
+
+
+
+
 
             <Modal
                 dialogClassName="modalmediotoken"
@@ -1427,68 +1506,8 @@ const LoginAccount = () => {
                 </div>
             ) : null}
 
-            <Modal className="modalrecuperarcuenta" show={showModalVerificar}>
-                <Modal.Body>
-                    <Row>
-                        <Col>
-                            <h2 className="seccionesvehiculotexto mt-10 ml-40">
-                                COMO DESEAS INGRESAR A TU CUENTA
-                            </h2>
-                        </Col>
-                        <Col>
-                            <button
-                                type="button"
-                                className="cerrarmodal"
-                                data-dismiss="modal"
-                                onClick={onCloseModalVerificar}>
-                                {" "}
-                                X{" "}
-                            </button>
-                        </Col>
-                    </Row>
-                    <br />
-                    <h4 className="textoimagenesilustrativas ml-80">
-                        Selecciona el medio para recuperar el acceso a tu
-                        cuenta.
-                    </h4>
-                    <br />
-                    <br />
-                    <div className="ml-30">
-                        <Row>
-                            <Col xl={3} lg={3} md={3} xs={3} className="ml-40">
-                                <Button className="botonotraformaverificar">
-                                    Ingresa con Google
-                                </Button>
-                            </Col>
 
-                            <Col xl={4} lg={4} md={4} xs={4}>
-                                <Button
-                                    className="botonotraformaverificar"
-                                    onClick={tokenemail}>
-                                    Ingresa con e-mail
-                                </Button>
-                            </Col>
-                        </Row>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </Modal.Body>
-                <div className="botongrabarproducto">
-                    <Row>
-                        <Col xl={4} lg={4} md={4} xs={4} className="ml-50">
-                            <Button
-                                className="ps-btn"
-                                onClick={onCloseModalVerificar}>
-                                {" "}
-                                Cancelar{" "}
-                            </Button>
-                        </Col>
-                    </Row>
-                </div>
-            </Modal>
+
             <Modal dialogClassName="modaltoken" show={showModalLlamada}>
                 <Modal.Header closeButton>
                     <h2>LLAMADA TELEFONICA</h2>
