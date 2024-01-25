@@ -8,6 +8,8 @@ import ModalMensajes from "../mensajes/ModalMensajes";
 import shortid from "shortid";
 
 export default function index() {
+
+    
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage
@@ -18,7 +20,7 @@ export default function index() {
     const [image, setImage] = useState(null);
     const [imageName, setImageName] = useState("");
     const [previewImages, setPreviewImages] = useState({});
-
+    const [Imagenes, setImagenes] = useState(null);
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -51,7 +53,7 @@ export default function index() {
         };
         reader.readAsDataURL(file);
     };
-    const [Imagenes, setImagenes] = useState(null);
+
     useEffect(() => {
         const obtenerImagenes = async () => {
             try {
@@ -109,32 +111,7 @@ export default function index() {
             return newState;
         });
     };
-    /** 
-       const handleenviar = async (e) => {
-           e.preventDefault();  
-           const formData = new FormData();
-           formData.append("imagen", image);
-           formData.append("nombreimagen", imageName);
-           formData.append("numeroimagenes", 1);
-   
-           const grabarImg = async () => {
-               await fetch(`${URL_BD_MR}128`, {
-                   method: "POST",
-                   body: formData,
-                   //headers: headers,
-               }).then((response) => {
-                   //setIsLoading(false);
-                   if (response) {
-                       console.log("OK INGRESO FOTOS : ", response);
-                   } else {
-                       console.log("ERROR, INGRESO FOTOS : ", response);
-                   }
-               });
-           };
-           grabarImg();
-   
-       };
-   */
+ 
 
     return (
         <>

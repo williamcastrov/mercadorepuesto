@@ -1,18 +1,6 @@
 import React, { useEffect, useState } from "react";
 //import Menu from "~/components/elements/menu/Menu";
-import useGetProducts from "~/hooks/useGetProducts";
-import { Row, Col } from "react-bootstrap";
-import Link from "next/link";
-import MenuDropdown from "~/components/elements/menu/MenuDropdown";
-import MegaMenu from "~/components/elements/menu/MegaMenu";
-import InfoIcon from "@material-ui/icons/Info";
 import { useRouter } from "next/router";
-import ModuleMenuHomepages from "~/components/elements/menu/modules/ModuleMenuHomepages";
-import img1 from "../../../../public/imagescategorias/categorias1.jpg";
-import img2 from "../../../../public/imagescategorias/categorias2.jpg";
-import img4 from "../../../../public/imagescategorias/categorias3.png";
-import img5 from "../../../../public/imagescategorias/categorias5.jpg";
-import { BsInfoCircleFill } from "react-icons/bs";
 import axios from 'axios';
 import { IoIosArrowDown } from "react-icons/io";
 import Popover from '@mui/material/Popover';
@@ -25,6 +13,14 @@ const ModuleHeaderSupplies = (props) => {
     const [classCategorias, setClassCategorias] = useState(
         "header__categories-toggle sinborder"
     );
+    // Supongamos que tus datos de usuario están en el estado
+    const [categorias, setCategorias] = useState(null);
+    const [subcategorias, setSubcategorias] = useState(null);
+    const [categoriaActiva, setCategoriaActiva] = useState(1); // Inicialmente mostramos la categoría 1
+    const [descripcionActiva, setDescripcionActiva] = useState(''); // Inicialmente no mostramos ninguna descripción
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
 
     const onSelecciono = () => {
         setClassCategorias("header__categories-toggle subrayartexto sinborder");
@@ -32,9 +28,7 @@ const ModuleHeaderSupplies = (props) => {
 
     const outSelecciono = () => {
         setClassCategorias("header__categories-toggle sinborder");
-    };
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    }; 
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -42,48 +36,21 @@ const ModuleHeaderSupplies = (props) => {
 
     const handleClose = () => {
         setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-
-
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [activeDescripcion, setActiveDescripcion] = useState('');
-
-    const handleIconClick = (descripcion) => {
-        setActiveDescripcion(descripcion);
-    };
-
-    const handleMouseOver = (index) => {
-        setActiveIndex(index);
-        setActiveDescripcion(''); // Borra la descripción activa
-    };
-
-
-    // Supongamos que tus datos de usuario están en el estado
-    const [categorias, setCategorias] = useState(null);
-    const [subcategorias, setSubcategorias] = useState(null);
-    const [categoriaActiva, setCategoriaActiva] = useState(1); // Inicialmente mostramos la categoría 1
-    const [descripcionActiva, setDescripcionActiva] = useState(''); // Inicialmente no mostramos ninguna descripción
+    }; 
 
     useEffect(() => {
         const leerCategorias = async () => {
             try {
                 const res = await axios({
                     method: "post",
-                    url: URL_BD_MR + "135", // Reemplaza con tu URL
+                    url: URL_BD_MR + "135", 
                 });
 
-                console.log("Categorías por console:", res.data.listcategorias); // Imprime los datos de respuesta
-
-                // Aquí puedes manejar los datos de respuesta como necesites
-                // Por ejemplo, podrías guardarlos en el estado para renderizarlos más tarde
+              //  console.log("Categorías por console:", res.data.listcategorias); 
                 setCategorias(res.data.listcategorias);
             } catch (error) {
                 console.error("Error al leer las categorías", error);
-                // Maneja el error según tus necesidades
+                
             }
         };
 
@@ -91,17 +58,16 @@ const ModuleHeaderSupplies = (props) => {
             try {
                 const res = await axios({
                     method: "post",
-                    url: URL_BD_MR + "138", // Reemplaza con tu URL
+                    url: URL_BD_MR + "138",  
                 });
 
-                console.log("Subcategorías por console:", res.data.listsubcategorias); // Imprime los datos de respuesta
+             //   console.log("Subcategorías por console:", res.data.listsubcategorias); 
 
-                // Aquí puedes manejar los datos de respuesta como necesites
-                // Por ejemplo, podrías guardarlos en el estado para renderizarlos más tarde
+                
                 setSubcategorias(res.data.listsubcategorias);
             } catch (error) {
                 console.error("Error al leer las subcategorías", error);
-                // Maneja el error según tus necesidades
+                
             }
         };
 
