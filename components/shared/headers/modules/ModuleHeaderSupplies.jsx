@@ -186,12 +186,14 @@ const ModuleHeaderSupplies = (props) => {
 
 
                             <div className="contDescripcionSubCat">
-                                <div className="TopcontDescripcionSubCat">
-                                    <div className="descripCategoriatxt">
-                                        <p>{descripcionActiva} </p>
+                                {descripcionActiva && (
+                                    <div className="TopcontDescripcionSubCat">
+                                        <div className="descripCategoriatxt">
+                                            <p>{descripcionActiva} </p>
+                                        </div>
+                                        <HiOutlineInformationCircle title={`Info sobre ${categorias.find(categoria => categoria.id === categoriaActiva).nombre}`} />
                                     </div>
-                                    {descripcionActiva && <HiOutlineInformationCircle title={`Info sobre ${descripcionActiva}`} />}
-                                </div>
+                                )}
 
                                 {descripcionActiva && (
                                     <div className="imgSubCategorias">
