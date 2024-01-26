@@ -26,15 +26,19 @@ import {
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
 import firebase from "../utilities/firebase";
 import ModalMensajes from "./mensajes/ModalMensajes";
-
-
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import InfoIcon from "@material-ui/icons/Info";
+import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
+import { Dialog, DialogContent } from "@mui/material";
+import Box from '@mui/material/Box';
 const MyAccountScreen = () => {
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState("");
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
     const [showModalDos, setShowModalDos] = useState(false); //Estado de modal
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordDos, setShowPasswordDos] = useState(false);
     const captcha = useRef(null);
     const router = useRouter();
     const [formData, setFormData] = useState(defaultValueForm());
@@ -55,7 +59,8 @@ const MyAccountScreen = () => {
     const [terminosCondiciones, setTerminosCondiciones] = useState(false);
     const [showModalFotos, setShowModalFotos] = useState(false);
     const [phone, setPhone] = useState(false);
-
+    const [openNewDialog, setOpenNewDialog] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [mensajePhone, setMensajePhone] = useState(false);
     const [activaMensajePhone, setActivaMensajePhone] = useState(false);
     const [activaMensajeNombre, setActivaMensajeNombre] = useState(false);
@@ -119,6 +124,9 @@ const MyAccountScreen = () => {
     const [inputControlRobot, setInputControlRobot] = useState("");
     const [mensajeRobot, setMensajeRobot] = useState(false);
     const [activaMensajeRobot, setActivaMensajeRobot] = useState(false);
+
+
+    const [open, setOpen] = useState(false);
 
     // Asignamos Datos al arreglo de Usuarios desde el state
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
@@ -301,23 +309,17 @@ const MyAccountScreen = () => {
             return;
         } else {
             if (!noSoyRobot) {
-                swal({
-                    title: "Registro Usuarios",
-                    text: "Por favor confirma que no eres un Robot!",
-                    icon: "warning",
-                    button: "Aceptar",
-                });
+                setTituloMensajes('Registro Usuarios');
+                setTextoMensajes('Por favor confirma que no eres un Robot!');
+                setShowModalDos(true);
                 return;
             }
 
             if (!terminosCondiciones) {
                 setInputControlTerminos("alertbotonterminos");
-                swal({
-                    title: "Registro Usuarios",
-                    text: "Por favor, Debes aceptar terminos y condiciones!",
-                    icon: "warning",
-                    button: "Aceptar",
-                });
+                setTituloMensajes('Registro Usuarios');
+                setTextoMensajes('Por favor, Debes aceptar terminos y condiciones!');
+                setShowModalDos(true);
                 return;
             }
         }
@@ -334,12 +336,9 @@ const MyAccountScreen = () => {
         ///console.log("SI USUARIO EXISTE : ", respuestauser);
 
         if (respuestauser.length > 0) {
-            swal({
-                title: "Registro Usuarios",
-                text: "Por favor revisa el email, ya esta asignado a otra cuenta!",
-                icon: "warning",
-                button: "Aceptar",
-            });
+            setTituloMensajes('Registro Usuarios');
+            setTextoMensajes('Por favor revisa el email, ya esta asignado a otra cuenta!');
+            setShowModalDos(true);
             return;
         }
         setFormError(errors);
@@ -370,18 +369,15 @@ const MyAccountScreen = () => {
                                 button: "Aceptar",
                             });*/
                         } else {
-                            swal({
-                                title: "Registro Usuarios",
-                                text: "Cuenta creada de forma correcta!",
-                                icon: "success",
-                                button: "Aceptar",
-                            });
-                            swal({
-                                title: "Registro Usuarios",
-                                text: "Hemos enviado un código de validación a tu correo!",
-                                icon: "success",
-                                button: "Aceptar",
-                            });
+                            setTituloMensajes('Registro Usuarios');
+                            setTextoMensajes('Cuenta creada de forma correcta!');
+                            setShowModalDos(true);
+                            // Puedes usar un setTimeout para mostrar el segundo modal después de un tiempo
+                            setTimeout(() => {
+                                setTituloMensajes('Registro Usuarios');
+                                setTextoMensajes('Hemos enviado un código de validación a tu correo!');
+                                setShowModalDos(true);
+                            }, 3000); // Aquí estoy usando un retraso de 3 segundos, puedes ajustarlo a tus necesidades
                         }
 
                         const auth = getAuth(firebase);
@@ -414,12 +410,9 @@ const MyAccountScreen = () => {
                                         setCreateId(true);
                                     })
                                     .catch((error) => {
-                                        swal({
-                                            title: "Actualizar Usuarios",
-                                            text: "Error Actualizando nombre de Usuario!",
-                                            icon: "error",
-                                            button: "Aceptar",
-                                        });
+                                        setTituloMensajes('Actualizar Usuarios');
+                                        setTextoMensajes('Error Actualizando nombre de Usuario!');
+                                        setShowModalDos(true);
                                     });
                             } else {
                                 setUser(false);
@@ -429,12 +422,9 @@ const MyAccountScreen = () => {
                     .catch((error) => {
                         const errorCode = error.code;
                         const errorMessage = error.message;
-                        swal({
-                            title: "Registro Usuarios",
-                            text: "Error al crear la cuenta!",
-                            icon: "error",
-                            button: "Aceptar",
-                        });
+                        setTituloMensajes('Registro Usuarios');
+                        setTextoMensajes('Error al crear la cuenta!');
+                        setShowModalDos(true);
                     });
             };
             grabaUsuario();
@@ -561,12 +551,7 @@ const MyAccountScreen = () => {
                 datosToken
             )
                 .then(() => {
-                    swal({
-                        title: "Activar cuenta",
-                        text: "Token enviado al correo, Recuerda revisar en correos no deseados!",
-                        icon: "success",
-                        button: "Aceptar",
-                    });
+                    setOpenNewDialog(true);  // Abre el nuevo diálogo
                     setShowModal(true);
                 })
                 .catch((error) => {
@@ -627,12 +612,7 @@ const MyAccountScreen = () => {
         //console.log("ID USUARIO : ", idUid);
 
         if (codigoToken != formDataToken.token) {
-            swal(
-                "Mercado Repuesto",
-                "Por favor, revisa el codigo ingresado, no corresponde!",
-                "warning",
-                { button: "Aceptar" }
-            );
+            setOpen(true);
             return;
         }
 
@@ -641,35 +621,20 @@ const MyAccountScreen = () => {
         };
 
         const activarToken = async () => {
-            const respuesta = await ActivateUserRepository.getActivateUser(
-                dat
-            ).then((response) => {
+            const respuesta = await ActivateUserRepository.getActivateUser(dat).then((response) => {
                 if (response) {
                     if (response.type === 1) {
-                        console.log(
-                            "TIPO DE IDENTIFICACION : ",
-                            tipoIdentificacion
-                        );
+                        console.log("TIPO DE IDENTIFICACION : ", tipoIdentificacion);
 
                         if (tipoIdentificacion < 6) {
-                            swal(
-                                "Mercado Repuesto",
-                                "Ya puedes disfrutar de una experiencia diferente MR!",
-                                "success",
-                                { button: "Aceptar" }
-                            );
-                            setShowModal(false);
+                            setDialogOpen(true);
                             location.reload();
                             setInicio(true);
                         } else {
-                            swal(
-                                "Mercado Repuesto",
-                                "Tu cuenta de correo ya fue validada!",
-                                "success",
-                                { button: "Aceptar" }
-                            );
+                            setTituloMensajes('Mercado Repuesto');
+                            setTextoMensajes('Tu cuenta de correo ya fue validada!');
+                            setShowModalDos(true);
                             Swal.fire({
-                                //title: "Mercado Repuesto",
                                 title: "Para continuar con el ingreso de documentos, Oprime Aceptar",
                                 html: "<hr />",
                                 width: 600,
@@ -679,7 +644,6 @@ const MyAccountScreen = () => {
                                 confirmButtonText: "Aceptar",
                                 cancelButtonText: "Cancelar",
                             }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
                                     setShowModalDocsNit(true);
                                 } else if (result.isDenied) {
@@ -690,20 +654,16 @@ const MyAccountScreen = () => {
                                     );
                                 }
                             });
-                            setShowModal(false);
+                            setShowModal(false); // Cierra el modal
                         }
                     } else {
-                        swal(
-                            "Mercado Repuesto",
-                            "Algo salio mal, si deseas puedes reenviar tu token de activación!",
-                            "success",
-                            { button: "Aceptar" }
-                        );
+                        setTituloMensajes('Mercado Repuesto');
+                        setTextoMensajes('Algo salio mal, si deseas puedes reenviar tu token de activación!');
+                        setShowModalDos(true);
                         router.push("/");
                     }
                 } else {
                     console.log("ENVIAR TOKEN : ", response);
-                    //return null;
                 }
             });
         };
@@ -749,8 +709,6 @@ const MyAccountScreen = () => {
     };
 
     const validaIdentificacion = (identificacion) => {
-        //console.log("DATO IDENTIFICACION : ", formData.identificacion);
-        //setInputControlTelefono("form-control ps-form__input");
         setActivaMensajePhone(false);
         setFormError({});
         let errors = {};
@@ -778,7 +736,7 @@ const MyAccountScreen = () => {
                     "form-control ps-form__input alertboton  basecolorinput"
                 );
                 setMensajeIdentificacion(
-                    "Recuerda, El nit debe contener solo números, longitud minima de 6 y maximo de 10"
+                    "Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10"
                 );
                 setActivaMensajeIdentificacion(true);
                 errors.identificacion = true;
@@ -827,6 +785,7 @@ const MyAccountScreen = () => {
             }
         }
     };
+
 
     const resetTelefono = () => {
         setInputControlTelefono("form-control ps-form__input  basecolorinput");
@@ -1159,7 +1118,7 @@ const MyAccountScreen = () => {
             if (formData.passworddos.length < 8) {
                 setActivaMensajeConfirmarContraseña(true);
                 setMensajeConfirmarContraseña(
-                    "Password debe ser mayor a siete (7) caracteres!"
+                    "Contraseña debe ser mayor a siete (7) caracteres!"
                 );
                 setInputControlClave("form-control ps-form__input  alertboton");
                 setInputControlConfirmeClave(
@@ -1301,6 +1260,13 @@ const MyAccountScreen = () => {
                                                                     name="identificacion"
                                                                     onBlur={(e) => validaIdentificacion(e.target.value)}
                                                                     onClick={resetNumeroIdentificacion}
+                                                                    onKeyPress={(e) => {
+                                                                        const charCode = e.which ? e.which : e.keyCode;
+                                                                        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }}
+                                                                    maxLength={10}
                                                                 />
                                                                 {activaMensajeIdentificacion ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeIdentificacion}</h4>
@@ -1414,6 +1380,13 @@ const MyAccountScreen = () => {
                                                                     name="identificacion"
                                                                     onBlur={(e) => validaIdentificacion(e.target.value)}
                                                                     onClick={resetNumeroIdentificacion}
+                                                                    onKeyPress={(e) => {
+                                                                        const charCode = e.which ? e.which : e.keyCode;
+                                                                        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }}
+                                                                    maxLength={10}
                                                                 />
                                                             </div>
                                                             {activaMensajeIdentificacion ? (
@@ -1442,6 +1415,12 @@ const MyAccountScreen = () => {
                                                                     onBlur={(e) => validaTelefono(e.target.value)}
                                                                     name="telefono"
                                                                     type="text"
+                                                                    onKeyPress={(e) => { //función para no permitir letras
+                                                                        const charCode = e.which ? e.which : e.keyCode;
+                                                                        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }}
                                                                 />
                                                             </div>
                                                             {activaMensajePhone ? (
@@ -1462,6 +1441,12 @@ const MyAccountScreen = () => {
                                                                     onFocus={onFocusNombres}
                                                                     onBlur={(e) => validaNombre(e.target.value)}
                                                                     onClick={(e) => validaTelefono(e.target.value)}
+                                                                    onKeyPress={(e) => { //función para no permitir numeros
+                                                                        const charCode = e.which ? e.which : e.keyCode;
+                                                                        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && charCode !== 32) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }}
                                                                 />
                                                                 {activaMensajeNombre ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeNombre}</h4>
@@ -1479,6 +1464,12 @@ const MyAccountScreen = () => {
                                                                     onFocus={onFocusApellidos}
                                                                     onBlur={(e) => validaApellido(e.target.value)}
                                                                     onClick={(e) => validaNombre(e.target.value)}
+                                                                    onKeyPress={(e) => { //función para no permitir numeros
+                                                                        const charCode = e.which ? e.which : e.keyCode;
+                                                                        if (charCode > 31 && (charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 122) && charCode !== 32) {
+                                                                            e.preventDefault();
+                                                                        }
+                                                                    }}
                                                                 />
                                                                 {activaMensajeApellido ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeApellido}</h4>
@@ -1525,14 +1516,23 @@ const MyAccountScreen = () => {
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Contraseña *</label>
                                                                 <div className="input-group">
-                                                                    <input
-                                                                        className={inputControlClave}
-                                                                        onBlur={(e) => validaClave(e.target.value)}
-                                                                        onClick={(e) => validaConfirmaEmail(e.target.value)}
-                                                                        onFocus={onFocusContraseña}
-                                                                        type="password"
-                                                                        name="password"
-                                                                    />
+                                                                    <div style={{ position: 'relative', width: '100%' }}>
+                                                                        <input
+                                                                            style={{ width: '100%' }}
+                                                                            className={inputControlClave}
+                                                                            onBlur={(e) => validaClave(e.target.value)}
+                                                                            onClick={(e) => validaConfirmaEmail(e.target.value)}
+                                                                            onFocus={onFocusContraseña}
+                                                                            type={showPassword ? "text" : "password"}
+                                                                            name="password"
+                                                                        />
+                                                                        <div
+                                                                            style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                                            onClick={() => setShowPassword(!showPassword)}
+                                                                        >
+                                                                            {showPassword ? <PiEyeLight /> : <FaRegEyeSlash />}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 {activaMensajeContraseña ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeContraseña}</h4>
@@ -1543,14 +1543,23 @@ const MyAccountScreen = () => {
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Confirme contraseña *</label>
                                                                 <div className="input-group">
-                                                                    <input
-                                                                        className={inputControlConfirmeClave}
-                                                                        onBlur={(e) => validaConfirmarClave(e.target.value)}
-                                                                        onClick={(e) => validaClave(e.target.value)}
-                                                                        onFocus={onFocusConfirmarContraseña}
-                                                                        type="password"
-                                                                        name="passworddos"
-                                                                    />
+                                                                    <div style={{ position: 'relative', width: '100%' }}>
+                                                                        <input
+                                                                            style={{ width: '100%' }}
+                                                                            className={inputControlConfirmeClave}
+                                                                            onBlur={(e) => validaConfirmarClave(e.target.value)}
+                                                                            onClick={(e) => validaClave(e.target.value)}
+                                                                            onFocus={onFocusConfirmarContraseña}
+                                                                            type={showPasswordDos ? "text" : "password"}
+                                                                            name="passworddos"
+                                                                        />
+                                                                        <div
+                                                                            style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                                            onClick={() => setShowPasswordDos(!showPasswordDos)}
+                                                                        >
+                                                                            {showPasswordDos ? < PiEyeLight /> : <FaRegEyeSlash />}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 {activaMensajeConfirmarContraseña ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeConfirmarContraseña}</h4>
@@ -1564,32 +1573,26 @@ const MyAccountScreen = () => {
                                             {tipoIdentificacion ? (
                                                 <div>
                                                     <Row style={{ marginTop: '-1.5rem' }}>
-                                                        <Col xs lg={6}>
-                                                            <br />
+                                                        <Col xs={3}></Col>
 
-                                                        </Col>
                                                         <Col xs lg={6}>
-                                                            <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'flex-end', paddingLeft: '2rem' }}>
+                                                            <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center'  }}>
                                                                 <ReCAPTCHA
                                                                     ref={captcha}
                                                                     sitekey="6Ld9HvkdAAAAAO7MeibRy8PNVMApQu5xC2vzqGF6"
                                                                     onChange={onChangeNoSoyRobot}
                                                                 />
                                                             </div>
-                                                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
                                                                 {activaMensajeRobot ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeRobot}</h4>
                                                                 ) : null}
                                                             </div>
-
-
-
                                                             <div className="SugerenciaCont">
                                                                 <p className="ps-form__text">
                                                                     Sugerencia: La contraseña debe tener ocho caracteres como mínimo. Para mayor seguridad, debe incluir letras <br /> minúsculas, mayúsculas, números y símbolos como ! <br /> " ? $ % ^ &amp; ).
                                                                 </p>
                                                             </div>
-
                                                             <div className="TermsContainer">
                                                                 <div className={inputControlTerminos}>
                                                                     <div className="form-check form-checkTerminos">
@@ -1614,6 +1617,7 @@ const MyAccountScreen = () => {
                                                                 </div>
                                                             </div>
                                                         </Col>
+                                                        <Col xs={3}></Col>
                                                     </Row>
                                                 </div>
                                             ) : null}
@@ -1708,62 +1712,161 @@ const MyAccountScreen = () => {
                 </div>
             </Modal>
 
-            <Modal className="modalactivarcuenta" show={showModal}>
-                <Modal.Body>
-                    <div className="ml-100">
+
+            {showModal ? (
+                <div
+                    className="modal-fondo mtmenos15"
+                    onClick={onCloseModalActivarCuenta}
+                >
+                    <div
+                        className="modal-Token redondearventamensajes"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                    >
                         <Row>
-                            <Col xl={5} lg={5} md={5} sm={5} className="ml-130">
-                                <h2>ACTIVAR CUENTA</h2>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <div className="iconoventanamensajes mtmenos14">
+                                    <InfoIcon style={{ fontSize: 45 }} />
+                                </div>
                             </Col>
-                            <Col xl={1} lg={1} md={1} sm={1} className="ml-30">
+                            <Col xl={9} lg={9} md={9} sm={9}>
+                                <div className="ml-30 titulodetaildescription">
+                                    Activar cuenta
+                                </div>
+                            </Col>
+                            <Col xl={1} lg={1} md={1} sm={1}>
                                 <button
                                     type="button"
-                                    className="cerrarmodal"
+                                    className="cerrarmodal ml-40 sinborder colorbase"
                                     data-dismiss="modal"
-                                    onClick={onCloseModalActivarCuenta}>
-                                    {" "}
-                                    X{" "}
+                                    onClick={() => {
+                                        onCloseModalActivarCuenta();
+                                    }}
+                                >
+                                    X
                                 </button>
                             </Col>
                         </Row>
+                        <div className="mt-18 textoventanamensajesNuevo">
+                            <div>
+                                <form onChange={onChangeToken}>
+                                    <div className="formtOKEN">
+                                        <div className="Ptoken">
+                                            <p>Ingresar token:</p>
+                                        </div>
+                                        <input
+                                            className="tokenInputMyacount"
+                                            name="token"
+                                            type="text"
+                                        />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div className="cerrarVerifButtonToken">
+                            <button className="RecuperarContraseñaSMS" onClick={validarToken}>
+                                Activar Cuenta
+                            </button>
+                            <button onClick={() => setShowModal(false)}>
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
+
+
+            <Dialog
+                open={open}
+                disableScrollLock={true}
+                onClose={() => setOpen(false)}
+                PaperProps={{
+                    style: {
+                        borderRadius: 15,
+                    },
+                }}
+            >
+                <div className="contTokenIcorrect">
+                    <div className="topContTokenIcorrect">
+                        <InfoIcon style={{ fontSize: 41 }} />
+                        <p>Mercado repuesto</p>
+                        <p>X</p>
                     </div>
 
-                    <br />
-                    <Row>
-                        <Col xl={8} lg={8} md={8} sm={8} className="ml-20">
-                            <form onChange={onChangeToken}>
-                                <div className="ps-form__group">
-                                    <label className="ps-form__label labeltexto">
-                                        Ingresar Codigo :
-                                    </label>
-                                    <input
-                                        className="form-control ps-form__input"
-                                        name="token"
-                                        type="text"
-                                    />
-                                </div>
-                            </form>
-                        </Col>
-                    </Row>
-                </Modal.Body>
-                <div className="botongrabarproducto">
-                    <Row>
-                        <Col xl={4} lg={4} md={4} sm={4}>
-                            <div className="ps-btn" onClick={validarToken}>
-                                Activar Cuenta
-                            </div>
-                        </Col>
-                        <Col xl={4} lg={4} md={4} sm={4}>
-                            <Button
-                                className="ps-btn"
-                                onClick={() => setShowModal(false)}>
-                                {" "}
-                                Cancelar{" "}
-                            </Button>
-                        </Col>
-                    </Row>
+                    <div className="txtContTokenIcorrect">
+                        <p> Por favor, revisa el codigo ingresado, no corresponde!</p>
+                    </div>
+
+                    <div className="closeContTokenIcorrect">
+                        <button onClick={() => setOpen(false)} color="primary">
+                            Cerrar
+                        </button>
+                    </div>
                 </div>
-            </Modal>
+            </Dialog>
+
+            <Dialog
+                disableScrollLock={true}
+                open={openNewDialog}
+                onClose={() => setOpenNewDialog(false)}
+                PaperProps={{
+                    style: {
+                        borderRadius: 15,
+                    },
+                }}
+            >
+                <div className="contTokenEnviado">
+                    <div className="topContTokenIcorrect">
+                        <InfoIcon style={{ fontSize: 41 }} />
+                        <p>Activar cuenta</p>
+                        <p>X</p>
+                    </div>
+
+                    <div className="txtContTokenEnviado">
+                        <p>Token enviado al correo, Recuerda revisar en correos no deseados!</p>
+                    </div>
+
+
+                    <div className="closeContTokenIcorrect">
+                        <button onClick={() => setOpenNewDialog(false)} color="primary">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </Dialog>
+
+            <Dialog
+                disableScrollLock={true}
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                PaperProps={{
+                    style: {
+                        borderRadius: 15,
+                    },
+                }}
+            >
+                <div className="contTokenEnviado">
+                    <div className="topContTokenIcorrect">
+                        <InfoIcon style={{ fontSize: 41 }} />
+                        <p>Mercado repuesto</p>
+                        <p>X</p>
+                    </div>
+
+                    <div className="txtContTokenEnviado">
+                        <p>Ya puedes disfrutar de una experiencia diferente MR!</p>
+                    </div>
+
+
+                    <div className="closeContTokenIcorrect">
+                        <button onClick={() => setDialogOpen(false)} color="primary">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            </Dialog>
+
+
             <Modal className="modalactivarcuenta" show={showModalMedio}>
                 <Modal.Header>
                     <h2>POR QUE MEDIO DESEA RECIBIR EL TOKEN</h2>
