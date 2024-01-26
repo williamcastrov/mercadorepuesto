@@ -15,6 +15,8 @@ export default function index() {
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
     const [showModal, setShowModal] = useState(false); //Estado de modal
+    const [subcategorias, setSubcategorias] = useState(null);
+    const [subcategoriasFiltradas, setSubcategoriasFiltradas] = useState([]);
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -27,7 +29,7 @@ export default function index() {
     const handleModalClose = () => {
         setShowModal(false);
     };
-    const [subcategorias, setSubcategorias] = useState(null);
+
 
     useEffect(() => {
         const leerSubcategorias = async () => {
@@ -36,8 +38,11 @@ export default function index() {
                     method: "post",
                     url: URL_BD_MR + "138",
                 });
-                console.log("Subcategorías por console:", res.data.listsubcategorias);
-
+                // Filtramos las subcategorías con id_categorias igual a 1
+                const subcategoria1 = res.data.listsubcategorias.filter(subcategoria => subcategoria.id_categorias === 1);
+                console.log("Subcategorías filtradas con id_categoria 1:", subcategoria1);
+                // Almacenamos las subcategorías filtradas en el nuevo estado
+                setSubcategoriasFiltradas(subcategoria1);
                 setSubcategorias(res.data.listsubcategorias);
             } catch (error) {
                 console.error("Error al leer las subcategorías", error);
@@ -70,6 +75,92 @@ export default function index() {
             alert('Error al actualizar la subcategoría');
         }
     };
+
+
+
+    // Definimos el estado para la imagen, el nombre de la imagen y las imágenes de vista previa
+    const [image, setImage] = useState(null);
+    const [imageName, setImageName] = useState("");
+    const [previewImages, setPreviewImages] = useState({});
+    const [imagenesSubcategorias, setImagenesSubcategorias] = useState([]);
+
+
+    // Manejamos la carga de la imagen
+    const handleImagen = (e, id) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImage(reader.result);
+            const extension =
+                "." +
+                reader.result.substring(
+                    reader.result.indexOf("/") + 1,
+                    reader.result.indexOf(";base64")
+                );
+            setImageName(shortid.generate().substring(0, 11) + extension);
+            setPreviewImages(prevState => ({
+                ...prevState,
+                [id]: URL.createObjectURL(file)
+            }));
+        };
+        reader.readAsDataURL(file);
+    };
+
+    // Enviamos la imagen al servidor
+    const handleCrearImagen = async (id_subcategoria) => {
+        const formData = new FormData();
+        formData.append("id_subcategoria", id_subcategoria);
+        formData.append("id_categorias", 1);
+        formData.append("nombreimagen", imageName);
+        formData.append("imagen", image);
+        formData.append("numeroimagenes", 1);
+
+        // Mostramos los datos que se van a enviar
+        console.log("Datos a enviar:", {
+            id_subcategoria: id_subcategoria,
+            id_categorias: 1,
+            nombreimagen: imageName,
+            imagen: image,
+            numeroimagenes: 1
+        });
+
+        const grabarImg = async () => {
+            await fetch(`${URL_BD_MR}140`, {
+                method: "POST",
+                body: formData,
+            }).then((response) => {
+                if (response.ok) {
+                    console.log("OK INGRESO FOTOS : ", response);
+                    alert("La imagen se ha enviado correctamente.");
+                } else {
+                    console.log("ERROR, INGRESO FOTOS : ", response);
+                    alert("Ha ocurrido un error al enviar la imagen.");
+                }
+            });
+        };
+        grabarImg();
+    };
+
+
+
+    // Obtenemos las imágenes de las subcategorías del servidor
+    useEffect(() => {
+        const leerImagenesSubcategorias = async () => {
+            try {
+                const res = await axios({
+                    method: "get",
+                    url: URL_BD_MR + "141",
+                });
+                console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
+                setImagenesSubcategorias(res.data.listimgsubcategorias);
+            } catch (error) {
+                console.error("Error al leer las imágenes de las subcategorías", error);
+            }
+        };
+        leerImagenesSubcategorias();
+    }, []);
+
+
 
     return (
         <>
@@ -188,6 +279,39 @@ export default function index() {
                                         tipo="error"
                                     />
                                 </Grid>
+
+                                <Grid
+                                    className="contMainOpiniones"
+                                    container
+                                    style={{ width: isMdDown ? "100%" : "89%" }}
+                                    display={"flex"}
+                                    flexDirection={"column"}>
+                                    <div className="TitleOpVend">
+                                        <p>Editar imagenes Subcategorías</p>
+                                    </div>
+
+                                    <div>
+
+
+                                        {subcategoriasFiltradas.map(subcategoria => {
+                                            // Buscamos la imagen de la subcategoría en las imágenes de las subcategorías
+                                            const imagenSubcategoria = imagenesSubcategorias.find(imagen => imagen.id_subcategoria === subcategoria.id);
+
+                                            return (
+                                                <div key={subcategoria.id}>
+                                                    <h2>{subcategoria.nombre}</h2>
+                                                    {imagenSubcategoria && <p>Nombre de la imagen: {imagenSubcategoria.nombreimagen}</p>}
+                                                    <input type="file" onChange={(e) => handleImagen(e, subcategoria.id)} />
+                                                    <button onClick={() => handleCrearImagen(subcategoria.id)}>Enviar imagen</button>
+                                                    {previewImages[subcategoria.id] && <img src={previewImages[subcategoria.id]} alt="Vista previa" />}
+                                                </div>
+                                            );
+                                        })}
+
+
+                                    </div>
+                                </Grid>
+
                             </div>
                         </div>
                     </div>
