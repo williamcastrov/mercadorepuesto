@@ -35326,6 +35326,15 @@ label {
     padding-left: 3rem;
     border-radius: 10px;
 }
+.RecuperarContraseñaSMSDOS {
+    font-size: 15px;
+    width: 285px !important;
+    background-color: #f1f2f6;
+    padding: 1rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    border-radius: 10px;
+}
 
 .VerifOtraManerButon {
     font-size: 15px;

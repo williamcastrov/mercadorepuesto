@@ -100,23 +100,29 @@ const ModuleHeaderVender = () => {
                 enviadatoslocalstorage();
             } else {
                 Swal.fire({
+                    width: '450px',  
+                    borderRadius: '16px',
                     showCancelButton: false,
                     showConfirmButton: false,
-                    html: `<h2>Mercado Repuesto</h2>
-                <hr/>
-                <br />
-                <h4>Vive una experiencia diferente en la compra o venta de tu repuesto</h4>
-                <hr/>
-                <h4>Por favor ingresa a tu cuenta</h4>
-                <hr/>
-                <a href="/my-account">
-                    <h4 style="color:#FAB900">Soy nuevo</h4>
-                </a>
-                <hr/>
-                <a href="/loginaccount">
-                    <h4 style="color:#2D2E83">Ya tengo una cuenta</h4>
-                </a>
-                <hr/>
+                    html: 
+                    `        <div style="border-radius: 16px; padding: 2rem;">
+                    <img src="/static/img/favicon_2.png" alt="Mercado Repuesto" style="width: 45%; height: auto; margin: 0 auto;"/>
+               
+                    <br />
+                    <h4>Vive una experiencia diferente en la <br/> compra o venta de tu repuesto</h4>
+              
+                    <h4>Por favor ingresa a tu cuenta</h4>
+               
+                    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 1rem; width: 100%;">
+                        <a href="/my-account" style="width: 100%; height: auto; margin: 0 auto; margin-top: .5rem; margin-bottom: 1.5rem;">
+                            <button style="border-radius: 10px; color: #FAB900; background-color: white; border: 3px solid #2D2E83; height: 41px; width: 185px; font-size: 16px; margin-top: 1rem;">Soy nuevo</button>
+                        </a>
+                        
+                        <a href="/loginaccount" style="width: 100%; height: auto; margin: 0 auto;"> 
+                            <button style="border-radius: 10px; color: white; background-color: #2D2E83; height: 41px; width: 185px; font-size: 16px; margin-top: 1rem;">Ya tengo una cuenta</button> 
+                        </a>
+                    </div>
+                </div>
                 `,
                 });
             }
@@ -127,8 +133,8 @@ const ModuleHeaderVender = () => {
         }
         dispatch(getEditData(editdata));
         let datprd = [];
-        localStorage.setItem("duplicarprd",JSON.stringify(datprd));
-        localStorage.setItem("vehproductos",JSON.stringify(datprd));
+        localStorage.setItem("duplicarprd", JSON.stringify(datprd));
+        localStorage.setItem("vehproductos", JSON.stringify(datprd));
         dispatch(getDuplicarPrd(0));
 
         if (router.pathname != "/CreateProduct/createproduct") {

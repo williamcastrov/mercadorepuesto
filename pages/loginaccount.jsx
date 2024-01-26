@@ -1201,7 +1201,7 @@ const LoginAccount = () => {
                         </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMS" onClick={tokenmensajetexto} onMouseOver={pasarmousesms}
+                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenmensajetexto} onMouseOver={pasarmousesms}
                                 onMouseOut={salirmousesms}>
                                 SMS - Mensaje de Texto
                                 <br />
@@ -1212,7 +1212,7 @@ const LoginAccount = () => {
 
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMS" onClick={tokenwhatsapp}
+                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenwhatsapp}
                                 onMouseOver={pasarmousewhatsapp}
                                 onMouseOut={salirmousewhatsapp}>
                                 WhatsApp
@@ -1281,13 +1281,13 @@ const LoginAccount = () => {
                         </div> 
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMS">
+                            <button className="RecuperarContraseñaSMSDOS">
                                 Ingresa con Google
                             </button>
                         </div>
 
                          <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMS" onClick={tokenemail}   >
+                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenemail}   >
                                 Ingresa con tu e-mail
                             </button>
                         </div> 
