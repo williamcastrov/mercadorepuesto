@@ -35598,7 +35598,7 @@ label {
     border-bottom-right-radius: 12px;
     font-weight: 600;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .subCategoriasLeft {
@@ -35690,7 +35690,7 @@ label {
 
 .imgSubCategorias {
     width: 100%;
-    margin-top: -.5rem;
+    margin-top: 2rem;
     display: flex;
     gap: 1.7rem;
 }
@@ -35871,7 +35871,23 @@ label {
     align-items: center;
     flex-direction: column; 
 }
-
+.CerrarTodoCategoriasEdit{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.CerrarTodoCategoriasEdit button{
+    background-color: #2D2E83;
+    font-size: 18px;
+    border-radius: 10px;
+    height: 39px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: auto;
+    padding: 1.5rem;
+    color: white;
+}
 .SubEditarInfoCategorias {
     display: flex;
     justify-content: center;
@@ -35940,14 +35956,194 @@ label {
     max-width: 140px;
     max-height: 140px;
 }
-.actInfoCatButton{
-    width: 120px;
-    height: 41px;
+.actInfoCatButton{ 
+    height: 40px;
     border-radius: 10px;
     color: white;
     padding: 1rem;
     background-color: #2D2E83;
+    margin-top: 2rem;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 1.5rem;
 }
+.BotónCatActivo{ 
+    background-color: transparent;
+    font-size: 18px;
+    border: 3px solid #2D2E83;
+    border-radius: 10px;
+    height: 39px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: auto;
+    padding: 1.5rem;
+    color: #2D2E83;
+}
+.BotónCatInact{
+    background-color: #2D2E83;
+    font-size: 18px;
+    border-radius: 10px;
+    height: 39px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    width: auto;
+    padding: 1.5rem;
+    color: white;
+
+}
+.ButtonsCatEstados{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+.TitleImgTitleCategoria{
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.TitleImgTitleCategoria p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.ContImgCat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.SubContImgCat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2.5rem;
+    border: 3px solid #f1f2f6;
+    padding: 2rem;
+    border-radius: 10px;
+    align-items: center;
+}
+.ImagenesCategoríasCont{
+    margin-bottom: 5rem;
+}
+.ImgsContainerCategorias{
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 9rem;
+    margin-bottom: 3rem;
+}
+.MainCategoriaIMagen{
+    margin-bottom: 3rem;
+    border: 3px solid #f1f2f6;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: center;
+    min-width: 500px;
+    align-items: center;
+}
+.TitleSubcatImagenCat{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+}
+.TitleSubcatImagenCat p{
+    font-size: 18px;
+    font-weight: 600;
+    color: #2D2E83;
+} 
+.SubImgsContainerCategorias img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 140px;
+    max-height: 140px;
+}
+.SubImgsContainerCategorias {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Cambiado a space-between para distribuir los elementos arriba y abajo */
+}
+
+.ButtonActImgCat {
+    margin-top: auto; /* Esto empujará el elemento hacia abajo del todo en el contenedor */
+}
+ 
+.ButtonActImgCat button{
+    height: 39px;
+    width: 180px;
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    background-color: #2D2E83;
+    color: white;
+}
+.PrevImgeInput{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.PrevImgeInput svg{
+    font-size: 80px;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.PrevImgeInput img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 120px;
+    max-height: 120px;
+    padding: 1rem;
+    border: 3px solid #2D2E83;
+    border-radius: 10px;
+}
+.DeleteButtonImgCat button{
+    height: 39px;
+    border-radius: 10px;
+    border: 3px solid red;
+    padding: 1rem;
+    font-size: 14px;
+    width: 170px;
+    color: red;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.DeleteButtonImgCat{
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.CrearButtonImgCat button{
+    height: 39px;
+    border-radius: 10px; 
+    padding: 1rem;
+    font-size: 14px;
+    width: 170px;
+    color: white;
+    background-color: #2D2E83;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
 /*Fin estilos editar categorias*/
 
 

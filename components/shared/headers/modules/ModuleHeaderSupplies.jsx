@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import axios from 'axios';
 import { IoIosArrowDown } from "react-icons/io";
 import Popover from '@mui/material/Popover';
-import { URL_BD_MR } from "../../../../helpers/Constants";
+import { URL_BD_MR, URL_IMAGES_RESULTSSMS } from "../../../../helpers/Constants";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { IoIosArrowUp } from "react-icons/io";
@@ -23,6 +23,10 @@ const ModuleHeaderSupplies = (props) => {
     const [descripcionActiva, setDescripcionActiva] = useState(''); // Inicialmente no mostramos ninguna descripción
     const [nombreSubcategoriaActiva, setNombreSubcategoriaActiva] = useState(''); // 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [imagenesSubcategorias, setImagenesSubcategorias] = useState([]); // Inicialmente no mostramos ninguna imagen
+    const [subcategoriaActiva, setSubcategoriaActiva] = useState();
+
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
@@ -84,6 +88,22 @@ const ModuleHeaderSupplies = (props) => {
     }, []);
 
 
+    useEffect(() => {
+        const leerImagenesSubcategorias = async () => {
+            try {
+                const res = await axios({
+                    method: "get",
+                    url: URL_BD_MR + "141",
+                });
+                console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
+                setImagenesSubcategorias(res.data.listimgsubcategorias);
+            } catch (error) {
+                console.error("Error al leer las imágenes de las subcategorías", error);
+            }
+        };
+        leerImagenesSubcategorias();
+    }, []);
+
     const handleMouseOver = (descripcion, nombre) => {
         setDescripcionActiva(descripcion);
         setNombreSubcategoriaActiva(nombre);
@@ -126,13 +146,14 @@ const ModuleHeaderSupplies = (props) => {
                 >
                     <div className="ContainerCategoriasLeft">
                         <div className="CategoriasUno">
-                            {categorias ? categorias.sort((a, b) => a.id - b.id).map((categoria, index) => (
+                            {categorias ? categorias.sort((a, b) => a.id - b.id).map((categoria, subcategoria, index) => (
                                 <button
                                     key={index}
                                     onMouseOver={() => {
                                         setCategoriaActiva(categoria.id);
                                         setDescripcionActiva(''); // Borramos la descripción activa al cambiar de categoría
-                                        setNombreSubcategoriaActiva(''); // Borramos el nombre de la subcategoría activa al cambiar de categoría
+                                        setNombreSubcategoriaActiva(''); // Borramos el nombre de la subcategoría activa al cambiar de categoría 
+                                        setSubcategoriaActiva(subcategoria.id); // Aquí actualizamos la subcategoría activa
                                     }}
                                     style={{ backgroundColor: categoriaActiva === categoria.id ? '#e0e2eb' : 'initial' }}
                                 >
@@ -147,7 +168,10 @@ const ModuleHeaderSupplies = (props) => {
                                     <div key={index} className="textSubcategorias">
                                         <div className="ButtonSubCategorias">
                                             <p> {subcategoria.nombre}</p>
-                                            <HiOutlineInformationCircle onMouseOver={() => handleMouseOver(subcategoria.descripcion, subcategoria.nombre)} />
+                                            <HiOutlineInformationCircle onMouseOver={() => {
+                                                handleMouseOver(subcategoria.descripcion, subcategoria.nombre);
+                                                setSubcategoriaActiva(subcategoria.id); // Aquí actualizamos la subcategoría activa
+                                            }} />
                                         </div>
                                     </div>
                                 )) : 'Cargando subcategorías...'}
@@ -165,6 +189,7 @@ const ModuleHeaderSupplies = (props) => {
                                                     <HiOutlineInformationCircle onMouseOver={() => {
                                                         setDescripcionActiva(subcategoria.descripcion);
                                                         setNombreSubcategoriaActiva(subcategoria.nombre);
+                                                        setSubcategoriaActiva(subcategoria.id); // Aquí actualizamos la subcategoría activa
                                                     }} />
                                                 </div>
                                             </div>
@@ -183,10 +208,19 @@ const ModuleHeaderSupplies = (props) => {
                                         </div>
                                     )}
 
-                                    {descripcionActiva && (
+                                    {imagenesSubcategorias && subcategorias && (
                                         <div className="imgSubCategorias">
-                                            <img src="https://i.postimg.cc/kXJNxCw3/motorBMW.png" alt="" />
-                                            <img src="https://i.postimg.cc/Znnwxyzg/frenosktm.png" alt="" />
+                                            {imagenesSubcategorias
+                                                .filter(imagen => {
+                                                    const subcategoria = subcategorias.find(subcategoria => subcategoria.id === subcategoriaActiva);
+                                                    return subcategoria && imagen.id_subcategoria === subcategoria.id;
+                                                })
+                                                .sort((a, b) => a.id - b.id) // Ordenamos las imágenes por "id"
+                                                .slice(0, 2) // Seleccionamos las primeras dos imágenes
+                                                .map((imagen, index) => (
+                                                    <img src={`${URL_IMAGES_RESULTSSMS}${imagen.nombreimagen}`} alt={imagen.nombreimagen} />
+                                                ))
+                                            }
                                         </div>
                                     )}
 

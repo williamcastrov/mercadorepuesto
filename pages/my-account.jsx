@@ -31,6 +31,13 @@ import InfoIcon from "@material-ui/icons/Info";
 import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 import { Dialog, DialogContent } from "@mui/material";
 import Box from '@mui/material/Box';
+import { ImEye } from "react-icons/im";
+
+
+import { ImEyeBlocked } from "react-icons/im";
+
+
+
 const MyAccountScreen = () => {
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState("");
@@ -294,12 +301,7 @@ const MyAccountScreen = () => {
             setMensajeTerminos("Recuerda, Acepta terminos y condiciones!");
             setActivaMensajeTerminos(true);
         }
-
-        if (!noSoyRobot) {
-            setInputControlRobot("alertbotonrobot");
-            setMensajeRobot("Recuerda, confirma que no eres un Robot!");
-            setActivaMensajeRobot(true);
-        }
+ 
 
         if (!formOk) {
             console.log("FORM : ", formOk);
@@ -307,14 +309,7 @@ const MyAccountScreen = () => {
             setTextoMensajes('Hola! revisa la información ingresada.');
             setShowModalDos(true);
             return;
-        } else {
-            if (!noSoyRobot) {
-                setTituloMensajes('Registro Usuarios');
-                setTextoMensajes('Por favor confirma que no eres un Robot!');
-                setShowModalDos(true);
-                return;
-            }
-
+        } else { 
             if (!terminosCondiciones) {
                 setInputControlTerminos("alertbotonterminos");
                 setTituloMensajes('Registro Usuarios');
@@ -595,16 +590,7 @@ const MyAccountScreen = () => {
     const handleChangeTipoIdentificacion = (selectedOptions) => {
         setTipoIdentificacion(selectedOptions);
     };
-
-    const onChangeNoSoyRobot = () => {
-        if (captcha.current.getValue()) {
-            console.log("El usuario no es un robot");
-            setNoSoyRobot(true);
-            setInputControlRobot("");
-            setMensajeRobot("");
-            setActivaMensajeRobot(false);
-        }
-    };
+ 
 
     const validarToken = () => {
         console.log("VALIDAR TOKEN : ", formDataToken.token);
@@ -1530,7 +1516,7 @@ const MyAccountScreen = () => {
                                                                             style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                                                             onClick={() => setShowPassword(!showPassword)}
                                                                         >
-                                                                            {showPassword ? <PiEyeLight /> : <FaRegEyeSlash />}
+                                                                            {showPassword ? <ImEye  /> : <ImEyeBlocked />}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1557,7 +1543,7 @@ const MyAccountScreen = () => {
                                                                             style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                                                             onClick={() => setShowPasswordDos(!showPasswordDos)}
                                                                         >
-                                                                            {showPasswordDos ? < PiEyeLight /> : <FaRegEyeSlash />}
+                                                                            {showPasswordDos ? < ImEye  /> : <ImEyeBlocked />}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1576,7 +1562,7 @@ const MyAccountScreen = () => {
                                                         <Col xs={3}></Col>
 
                                                         <Col xs lg={6}>
-                                                            <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center'  }}>
+                                                          {/*   <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center'  }}>
                                                                 <ReCAPTCHA
                                                                     ref={captcha}
                                                                     sitekey="6Ld9HvkdAAAAAO7MeibRy8PNVMApQu5xC2vzqGF6"
@@ -1587,7 +1573,7 @@ const MyAccountScreen = () => {
                                                                 {activaMensajeRobot ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeRobot}</h4>
                                                                 ) : null}
-                                                            </div>
+                                                            </div>*/}
                                                             <div className="SugerenciaCont">
                                                                 <p className="ps-form__text">
                                                                     Sugerencia: La contraseña debe tener ocho caracteres como mínimo. Para mayor seguridad, debe incluir letras <br /> minúsculas, mayúsculas, números y símbolos como ! <br /> " ? $ % ^ &amp; ).
