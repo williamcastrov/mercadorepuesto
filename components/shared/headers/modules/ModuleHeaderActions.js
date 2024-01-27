@@ -208,7 +208,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     const [preguntas, setPreguntas] = useState([]);
     const [compras, setCompras] = useState([]);
     const [ventas, setVentas] = useState([]);
-    const [transaccionesRecientes, setTransaccionesRecientes] = useState([]);
+    const [notificacionesRecientes, setNotificacionesRecientes] = useState([]);
     const [respuestas, setRespuestas] = useState([]);
 
     useEffect(() => {
@@ -331,20 +331,20 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
 
         console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
 
-        setTransaccionesRecientes(recientes);
+        setNotificacionesRecientes(recientes);
     }, [compras, ventas, preguntas, respuestas]); // Este useEffect se ejecutará cada vez que cambien las compras, las ventas, las preguntas o las respuestas // Este useEffect se ejecutará cada vez que cambien las compras, las ventas o las preguntas
 
-    const irAPagina = (transaccion) => {
+    const irAPagina = (notificacion) => {
         // Supongamos que tienes rutas separadas para compras y ventas
-        if (transaccion.tipo === 'compra') {
+        if (notificacion.tipo === 'compra') {
             router.push('/MisCompras/misCompras');
-        } else if (transaccion.tipo === 'venta') {
+        } else if (notificacion.tipo === 'venta') {
             router.push('/MisVentas/misVentas');
         }
-        else if (transaccion.tipo === 'pregunta') {
+        else if (notificacion.tipo === 'pregunta') {
             router.push('/PreguntasYrespuestas/preguntasSobreMisProductos');
         }
-        else if (transaccion.tipo === 'respuesta') {
+        else if (notificacion.tipo === 'respuesta') {
             router.push('/PreguntasYrespuestas/preguntasRealizadasPorUsuario');
         }
         
@@ -419,7 +419,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                 <a className="header__action" onClick={handleClick} >
                     <RxBell />
                     <span className="header__action-badge">
-                        {transaccionesRecientes.length ? transaccionesRecientes.length : 0}
+                        {notificacionesRecientes.length ? notificacionesRecientes.length : 0}
                     </span>
                 </a>
             </li>
@@ -443,19 +443,19 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                         <p>Notificaciones</p>
                     </div>
                     <div className="SubMainAlertasContenido">
-                        {transaccionesRecientes.map((transaccion, index) => (
-                            <div className='notifCont' key={index} onClick={() => irAPagina(transaccion)}>
+                        {notificacionesRecientes.map((notificacion, index) => (
+                            <div className='notifCont' key={index} onClick={() => irAPagina(notificacion)}>
                                 <div className='notifContIcono'>
-                                    {transaccion.tipo === 'compra' ? <PiBasketBold /> :
-                                        transaccion.tipo === 'venta' ? <MdOutlineSell /> :
-                                            transaccion.tipo === 'pregunta' ? <RxQuestionMarkCircled /> :
+                                    {notificacion.tipo === 'compra' ? <PiBasketBold /> :
+                                        notificacion.tipo === 'venta' ? <MdOutlineSell /> :
+                                            notificacion.tipo === 'pregunta' ? <RxQuestionMarkCircled /> :
                                                 <TbMessageDown />}
                                 </div>
                                 <div className='notifContenido'>
                                     <p>
-                                        {transaccion.tipo === 'compra' ? 'Felicidades! compraste un producto' :
-                                            transaccion.tipo === 'venta' ? 'Felicidades! vendiste un producto' :
-                                                transaccion.tipo === 'pregunta' ? 'Tienes una nueva pregunta' :
+                                        {notificacion.tipo === 'compra' ? 'Felicidades! compraste un producto' :
+                                            notificacion.tipo === 'venta' ? 'Felicidades! vendiste un producto' :
+                                                notificacion.tipo === 'pregunta' ? 'Tienes una nueva pregunta' :
                                                     'Tienes una nueva respuesta'}
                                     </p>
                                     <p>Toca para ver más</p>

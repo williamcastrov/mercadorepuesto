@@ -525,27 +525,23 @@ const MyAccountScreen = () => {
         );
     };
 
+    const [tokenDialog, setTokenDialog] = useState(null); // Agrega este estado al inicio de tu componente
+
     const token = async (tokenid) => {
-        //console.log("EMAIL : ", formData.email);
-        //console.log("TOKEN ID: ", tokenid);
-
         let telefono = phone.replace("+", "");
-
         async function enviartoken(dat) {
-            // Lee Web Service para enviar el token al usuario
             const datosToken = {
                 token: tokenid,
                 email_cliente: formData.email,
                 nro_ws: formData.telefono,
                 medio: "email",
             };
-
             console.log("DATOS TOKEN : ", datosToken);
-
             const TokenUsuario = await TokenRegistroRepository.getTokenRegistro(
                 datosToken
             )
                 .then(() => {
+                    setTokenDialog(tokenid); // Guarda el token en el estado
                     setOpenNewDialog(true);  // Abre el nuevo diálogo
                     setShowModal(true);
                 })
@@ -557,12 +553,6 @@ const MyAccountScreen = () => {
                         button: "Aceptar",
                     });
                 });
-
-            //console.log("TOKEN USUARIO : ", TokenUsuario);
-
-            //setCarrocerias(BodiesVehicles);
-            // Coloca los datos en state arreglo de modelos de vehiculos segun marca
-            //dispatch(getBodiesVehicles(BodiesVehicles));
         }
         enviartoken(tokenid);
     };
@@ -1835,6 +1825,7 @@ const MyAccountScreen = () => {
 
                     <div className="txtContTokenEnviado">
                         <p>Token enviado al correo, Recuerda revisar en correos no deseados!</p>
+                        <p>token : {tokenDialog}</p>
                     </div>
 
 
