@@ -223,13 +223,18 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                 params,
             })
                 .then((res) => {
-                    console.log("Respuestas del usuario para notificaciones:", res.data.listpreguntacompra);
-                    // Agregamos una propiedad 'tipo' a cada compra
-                    const comprasConTipo = res.data.listpreguntacompra.map(respuesta => ({ ...respuesta, tipo: 'respuesta' }));
-                    setRespuestas(comprasConTipo);
+                    if (res.data.type === 1) {
+                        console.log("Respuestas del usuario para notificaciones:", res.data.listpreguntacompra);
+                        const comprasConTipo = res.data.listpreguntacompra.map(respuesta => ({ ...respuesta, tipo: 'respuesta' }));
+                        setRespuestas(comprasConTipo);
+                    } else if (res.data.type === 0 || res.data === "ERROR de respuestas") {
+                        console.error("Error del servidor de respuestas:", res.data);
+                    } else {
+                        console.error("Respuesta inesperada del servidor de respuestas:", res.data);
+                    }
                 })
                 .catch(function (error) {
-                    console.error("Error al leer los respuestas del usuario", error);
+                    console.error("Error al hacer la petición de respuestas:", error);
                 });
         };
 
@@ -250,13 +255,18 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                 params,
             })
                 .then((res) => {
-                    console.log("Compras del usuario para notificaciones:", res.data.listarmiscompras);
-                    // Agregamos una propiedad 'tipo' a cada compra
-                    const comprasConTipo = res.data.listarmiscompras.map(compra => ({ ...compra, tipo: 'compra' }));
-                    setCompras(comprasConTipo);
+                    if (res.data.type === 1) {
+                        console.log("Compras del usuario para notificaciones:", res.data.listarmiscompras);
+                        const comprasConTipo = res.data.listarmiscompras.map(compra => ({ ...compra, tipo: 'compra' }));
+                        setCompras(comprasConTipo);
+                    } else if (res.data.type === 0 || res.data === "ERROR al leer compra notificaciones") {
+                        console.error("Error del servidor al leer compra notificaciones:", res.data);
+                    } else {
+                        console.error("Respuesta inesperada del servidor al leer compra notificaciones:", res.data);
+                    }
                 })
                 .catch(function (error) {
-                    console.error("Error al leer los compras del usuario", error);
+                    console.error("Error al hacer la petición al leer compra notificaciones:", error);
                 });
         };
 
@@ -275,13 +285,18 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                 params,
             })
                 .then((res) => {
-                    console.log("Ventas del usuario para notificaciones:", res.data.listarmisventas);
-                    // Agregamos una propiedad 'tipo' a cada venta
-                    const ventasConTipo = res.data.listarmisventas.map(venta => ({ ...venta, tipo: 'venta' }));
-                    setVentas(ventasConTipo);
+                    if (res.data.type === 1) {
+                        console.log("Ventas del usuario para notificaciones ventas:", res.data.listarmisventas);
+                        const ventasConTipo = res.data.listarmisventas.map(venta => ({ ...venta, tipo: 'venta' }));
+                        setVentas(ventasConTipo);
+                    } else if (res.data.type === 0 || res.data === "ERROR ventas") {
+                        console.error("Error del servidor ventas:", res.data);
+                    } else {
+                        console.error("Respuesta inesperada del servidor ventas:", res.data);
+                    }
                 })
                 .catch(function (error) {
-                    console.error("Error al leer los compras del usuario", error);
+                    console.error("Error al hacer la petición ventas:", error);
                 });
         };
 
@@ -301,18 +316,22 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                 params,
             })
                 .then((res) => {
-                    console.log("Preguntas recientes del usuario:", res.data.listarpreguntavend);
-                    // Filtramos las preguntas para incluir solo las que están en estado 80 y no tienen una pregunta correspondiente en estado 81
-                    const preguntasFiltradas = res.data.listarpreguntavend.filter(pregunta =>
-                        pregunta.estado === 80 &&
-                        !res.data.listarpreguntavend.some(p => p.idpregunta === pregunta.idpregunta && p.estado === 81)
-                    );
-                    // Agregamos una propiedad 'tipo' a cada pregunta
-                    const preguntasConTipo = preguntasFiltradas.map(pregunta => ({ ...pregunta, tipo: 'pregunta' }));
-                    setPreguntas(preguntasConTipo);
+                    if (res.data.type === 1) {
+                        console.log("Preguntas recientes del usuario  de preguntas:", res.data.listarpreguntavend);
+                        const preguntasFiltradas = res.data.listarpreguntavend.filter(pregunta =>
+                            pregunta.estado === 80 &&
+                            !res.data.listarpreguntavend.some(p => p.idpregunta === pregunta.idpregunta && p.estado === 81)
+                        );
+                        const preguntasConTipo = preguntasFiltradas.map(pregunta => ({ ...pregunta, tipo: 'pregunta' }));
+                        setPreguntas(preguntasConTipo);
+                    } else if (res.data.type === 0 || res.data === "ERROR de preguntas") {
+                        console.error("Error del servidor  de preguntas:", res.data);
+                    } else {
+                        console.error("Respuesta inesperada del servidor  de preguntas:", res.data);
+                    }
                 })
                 .catch(function (error) {
-                    console.error("Error al leer las preguntas recientes del usuario", error);
+                    console.error("Error al hacer la petición:", error);
                 });
         };
 
@@ -320,19 +339,24 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     }, []);
 
     useEffect(() => {
-        // Unimos las compras, las ventas, las preguntas y las respuestas en una sola lista
-        const transacciones = [...compras, ...ventas, ...preguntas, ...respuestas];
+        // Verificamos que las variables estén definidas y no estén vacías
+        if (compras && ventas && preguntas && respuestas) {
+            // Unimos las compras, las ventas, las preguntas y las respuestas en una sola lista
+            const transacciones = [...compras, ...ventas, ...preguntas, ...respuestas];
 
-        // Ordenamos las transacciones por fecha
-        transacciones.sort((a, b) => new Date(b.fechacompra || b.fechacreacion) - new Date(a.fechacompra || a.fechacreacion));
+            // Ordenamos las transacciones por fecha
+            transacciones.sort((a, b) => new Date(b.fechacompra || b.fechacreacion) - new Date(a.fechacompra || a.fechacreacion));
 
-        // Nos quedamos con las 4 transacciones más recientes
-        const recientes = transacciones.slice(0, 4);
+            // Nos quedamos con las 4 transacciones más recientes
+            const recientes = transacciones.slice(0, 4);
 
-        console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
+            console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
 
-        setNotificacionesRecientes(recientes);
-    }, [compras, ventas, preguntas, respuestas]); // Este useEffect se ejecutará cada vez que cambien las compras, las ventas, las preguntas o las respuestas // Este useEffect se ejecutará cada vez que cambien las compras, las ventas o las preguntas
+            setNotificacionesRecientes(recientes);
+        } else {
+            console.error("Error: Las variables compras, ventas, preguntas o respuestas están vacías o no definidas");
+        }
+    }, [compras, ventas, preguntas, respuestas]); // Este useEffect se ejecutará cada vez que cambien las compras, las ventas, las preguntas o las respuestas
 
     const irAPagina = (notificacion) => {
         // Supongamos que tienes rutas separadas para compras y ventas
@@ -347,7 +371,6 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
         else if (notificacion.tipo === 'respuesta') {
             router.push('/PreguntasYrespuestas/preguntasRealizadasPorUsuario');
         }
-        
 
     };
 
@@ -443,25 +466,29 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
                         <p>Notificaciones</p>
                     </div>
                     <div className="SubMainAlertasContenido">
-                        {notificacionesRecientes.map((notificacion, index) => (
-                            <div className='notifCont' key={index} onClick={() => irAPagina(notificacion)}>
-                                <div className='notifContIcono'>
-                                    {notificacion.tipo === 'compra' ? <PiBasketBold /> :
-                                        notificacion.tipo === 'venta' ? <MdOutlineSell /> :
-                                            notificacion.tipo === 'pregunta' ? <RxQuestionMarkCircled /> :
-                                                <TbMessageDown />}
+                        {notificacionesRecientes.length > 0 ? (
+                            notificacionesRecientes.map((notificacion, index) => (
+                                <div className='notifCont' key={index} onClick={() => irAPagina(notificacion)}>
+                                    <div className='notifContIcono'>
+                                        {notificacion.tipo === 'compra' ? <PiBasketBold /> :
+                                            notificacion.tipo === 'venta' ? <MdOutlineSell /> :
+                                                notificacion.tipo === 'pregunta' ? <RxQuestionMarkCircled /> :
+                                                    <TbMessageDown />}
+                                    </div>
+                                    <div className='notifContenido'>
+                                        <p>
+                                            {notificacion.tipo === 'compra' ? 'Felicidades! compraste un producto' :
+                                                notificacion.tipo === 'venta' ? 'Felicidades! vendiste un producto' :
+                                                    notificacion.tipo === 'pregunta' ? 'Tienes una nueva pregunta' :
+                                                        'Tienes una nueva respuesta'}
+                                        </p>
+                                        <p>Toca para ver más</p>
+                                    </div>
                                 </div>
-                                <div className='notifContenido'>
-                                    <p>
-                                        {notificacion.tipo === 'compra' ? 'Felicidades! compraste un producto' :
-                                            notificacion.tipo === 'venta' ? 'Felicidades! vendiste un producto' :
-                                                notificacion.tipo === 'pregunta' ? 'Tienes una nueva pregunta' :
-                                                    'Tienes una nueva respuesta'}
-                                    </p>
-                                    <p>Toca para ver más</p>
-                                </div>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <p>No tienes notificaciones</p>
+                        )}
                     </div>
                 </div>
             </Popover>
