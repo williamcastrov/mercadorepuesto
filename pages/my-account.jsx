@@ -32,7 +32,7 @@ import { PiEyeLight, PiEyeSlash } from "react-icons/pi";
 import { Dialog, DialogContent } from "@mui/material";
 import Box from '@mui/material/Box';
 import { ImEye } from "react-icons/im";
-
+import { FormControl } from 'react-bootstrap';
 
 import { ImEyeBlocked } from "react-icons/im";
 
@@ -281,14 +281,14 @@ const MyAccountScreen = () => {
         }
 
         if (!formData.password) {
-            setMensajeContraseña("Ingresa un número email valido!");
+            setMensajeContraseña("Ingresa una contraseña valida!");
             setActivaMensajeContraseña(true);
             setInputControlClave("form-control ps-form__input alertboton");
             formOk = false;
         }
 
         if (!formData.passworddos) {
-            setMensajeConfirmarContraseña("Ingresa un número email valido!");
+            setMensajeConfirmarContraseña("Ingresa una contraseña valida!");
             setActivaMensajeConfirmarContraseña(true);
             setInputControlConfirmeClave(
                 "form-control ps-form__input alertboton"
@@ -301,7 +301,7 @@ const MyAccountScreen = () => {
             setMensajeTerminos("Recuerda, Acepta terminos y condiciones!");
             setActivaMensajeTerminos(true);
         }
- 
+
 
         if (!formOk) {
             console.log("FORM : ", formOk);
@@ -309,7 +309,7 @@ const MyAccountScreen = () => {
             setTextoMensajes('Hola! revisa la información ingresada.');
             setShowModalDos(true);
             return;
-        } else { 
+        } else {
             if (!terminosCondiciones) {
                 setInputControlTerminos("alertbotonterminos");
                 setTituloMensajes('Registro Usuarios');
@@ -590,7 +590,7 @@ const MyAccountScreen = () => {
     const handleChangeTipoIdentificacion = (selectedOptions) => {
         setTipoIdentificacion(selectedOptions);
     };
- 
+
 
     const validarToken = () => {
         console.log("VALIDAR TOKEN : ", formDataToken.token);
@@ -1242,7 +1242,7 @@ const MyAccountScreen = () => {
                                                                 <label className="ps-form__label">Número de identificación</label>
                                                                 <input
                                                                     className={inputControlIdentificacion}
-                                                                    type="numeric"
+                                                                    autoComplete={Math.random().toString()}
                                                                     name="identificacion"
                                                                     onBlur={(e) => validaIdentificacion(e.target.value)}
                                                                     onClick={resetNumeroIdentificacion}
@@ -1286,13 +1286,14 @@ const MyAccountScreen = () => {
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Dirección de correo *</label>
-                                                                <input
+                                                                <FormControl
                                                                     className={inputControlEmail}
-                                                                    name="email"
                                                                     type="email"
+                                                                    name="email"
                                                                     onBlur={(e) => validaEmail(e.target.value)}
                                                                     onFocus={reiniciarEmail}
                                                                     onClick={(e) => validaRazonSocial(e.target.value)}
+                                                                    autoComplete={Math.random().toString()}
                                                                 />
                                                                 {activaMensajeEmail ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeEmail}</h4>
@@ -1302,13 +1303,14 @@ const MyAccountScreen = () => {
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Confirme dirección de correo *</label>
-                                                                <input
+                                                                <FormControl
                                                                     className={inputControlConfirmarEmail}
                                                                     onBlur={(e) => validaConfirmaEmail(e.target.value)}
                                                                     onFocus={reiniciarConfirmarEmail}
                                                                     onClick={(e) => validaEmail(e.target.value)}
-                                                                    name="emaildos"
                                                                     type="email"
+                                                                    name="emaildos"
+                                                                    autoComplete={Math.random().toString()}
                                                                 />
                                                                 {activaMensajeConfirmarEmail ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeConfirmarEmail}</h4>
@@ -1319,15 +1321,25 @@ const MyAccountScreen = () => {
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Contraseña *</label>
+
                                                                 <div className="input-group">
-                                                                    <input
-                                                                        className={inputControlClave}
-                                                                        onBlur={(e) => validaClave(e.target.value)}
-                                                                        onClick={(e) => validaConfirmaEmail(e.target.value)}
-                                                                        onFocus={onFocusContraseña}
-                                                                        type="password"
-                                                                        name="password"
-                                                                    />
+                                                                    <div style={{ position: 'relative', width: '100%' }}>
+                                                                        <input
+                                                                            className={inputControlClave}
+                                                                            onBlur={(e) => validaClave(e.target.value)}
+                                                                            onClick={(e) => validaConfirmaEmail(e.target.value)}
+                                                                            onFocus={onFocusContraseña}
+                                                                            type={showPassword ? "text" : "password"}
+                                                                            name="password"
+                                                                            autoComplete={Math.random().toString()}
+                                                                        />
+                                                                        <div
+                                                                            style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                                            onClick={() => setShowPassword(!showPassword)}
+                                                                        >
+                                                                            {showPassword ? <ImEye /> : <ImEyeBlocked />}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 {activaMensajeContraseña ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeContraseña}</h4>
@@ -1338,14 +1350,23 @@ const MyAccountScreen = () => {
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Confirme contraseña *</label>
                                                                 <div className="input-group">
-                                                                    <input
-                                                                        className={inputControlConfirmeClave}
-                                                                        onBlur={(e) => validaConfirmarClave(e.target.value)}
-                                                                        onClick={(e) => validaClave(e.target.value)}
-                                                                        onFocus={onFocusConfirmarContraseña}
-                                                                        type="password"
-                                                                        name="passworddos"
-                                                                    />
+                                                                    <div style={{ position: 'relative', width: '100%' }}>
+                                                                        <input
+                                                                            className={inputControlConfirmeClave}
+                                                                            onBlur={(e) => validaConfirmarClave(e.target.value)}
+                                                                            onClick={(e) => validaClave(e.target.value)}
+                                                                            onFocus={onFocusConfirmarContraseña}
+                                                                            type={showPasswordDos ? "text" : "password"}
+                                                                            name="passworddos"
+                                                                            autoComplete={Math.random().toString()}
+                                                                        />
+                                                                        <div
+                                                                            style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                                            onClick={() => setShowPasswordDos(!showPasswordDos)}
+                                                                        >
+                                                                            {showPasswordDos ? < ImEye /> : <ImEyeBlocked />}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                                 {activaMensajeConfirmarContraseña ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeConfirmarContraseña}</h4>
@@ -1361,8 +1382,8 @@ const MyAccountScreen = () => {
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Número de identificación</label>
                                                                 <input
+                                                                    autoComplete={Math.random().toString()}
                                                                     className={inputControlIdentificacion}
-                                                                    type="numeric"
                                                                     name="identificacion"
                                                                     onBlur={(e) => validaIdentificacion(e.target.value)}
                                                                     onClick={resetNumeroIdentificacion}
@@ -1395,6 +1416,7 @@ const MyAccountScreen = () => {
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label ps-btn--warning">Número telefónico *</label>
                                                                 <input
+                                                                    autoComplete={Math.random().toString()}
                                                                     className={inputControlTelefono}
                                                                     onChange={onChangeDatoTelefono}
                                                                     onClick={resetTelefono}
@@ -1468,13 +1490,14 @@ const MyAccountScreen = () => {
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Dirección de correo *</label>
-                                                                <input
+                                                                <FormControl
                                                                     className={inputControlEmail}
-                                                                    name="email"
                                                                     type="email"
+                                                                    name="email"
                                                                     onBlur={(e) => validaEmail(e.target.value)}
+                                                                    autoComplete={Math.random().toString()}
                                                                     onFocus={reiniciarEmail}
-                                                                    onClick={(e) => validaApellido(e.target.value)}
+                                                                    onClick={(e) => validaRazonSocial(e.target.value)}
                                                                 />
                                                                 {activaMensajeEmail ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeEmail}</h4>
@@ -1484,13 +1507,14 @@ const MyAccountScreen = () => {
                                                         <Col xs lg={6}>
                                                             <div className="ps-form__group">
                                                                 <label className="ps-form__label">Confirme dirección de correo *</label>
-                                                                <input
+                                                                <FormControl
                                                                     className={inputControlConfirmarEmail}
                                                                     onBlur={(e) => validaConfirmaEmail(e.target.value)}
                                                                     onFocus={reiniciarConfirmarEmail}
                                                                     onClick={(e) => validaEmail(e.target.value)}
                                                                     name="emaildos"
                                                                     type="email"
+                                                                    autoComplete={Math.random().toString()}
                                                                 />
                                                                 {activaMensajeConfirmarEmail ? (
                                                                     <h4 className="mensajeerrornombreusuario">{mensajeConfirmarEmail}</h4>
@@ -1516,7 +1540,7 @@ const MyAccountScreen = () => {
                                                                             style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                                                             onClick={() => setShowPassword(!showPassword)}
                                                                         >
-                                                                            {showPassword ? <ImEye  /> : <ImEyeBlocked />}
+                                                                            {showPassword ? <ImEye /> : <ImEyeBlocked />}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1543,7 +1567,7 @@ const MyAccountScreen = () => {
                                                                             style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', cursor: 'pointer' }}
                                                                             onClick={() => setShowPasswordDos(!showPasswordDos)}
                                                                         >
-                                                                            {showPasswordDos ? < ImEye  /> : <ImEyeBlocked />}
+                                                                            {showPasswordDos ? < ImEye /> : <ImEyeBlocked />}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1562,7 +1586,7 @@ const MyAccountScreen = () => {
                                                         <Col xs={3}></Col>
 
                                                         <Col xs lg={6}>
-                                                          {/*   <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center'  }}>
+                                                            {/*   <div className={inputControlRobot} style={{ marginTop: '2rem', display: 'flex', justifyContent: 'center'  }}>
                                                                 <ReCAPTCHA
                                                                     ref={captcha}
                                                                     sitekey="6Ld9HvkdAAAAAO7MeibRy8PNVMApQu5xC2vzqGF6"
