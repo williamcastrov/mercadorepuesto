@@ -6386,7 +6386,7 @@ body::after {
 .alertbotonterminos {
     height: 55px !important;
     border: solid 1px red !important;
-    border-radius: 10px !important; 
+    border-radius: 10px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6396,7 +6396,7 @@ body::after {
 .alertbotonrobot {
     width: 307px !important;
     height: 78px !important;
-    border: solid 1px red !important; 
+    border: solid 1px red !important;
     margin-bottom: 2px;
     margin: 0 auto;
 }
@@ -30178,12 +30178,12 @@ label {
     align-items: center;
     width: 100% !important;
     border-radius: 10px !important;
-    height: 44px !important;
+    height: 35px !important;
     background-color: transparent !important;
     border: none !important;
     color: #2D2E83 !important;
     outline: none !important;
-    font-size: 18px !important;
+    font-size: 17px !important;
     padding-left: 13px;
     /* Ajusta este valor según tus necesidades */
     background-color: white;
@@ -34865,7 +34865,7 @@ label {
     border-bottom-right-radius: 12px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .leftContainerHomeLogo {
@@ -34884,8 +34884,8 @@ label {
     flex-direction: column;
     width: 100%;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 100px;
+    align-items: center; 
+    margin-bottom: 5rem;
 }
 
 .leftContainerHomeButtons button {
@@ -34914,10 +34914,7 @@ label {
     font-weight: 500;
 }
 
-.leftContainerHomeLogo {
-    margin-bottom: 30px;
-    /* Ajusta el espaciado entre los subcontenedores según tus necesidades */
-}
+ 
 
 .RightContainerHome {
     width: 100%;
@@ -35311,12 +35308,14 @@ label {
     background-color: white;
     padding: 25px;
 }
+
 .modal-Token {
     width: 550px !important;
     height: 280px !important;
     background-color: white;
     padding: 25px;
 }
+
 .RecuperarContraseñaSMS {
     font-size: 15px;
     width: 160px !important;
@@ -35326,6 +35325,7 @@ label {
     padding-left: 3rem;
     border-radius: 10px;
 }
+
 .RecuperarContraseñaSMSDOS {
     font-size: 15px;
     width: 285px !important;
@@ -35371,6 +35371,7 @@ label {
     align-items: flex-end;
     margin-top: 2rem;
 }
+
 .cerrarVerifButtonToken button {
     color: white;
     background-color: #2d2e83;
@@ -35378,34 +35379,40 @@ label {
     height: 43px;
     width: 100px;
 }
-.contTokenIcorrect{
+
+.contTokenIcorrect {
     width: 510px;
     height: 263px;
     border-radius: 18px;
     padding: 25px;
 }
-.contTokenEnviado{
+
+.contTokenEnviado {
     width: 510px;
     height: 273px;
     border-radius: 18px;
     padding: 25px;
 }
-.topContTokenIcorrect{
+
+.topContTokenIcorrect {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 }
-.topContTokenIcorrect p{
+
+.topContTokenIcorrect p {
     font-size: 30px;
     color: #2D2E83;
     font-weight: 600;
 }
-.topContTokenIcorrect svg{
+
+.topContTokenIcorrect svg {
     color: #2D2E83;
     fill: #2D2E83;
 }
-.txtContTokenIcorrect{
+
+.txtContTokenIcorrect {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -35413,7 +35420,8 @@ label {
     margin-bottom: 6rem;
     margin-top: 3rem;
 }
-.txtContTokenEnviado{
+
+.txtContTokenEnviado {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -35422,24 +35430,28 @@ label {
     margin-top: 3rem;
     text-align: center;
 }
-.txtContTokenEnviado p{
+
+.txtContTokenEnviado p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 600;
     text-align: center;
 }
-.txtContTokenIcorrect p{
+
+.txtContTokenIcorrect p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 600;
 }
-.closeContTokenIcorrect{
+
+.closeContTokenIcorrect {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     justify-content: flex-end;
 }
-.closeContTokenIcorrect button{
+
+.closeContTokenIcorrect button {
     background-color: #2D2E83;
     color: white;
     height: 45px;
@@ -35451,6 +35463,7 @@ label {
     border-radius: 12px;
     font-size: 16px;
 }
+
 /*Fin nuevos estilos login*/
 
 /*Inicio estilos de categorias izquierda */
@@ -35678,7 +35691,8 @@ label {
     color: #03037D !important;
 
 }
-.titleDescCat{
+
+.titleDescCat {
     font-size: 15px !important;
     font-weight: 600 !important;
     color: #03037D !important;
@@ -35721,20 +35735,23 @@ label {
 
 /*Nuevos estilos registrarse*/
 
-.Ptoken{
+.Ptoken {
     width: 100%;
     margin-bottom: 1.5rem;
 }
-.Ptoken p{
+
+.Ptoken p {
     font-size: 19px;
     color: #03037D !important;
 }
-.formtOKEN{
+
+.formtOKEN {
     display: flex;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
 }
+
 .tamañocajaoDropDownTipoDocumento {
     margin-left: 5px !important;
     width: 98% !important;
@@ -35848,12 +35865,13 @@ label {
 }
 
 .TermsContainer {
-    margin-top: 1rem; 
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.tokenInputMyacount{
+
+.tokenInputMyacount {
     width: 100%;
     height: 46px;
     padding-left: 1.5rem;
@@ -35862,6 +35880,7 @@ label {
     border-radius: 10px;
     background-color: #F1F2F6;
 }
+
 /*Fin Nuevos estilos registrarse*/
 
 /*Inicio estilos editar categorias*/
@@ -35869,14 +35888,16 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
 }
-.CerrarTodoCategoriasEdit{
+
+.CerrarTodoCategoriasEdit {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
-.CerrarTodoCategoriasEdit button{
+
+.CerrarTodoCategoriasEdit button {
     background-color: #2D2E83;
     font-size: 18px;
     border-radius: 10px;
@@ -35888,6 +35909,7 @@ label {
     padding: 1.5rem;
     color: white;
 }
+
 .SubEditarInfoCategorias {
     display: flex;
     justify-content: center;
@@ -35895,14 +35917,16 @@ label {
     margin-bottom: 3rem;
     flex-direction: column;
 }
-.SubEditarInfoCategorias span{
+
+.SubEditarInfoCategorias span {
     font-size: 18px;
 }
 
-.SubEditarInfoCategorias p{
+.SubEditarInfoCategorias p {
     font-size: 18px;
 }
-.contSubcat{
+
+.contSubcat {
     width: 500px;
     border: 3px solid #f1f2f6;
     padding: 2rem;
@@ -35913,7 +35937,8 @@ label {
     align-items: center;
     justify-content: center;
 }
-.contSubcat input{
+
+.contSubcat input {
     background-color: #f1f2f6;
     border-radius: 10px;
     height: 41px;
@@ -35921,34 +35946,38 @@ label {
     margin-bottom: 2rem;
     color: #2D2E83;
     padding-left: 1rem;
-    padding-right: 1rem; 
+    padding-right: 1rem;
     font-size: 16px;
 }
-.contSubcat textarea{
+
+.contSubcat textarea {
     background-color: #f1f2f6;
-    border-radius: 10px; 
-    width: 400px; 
+    border-radius: 10px;
+    width: 400px;
     color: #2D2E83;
     padding-left: 1rem;
     height: 150px;
-    padding-right: 1rem; 
+    padding-right: 1rem;
     padding: 1.5rem;
     font-size: 16px;
 }
-.titleCategoriaEditar{
+
+.titleCategoriaEditar {
     font-size: 24px;
     color: #2D2E83;
     font-weight: 600;
     margin: 3rem;
 }
-.ImagensCatEditar{
+
+.ImagensCatEditar {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
     margin-bottom: 2rem;
 }
-.ImagensCatEditar img{
+
+.ImagensCatEditar img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -35956,7 +35985,8 @@ label {
     max-width: 140px;
     max-height: 140px;
 }
-.actInfoCatButton{ 
+
+.actInfoCatButton {
     height: 40px;
     border-radius: 10px;
     color: white;
@@ -35969,7 +35999,8 @@ label {
     display: flex;
     padding: 1.5rem;
 }
-.BotónCatActivo{ 
+
+.BotónCatActivo {
     background-color: transparent;
     font-size: 18px;
     border: 3px solid #2D2E83;
@@ -35982,7 +36013,8 @@ label {
     padding: 1.5rem;
     color: #2D2E83;
 }
-.BotónCatInact{
+
+.BotónCatInact {
     background-color: #2D2E83;
     font-size: 18px;
     border-radius: 10px;
@@ -35995,31 +36027,36 @@ label {
     color: white;
 
 }
-.ButtonsCatEstados{
+
+.ButtonsCatEstados {
     display: flex;
     gap: 2rem;
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
 }
-.TitleImgTitleCategoria{
+
+.TitleImgTitleCategoria {
     width: 100%;
     justify-content: center;
     display: flex;
     align-items: center;
 }
-.TitleImgTitleCategoria p{
+
+.TitleImgTitleCategoria p {
     font-size: 18px;
     color: #2D2E83;
 }
-.ContImgCat{
+
+.ContImgCat {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
-.SubContImgCat{
+
+.SubContImgCat {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36029,10 +36066,12 @@ label {
     border-radius: 10px;
     align-items: center;
 }
-.ImagenesCategoríasCont{
+
+.ImagenesCategoríasCont {
     margin-bottom: 5rem;
 }
-.ImgsContainerCategorias{
+
+.ImgsContainerCategorias {
     display: flex;
     align-items: flex-start;
     width: 100%;
@@ -36040,7 +36079,8 @@ label {
     gap: 9rem;
     margin-bottom: 3rem;
 }
-.MainCategoriaIMagen{
+
+.MainCategoriaIMagen {
     margin-bottom: 3rem;
     border: 3px solid #f1f2f6;
     padding: 2rem;
@@ -36051,18 +36091,21 @@ label {
     min-width: 500px;
     align-items: center;
 }
-.TitleSubcatImagenCat{
+
+.TitleSubcatImagenCat {
     width: 100%;
     display: flex;
     align-items: flex-start;
     margin-bottom: 2.5rem;
 }
-.TitleSubcatImagenCat p{
+
+.TitleSubcatImagenCat p {
     font-size: 18px;
     font-weight: 600;
     color: #2D2E83;
-} 
-.SubImgsContainerCategorias img{
+}
+
+.SubImgsContainerCategorias img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -36070,19 +36113,22 @@ label {
     max-width: 140px;
     max-height: 140px;
 }
+
 .SubImgsContainerCategorias {
     height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Cambiado a space-between para distribuir los elementos arriba y abajo */
+    justify-content: space-between;
+    /* Cambiado a space-between para distribuir los elementos arriba y abajo */
 }
 
 .ButtonActImgCat {
-    margin-top: auto; /* Esto empujará el elemento hacia abajo del todo en el contenedor */
+    margin-top: auto;
+    /* Esto empujará el elemento hacia abajo del todo en el contenedor */
 }
- 
-.ButtonActImgCat button{
+
+.ButtonActImgCat button {
     height: 39px;
     width: 180px;
     align-items: center;
@@ -36092,17 +36138,20 @@ label {
     background-color: #2D2E83;
     color: white;
 }
-.PrevImgeInput{
+
+.PrevImgeInput {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.PrevImgeInput svg{
+
+.PrevImgeInput svg {
     font-size: 80px;
     color: #2D2E83;
     cursor: pointer;
 }
-.PrevImgeInput img{
+
+.PrevImgeInput img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -36113,7 +36162,8 @@ label {
     border: 3px solid #2D2E83;
     border-radius: 10px;
 }
-.DeleteButtonImgCat button{
+
+.DeleteButtonImgCat button {
     height: 39px;
     border-radius: 10px;
     border: 3px solid red;
@@ -36126,14 +36176,15 @@ label {
     align-items: center;
     justify-content: center;
 }
-.DeleteButtonImgCat{
+
+.DeleteButtonImgCat {
     margin-bottom: 2rem;
     margin-top: 2rem;
 }
 
-.CrearButtonImgCat button{
+.CrearButtonImgCat button {
     height: 39px;
-    border-radius: 10px; 
+    border-radius: 10px;
     padding: 1rem;
     font-size: 14px;
     width: 170px;
@@ -36143,9 +36194,212 @@ label {
     align-items: center;
     justify-content: center;
 }
- 
+
 /*Fin estilos editar categorias*/
 
 
 
 /*Fin nuevos estilos homepage*/
+
+
+
+
+/*Inicio estilos mi billetera*/
+.contMainBilletera {
+    width: 700px;
+    margin: 0 auto;
+} 
+ 
+.saldoBilletera{
+    display: flex;
+    justify-content: space-between;
+    padding: 2.6rem;
+    background-color: #F0F1F5;
+    border-radius: 10px; 
+    width: 100%;
+    margin-bottom: 2.4rem;
+}
+.saldoBilleteraLeft h3{
+    margin-bottom: 2rem;
+    font-size: 20px;
+}
+.saldoBilleteraLeft p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.saldoBilleteraRight{
+    align-items: center;
+    display: flex;
+}
+.saldoBilleteraRight button{
+    background-color: #2D2E83;
+    height: 39px;
+    padding: 1rem 2rem;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.contMovimientos{
+    display: flex;
+    flex-direction: column;
+    padding: 2.6rem;
+    background-color: #F0F1F5;
+    border-radius: 10px; 
+    width: 100%;
+    margin-bottom: 2.4rem;
+}
+.TopcontMovimientos{
+    width: 100%;
+    margin-bottom: 2rem;
+}
+.TopcontMovimientos p{
+    font-size: 20px;
+    color: #2D2E83;
+}
+.MiddleContMovimientos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.ItemContMovimientos{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.6rem;
+}
+.ButtonContMovimientos{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ButtonContMovimientos button{
+    background-color: #2D2E83;
+    height: 39px;
+    padding: 1rem 2rem;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.LeftItemContMovimientos p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.RightItemContMovimientos{
+    display: flex;
+    align-items: center;
+}
+.RightItemContMovimientos p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.DataMiddleContMovimientos{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.DataMiddleContMovimientos p{
+    font-size: 18px;
+    color: #2D2E83;
+}
+.SendSolicitudb{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.SendSolicitudb button{
+    background-color: #2D2E83;
+    height: 41px;
+    padding: 1rem 2rem;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.dataMainMovimientos{
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    padding: 2rem;
+}
+.dataMovimientosTop p{
+    font-size: 18px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.dataMovimientosTop{
+    margin-bottom: 2rem;
+}
+.dataMovimientosM p{
+    font-size: 16px;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.contMainBilleteraDos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.saldoBilleteraLeft input{
+    background-color: transparent;
+    font-size: 18px;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.saldoBilleteraLeft div{
+    display: flex;
+}
+.tamañocajaBanco {
+    margin-left: 5px !important;
+    width: 190px !important;
+    font-size: 16px !important;
+    background-color: #f1f2f6;
+}
+.dropdownBanco {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 186px !important;
+    border-radius: 10px !important;
+    height: 44px !important;
+    background-color: transparent !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 18px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    background-color: #f0f1f5;
+}
+
+.dropdownBanco::after {
+    background-color: #f0f1f5;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/FlechaAzulRegister.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+.itemsDropdownBanco {
+    color: #2D2E83 !important;
+    height: 30px !important;
+    font-size: 14px !important;
+    white-space: nowrap !important;
+}
+.itemsDropdownBanco:hover {
+    background-color: #d3d4e4;
+}
+/*Fin estilos mi billetera*/

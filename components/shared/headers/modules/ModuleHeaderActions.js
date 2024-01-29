@@ -224,7 +224,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             })
                 .then((res) => {
                     if (res.data.type === 1) {
-                        console.log("Respuestas del usuario para notificaciones:", res.data.listpreguntacompra);
+                    //    console.log("Respuestas del usuario para notificaciones:", res.data.listpreguntacompra);
                         const comprasConTipo = res.data.listpreguntacompra.map(respuesta => ({ ...respuesta, tipo: 'respuesta' }));
                         setRespuestas(comprasConTipo);
                     } else if (res.data.type === 0 || res.data === "ERROR de respuestas") {
@@ -256,7 +256,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             })
                 .then((res) => {
                     if (res.data.type === 1) {
-                        console.log("Compras del usuario para notificaciones:", res.data.listarmiscompras);
+                       // console.log("Compras del usuario para notificaciones:", res.data.listarmiscompras);
                         const comprasConTipo = res.data.listarmiscompras.map(compra => ({ ...compra, tipo: 'compra' }));
                         setCompras(comprasConTipo);
                     } else if (res.data.type === 0 || res.data === "ERROR al leer compra notificaciones") {
@@ -286,7 +286,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             })
                 .then((res) => {
                     if (res.data.type === 1) {
-                        console.log("Ventas del usuario para notificaciones ventas:", res.data.listarmisventas);
+                     //console.log("Ventas del usuario para notificaciones ventas:", res.data.listarmisventas);
                         const ventasConTipo = res.data.listarmisventas.map(venta => ({ ...venta, tipo: 'venta' }));
                         setVentas(ventasConTipo);
                     } else if (res.data.type === 0 || res.data === "ERROR ventas") {
@@ -317,7 +317,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             })
                 .then((res) => {
                     if (res.data.type === 1) {
-                        console.log("Preguntas recientes del usuario  de preguntas:", res.data.listarpreguntavend);
+                       // console.log("Preguntas recientes del usuario  de preguntas:", res.data.listarpreguntavend);
                         const preguntasFiltradas = res.data.listarpreguntavend.filter(pregunta =>
                             pregunta.estado === 80 &&
                             !res.data.listarpreguntavend.some(p => p.idpregunta === pregunta.idpregunta && p.estado === 81)
@@ -350,7 +350,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
             // Nos quedamos con las 4 transacciones más recientes
             const recientes = transacciones.slice(0, 4);
 
-            console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
+          //  console.log("Transacciones recientes:", recientes); // Mostramos las transacciones recientes en la consola
 
             setNotificacionesRecientes(recientes);
         } else {

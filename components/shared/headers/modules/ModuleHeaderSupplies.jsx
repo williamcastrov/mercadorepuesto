@@ -95,7 +95,7 @@ const ModuleHeaderSupplies = (props) => {
                     method: "get",
                     url: URL_BD_MR + "141",
                 });
-                console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
+          //      console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
                 setImagenesSubcategorias(res.data.listimgsubcategorias);
             } catch (error) {
                 console.error("Error al leer las imágenes de las subcategorías", error);
