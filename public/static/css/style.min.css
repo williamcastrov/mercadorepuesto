@@ -36545,4 +36545,406 @@ label {
 
 
 
-/*Estilos adicionales*/
+/*Inicio estilos ayuda PQR*/
+
+.TopAyudaPQR{
+    margin-bottom: 3rem; 
+}
+.TopAyudaPQR p:first-child{
+    font-size: 24px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.TopAyudaPQR p:last-child{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.MainmiddleAyudaPQR{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 
+.middleAyudaPQR{
+    display: flex;
+    margin-top: 8rem;
+    gap: 19rem;
+}
+.middlePQR{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.middlePQR p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.middlePQR div{
+    margin-top: 2rem;
+    background-color: #F0F1F5;
+    border-radius: 12px;
+    height: 70px;
+    width: 70px; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+.middlePQR svg{
+    color: #3E4089;
+    font-size: 42px !important;
+}
+.bottomAyudaPQR{
+    margin-top: 11rem;
+    width: 100%;
+}
+.bottomAyudaPQR p:first-child{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    margin-bottom: 2.2rem;
+    font-family: "Jost", sans-serif;
+}
+.bottomAyudaPQR p:last-child{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.TopBuscarPQR{
+    width: 100%;
+    margin-bottom: 3rem;
+}
+.SubtitleBuscar{
+    margin-top: -2rem !important;
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.inputsPQR{
+    margin-top: 3rem;
+}
+.inputsPQR div{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.inputsPQR input{
+    width: 370px;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    height: 46px;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    padding: 1rem 2rem;
+}
+.inputsPQR p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.sendBuscarPQR{
+    width: 100%;
+    margin-top: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.sendBuscarPQR button{
+    background-color: #2D2E83;
+    color: white;
+    height: 41px;
+    font-size: 18px;
+    display: flex;
+    margin-right: 160px;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 3rem;
+    border-radius: 10px;
+}
+.mainContVerPQR{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.SubMainContVerPQR{
+    width: 480px;  
+}
+.SubMainContVerPQR div{
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+}
+.DatePQR{
+    margin-bottom: 3rem !important;
+}
+.MotivoPQR{
+    margin-top: 5rem !important;
+    margin-bottom: 0 !important;
+}
+.SubMainContVerPQR div p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.AsuntoDescrpPQR{
+    margin-top: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.AsuntoDescrpPQR  p:first-child{
+    font-size: 19px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    margin-bottom: 2.7rem;
+    font-family: "Jost", sans-serif;
+}
+.AsuntoDescrpPQR p:last-child{
+    font-size: 19px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+
+}
+
+.docsPQR{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+.SolicituState{
+    margin-top: 5rem;
+}
+.SolicituState p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 600 !important;
+    font-family: "Jost", sans-serif;
+}
+.docsPQR p{
+    font-size: 20px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.docsPQR div {
+    display: flex;
+    gap: 3rem;
+}
+.docsPQR div div{
+    height: 120px;
+    width: 120px;
+    border: 5px solid #2D2E83;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    margin-top: 2rem;
+    background-color: transparent;
+}
+.docsPQR svg{
+    font-size: 65px;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.descrRespuesta{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+.descrRespuesta p{
+    font-size: 19px !important;
+    color: #2D2E83;
+    font-weight: 500;
+    font-family: "Jost", sans-serif;
+}
+.DownloadRespuesta{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.ContCrearSolMain{
+    width: 100%;
+}
+.DescrAsunto{
+    width: 100%;
+}
+.DownloadRespuesta p{
+    text-decoration: underline;
+    font-size: 19px !important;
+    color: #2D2E83;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: "Jost", sans-serif;
+}
+.DownloadRespuesta svg{
+    font-size: 25px !important;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.MainFormCrearPQR{
+    width: 90%;
+    display: flex; 
+}
+.InputsContainerPQR{
+    margin-bottom: 2.5rem; 
+}
+.InputsContainerPQR p{ 
+    font-size: 18px !important;
+    color: #2D2E83;
+    margin-bottom: 10px;
+    font-weight: 600; 
+    font-family: "Jost", sans-serif;
+}
+.InputsContainerPQR div{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.InputsContainerPQR input{ 
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    height: 46px;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    padding: 9px 15px;
+    width: 100%;
+}
+.ButtomFormCrearPQR{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 48px;
+}
+.acepptCond{
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-top: -2rem !important;
+}
+.acepptCond p{ 
+    font-size: 16px !important;
+    color: #2D2E83;
+    font-weight: 500; 
+    font-family: "Jost", sans-serif;
+}
+.acepptCond div{
+    height: 23px;
+    width: 23px;
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #F0F1F5;
+}
+.SigPQR{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3rem;
+}
+.SigPQR button{
+    height: 41px;
+    color: white;
+    font-size: 18px;
+    background-color: #2D2E83;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.DescrAsunto p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    margin-bottom: 10px;
+    font-weight: 600; 
+    font-family: "Jost", sans-serif;
+}
+.AdjArchSoliTitle p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    margin-bottom: 10px;
+    margin-top: 1.6rem;
+    font-weight: 600; 
+    font-family: "Jost", sans-serif;
+}
+.DescrAsunto input{
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    height: 46px;
+    font-weight: 420;
+    margin-bottom: 2rem;
+    padding: 9px 15px;
+    width: 100%;
+}
+.DescripSoli p{
+    font-size: 18px !important;
+    color: #2D2E83;
+    margin-bottom: 10px;
+    font-weight: 600; 
+    font-family: "Jost", sans-serif;
+}
+.DescripSoli textarea{
+    resize: none;
+    width: 100%;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    padding: 9px 15px;
+    height: 250px;
+}
+
+.SubAdjArchSoliIcons{
+    display: flex;
+    gap: 3rem;  
+}
+
+.SubAdjArchSoliIcons div{
+    height: 120px;
+    width: 120px;
+    border: 5px solid #2D2E83;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    border-radius: 12px; 
+    background-color: transparent;
+}
+.SubAdjArchSoliIcons svg{
+    font-size: 65px;
+    color: #2D2E83;
+    cursor: pointer;
+}
+.EnviarPeticionPQR{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2.5rem;
+}
+.EnviarPeticionPQR button{
+    height: 41px;
+    color: white;
+    font-size: 18px;
+    background-color: #2D2E83;
+    padding: 1rem 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+/*Fin estilos ayuda PQR*/
