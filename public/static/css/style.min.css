@@ -35563,13 +35563,13 @@ label {
 .ChangeMetodToken p {
     font-size: 18px;
     color: rgb(44, 46, 130);
+    cursor: pointer;
 }
 
 .CodeToken {
     display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    justify-content: center; 
 }
 
 /*Fin nuevos estilos login*/

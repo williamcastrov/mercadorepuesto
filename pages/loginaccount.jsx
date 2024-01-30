@@ -86,6 +86,25 @@ const LoginAccount = () => {
         "form-controlNuevo ps-form__inputNuevo"
     );
 
+
+    const [isError, setIsError] = useState(false);
+    const [recoveryMethod, setRecoveryMethod] = useState("");
+    const [verificationCode, setVerificationCode] = useState("");
+    const [userCode, setUserCode] = useState("");
+    const [openDialog, setOpenDialog] = useState(false);
+    const [input1, setInput1] = useState("");
+    const [input2, setInput2] = useState("");
+    const [input3, setInput3] = useState("");
+    const [input4, setInput4] = useState("");
+    const [input5, setInput5] = useState("");
+    const [input6, setInput6] = useState("");
+    const input1Ref = useRef(null);
+    const input2Ref = useRef(null);
+    const input3Ref = useRef(null);
+    const input4Ref = useRef(null);
+    const input5Ref = useRef(null);
+    const input6Ref = useRef(null);
+
     //const [agregarCarrito, setagregarCarrito] = useState(false);
 
     const onCloseModalMedioToken = () => {
@@ -1022,23 +1041,7 @@ const LoginAccount = () => {
         setShowModalMedio(false);
     };
 
-    const [isError, setIsError] = useState(false);
-    const [recoveryMethod, setRecoveryMethod] = useState("");
-    const [verificationCode, setVerificationCode] = useState("");
-    const [userCode, setUserCode] = useState("");
-    const [openDialog, setOpenDialog] = useState(false);
-    const [input1, setInput1] = useState("");
-    const [input2, setInput2] = useState("");
-    const [input3, setInput3] = useState("");
-    const [input4, setInput4] = useState("");
-    const [input5, setInput5] = useState("");
-    const [input6, setInput6] = useState(""); 
-    const input1Ref = useRef(null);
-    const input2Ref = useRef(null);
-    const input3Ref = useRef(null);
-    const input4Ref = useRef(null);
-    const input5Ref = useRef(null);
-    const input6Ref = useRef(null);
+
 
 
     const resetInputs = () => {
@@ -1048,17 +1051,17 @@ const LoginAccount = () => {
         setInput4("");
         setInput5("");
         setInput6("");
-      };
+    };
 
 
     const handleButtonClickSMS = () => {
         setRecoveryMethod("SMS");
-        const code = Math.floor(100000 + Math.random() * 900000);  
+        const code = Math.floor(100000 + Math.random() * 900000);
         setVerificationCode(code);
-        console.log(code); 
+        console.log(code);
         setShowModalMedio(false);
         setOpenDialog(true);
-        
+
     };
 
     const handleCloseDialog = () => {
@@ -1075,7 +1078,7 @@ const LoginAccount = () => {
 
         if (Number(userCode) !== verificationCode) {
             setIsError(true);
-            resetInputs(); 
+            resetInputs(); // Limpia los campos de entrada
             return;
         }
 
@@ -1087,8 +1090,8 @@ const LoginAccount = () => {
                 setShowModalMensajes(true);
                 setTituloMensajes("Recuperar contraseña");
                 setTextoMensajes("¡Correo electrónico de recuperación enviado!");
-                setOpenDialog(false);  
-                resetInputs(); 
+                setOpenDialog(false);
+                resetInputs();
             })
             .catch((error) => {
                 setShowModalMensajes(true);
@@ -1099,36 +1102,36 @@ const LoginAccount = () => {
 
     const handleButtonClickWhatsApp = () => {
         setRecoveryMethod("WhatsApp");
-        const code = Math.floor(100000 + Math.random() * 900000);  
+        const code = Math.floor(100000 + Math.random() * 900000);
         setVerificationCode(code);
-        console.log(code);  
+        console.log(code);
         setShowModalMedio(false);
         setOpenDialog(true);
     };
 
     const handleButtonClickEmail = () => {
         setRecoveryMethod("Email");
-        const code = Math.floor(100000 + Math.random() * 900000);  
+        const code = Math.floor(100000 + Math.random() * 900000);
         setVerificationCode(code);
-        console.log(code);  
+        console.log(code);
         setShowModalMedio(false);
         setOpenDialog(true);
-        onCloseModalVerificar();  
+        onCloseModalVerificar();
     };
 
     const handleButtonClickGoogle = () => {
         setRecoveryMethod("Google");
-        const code = Math.floor(100000 + Math.random() * 900000);  
+        const code = Math.floor(100000 + Math.random() * 900000);
         setVerificationCode(code);
-        console.log(code);  
+        console.log(code);
         setShowModalMedio(false);
         setOpenDialog(true);
-        onCloseModalVerificar(); 
+        onCloseModalVerificar();
     };
 
     const handleAlternativeMethod = () => {
-        setOpenDialog(false);  
-        setShowModalVerificar(true);  
+        setOpenDialog(false);
+        setShowModalVerificar(true);
     };
 
     return (
