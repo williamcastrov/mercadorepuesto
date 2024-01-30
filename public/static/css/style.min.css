@@ -34884,7 +34884,7 @@ label {
     flex-direction: column;
     width: 100%;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     margin-bottom: 5rem;
 }
 
@@ -34914,7 +34914,7 @@ label {
     font-weight: 500;
 }
 
- 
+
 
 .RightContainerHome {
     width: 100%;
@@ -35328,7 +35328,7 @@ label {
 
 .RecuperarContraseñaSMSDOS {
     font-size: 15px;
-    width: 285px !important;
+    width: 325px !important;
     background-color: #f1f2f6;
     padding: 1rem;
     padding-right: 3rem;
@@ -35463,7 +35463,8 @@ label {
     border-radius: 12px;
     font-size: 16px;
 }
-.InputPutCode{
+
+.InputPutCode {
     height: 3.7em;
     width: 3.2em;
     outline: none;
@@ -35473,6 +35474,104 @@ label {
     border-radius: 5px;
     margin: .5rem;
 }
+
+.DialogTokenLogin {
+    background-color: rgb(240, 241, 245);
+    padding: 5rem;
+}
+
+.TopDialogTokenLogin {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.TopDialogTokenLogin p {
+    font-weight: 400;
+    font-size: 2.1rem;
+    color: rgb(44, 46, 130);
+}
+
+.SendDialogTokenLogin {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.ButtonSendToken {
+    background-color: rgb(44, 46, 130);
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    height: 41;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 1rem 3rem;
+
+}
+
+.SendDialogTokenLogin div {
+    margin-bottom: 1rem;
+
+}
+.SendDialogTokenLogin div div{
+    display: flex;
+    gap: 8px; 
+    align-items: center; 
+}
+.SendDialogTokenLogin div div p{
+    font-size: 15px;
+    color: rgb(44, 46, 130);
+}
+.SendDialogTokenLogin div div svg{
+    font-size: 15px;
+    color: rgb(44, 46, 130);
+}
+.inputsLoginA {
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 4.5rem;
+    justify-content: center;
+}
+
+.ButtonCancelToken {
+    background-color: transparent;
+    color: rgb(44, 46, 130);
+    font-size: 18px;
+    border-radius: 10px;
+    height: 41;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 1rem;
+    width: 290px;
+    border: 2px solid rgb(44, 46, 130);
+}
+
+.ChangeMetodToken {
+    display: flex;
+    align-items: center;
+    margin-top: 5rem;
+    justify-content: center;
+}
+
+.ChangeMetodToken p {
+    font-size: 18px;
+    color: rgb(44, 46, 130);
+}
+
+.CodeToken {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 /*Fin nuevos estilos login*/
 
 /*Inicio estilos de categorias izquierda */
@@ -36217,30 +36316,34 @@ label {
 .contMainBilletera {
     width: 700px;
     margin: 0 auto;
-} 
- 
-.saldoBilletera{
+}
+
+.saldoBilletera {
     display: flex;
     justify-content: space-between;
     padding: 2.6rem;
     background-color: #F0F1F5;
-    border-radius: 10px; 
+    border-radius: 10px;
     width: 100%;
     margin-bottom: 2.4rem;
 }
-.saldoBilleteraLeft h3{
+
+.saldoBilleteraLeft h3 {
     margin-bottom: 2rem;
     font-size: 20px;
 }
-.saldoBilleteraLeft p{
+
+.saldoBilleteraLeft p {
     font-size: 18px;
     color: #2D2E83;
 }
-.saldoBilleteraRight{
+
+.saldoBilleteraRight {
     align-items: center;
     display: flex;
 }
-.saldoBilleteraRight button{
+
+.saldoBilleteraRight button {
     background-color: #2D2E83;
     height: 39px;
     padding: 1rem 2rem;
@@ -36251,41 +36354,48 @@ label {
     align-items: center;
     border-radius: 10px;
 }
-.contMovimientos{
+
+.contMovimientos {
     display: flex;
     flex-direction: column;
     padding: 2.6rem;
     background-color: #F0F1F5;
-    border-radius: 10px; 
+    border-radius: 10px;
     width: 100%;
     margin-bottom: 2.4rem;
 }
-.TopcontMovimientos{
+
+.TopcontMovimientos {
     width: 100%;
     margin-bottom: 2rem;
 }
-.TopcontMovimientos p{
+
+.TopcontMovimientos p {
     font-size: 20px;
     color: #2D2E83;
 }
-.MiddleContMovimientos{
+
+.MiddleContMovimientos {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-.ItemContMovimientos{
+
+.ItemContMovimientos {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 2.6rem;
 }
-.ButtonContMovimientos{
+
+.ButtonContMovimientos {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.ButtonContMovimientos button{
+
+.ButtonContMovimientos button {
     background-color: #2D2E83;
     height: 39px;
     padding: 1rem 2rem;
@@ -36296,35 +36406,42 @@ label {
     align-items: center;
     border-radius: 10px;
 }
-.LeftItemContMovimientos p{
+
+.LeftItemContMovimientos p {
     font-size: 18px;
     color: #2D2E83;
 }
-.RightItemContMovimientos{
+
+.RightItemContMovimientos {
     display: flex;
     align-items: center;
 }
-.RightItemContMovimientos p{
+
+.RightItemContMovimientos p {
     font-size: 18px;
     color: #2D2E83;
 }
-.DataMiddleContMovimientos{
+
+.DataMiddleContMovimientos {
     display: flex;
     justify-content: space-between;
     width: 100%;
     align-items: center;
     margin-bottom: 2rem;
 }
-.DataMiddleContMovimientos p{
+
+.DataMiddleContMovimientos p {
     font-size: 18px;
     color: #2D2E83;
 }
-.SendSolicitudb{
+
+.SendSolicitudb {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-.SendSolicitudb button{
+
+.SendSolicitudb button {
     background-color: #2D2E83;
     height: 41px;
     padding: 1rem 2rem;
@@ -36335,46 +36452,55 @@ label {
     align-items: center;
     border-radius: 10px;
 }
-.dataMainMovimientos{
+
+.dataMainMovimientos {
     background-color: #F0F1F5;
     border-radius: 10px;
     padding: 2rem;
 }
-.dataMovimientosTop p{
+
+.dataMovimientosTop p {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.dataMovimientosTop{
+
+.dataMovimientosTop {
     margin-bottom: 2rem;
 }
-.dataMovimientosM p{
+
+.dataMovimientosM p {
     font-size: 16px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.contMainBilleteraDos{
+
+.contMainBilleteraDos {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-.saldoBilleteraLeft input{
+
+.saldoBilleteraLeft input {
     background-color: transparent;
     font-size: 18px;
     color: #2D2E83;
     cursor: pointer;
 }
-.saldoBilleteraLeft div{
+
+.saldoBilleteraLeft div {
     display: flex;
 }
+
 .tamañocajaBanco {
     margin-left: 5px !important;
     width: 190px !important;
     font-size: 16px !important;
     background-color: #f1f2f6;
 }
+
 .dropdownBanco {
     display: flex;
     justify-content: space-between;
@@ -36402,15 +36528,18 @@ label {
     background-repeat: no-repeat !important;
     background-position: center center !important;
 }
+
 .itemsDropdownBanco {
     color: #2D2E83 !important;
     height: 30px !important;
     font-size: 14px !important;
     white-space: nowrap !important;
 }
+
 .itemsDropdownBanco:hover {
     background-color: #d3d4e4;
 }
+
 /*Fin estilos mi billetera*/
 
 

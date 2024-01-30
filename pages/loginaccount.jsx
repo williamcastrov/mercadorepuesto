@@ -1,38 +1,36 @@
-import React, { useState, useEffect, Suspense } from "react";
-import Container from "~/components/layouts/Container";
-import { validateEmail } from "../utilities/Validations";
-import Swal from "sweetalert2";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import ActivateUserRepository from "../repositories/ActivateUserRepository";
-import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
-import ReadUserEmail from "../repositories/ReadUserEmail";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Row, Col, Modal, Form } from "react-bootstrap";
-import { getTokenRegistro } from "../store/tokenregistro/action";
+import { useRouter } from "next/router";
+import React, { useRef, useState } from "react";
+import { Button, Col, Modal, Row } from "react-bootstrap";
+import { BsInfoCircleFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import Container from "~/components/layouts/Container";
+import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
+import ActivateUserRepository from "../repositories/ActivateUserRepository";
+import ReadUserEmail from "../repositories/ReadUserEmail";
 import { getAddEdToCart } from "../store/addedtocart/action";
 import { getAddLogin } from "../store/addlogin/action";
 import { getDuplicarPrd } from "../store/duplicarprd/action";
+import { validateEmail } from "../utilities/Validations";
 
 import axios from "axios";
-import Users from "~/repositories/Users";
 import Moment from "moment";
+import Users from "~/repositories/Users";
 import ModalLogin from "./mensajes/ModalMensajes";
 //Constantes
-import { URL_BD_MR, URL_IMAGES_RESULTS } from "../helpers/Constants";
 import InfoIcon from "@material-ui/icons/Info";
+import { URL_BD_MR } from "../helpers/Constants";
 //Firebase
-import firebase from "../utilities/firebase";
+import Dialog from '@mui/material/Dialog';
 import {
     getAuth,
-    signInWithEmailAndPassword,
     sendPasswordResetEmail,
+    signInWithEmailAndPassword,
 } from "firebase/auth";
-import { format } from "prettier";
-import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
 
+import firebase from "../utilities/firebase";
+import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
 
 const LoginAccount = () => {
     const router = useRouter();
@@ -1024,22 +1022,114 @@ const LoginAccount = () => {
         setShowModalMedio(false);
     };
 
-
-
-
-
-
+    const [isError, setIsError] = useState(false);
+    const [recoveryMethod, setRecoveryMethod] = useState("");
+    const [verificationCode, setVerificationCode] = useState("");
+    const [userCode, setUserCode] = useState("");
     const [openDialog, setOpenDialog] = useState(false);
+    const [input1, setInput1] = useState("");
+    const [input2, setInput2] = useState("");
+    const [input3, setInput3] = useState("");
+    const [input4, setInput4] = useState("");
+    const [input5, setInput5] = useState("");
+    const [input6, setInput6] = useState(""); 
+    const input1Ref = useRef(null);
+    const input2Ref = useRef(null);
+    const input3Ref = useRef(null);
+    const input4Ref = useRef(null);
+    const input5Ref = useRef(null);
+    const input6Ref = useRef(null);
 
-    const handleButtonClick = () => {
+
+    const resetInputs = () => {
+        setInput1("");
+        setInput2("");
+        setInput3("");
+        setInput4("");
+        setInput5("");
+        setInput6("");
+      };
+
+
+    const handleButtonClickSMS = () => {
+        setRecoveryMethod("SMS");
+        const code = Math.floor(100000 + Math.random() * 900000);  
+        setVerificationCode(code);
+        console.log(code); 
         setShowModalMedio(false);
         setOpenDialog(true);
+        
     };
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
     };
 
+    const handleInputChange = (e, setInput) => {
+        setInput(e.target.value);
+        setIsError(false);
+    };
+
+    const sendResetEmail = () => {
+        const userCode = input1 + input2 + input3 + input4 + input5 + input6;
+
+        if (Number(userCode) !== verificationCode) {
+            setIsError(true);
+            resetInputs(); 
+            return;
+        }
+
+        firebase
+            .auth()
+            .sendPasswordResetEmail(formData.email)
+            .then(() => {
+                setIsError(false);
+                setShowModalMensajes(true);
+                setTituloMensajes("Recuperar contraseña");
+                setTextoMensajes("¡Correo electrónico de recuperación enviado!");
+                setOpenDialog(false);  
+                resetInputs(); 
+            })
+            .catch((error) => {
+                setShowModalMensajes(true);
+                setTituloMensajes("Error");
+                setTextoMensajes(`Error al enviar el correo electrónico de recuperación: ${error.message}`);
+            });
+    };
+
+    const handleButtonClickWhatsApp = () => {
+        setRecoveryMethod("WhatsApp");
+        const code = Math.floor(100000 + Math.random() * 900000);  
+        setVerificationCode(code);
+        console.log(code);  
+        setShowModalMedio(false);
+        setOpenDialog(true);
+    };
+
+    const handleButtonClickEmail = () => {
+        setRecoveryMethod("Email");
+        const code = Math.floor(100000 + Math.random() * 900000);  
+        setVerificationCode(code);
+        console.log(code);  
+        setShowModalMedio(false);
+        setOpenDialog(true);
+        onCloseModalVerificar();  
+    };
+
+    const handleButtonClickGoogle = () => {
+        setRecoveryMethod("Google");
+        const code = Math.floor(100000 + Math.random() * 900000);  
+        setVerificationCode(code);
+        console.log(code);  
+        setShowModalMedio(false);
+        setOpenDialog(true);
+        onCloseModalVerificar(); 
+    };
+
+    const handleAlternativeMethod = () => {
+        setOpenDialog(false);  
+        setShowModalVerificar(true);  
+    };
 
     return (
         <Container title="Mi Cuenta">
@@ -1219,7 +1309,7 @@ const LoginAccount = () => {
                         </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClick}>
+                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickSMS}>
                                 SMS - Mensaje de Texto
                                 <br />
                                 Al número celular terminado en{" "}
@@ -1229,9 +1319,7 @@ const LoginAccount = () => {
 
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenwhatsapp}
-                                onMouseOver={pasarmousewhatsapp}
-                                onMouseOut={salirmousewhatsapp}>
+                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickWhatsApp}>
                                 WhatsApp
                                 <br />
                                 Al número celular terminado en{" "}
@@ -1254,73 +1342,112 @@ const LoginAccount = () => {
                 </div>
             ) : null}
 
-            <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogContent>
-                    Modal
-                    {/* Aquí puedes agregar el contenido de tu nuevo diálogo */}
-                </DialogContent>
-            </Dialog>
+            <Dialog open={openDialog}
+                maxWidth="lg"
+                fullWidth={true}
+                PaperProps={{
+                    style: {
+                        maxWidth: "580px",
+                        borderRadius: "10px"
+                    },
+                }}
+                disableScrollLock={true}
+            >
+                <div className="DialogTokenLogin">
+                    <div className="TopDialogTokenLogin">
+                        <p>Ingresa el codigo que recibiste.</p>
+                        <p>Recibiste un número de 6 dígitos por {recoveryMethod}.</p>
+                    </div>
 
-            {showModalVerificar ? (
-                <div
-                    className="modal-fondo mtmenos15"
-                    onClick={onCloseModalVerificar}
-                >
-                    <div
-                        className="modal-Verificar redondearventamensajes"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                    >
-                        <Row>
-                            <Col xl={1} lg={1} md={1} sm={1}>
-                                <div className="iconoventanamensajes mtmenos14">
-                                    <InfoIcon style={{ fontSize: 45 }} />
-                                </div>
-                            </Col>
-                            <Col xl={9} lg={9} md={9} sm={9}>
-                                <div className="ml-30 titulodetaildescription">
-                                    Recuperar contraseña
-                                </div>
-                            </Col>
-                            <Col xl={1} lg={1} md={1} sm={1}>
-                                <button
-                                    type="button"
-                                    className="cerrarmodal ml-40 sinborder colorbase"
-                                    data-dismiss="modal"
-                                    onClick={() => {
-                                        onCloseModalVerificar();
-                                    }}
-                                >
-                                    X
-                                </button>
-                            </Col>
-                        </Row>
-                        <div className="mt-18 textoventanamensajesNuevo">
-                            <div>
-                                Selecciona el medio para recuperar el acceso a tu cuenta.
-                            </div>
-                        </div>
+                    <div className="inputsLoginA">
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input1} onChange={(e) => { setInput1(e.target.value); if (e.target.value) input2Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input1) input1Ref.current.focus(); }} ref={input1Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input2} onChange={(e) => { setInput2(e.target.value); if (e.target.value) input3Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input2) input1Ref.current.focus(); }} ref={input2Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input3} onChange={(e) => { setInput3(e.target.value); if (e.target.value) input4Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input3) input2Ref.current.focus(); }} ref={input3Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input4} onChange={(e) => { setInput4(e.target.value); if (e.target.value) input5Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input4) input3Ref.current.focus(); }} ref={input4Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input5} onChange={(e) => { setInput5(e.target.value); if (e.target.value) input6Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input5) input4Ref.current.focus(); }} ref={input5Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input className="InputPutCode" maxLength="1" type="tel" value={input6} onChange={(e) => setInput6(e.target.value)} onKeyDown={(e) => { if (e.key === 'Backspace' && !input6) input5Ref.current.focus(); }} ref={input6Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                    </div>
 
-                        <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS">
-                                Ingresa con Google
-                            </button>
+                    <div className="SendDialogTokenLogin">
+                        <div>
+                            <button onClick={sendResetEmail} className="ButtonSendToken">Enviar código de verificación</button>
+                            {isError && <div><BsInfoCircleFill /> <p>El código de verificación es incorrecto.</p></div>}
                         </div>
+                        <button className="ButtonCancelToken" onClick={handleCloseDialog}>Cancelar</button>
+                    </div>
 
-                        <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenemail}   >
-                                Ingresa con tu e-mail
-                            </button>
-                        </div>
-                        <div className="cerrarVerifButton">
-                            <button onClick={() => { onCloseModalVerificar(); }}>
-                                Cerrar
-                            </button>
-                        </div>
+                    <div className="ChangeMetodToken" onClick={handleAlternativeMethod}>
+                        <p>Probar otro metodo</p>
+                    </div>
+
+                    <div className="CodeToken">
+                        <p>{verificationCode}</p>
                     </div>
                 </div>
-            ) : null}
+            </Dialog>
+
+            {
+                showModalVerificar ? (
+                    <div
+                        className="modal-fondo mtmenos15"
+                        onClick={onCloseModalVerificar}
+                    >
+                        <div
+                            className="modal-Verificar redondearventamensajes"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                            }}
+                        >
+                            <Row>
+                                <Col xl={1} lg={1} md={1} sm={1}>
+                                    <div className="iconoventanamensajes mtmenos14">
+                                        <InfoIcon style={{ fontSize: 45 }} />
+                                    </div>
+                                </Col>
+                                <Col xl={9} lg={9} md={9} sm={9}>
+                                    <div className="ml-30 titulodetaildescription">
+                                        Recuperar contraseña
+                                    </div>
+                                </Col>
+                                <Col xl={1} lg={1} md={1} sm={1}>
+                                    <button
+                                        type="button"
+                                        className="cerrarmodal ml-40 sinborder colorbase"
+                                        data-dismiss="modal"
+                                        onClick={() => {
+                                            onCloseModalVerificar();
+                                        }}
+                                    >
+                                        X
+                                    </button>
+                                </Col>
+                            </Row>
+                            <div className="mt-18 textoventanamensajesNuevo">
+                                <div>
+                                    Selecciona el medio para recuperar el acceso a tu cuenta.
+                                </div>
+                            </div>
+
+                            <div className="mt-15 textoventanamensajesNuevo">
+                                <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickGoogle}>
+                                    Ingresa con Google
+                                </button>
+                            </div>
+
+                            <div className="mt-15 textoventanamensajesNuevo">
+                                <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickEmail}>
+                                    Ingresa con tu e-mail
+                                </button>
+                            </div>
+                            <div className="cerrarVerifButton">
+                                <button onClick={() => { onCloseModalVerificar(); }}>
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ) : null
+            }
 
 
 
@@ -1366,167 +1493,169 @@ const LoginAccount = () => {
                 </Modal.Body>
             </Modal>
 
-            {showModalPropietarioCuenta ? (
-                <div
-                    className="mlmenos650 modal-fondo"
-                    onClick={() => {
-                        onCloseModalPropietario();
-                    }}>
+            {
+                showModalPropietarioCuenta ? (
                     <div
-                        className="modal-contenido redondearventamensajes"
-                        onClick={(e) => {
-                            // do not close modal if anything inside modal content is clicked
-                            e.stopPropagation();
+                        className="mlmenos650 modal-fondo"
+                        onClick={() => {
+                            onCloseModalPropietario();
                         }}>
-                        <br />
-                        <Row className="mtmenos10">
-                            <Col
-                                xl={10}
-                                lg={10}
-                                md={10}
-                                sm={10}
-                                className="textotuproductoestaen ml-2">
-                                <h2>Ingresa el codigo de verificación</h2>
-                            </Col>
-
-                            <Col
-                                xl={1}
-                                lg={1}
-                                md={1}
-                                sm={1}
-                                className="ml-50 mtmenos10">
-                                <h1 onClick={onCloseModalPropietario}>X</h1>
-                            </Col>
-                        </Row>
-                        <br />
-                        <Row>
-                            <Col xl={9} lg={9} md={9} sm={7} className="ml-2">
-                                <form onChange={onChangeValidarToken}>
-                                    <div className="ps-form__group tamañotextotoken">
-                                        <h3 className="textoenviocodigo">
-                                            Hemos enviado un código de 6 digitos
-                                            por {cortartelefono}
-                                        </h3>
-                                        <div className="ml-200 mt-60">
-                                            <Row>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="ml-10 tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="ml-20 tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="ml-30 tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="ml-40 tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                                <Col
-                                                    xl={1}
-                                                    lg={1}
-                                                    md={1}
-                                                    sm={1}>
-                                                    <input
-                                                        className="ml-50 tamañoinputtoken"
-                                                        name="tokenvalidar"
-                                                        type="text"
-                                                        size="1"
-                                                        minlength="1"
-                                                        maxlength="1"
-                                                    />
-                                                </Col>
-                                            </Row>
-                                        </div>
-                                    </div>
-                                </form>
-                            </Col>
-                        </Row>
-                        <br />
-                        <br />
-                        <div className="ml-100 mt-60 mb-20">
-                            <Row>
-                                <Col xl={5} lg={5} md={5} sm={5}></Col>
-                                <Col xl={4} lg={4} md={4} sm={4}>
-                                    <div
-                                        className="botonreenviarcodigo"
-                                        onClick={reenvioCodigo}>
-                                        Reenviar código
-                                    </div>
+                        <div
+                            className="modal-contenido redondearventamensajes"
+                            onClick={(e) => {
+                                // do not close modal if anything inside modal content is clicked
+                                e.stopPropagation();
+                            }}>
+                            <br />
+                            <Row className="mtmenos10">
+                                <Col
+                                    xl={10}
+                                    lg={10}
+                                    md={10}
+                                    sm={10}
+                                    className="textotuproductoestaen ml-2">
+                                    <h2>Ingresa el codigo de verificación</h2>
                                 </Col>
-                                <Col xl={1} lg={1} md={1} sm={1}>
-                                    <Button
-                                        className="ps-btn"
-                                        onClick={() =>
-                                            setShowModalPropietarioCuenta(false)
-                                        }>
-                                        {" "}
-                                        Continuar{" "}
-                                    </Button>
+
+                                <Col
+                                    xl={1}
+                                    lg={1}
+                                    md={1}
+                                    sm={1}
+                                    className="ml-50 mtmenos10">
+                                    <h1 onClick={onCloseModalPropietario}>X</h1>
                                 </Col>
                             </Row>
+                            <br />
+                            <Row>
+                                <Col xl={9} lg={9} md={9} sm={7} className="ml-2">
+                                    <form onChange={onChangeValidarToken}>
+                                        <div className="ps-form__group tamañotextotoken">
+                                            <h3 className="textoenviocodigo">
+                                                Hemos enviado un código de 6 digitos
+                                                por {cortartelefono}
+                                            </h3>
+                                            <div className="ml-200 mt-60">
+                                                <Row>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="ml-10 tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="ml-20 tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="ml-30 tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="ml-40 tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                    <Col
+                                                        xl={1}
+                                                        lg={1}
+                                                        md={1}
+                                                        sm={1}>
+                                                        <input
+                                                            className="ml-50 tamañoinputtoken"
+                                                            name="tokenvalidar"
+                                                            type="text"
+                                                            size="1"
+                                                            minlength="1"
+                                                            maxlength="1"
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </Col>
+                            </Row>
+                            <br />
+                            <br />
+                            <div className="ml-100 mt-60 mb-20">
+                                <Row>
+                                    <Col xl={5} lg={5} md={5} sm={5}></Col>
+                                    <Col xl={4} lg={4} md={4} sm={4}>
+                                        <div
+                                            className="botonreenviarcodigo"
+                                            onClick={reenvioCodigo}>
+                                            Reenviar código
+                                        </div>
+                                    </Col>
+                                    <Col xl={1} lg={1} md={1} sm={1}>
+                                        <Button
+                                            className="ps-btn"
+                                            onClick={() =>
+                                                setShowModalPropietarioCuenta(false)
+                                            }>
+                                            {" "}
+                                            Continuar{" "}
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </div>
+                            <br />
                         </div>
-                        <br />
                     </div>
-                </div>
-            ) : null}
+                ) : null
+            }
 
 
 
@@ -1551,7 +1680,7 @@ const LoginAccount = () => {
                     </Row>
                 </Modal.Body>
             </Modal>
-        </Container>
+        </Container >
     );
 };
 
