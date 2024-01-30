@@ -30,7 +30,8 @@ import {
 } from "firebase/auth";
 import { format } from "prettier";
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
-
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 
 
 const LoginAccount = () => {
@@ -1023,6 +1024,23 @@ const LoginAccount = () => {
         setShowModalMedio(false);
     };
 
+
+
+
+
+
+    const [openDialog, setOpenDialog] = useState(false);
+
+    const handleButtonClick = () => {
+        setShowModalMedio(false);
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
+
     return (
         <Container title="Mi Cuenta">
             <div className="ps-page ps-page--inner" id="login">
@@ -1201,8 +1219,7 @@ const LoginAccount = () => {
                         </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={tokenmensajetexto} onMouseOver={pasarmousesms}
-                                onMouseOut={salirmousesms}>
+                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClick}>
                                 SMS - Mensaje de Texto
                                 <br />
                                 Al número celular terminado en{" "}
@@ -1237,7 +1254,12 @@ const LoginAccount = () => {
                 </div>
             ) : null}
 
-
+            <Dialog open={openDialog} onClose={handleCloseDialog}>
+                <DialogContent>
+                    Modal
+                    {/* Aquí puedes agregar el contenido de tu nuevo diálogo */}
+                </DialogContent>
+            </Dialog>
 
             {showModalVerificar ? (
                 <div
@@ -1246,10 +1268,10 @@ const LoginAccount = () => {
                 >
                     <div
                         className="modal-Verificar redondearventamensajes"
-                        onClick={(e) => { 
+                        onClick={(e) => {
                             e.stopPropagation();
                         }}
-                    > 
+                    >
                         <Row>
                             <Col xl={1} lg={1} md={1} sm={1}>
                                 <div className="iconoventanamensajes mtmenos14">
@@ -1273,12 +1295,12 @@ const LoginAccount = () => {
                                     X
                                 </button>
                             </Col>
-                        </Row> 
+                        </Row>
                         <div className="mt-18 textoventanamensajesNuevo">
                             <div>
                                 Selecciona el medio para recuperar el acceso a tu cuenta.
                             </div>
-                        </div> 
+                        </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
                             <button className="RecuperarContraseñaSMSDOS">
@@ -1286,13 +1308,13 @@ const LoginAccount = () => {
                             </button>
                         </div>
 
-                         <div className="mt-15 textoventanamensajesNuevo">
+                        <div className="mt-15 textoventanamensajesNuevo">
                             <button className="RecuperarContraseñaSMSDOS" onClick={tokenemail}   >
                                 Ingresa con tu e-mail
                             </button>
-                        </div> 
+                        </div>
                         <div className="cerrarVerifButton">
-                            <button onClick={() => {onCloseModalVerificar();}}>
+                            <button onClick={() => { onCloseModalVerificar(); }}>
                                 Cerrar
                             </button>
                         </div>

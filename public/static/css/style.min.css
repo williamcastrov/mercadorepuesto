@@ -35463,7 +35463,16 @@ label {
     border-radius: 12px;
     font-size: 16px;
 }
-
+.InputPutCode{
+    height: 3.7em;
+    width: 3.2em;
+    outline: none;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #2C2E82;
+    border-radius: 5px;
+    margin: .5rem;
+}
 /*Fin nuevos estilos login*/
 
 /*Inicio estilos de categorias izquierda */
@@ -36403,3 +36412,8 @@ label {
     background-color: #d3d4e4;
 }
 /*Fin estilos mi billetera*/
+
+
+
+
+/*Estilos adicionales*/

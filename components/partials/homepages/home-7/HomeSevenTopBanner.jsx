@@ -45,7 +45,7 @@ const HomeSevenTopBanner = (props) => {
        
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 1rem; width: 100%;">
                     <a href="/my-account" style="width: 100%; height: auto; margin: 0 auto; margin-top: .5rem; margin-bottom: 1.5rem;">
-                        <button style="border-radius: 10px; color: #FAB900; background-color: white; border: 3px solid #2D2E83; height: 41px; width: 185px; font-size: 16px; margin-top: 1rem;">Soy nuevo</button>
+                        <button style="border-radius: 10px; color: #2D2E83; background-color: white; border: 3px solid #2D2E83; height: 41px; width: 185px; font-size: 16px; margin-top: 1rem;">Soy nuevo</button>
                     </a>
                     
                     <a href="/loginaccount" style="width: 100%; height: auto; margin: 0 auto;"> 
