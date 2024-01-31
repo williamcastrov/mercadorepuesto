@@ -7,7 +7,6 @@ import { URL_BD_MR } from "../../helpers/Constants";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { useSelector } from "react-redux";
 
-
 export default function index() {
 
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
@@ -16,6 +15,39 @@ export default function index() {
     const isMdDown = useMediaQuery(theme.breakpoints.down('md')); //Consts measured, 80% and in md 100%.
     const irA = useRef(null);//PosiciónTopPage
     const [UidUser, setUidUser] = useState("");
+
+    // Estado de cuenta
+    const [estadoCuenta, setEstadoCuenta] = useState(null);
+
+    useEffect(() => {
+        const EstadoCuentaUsuario = async () => {
+            try {
+                const res = await axios.post(`${URL_BD_MR}145`);
+                const datosUsuario = res.data.listestadodecta.find(usuario => usuario.usuario === datosusuarios.uid);
+                setEstadoCuenta(datosUsuario);
+            } catch (error) {
+                console.error("Error al leer los datos del usuario", error);
+            }
+        };
+        EstadoCuentaUsuario();
+    }, [datosusuarios]);
+
+    // Movimientos del usuario
+    const [movimientos, setMovimientos] = useState([]);
+
+    useEffect(() => {
+        const ListarMovimientosUsuario = async () => {
+            try {
+                const res = await axios.post(`${URL_BD_MR}148`);
+                const datosUsuario = res.data.listtransvendedor.filter(usuario => usuario.usuario === datosusuarios.uid);
+                setMovimientos(datosUsuario);
+            } catch (error) {
+                console.error("Error al leer las transacciones del vendedor", error);
+            }
+        };
+        ListarMovimientosUsuario();
+    }, [datosusuarios]);
+
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -40,43 +72,48 @@ export default function index() {
                                     </div>
                                 </Grid>
                                 <div className="contMainBilletera">
+
+
                                     <div className="saldoBilletera">
                                         <div className="saldoBilleteraLeft">
                                             <h3>Saldo disponible</h3>
-                                            <p>$1.929.500</p>
+                                            {estadoCuenta ? (
+                                                <p>${estadoCuenta.saldofinal.toLocaleString('en-US')}</p>
+                                            ) : (
+                                                <p>Ups! aún no has vendido tu primer producto.</p>
+                                            )}
                                         </div>
                                         <div className="saldoBilleteraRight">
-                                            <button  onClick={() => router.push({ pathname: '/MiBilletera/RetiroDinero' })}>Solicitar dinero</button>
+                                            <button onClick={() => router.push({ pathname: '/MiBilletera/RetiroDinero' })}>Solicitar dinero</button>
                                         </div>
                                     </div>
 
-                                    
+
+
                                     <div className="contMovimientos">
                                         <div className="TopcontMovimientos">
                                             <p>Movimientos</p>
                                         </div>
-                                        <div className="MiddleContMovimientos">
-                                            <div className="ItemContMovimientos">
-                                                <div className="LeftItemContMovimientos">
-                                                    <p>Concepto de pago: Pago por venta o Retiro de dinero</p>
-                                                    <p>Quien lo hizo: Mercado Repuesto o el usuario vendedor</p>
-                                                </div>
-                                                <div className="RightItemContMovimientos">
-                                                    <p>$129.000</p>
-                                                </div>
-                                            </div>
 
-                                            <div className="ItemContMovimientos">
-                                                <div className="LeftItemContMovimientos">
-                                                    <p>Concepto de pago: Pago por venta o Retiro de dinero</p>
-                                                    <p>Quien lo hizo: Mercado Repuesto o el usuario vendedor</p>
-                                                </div>
-                                                <div className="RightItemContMovimientos">
-                                                    <p>$129.000</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        {movimientos.length > 0 ? (
+                                            movimientos
+                                                .sort((a, b) => new Date(b.fechacreacion) - new Date(a.fechacreacion))
+                                                .slice(0, 2)
+                                                .map((movimiento, index) => (
+                                                    <div className="MiddleContMovimientos" key={index}>
+                                                        <div className="ItemContMovimientos">
+                                                            <div className="LeftItemContMovimientos">
+                                                                <p>{movimiento.nombre}</p>
+                                                            </div>
+                                                            <div className="RightItemContMovimientos">
+                                                                <p>{movimiento.valor.toLocaleString('en-US')}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                        ) : (
+                                            <p>Aún no tienes movimientos.</p>
+                                        )}
                                         <div className="ButtonContMovimientos">
                                             <button onClick={() => router.push({ pathname: '/MiBilletera/misMovimientos' })}>Ver más</button>
                                         </div>

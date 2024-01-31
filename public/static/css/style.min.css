@@ -36434,6 +36434,13 @@ label {
     font-size: 18px;
     color: #2D2E83;
 }
+.DataMiddleContMovimientos input{
+    color: #2D2E83;
+    background-color: #f0f1f5;
+    display: flex; 
+    text-align: end;
+    cursor: pointer;
+}
 
 .SendSolicitudb {
     display: flex;
@@ -36469,7 +36476,9 @@ label {
 .dataMovimientosTop {
     margin-bottom: 2rem;
 }
-
+.dataMovimientosM{
+    margin-bottom: 1.5rem;
+}
 .dataMovimientosM p {
     font-size: 16px;
     color: #2D2E83;
@@ -36622,8 +36631,7 @@ label {
     width: 100%;
     margin-bottom: 3rem;
 }
-.SubtitleBuscar{
-    margin-top: -2rem !important;
+.SubtitleBuscar{ 
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;

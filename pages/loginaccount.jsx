@@ -1089,7 +1089,7 @@ const LoginAccount = () => {
                 setIsError(false);
                 setShowModalMensajes(true);
                 setTituloMensajes("Recuperar contraseña");
-                setTextoMensajes("¡Correo electrónico de recuperación enviado!");
+                setTextoMensajes("¡Hemos enviado al correo electrónico registrado un link para recuperar tu contraseña, recuerda revisar en spam o correos no deseados!");
                 setOpenDialog(false);
                 resetInputs();
             })

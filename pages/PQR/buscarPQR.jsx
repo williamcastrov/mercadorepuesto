@@ -41,7 +41,7 @@ export default function buscarPQR() {
                             <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
                                     <div className="TopBuscarPQR">
-                                        <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9'  }} size={17} />} aria-label="breadcrumb" className="linkMisvResF">
+                                        <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9'  }} size={17} />} aria-label="breadcrumb">
                                             <Link
                                                 className="linkMisv"
                                                 underline="none"

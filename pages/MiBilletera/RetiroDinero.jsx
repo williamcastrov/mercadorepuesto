@@ -19,7 +19,13 @@ export default function RetiroDinero() {
     const irA = useRef(null);//PosiciónTopPage
     const [UidUser, setUidUser] = useState("");
     const [selectedSortOption, setSelectedSortOption] = useState(null);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [mostrarContenedor, setMostrarContenedor] = useState(false);
 
+
+    const handleOpenDialog = () => {
+        setDialogOpen(true);
+    };
 
 
     useEffect(() => {
@@ -30,7 +36,7 @@ export default function RetiroDinero() {
     }, []);
 
     const [saldo, setSaldo] = useState(1929500);
-    const [mostrarContenedor, setMostrarContenedor] = useState(false);
+
 
     const handleChange = (event) => {
         // Remueve los puntos antes de cambiar el estado
@@ -48,8 +54,27 @@ export default function RetiroDinero() {
 
 
 
+    // Estado de cuenta
+    const [estadoCuenta, setEstadoCuenta] = useState(null);
 
+    useEffect(() => {
+        const EstadoCuentaUsuario = async () => {
+            try {
+                const res = await axios.post(`${URL_BD_MR}145`);
+                const datosUsuario = res.data.listestadodecta.find(usuario => usuario.usuario === datosusuarios.uid);
+                setEstadoCuenta(datosUsuario);
+            } catch (error) {
+                console.error("Error al leer los datos del usuario", error);
+            }
+        };
+        EstadoCuentaUsuario();
+    }, [datosusuarios]);
 
+    const [saldofinal, setSaldofinal] = useState(estadoCuenta ? estadoCuenta.saldofinal : 0);
+
+    const formatNumber = (num) => {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    };
 
 
     const handleSelect = (eventKey) => {
@@ -75,17 +100,34 @@ export default function RetiroDinero() {
     ));
     //Obtener datos de mis compras
 
-    const [dialogOpen, setDialogOpen] = useState(false);
 
-    const handleOpenDialog = () => {
-        setDialogOpen(true);
-    };
-
-    const handleCloseDialog = () => {
-        setDialogOpen(false);
-    };
+    const [datosUsuario, setDatosUsuario] = useState(null);
 
 
+    useEffect(() => {
+        const datosDeusuario = async () => {
+            let params = {
+                uid: datosusuarios.uid,
+            };
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "13",
+                    params,
+                });
+                setDatosUsuario(res.data[0]);
+                setUidUser(res.data[0].uid)
+            } catch (error) {
+                console.error("Error al leer los datos del usuario a retirar", error);
+                // Maneja el error según tus necesidades
+            }
+        };
+        datosDeusuario();
+    }, [datosusuarios]);
+
+    const nombreCompleto = datosUsuario
+        ? `${datosUsuario.primernombre} ${datosUsuario.segundonombre} ${datosUsuario.primerapellido || datosUsuario.segundoapellido}`
+        : "";
 
     return (
         <>
@@ -105,7 +147,17 @@ export default function RetiroDinero() {
                                         <div className="saldoBilleteraLeft">
                                             <h3>Saldo que deseas retirar</h3>
                                             <div>
-                                                <p>$</p><input type="text" value={saldoFormateado} onChange={handleChange} />
+                                                <p>$</p>
+                                                <input
+                                                    type="text"
+                                                    value={saldofinal}
+                                                    onChange={event => {
+                                                        // Solo permitir números
+                                                        const value = event.target.value.replace(/[^0-9]/g, "");
+                                                        // Aplicar separadores de miles
+                                                        setSaldofinal(formatNumber(value));
+                                                    }}
+                                                />
                                             </div>
                                         </div>
                                         <div className="saldoBilleteraRight">
@@ -119,64 +171,95 @@ export default function RetiroDinero() {
                                                 <div className="TopcontMovimientos">
                                                     <p>A donde deseas que llegue tu dinero</p>
                                                 </div>
-                                                <div className="MiddleContMovimientos">
-                                                    <div className="DataMiddleContMovimientos">
-                                                        <p>Nombre del titular de la cuenta</p>
-                                                        <p>Juan Pablo Rojas</p>
-                                                    </div>
 
-                                                    <div className="DataMiddleContMovimientos">
-                                                        <p>Tipo de documento del titular de la cuenta</p>
-                                                        <p>C.C</p>
-                                                    </div>
 
-                                                    <div className="DataMiddleContMovimientos">
-                                                        <p>Numero de documento del titular de la cuenta</p>
-                                                        <p>1234567890</p>
-                                                    </div>
 
-                                                    <div className="DataMiddleContMovimientos">
-                                                        <p>Entidad Bancaria</p>
-                                                        <div>
-                                                            <Dropdown style={{ width: '40%' }} onSelect={handleSelect}>
-                                                                <Dropdown.Toggle
-                                                                    as={CustomDropdownButton}
-                                                                    id="dropdown-basic"
-                                                                >
-                                                                    {selectedSortOption ? `Seleccionar banco ${selectedSortOption}` : "Seleccionar banco"}
-                                                                </Dropdown.Toggle>
-                                                                <Dropdown.Menu className="tamañocajaBanco">
-                                                                    <Dropdown.Item
-                                                                        eventKey="Más antiguo"
-                                                                        className="itemsDropdownBanco"
+                                                {datosUsuario ? (
+                                                    <div className="MiddleContMovimientos">
+                                                        <div className="DataMiddleContMovimientos">
+                                                            <p>Nombre del titular de la cuenta</p>
+                                                            <input
+                                                                type="text"
+                                                                value={nombreCompleto}
+                                                                onChange={event => {
+                                                                    // Dividir el nombre completo en partes
+                                                                    const [primernombre, segundonombre, apellido] = event.target.value.split(" ");
+                                                                    // Actualizar datosUsuario con las nuevas partes del nombre
+                                                                    setDatosUsuario({
+                                                                        ...datosUsuario,
+                                                                        primernombre,
+                                                                        segundonombre,
+                                                                        primerapellido: apellido,
+                                                                    });
+                                                                }}
+                                                            />
+                                                        </div>
+
+                                                        <div className="DataMiddleContMovimientos">
+                                                            <p>Tipo de documento del titular de la cuenta</p>
+                                                            <input
+                                                                type="text"
+                                                                value={datosUsuario.nombredocumento}
+                                                                onChange={event => setDatosUsuario({ ...datosUsuario, primernombre: event.target.value })}
+                                                            />
+                                                        </div>
+
+                                                        <div className="DataMiddleContMovimientos">
+                                                            <p>Numero de documento del titular de la cuenta</p>
+                                                            <input
+                                                                type="text"
+                                                                value={datosUsuario.identificacion}
+                                                                onChange={event => setDatosUsuario({ ...datosUsuario, primernombre: event.target.value })}
+                                                            />
+                                                        </div>
+
+                                                        <div className="DataMiddleContMovimientos">
+                                                            <p>Entidad Bancaria</p>
+                                                            <div>
+                                                                <Dropdown style={{ width: '40%' }} onSelect={handleSelect}>
+                                                                    <Dropdown.Toggle
+                                                                        as={CustomDropdownButton}
+                                                                        id="dropdown-basic"
                                                                     >
-                                                                        Bancolombia
-                                                                    </Dropdown.Item>
+                                                                        {selectedSortOption ? `Seleccionar banco ${selectedSortOption}` : "Seleccionar banco"}
+                                                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu className="tamañocajaBanco">
+                                                                        <Dropdown.Item
+                                                                            eventKey="Más antiguo"
+                                                                            className="itemsDropdownBanco"
+                                                                        >
+                                                                            Bancolombia
+                                                                        </Dropdown.Item>
 
-                                                                    <Dropdown.Item
-                                                                        eventKey="Más reciente"
-                                                                        className="itemsDropdownBanco"
-                                                                    >
-                                                                        Itaú
-                                                                    </Dropdown.Item>
+                                                                        <Dropdown.Item
+                                                                            eventKey="Más reciente"
+                                                                            className="itemsDropdownBanco"
+                                                                        >
+                                                                            Itaú
+                                                                        </Dropdown.Item>
 
-                                                                    <Dropdown.Item
-                                                                        eventKey="Más reciente"
-                                                                        className="itemsDropdownBanco"
-                                                                    >
-                                                                        Av villas
-                                                                    </Dropdown.Item>
+                                                                        <Dropdown.Item
+                                                                            eventKey="Más reciente"
+                                                                            className="itemsDropdownBanco"
+                                                                        >
+                                                                            Av villas
+                                                                        </Dropdown.Item>
 
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="DataMiddleContMovimientos">
+                                                            <p>Numero de cuenta</p>
+                                                            <p>123456789098</p>
                                                         </div>
                                                     </div>
+                                                ) : (
+                                                    <p>No se encontraron datos del usuario.</p>
+                                                )}
 
-                                                    <div className="DataMiddleContMovimientos">
-                                                        <p>Numero de cuenta</p>
-                                                        <p>123456789098</p>
-                                                    </div>
-                                                </div>
+
                                             </div>
 
                                             <div className="SendSolicitudb">
@@ -190,7 +273,7 @@ export default function RetiroDinero() {
                                 <Dialog
                                     className='dialogDatsGuardados'
                                     open={dialogOpen}
-                                    disableScrollLock={true} 
+                                    disableScrollLock={true}
                                     PaperProps={{
                                         style: {
                                             width: isMdDown ? '80%' : '35%',
