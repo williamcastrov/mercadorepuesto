@@ -23418,9 +23418,9 @@ ol {
 .modal-mensajes-login {
     margin-top: -220px !important;
     width: 550px !important;
-    height: 290px !important;
+    height: 320px !important;
     background-color: white;
-    padding: 25px;
+    padding: 2rem;
 }
 
 
