@@ -37,9 +37,16 @@ export default function index() {
 
     useEffect(() => {
         const ListarMovimientosUsuario = async () => {
+            let params = {
+                uidvendedor: datosusuarios.uid,
+            };
             try {
-                const res = await axios.post(`${URL_BD_MR}148`);
-                const datosUsuario = res.data.listtransvendedor.filter(usuario => usuario.usuario === datosusuarios.uid);
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}149`,
+                    params,
+                });
+                const datosUsuario = res.data.listestadodecta.filter(usuario => usuario.usuario === datosusuarios.uid);
                 setMovimientos(datosUsuario);
             } catch (error) {
                 console.error("Error al leer las transacciones del vendedor", error);
