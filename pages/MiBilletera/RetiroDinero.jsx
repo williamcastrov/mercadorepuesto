@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container"
-import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase } from '@mui/material';
+import { Box, Grid, Typography, useMediaQuery, useTheme, Dialog, DialogTitle, DialogActions, DialogContent, InputAdornment, TextField, InputBase, Autocomplete } from '@mui/material';
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import axios from 'axios';
@@ -8,7 +8,8 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Dropdown } from "react-bootstrap";
 import { FaCheckCircle } from "react-icons/fa";
-
+import { MdExpandMore } from "react-icons/md";
+import ModalMensajes from "../mensajes/ModalMensajes";
 
 export default function RetiroDinero() {
 
@@ -21,6 +22,17 @@ export default function RetiroDinero() {
     const [selectedSortOption, setSelectedSortOption] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [mostrarContenedor, setMostrarContenedor] = useState(false);
+
+
+
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [showModal, setShowModal] = useState(false); //Estado de modal
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
 
 
     const handleOpenDialog = () => {
@@ -45,12 +57,18 @@ export default function RetiroDinero() {
     };
 
     const handleClick = () => {
+        // Verificamos si el valor de la transferencia es mayor que 0 y no comienza con 0
+        const valorTransferencia = parseInt(form.valortransferencia.replace(/,/g, ''));
+        if (valorTransferencia <= 0 || form.valortransferencia.startsWith('0')) {
+            setTituloMensajes('Validación de mensaje');
+            setTextoMensajes('El valor de la transferencia debe ser mayor a 0');
+            setShowModal(true);
+            return; // Salimos de la función para no abrir el siguiente contenedor
+        }
+
+        // Si todo está bien, abrimos el siguiente contenedor
         setMostrarContenedor(true);
     };
-
-    // Formatea el saldo con puntos como separadores de miles
-    const saldoFormateado = saldo.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
 
 
 
@@ -72,9 +90,7 @@ export default function RetiroDinero() {
 
     const [saldofinal, setSaldofinal] = useState(estadoCuenta ? estadoCuenta.saldofinal : 0);
 
-    const formatNumber = (num) => {
-        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-    };
+
 
 
     const handleSelect = (eventKey) => {
@@ -129,6 +145,176 @@ export default function RetiroDinero() {
         ? `${datosUsuario.primernombre} ${datosUsuario.segundonombre} ${datosUsuario.primerapellido || datosUsuario.segundoapellido}`
         : "";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const [form, setForm] = useState({
+        nombretitular: '',
+        tipoidentificacion: '',
+        identificacion: '',
+        entidadbancaria: '',
+        numerodecuenta: '',
+        valortransferencia: '0', // Inicializamos con '0'
+    });
+
+    const [bancos, setBancos] = useState([]);
+
+    useEffect(() => {
+        const obtenerBancos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}157`,
+                });
+                if (Array.isArray(res.data.listarbancos)) {
+                    setBancos(res.data.listarbancos);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.listarbancos);
+                }
+            } catch (error) {
+                console.error("Error al obtener los bancos", error);
+            }
+        };
+        obtenerBancos();
+    }, []);
+
+    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+
+    useEffect(() => {
+        const obtenerTiposIdentificacion = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}7`,
+                });
+                if (Array.isArray(res.data.tipoidentificacion)) {
+                    setTiposIdentificacion(res.data.tipoidentificacion);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.tipoidentificacion);
+                }
+            } catch (error) {
+                console.error("Error al obtener los tipos de identificación", error);
+            }
+        };
+        obtenerTiposIdentificacion();
+    }, []);
+
+    const formatNumber = (num) => {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    };
+
+    const handleChangeValorTransferencia = (event) => {
+        const value = event.target.value.replace(/[^0-9]/g, "");
+        setForm({
+            ...form,
+            valortransferencia: formatNumber(value),
+        });
+    };
+
+    const handleChangeRetiro = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value,
+        });
+    };
+
+    const hacerPeticionRetiro = async () => {
+        // Verificamos si algún campo está vacío
+        for (let campo in form) {
+            if (form[campo] === '') {
+                setTituloMensajes('¡Cuidado!');
+                setTextoMensajes('Todos los campos deben estar llenos para poder enviar la petición.');
+                setShowModal(true);
+                return; // Salimos de la función para no enviar la petición
+            }
+        }
+
+        // Verificamos si el valor de la transferencia es 0 o comienza con 0
+        const valorTransferencia = parseInt(form.valortransferencia.replace(/,/g, ''));
+        if (valorTransferencia <= 0 || form.valortransferencia.startsWith('0')) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('El valor de la transferencia debe ser mayor que 0 y no puede comenzar con 0.');
+            setShowModal(true);
+            return; // Salimos de la función para no enviar la petición
+        }
+
+        // Verificamos si el valor de la transferencia es mayor que el saldo final
+        if (valorTransferencia > estadoCuenta.saldofinal) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('El valor de la transferencia no puede ser mayor al saldo de tu cuenta!');
+            setShowModal(true);
+            return; // Salimos de la función para no enviar la petición
+        }
+
+        let params = {
+            usuario: datosusuarios.uid,
+            estado: 72,
+            ...form,
+            valortransferencia: form.valortransferencia.replace(/,/g, ''), // Eliminamos las comas
+        };
+        console.log("Parámetros enviados a retirar: ", params);
+        try {
+            const res = await axios({
+                method: "post",
+                url: `${URL_BD_MR}154`,
+                params,
+            });
+            console.log("Respuesta del servidor petición retiro:", res.data); // Aquí agregamos el console.log
+
+            // Si la petición se completa con éxito, abrimos el dialog
+            handleOpenDialog();
+        } catch (error) {
+            console.error("Error al enviar petición a retirar", error);
+        }
+    };
+
+
+
+    const textFieldStyles = {
+        '& .MuiOutlinedInput-root': {
+            fontSize: '18px', // Tamaño de fuente de 18px
+            color: '#2D2E83', // Color de letra
+            fontFamily: '"Jost", sans-serif', // Fuente
+            fontWeight: '500', // Grosor de la fuente
+            backgroundColor: '#f0f1f5', // Color de fondo 
+            marginLeft: '.2rem',
+            marginTop: '1px',
+            '& fieldset': {
+                border: 'none',
+            },
+            '&:hover fieldset': {
+                borderColor: 'transparent',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'transparent',
+            },
+            '& .MuiOutlinedInput-input': {
+                padding: '0',
+            },
+        },
+    };
+
+
+
+    const optionStyles = {
+        fontSize: 14,
+        fontWeight: 500,
+        fontFamily: '"Jost", sans-serif',
+        color: '#2D2E83',
+        backgroundColor: '#f0f1f5'
+    };
+
     return (
         <>
             <div ref={irA}>
@@ -148,15 +334,10 @@ export default function RetiroDinero() {
                                             <h3>Saldo que deseas retirar</h3>
                                             <div>
                                                 <p>$</p>
-                                                <input
-                                                    type="text"
-                                                    value={saldofinal}
-                                                    onChange={event => {
-                                                        // Solo permitir números
-                                                        const value = event.target.value.replace(/[^0-9]/g, "");
-                                                        // Aplicar separadores de miles
-                                                        setSaldofinal(formatNumber(value));
-                                                    }}
+                                                <TextField
+                                                    value={form.valortransferencia}
+                                                    onChange={handleChangeValorTransferencia}
+                                                    sx={textFieldStyles}
                                                 />
                                             </div>
                                         </div>
@@ -172,87 +353,190 @@ export default function RetiroDinero() {
                                                     <p>A donde deseas que llegue tu dinero</p>
                                                 </div>
 
-
-
                                                 {datosUsuario ? (
                                                     <div className="MiddleContMovimientos">
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Nombre del titular de la cuenta</p>
                                                             <input
+                                                                autoComplete="off"
+                                                                name="nombretitular"
                                                                 type="text"
-                                                                value={nombreCompleto}
-                                                                onChange={event => {
-                                                                    // Dividir el nombre completo en partes
-                                                                    const [primernombre, segundonombre, apellido] = event.target.value.split(" ");
-                                                                    // Actualizar datosUsuario con las nuevas partes del nombre
-                                                                    setDatosUsuario({
-                                                                        ...datosUsuario,
-                                                                        primernombre,
-                                                                        segundonombre,
-                                                                        primerapellido: apellido,
-                                                                    });
+                                                                value={form.nombretitular}
+                                                                onChange={handleChangeRetiro}
+                                                                placeholder="Nombre del titular"
+                                                                maxLength={50}
+                                                                onInput={(e) => {
+                                                                    // Permitir solo letras y espacios
+                                                                    e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
+                                                                    // Capitalizar la primera letra de cada palabra
+                                                                    e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
                                                                 }}
                                                             />
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Tipo de documento del titular de la cuenta</p>
-                                                            <input
-                                                                type="text"
-                                                                value={datosUsuario.nombredocumento}
-                                                                onChange={event => setDatosUsuario({ ...datosUsuario, primernombre: event.target.value })}
-                                                            />
+                                                            <div>
+                                                                <Autocomplete
+                                                                    id="combo-box-demo"
+                                                                    options={tiposIdentificacion}
+                                                                    getOptionLabel={(option) => option.descripcion}
+                                                                    style={{ width: 230 }}
+                                                                    disableClearable // Desactiva el icono de la "x"
+                                                                    renderInput={(params) =>
+                                                                        <TextField
+                                                                            {...params}
+                                                                            label={form.tipoidentificacion ? "" : "Tipo de identificación"} // Condición para la etiqueta
+                                                                            InputLabelProps={{
+                                                                                shrink: false, // Evita que la etiqueta se encoja
+                                                                                sx: {
+                                                                                    fontSize: 18, // Tamaño de la letra
+                                                                                    fontWeight: 500, // Peso de la fuente
+                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
+                                                                                    color: '#2D2E83', // Color de letra
+                                                                                    textAlign: 'right' // Alineación del texto
+                                                                                }
+                                                                            }}
+                                                                            inputProps={{
+                                                                                ...params.inputProps, // Asegúrate de pasar esto
+                                                                                sx: {
+                                                                                    fontSize: 16, // Tamaño de la letra
+                                                                                    fontWeight: 500, // Peso de la fuente
+                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
+                                                                                    color: '#2D2E83', // Color de letra
+                                                                                }
+                                                                            }}
+                                                                            sx={{
+                                                                                '& fieldset': {
+                                                                                    border: 'none',
+                                                                                },
+                                                                                '&:hover fieldset': {
+                                                                                    borderColor: 'transparent',
+                                                                                },
+                                                                                '&.Mui-focused fieldset': {
+                                                                                    borderColor: 'transparent',
+                                                                                },
+                                                                                '& .MuiOutlinedInput-input': {
+                                                                                    padding: '0',
+                                                                                },
+                                                                            }}
+                                                                        />
+                                                                    }
+                                                                    onInputChange={(event, newValue) => {
+                                                                        setForm({
+                                                                            ...form,
+                                                                            tipoidentificacion: tiposIdentificacion.find(tipo => tipo.descripcion === newValue)?.id,
+                                                                        });
+                                                                    }}
+                                                                    popupIcon={<MdExpandMore style={{ fontSize: '20px', color: '#2D2E83', display: 'flex', alignItems: 'center' }} />} // Icono personalizado
+                                                                    renderOption={(props, option, { selected }) => (
+                                                                        <li {...props} style={optionStyles}>
+                                                                            {option.descripcion}
+                                                                        </li>
+                                                                    )}
+                                                                />
+                                                            </div>
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Numero de documento del titular de la cuenta</p>
                                                             <input
+                                                                autoComplete="off"
+                                                                name="identificacion"
+                                                                placeholder="Número identificación"
                                                                 type="text"
-                                                                value={datosUsuario.identificacion}
-                                                                onChange={event => setDatosUsuario({ ...datosUsuario, primernombre: event.target.value })}
+                                                                value={form.identificacion}
+                                                                onChange={handleChangeRetiro}
+                                                                maxLength={10}
+                                                                onKeyPress={(event) => {
+                                                                    if (!/[0-9]/.test(event.key)) {
+                                                                        event.preventDefault();
+                                                                    }
+                                                                }}
                                                             />
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Entidad Bancaria</p>
                                                             <div>
-                                                                <Dropdown style={{ width: '40%' }} onSelect={handleSelect}>
-                                                                    <Dropdown.Toggle
-                                                                        as={CustomDropdownButton}
-                                                                        id="dropdown-basic"
-                                                                    >
-                                                                        {selectedSortOption ? `Seleccionar banco ${selectedSortOption}` : "Seleccionar banco"}
-                                                                    </Dropdown.Toggle>
-                                                                    <Dropdown.Menu className="tamañocajaBanco">
-                                                                        <Dropdown.Item
-                                                                            eventKey="Más antiguo"
-                                                                            className="itemsDropdownBanco"
-                                                                        >
-                                                                            Bancolombia
-                                                                        </Dropdown.Item>
-
-                                                                        <Dropdown.Item
-                                                                            eventKey="Más reciente"
-                                                                            className="itemsDropdownBanco"
-                                                                        >
-                                                                            Itaú
-                                                                        </Dropdown.Item>
-
-                                                                        <Dropdown.Item
-                                                                            eventKey="Más reciente"
-                                                                            className="itemsDropdownBanco"
-                                                                        >
-                                                                            Av villas
-                                                                        </Dropdown.Item>
-
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
+                                                                <Autocomplete
+                                                                    id="combo-box-demo"
+                                                                    options={bancos}
+                                                                    getOptionLabel={(option) => option.nombre}
+                                                                    style={{ width: 230 }}
+                                                                    disableClearable // Desactiva el icono de la "x"
+                                                                    disableListWrap // Desactiva la capacidad de buscar en el input
+                                                                    renderInput={(params) =>
+                                                                        <TextField
+                                                                            {...params}
+                                                                            label={form.entidadbancaria ? "" : "Entidad bancaria"} // Condición para la etiqueta
+                                                                            InputLabelProps={{
+                                                                                shrink: false, // Evita que la etiqueta se encoja
+                                                                                sx: {
+                                                                                    fontSize: 18, // Tamaño de la letra
+                                                                                    fontWeight: 500, // Peso de la fuente
+                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
+                                                                                    color: '#2D2E83', // Color de letra
+                                                                                    textAlign: 'right' // Alineación del texto
+                                                                                }
+                                                                            }}
+                                                                            inputProps={{
+                                                                                ...params.inputProps, // Asegúrate de pasar esto
+                                                                                sx: {
+                                                                                    fontSize: 16, // Tamaño de la letra
+                                                                                    fontWeight: 500, // Peso de la fuente
+                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
+                                                                                    color: '#2D2E83', // Color de letra
+                                                                                    textAlign: 'right' // Alineación del texto
+                                                                                }
+                                                                            }}
+                                                                            sx={{
+                                                                                '& fieldset': {
+                                                                                    border: 'none',
+                                                                                },
+                                                                                '&:hover fieldset': {
+                                                                                    borderColor: 'transparent',
+                                                                                },
+                                                                                '&.Mui-focused fieldset': {
+                                                                                    borderColor: 'transparent',
+                                                                                },
+                                                                                '& .MuiOutlinedInput-input': {
+                                                                                    padding: '0',
+                                                                                },
+                                                                            }}
+                                                                        />
+                                                                    }
+                                                                    onInputChange={(event, newValue) => {
+                                                                        setForm({
+                                                                            ...form,
+                                                                            entidadbancaria: bancos.find(banco => banco.nombre === newValue)?.codigo,
+                                                                        });
+                                                                    }}
+                                                                    popupIcon={<MdExpandMore style={{ fontSize: '20px', color: '#2D2E83', display: 'flex', alignItems: 'center' }} />} // Icono personalizado
+                                                                    renderOption={(props, option, { selected }) => (
+                                                                        <li {...props} style={optionStyles}>
+                                                                            {option.nombre}
+                                                                        </li>
+                                                                    )}
+                                                                />
                                                             </div>
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Numero de cuenta</p>
-                                                            <p>123456789098</p>
+                                                            <input
+                                                                autoComplete="off"
+                                                                name="numerodecuenta"
+                                                                placeholder="Número de cuenta"
+                                                                type="text"
+                                                                value={form.numerodecuenta}
+                                                                onChange={handleChangeRetiro}
+                                                                onKeyPress={(event) => {
+                                                                    if (!/[0-9]/.test(event.key)) {
+                                                                        event.preventDefault();
+                                                                    }
+                                                                }}
+                                                            />
                                                         </div>
                                                     </div>
                                                 ) : (
@@ -263,7 +547,7 @@ export default function RetiroDinero() {
                                             </div>
 
                                             <div className="SendSolicitudb">
-                                                <button onClick={handleOpenDialog}>Enviar solicitud</button>
+                                                <button onClick={hacerPeticionRetiro}>Enviar solicitud</button>
                                             </div>
                                         </div>
                                     }
@@ -304,6 +588,13 @@ export default function RetiroDinero() {
                                         </div>
                                     </DialogActions>
                                 </Dialog>
+                                <ModalMensajes
+                                    shown={showModal}
+                                    close={handleModalClose}
+                                    titulo={tituloMensajes}
+                                    mensaje={textoMensajes}
+                                    tipo="error"
+                                />
                             </div>
                         </div>
                     </div>

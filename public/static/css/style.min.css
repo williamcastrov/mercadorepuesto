@@ -36438,8 +36438,7 @@ label {
     color: #2D2E83;
     background-color: #f0f1f5;
     display: flex; 
-    text-align: end;
-    cursor: pointer;
+    text-align: end; 
 }
 
 .SendSolicitudb {
