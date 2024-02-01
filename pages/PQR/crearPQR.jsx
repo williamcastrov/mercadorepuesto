@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton } from "@mui/material";
+import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton  } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
@@ -267,44 +267,8 @@ export default function crearPQR() {
                                                         <input type="text" name="" id="" />
                                                     </div>
                                                     <div>
-                                                        <div>
-                                                            <ThemeProvider theme={themeTres}>
-                                                                <FormControl sx={{ m: 1, minWidth: 120, backgroundColor: '#f0f1f5', borderRadius: '10px' }}>
-                                                                    <Autocomplete
-                                                                        disableClearable // Desactiva el icono de la "x"
-                                                                        options={tiposIdentificacion}
-                                                                        getOptionLabel={(option) => option.descripcion}
-                                                                        renderInput={(params) =>
-                                                                            <TextField
-                                                                                {...params}
-                                                                                label={params.inputProps.value ? '' : 'Seleccione Tipo de Documento'}
-                                                                                InputLabelProps={{ shrink: params.inputProps.value ? true : false }}
-                                                                                InputProps={{
-                                                                                    ...params.InputProps,
-                                                                                    endAdornment: (
-                                                                                        <InputAdornment position="end">
-                                                                                            <IconButton sx={{ color: '#2D2E83', fontSize: '20px', marginRight: '-15px' }}>
-                                                                                                <RiArrowDropDownFill style={{ marginRight: '-15px' }} />
-                                                                                            </IconButton>
-                                                                                            {params.InputProps.endAdornment}
-                                                                                        </InputAdornment>
-                                                                                    ),
-                                                                                }}
-                                                                                sx={{
-                                                                                    backgroundColor: '#f0f1f5',
-                                                                                    borderRadius: '10px',
-                                                                                }}
-                                                                            />
-                                                                        }
-                                                                        onChange={(event, newValue) => {
-                                                                            setForm({ ...form, tipoidentificacion: newValue ? newValue.id : '' });
-                                                                        }}
-                                                                        clearIcon={null}
-                                                                        popupIcon={null}
-                                                                    />
-                                                                </FormControl>
-                                                            </ThemeProvider>
-                                                        </div>
+                                                        <p>Tipo de documento</p>
+                                                        <input type="text" name="" id="" />
                                                     </div>
                                                     <div>
                                                         <p>Correo electrónico</p>
@@ -395,7 +359,42 @@ export default function crearPQR() {
 
 
                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-
+                                        <ThemeProvider theme={themeTres}>
+                                            <FormControl sx={{ m: 1, minWidth: 120, backgroundColor: '#f0f1f5', borderRadius: '10px' }}>
+                                                <Autocomplete
+                                                    disableClearable // Desactiva el icono de la "x"
+                                                    options={tiposIdentificacion}
+                                                    getOptionLabel={(option) => option.descripcion}
+                                                    renderInput={(params) =>
+                                                        <TextField
+                                                            {...params}
+                                                            label={params.inputProps.value ? '' : 'Seleccione Tipo de Documento'}
+                                                            InputLabelProps={{ shrink: params.inputProps.value ? true : false }}
+                                                            InputProps={{
+                                                                ...params.InputProps,
+                                                                endAdornment: (
+                                                                    <InputAdornment position="end">
+                                                                        <IconButton sx={{ color: '#2D2E83', fontSize: '20px', marginRight:'-15px' }}>
+                                                                            <RiArrowDropDownFill style={{marginRight:'-15px'}} />
+                                                                        </IconButton>
+                                                                        {params.InputProps.endAdornment}
+                                                                    </InputAdornment>
+                                                                ),
+                                                            }}
+                                                            sx={{
+                                                                backgroundColor: '#f0f1f5',
+                                                                borderRadius: '10px',
+                                                            }}
+                                                        />
+                                                    }
+                                                    onChange={(event, newValue) => {
+                                                        setForm({ ...form, tipoidentificacion: newValue ? newValue.id : '' });
+                                                    }}
+                                                    clearIcon={null}
+                                                    popupIcon={null}
+                                                />
+                                            </FormControl>
+                                        </ThemeProvider>
                                         <TextField name="identificacion" placeholder="Identificación" onChange={handleChange} />
                                         <TextField name="email" placeholder="Correo Electrónico" onChange={handleChange} />
                                         <TextField name="telefono" placeholder="Teléfono" onChange={handleChange} />
