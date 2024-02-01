@@ -36440,6 +36440,9 @@ label {
     display: flex; 
     text-align: end; 
 }
+.DataMiddleContMovimientos input::placeholder {
+    color: rgba(45, 46, 131, 0.8); /* #2D2E83 con 50% de opacidad */
+}
 
 .SendSolicitudb {
     display: flex;

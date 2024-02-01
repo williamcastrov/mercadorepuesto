@@ -196,6 +196,14 @@ export default function RetiroDinero() {
             }
         }
 
+        // Verificamos si el número de identificación y el número de cuenta tienen al menos 6 caracteres
+        if (form.identificacion.length < 6 || form.numerodecuenta.length < 6) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('El número de identificación y el número de cuenta deben tener al menos 6 caracteres.');
+            setShowModal(true);
+            return; // Salimos de la función para no enviar la petición
+        }
+
         // Verificamos si el valor de la transferencia es 0 o comienza con 0
         const valorTransferencia = parseInt(form.valortransferencia.replace(/,/g, ''));
         if (valorTransferencia <= 0 || form.valortransferencia.startsWith('0')) {
@@ -261,7 +269,7 @@ export default function RetiroDinero() {
                 padding: '0',
             },
         },
-    }; 
+    };
 
     const optionStyles = {
         fontSize: 14,
@@ -485,6 +493,7 @@ export default function RetiroDinero() {
                                                                 name="numerodecuenta"
                                                                 placeholder="Número de cuenta"
                                                                 type="text"
+                                                                maxLength={16}
                                                                 value={form.numerodecuenta}
                                                                 onChange={handleChangeRetiro}
                                                                 onKeyPress={(event) => {
