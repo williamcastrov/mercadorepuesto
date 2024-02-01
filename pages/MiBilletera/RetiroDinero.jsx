@@ -22,12 +22,15 @@ export default function RetiroDinero() {
     const [selectedSortOption, setSelectedSortOption] = useState(null);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [mostrarContenedor, setMostrarContenedor] = useState(false);
-
-
-
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
     const [showModal, setShowModal] = useState(false); //Estado de modal
+    // Estado de cuenta
+    const [estadoCuenta, setEstadoCuenta] = useState(null);
+    const [datosUsuario, setDatosUsuario] = useState(null);
+    const [bancos, setBancos] = useState([]);
+    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
@@ -47,15 +50,8 @@ export default function RetiroDinero() {
         });
     }, []);
 
-    const [saldo, setSaldo] = useState(1929500);
 
-
-    const handleChange = (event) => {
-        // Remueve los puntos antes de cambiar el estado
-        const valorSinPuntos = event.target.value.replace(/\./g, '');
-        setSaldo(valorSinPuntos);
-    };
-
+    //Botón de siguiente verificando el numero y el dinero del usuario
     const handleClick = () => {
         // Verificamos si el valor de la transferencia es mayor que 0 y no comienza con 0
         const valorTransferencia = parseInt(form.valortransferencia.replace(/,/g, ''));
@@ -66,15 +62,19 @@ export default function RetiroDinero() {
             return; // Salimos de la función para no abrir el siguiente contenedor
         }
 
+        // Verificamos si el valor de la transferencia es mayor que el saldo final
+        if (valorTransferencia > estadoCuenta.saldofinal) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('El valor de la transferencia no puede ser mayor al saldo de tu cuenta!');
+            setShowModal(true);
+            return; // Salimos de la función para no abrir el siguiente contenedor
+        }
+
         // Si todo está bien, abrimos el siguiente contenedor
         setMostrarContenedor(true);
     };
 
-
-
-    // Estado de cuenta
-    const [estadoCuenta, setEstadoCuenta] = useState(null);
-
+    //Petición para ver estado de cuenta del usuario con su uid
     useEffect(() => {
         const EstadoCuentaUsuario = async () => {
             try {
@@ -88,38 +88,7 @@ export default function RetiroDinero() {
         EstadoCuentaUsuario();
     }, [datosusuarios]);
 
-    const [saldofinal, setSaldofinal] = useState(estadoCuenta ? estadoCuenta.saldofinal : 0);
-
-
-
-
-    const handleSelect = (eventKey) => {
-        // Actualiza el estado para almacenar la opción seleccionada
-        setSelectedSortOption(eventKey);
-
-        // Ordena los productos según la opción seleccionada
-        if (eventKey === "Más antiguo") {
-            setCompras([...compras].sort((a, b) => new Date(a.fechacompra) - new Date(b.fechacompra)));
-        } else if (eventKey === "Más reciente") {
-            setCompras([...compras].sort((a, b) => new Date(b.fechacompra) - new Date(a.fechacompra)));
-        }
-    };
-
-    const CustomDropdownButton = React.forwardRef(({ children, onClick }, ref) => (
-        <button
-            ref={ref}
-            onClick={onClick}
-            className="dropdownBanco"
-        >
-            {selectedSortOption ? `${selectedSortOption}` : "Seleccionar banco"}
-        </button>
-    ));
-    //Obtener datos de mis compras
-
-
-    const [datosUsuario, setDatosUsuario] = useState(null);
-
-
+    //Petición para obtener datos de usuario loggeado
     useEffect(() => {
         const datosDeusuario = async () => {
             let params = {
@@ -141,35 +110,18 @@ export default function RetiroDinero() {
         datosDeusuario();
     }, [datosusuarios]);
 
-    const nombreCompleto = datosUsuario
-        ? `${datosUsuario.primernombre} ${datosUsuario.segundonombre} ${datosUsuario.primerapellido || datosUsuario.segundoapellido}`
-        : "";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //Params a envíar al endPoint
     const [form, setForm] = useState({
         nombretitular: '',
         tipoidentificacion: '',
         identificacion: '',
         entidadbancaria: '',
         numerodecuenta: '',
-        valortransferencia: '0', // Inicializamos con '0'
+        valortransferencia: '0',
     });
 
-    const [bancos, setBancos] = useState([]);
-
+    //función para obtener bancos
     useEffect(() => {
         const obtenerBancos = async () => {
             try {
@@ -189,8 +141,8 @@ export default function RetiroDinero() {
         obtenerBancos();
     }, []);
 
-    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
 
+    //función para obtener tipos de identificación
     useEffect(() => {
         const obtenerTiposIdentificacion = async () => {
             try {
@@ -210,10 +162,12 @@ export default function RetiroDinero() {
         obtenerTiposIdentificacion();
     }, []);
 
+    //función para ponerle "," a valor
     const formatNumber = (num) => {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     };
 
+    //Función para eliminar "," a la hora de envíar
     const handleChangeValorTransferencia = (event) => {
         const value = event.target.value.replace(/[^0-9]/g, "");
         setForm({
@@ -222,6 +176,7 @@ export default function RetiroDinero() {
         });
     };
 
+    //Función para handles de form para hacer retiro
     const handleChangeRetiro = (event) => {
         setForm({
             ...form,
@@ -229,6 +184,7 @@ export default function RetiroDinero() {
         });
     };
 
+    //petición para hacer el retiro del usuario
     const hacerPeticionRetiro = async () => {
         // Verificamos si algún campo está vacío
         for (let campo in form) {
@@ -281,6 +237,8 @@ export default function RetiroDinero() {
 
 
 
+    //Estilos a arreglar
+
     const textFieldStyles = {
         '& .MuiOutlinedInput-root': {
             fontSize: '18px', // Tamaño de fuente de 18px
@@ -303,9 +261,7 @@ export default function RetiroDinero() {
                 padding: '0',
             },
         },
-    };
-
-
+    }; 
 
     const optionStyles = {
         fontSize: 14,
