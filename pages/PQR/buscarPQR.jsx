@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Breadcrumbs, Grid, TextField, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
@@ -29,7 +29,33 @@ export default function buscarPQR() {
     }, []);
 
 
+    const [datosusuarios, setDatosUsuarios] = useState([]);
+    const [id, setId] = useState('');
+    const [identificacion, setIdentificacion] = useState('');
 
+    useEffect(() => {
+        const obtenerDatos = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}152`,
+                });
+                setDatosUsuarios(res.data.listarpqr);
+            } catch (error) {
+                console.error("Error al leer las transacciones del vendedor", error);
+            }
+        };
+        obtenerDatos();
+    }, []);
+
+    const buscarPQR = () => {
+        const pqrEncontrado = datosusuarios.find(pqr => pqr.id.toString() === id && pqr.identificacion === identificacion);
+        if (pqrEncontrado) {
+            router.push(`./verPQR?id=${pqrEncontrado.id}`);
+        } else {
+            alert('No se encontró un PQR para esa combinación de números.');
+        }
+    };
 
     return (
         <>
@@ -41,7 +67,7 @@ export default function buscarPQR() {
                             <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
                                     <div className="TopBuscarPQR">
-                                        <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9'  }} size={17} />} aria-label="breadcrumb">
+                                        <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
                                                 className="linkMisv"
                                                 underline="none"
@@ -62,6 +88,7 @@ export default function buscarPQR() {
                                             <div>
                                                 <p>Número de identificación</p>
                                                 <input type="text" />
+                                                 
                                             </div>
 
                                             <div>
@@ -71,8 +98,14 @@ export default function buscarPQR() {
                                         </div>
 
                                         <div className="sendBuscarPQR">
-                                            <button>Buscar</button>
+                                            <button >Buscar</button>
                                         </div>
+                                    </div>
+
+                                    <div>
+                                        <TextField label="ID" value={id} onChange={e => setId(e.target.value)} />
+                                        <TextField label="Identificación" value={identificacion} onChange={e => setIdentificacion(e.target.value)} />
+                                        <button onClick={buscarPQR}>Buscar</button>
                                     </div>
 
                                 </Grid>

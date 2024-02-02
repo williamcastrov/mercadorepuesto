@@ -25,125 +25,169 @@ export default function verPQR() {
     const irA = useRef(null); //PosiciónTopPage
 
     useEffect(() => {
-        irA.current.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-        });
+        if (irA.current) {
+            irA.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    }, []);
+    const { id } = router.query;
+    const [pqr, setPQR] = useState(null);
+
+    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+
+    useEffect(() => {
+        const obtenerTiposIdentificacion = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}7`,
+                });
+                if (Array.isArray(res.data.tipoidentificacion)) {
+                    setTiposIdentificacion(res.data.tipoidentificacion);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.tipoidentificacion);
+                }
+            } catch (error) {
+                console.error("Error al obtener los tipos de identificación", error);
+            }
+        };
+        obtenerTiposIdentificacion();
     }, []);
 
+    useEffect(() => {
+        const obtenerPQR = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}152`,
+                });
+                const pqrEncontrado = res.data.listarpqr.find(pqr => pqr.id.toString() === id);
+                setPQR(pqrEncontrado);
+            } catch (error) {
+                console.error("Error al leer el PQR", error);
+            }
+        };
+        if (id) {
+            obtenerPQR();
+        }
+    }, [id]);
 
 
 
     return (
         <>
-            <div ref={irA}>
-                <Container title="Mi Cuenta">
-                    <div className="ps-page ps-page--inner" id="myaccount">
-                        <div className="container">
-                            <div className="ps-page__header"> </div>
-                            <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
-                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
-                                    <div className="TopAyudaPQR">
-                                        <p>Solicitud #1234567</p>
-                                        <p>Información de la solicitud</p>
-                                    </div>
+            {pqr && (
+                <div ref={irA}>
+                    <Container title="Mi Cuenta">
+                        <div className="ps-page ps-page--inner" id="myaccount">
+                            <div className="container">
+                                <div className="ps-page__header"> </div>
+                                <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
+                                    <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
+                                        <div className="TopAyudaPQR">
+                                            <p>Solicitud #{pqr.id}</p>
+                                            <p>Información de la solicitud</p>
+                                        </div>
 
-                                    <div className="mainContVerPQR">
+                                        <div className="mainContVerPQR">
 
-                                        <div className="SubMainContVerPQR">
-                                            <div className="DatePQR">
-                                                <p>Fecha solicitud</p>
-                                                <p>12-11-2024</p>
+                                            <div className="SubMainContVerPQR">
+                                                <div className="DatePQR">
+                                                    <p>Fecha solicitud</p>
+                                                    <p>{pqr.fechacreacion.slice(0, 10)}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Nombres</p>
+                                                    <p>{pqr.nombres}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Apellidos</p>
+                                                    <p>{pqr.apellidos}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Tipo de documento</p>
+                                                    <p>{tiposIdentificacion.find(tipo => tipo.id === pqr.tipoidentificacion)?.descripcion}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Número de documento</p>
+                                                    <p>{pqr.identificacion}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Correo electronico</p>
+                                                    <p>{pqr.email}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Numero de contacto</p>
+                                                    <p>{pqr.telefono}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Ciudad</p>
+                                                    <p>{pqr.ciudad}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Dirección</p>
+                                                    <p>{pqr.direccion}</p>
+                                                </div>
+
+                                                <div>
+                                                    <p>Barrio</p>
+                                                    <p>{pqr.barrio}</p>
+                                                </div>
+
+                                                <div className="MotivoPQR">
+                                                    <p>Motivo: {pqr.motivo}</p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <p>Nombres</p>
-                                                <p>Juan Pablo</p>
+                                            <div className="AsuntoDescrpPQR">
+                                                <p>Asunto: {pqr.asunto}</p>
+                                                <p>Descripción: {pqr.descripcion}</p>
                                             </div>
 
-                                            <div>
-                                                <p>Apellidos</p>
-                                                <p>Juan Pablo</p>
+                                            <div className="docsPQR">
+                                                <div>
+                                                    <p>Archivos adjuntos</p>
+                                                </div>
+
+                                                <div>
+                                                    <div><HiOutlineDocumentArrowDown /></div>
+                                                    <div><HiOutlineDocumentArrowDown /></div>
+                                                    <div><HiOutlineDocumentArrowDown /></div>
+                                                </div>
+
+                                                <div className="SolicituState">
+                                                    <p>Estado de la solicitud: {pqr.estado}</p>
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <p>Tipo de documento</p>
-                                                <p>Juan Pablo</p>
+                                            <div className="descrRespuesta">
+                                                <p>Tu solicitud fue enviada y tienen un tiempo aproximado de respuesta de XX día habiles</p>
                                             </div>
 
-                                            <div>
-                                                <p>Número de documento</p>
-                                                <p>Juan Pablo</p>
-                                            </div>
-
-                                            <div>
-                                                <p>Correo electronico</p>
-                                                <p>Juan Pablo</p>
-                                            </div>
-
-                                            <div>
-                                                <p>Numero de contacto</p>
-                                                <p>Juan Pablo</p>
-                                            </div>
-
-                                            <div>
-                                                <p>Ciudad</p>
-                                                <p>Juan Pablo</p>
-                                            </div>
-
-                                            <div>
-                                                <p>Dirección</p>
-                                                <p>Juan Pablo</p>
-                                            </div>
-
-                                            <div>
-                                                <p>Barrio</p>
-                                                <p>Barrio</p>
-                                            </div>
-
-                                            <div className="MotivoPQR">
-                                                <p>Motivo: Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                            <div className="DownloadRespuesta">
+                                                <p>Descargar respuesta</p>
+                                                <MdOutlineDownloadForOffline />
                                             </div>
                                         </div>
 
-                                        <div className="AsuntoDescrpPQR">
-                                            <p>Asunto: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea iure recusandae, deserunt aut id mag</p>
-                                            <p>Descripción: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint atque accusantium ipsam maxime! Perferendis aliquam libero numquam dolore quibusdam. Illum ducimus doloremque quae aliquid tenetur omnis culpa. Eligendi, ullam provident! Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum rem libero eius numquam non id, voluptas aperiam cum labore nostrum possimus, est earum recusandae ratione quae. Sit expedita earum modi.</p>
-                                        </div>
+                                    </Grid>
 
-                                        <div className="docsPQR">
-                                            <div>
-                                                <p>Archivos adjuntos</p>
-                                            </div>
-
-                                            <div>
-                                                <div><HiOutlineDocumentArrowDown /></div>
-                                                <div><HiOutlineDocumentArrowDown /></div>
-                                                <div><HiOutlineDocumentArrowDown /></div>
-                                            </div>
-
-                                            <div className="SolicituState">
-                                                <p>Estado de la solicitud: XXXXXXX</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="descrRespuesta">
-                                            <p>Tu solicitud fue enviada y tienen un tiempo aproximado de respuesta de XX día habiles</p>
-                                        </div>
-
-                                        <div className="DownloadRespuesta">
-                                            <p>Descargar respuesta</p>
-                                            <MdOutlineDownloadForOffline />
-                                        </div>
-                                    </div>
-
-                                </Grid>
-
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Container>
-            </div>
+                    </Container>
+                </div>
+            )}
         </>
     );
 }

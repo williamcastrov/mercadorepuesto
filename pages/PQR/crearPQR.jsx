@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton } from "@mui/material";
+import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
@@ -20,7 +20,7 @@ import { Dropdown } from 'react-bootstrap';
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { FaCheck } from 'react-icons/fa'; // Importa el icono de verificación de 'react-icons'
-
+import { FaCheckCircle } from "react-icons/fa";
 
 
 
@@ -47,6 +47,12 @@ export default function crearPQR() {
     const [showModal, setShowModal] = useState(false); //Estado de modal
     const [tituloMensajes, setTituloMensajes] = useState("");
     const [textoMensajes, setTextoMensajes] = useState("");
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [numeroPeticion, setNumeroPeticion] = useState(null);
+    //abrir dialog de confirmación
+    const handleOpenDialog = () => {
+        setDialogOpen(true);
+    };
 
     //Verifica los datos antes de pasar a siguiente
     const verificarDatos = () => {
@@ -208,13 +214,16 @@ export default function crearPQR() {
     const hacerPeticion = async (e) => {
         e.preventDefault(); // Previene la recarga de la página
 
+        // Verifica que los datos estén correctos antes de proceder
         if (!verificarDatos() || !verificarAsuntoDescripcion()) return;
+
         // Verifica que todas las imágenes se hayan cargado
         if (!imagen) {
-            alert("Por favor, carga la imagen antes de enviar.");
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('Por favor, carga la imagen antes de enviar.');
+            setShowModal(true);
             return; // Detiene la ejecución de la función
         }
-
 
         const formData = new FormData();
         formData.append("nombres", form.nombres);
@@ -234,10 +243,9 @@ export default function crearPQR() {
         formData.append("imagen1", imagen.image);
         formData.append("numeroimagenes", 1);
 
-
         // Muestra los nombres de las imágenes en la consola
-        console.log("Nombre imagen 1:", nombreImagen);
-        // Aquí va el resto de tu código para hacer la petición
+        console.log("Nombre imagen 1:", imagen.nombreImagen);
+
         try {
             const res = await axios({
                 method: "post",
@@ -246,6 +254,14 @@ export default function crearPQR() {
             });
             console.log("Datos enviados:", formData);
             console.log("Respuesta del servidor:", res.data);
+
+            // Obtén el número total de PQRs existentes después de enviar la nueva petición
+            const resPQRs = await axios.post(`${URL_BD_MR}152`);
+            const numeroPeticion = resPQRs.data.listarpqr.length;
+            setNumeroPeticion(resPQRs.data.listarpqr.length);  // Actualiza numeroPeticion
+
+
+            handleOpenDialog();
         } catch (error) {
             console.error("Error al hacer la petición", error);
         }
@@ -327,7 +343,7 @@ export default function crearPQR() {
                         <div className="container">
                             <div className="ps-page__header"> </div>
                             <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
-                                <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
+                                <div className="contMainOpiniones" style={{ width: "80%", display: 'flex', flexDirection: 'column' }}>
                                     <div className="TopBuscarPQR">
                                         <Breadcrumbs separator={<GrNext style={{ color: '#D9D9D9' }} size={17} />} aria-label="breadcrumb">
                                             <Link
@@ -463,13 +479,13 @@ export default function crearPQR() {
                                                             type="text"
                                                             name="telefono"
                                                             onChange={handleChange}
-                                                            maxLength={10} 
+                                                            maxLength={10}
                                                             onKeyPress={(event) => {
                                                                 if (!/[0-9]/.test(event.key)) {
                                                                     event.preventDefault();
                                                                 }
                                                             }}
-                                                            />
+                                                        />
                                                     </div>
                                                     <div>
                                                         <p>Dirección</p>
@@ -610,7 +626,37 @@ export default function crearPQR() {
                                             </div>
                                         </Grid>
                                     )}
-                                </Grid>
+                                </div>
+
+                                <Dialog
+                                    className='dialogDatsGuardados'
+                                    open={dialogOpen}
+                                    disableScrollLock={true}
+                                    PaperProps={{
+                                        style: {
+                                            width: isMdDown ? '80%' : '35%',
+                                            backgroundColor: 'white',
+                                            border: '2px solid gray',
+                                            padding: '1.4rem',
+                                            borderRadius: '10px'
+                                        },
+                                    }}
+                                >
+                                    <DialogTitle className='dialogtitleDtsGUardados' >
+                                        <FaCheckCircle size={37} style={{ color: '#10c045', marginLeft: '-17px', marginRight: '8px' }} />
+                                        <p className='dialogtituloP'>¡Solicitud enviada con exito!</p>
+                                    </DialogTitle>
+                                    <DialogContent className='dialogContentDatsGuardados'>
+                                        <p className='PdialogContent'>Tu solicitud fue enviada con exito. Esta será revisada y procesada por nosotros, en un máximo de 15 días habiles te estaremos dando repuesta. <br /><br /> Número de petición: #{numeroPeticion}</p>
+                                    </DialogContent>
+                                    <DialogActions className='DialogActionsDatsGuardados'>
+                                        <div className='div1buttonDialog' >
+                                            <button className='button1DialogDatsGuardados' onClick={() => router.push({ pathname: '/' })} >
+                                                Ir al inicio
+                                            </button>
+                                        </div>
+                                    </DialogActions>
+                                </Dialog>
                                 <ModalMensajes
                                     shown={showModal}
                                     close={handleModalClose}
