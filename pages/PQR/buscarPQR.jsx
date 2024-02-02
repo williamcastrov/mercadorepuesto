@@ -1,16 +1,12 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Breadcrumbs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 import ModalMensajes from "../mensajes/ModalMensajes";
-import shortid from "shortid";
 import Link from '@mui/material/Link';
 import { GrNext } from "react-icons/gr";
 import { useRouter } from "next/router";
-import { TbSearch } from "react-icons/tb";
-import { IoAddCircleOutline } from "react-icons/io5";
 
 
 
@@ -20,6 +16,17 @@ export default function buscarPQR() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage
+    const [showModal, setShowModal] = useState(false); //Estado de modal
+    const [tituloMensajes, setTituloMensajes] = useState("");
+    const [textoMensajes, setTextoMensajes] = useState("");
+    const [datosusuarios, setDatosUsuarios] = useState([]);
+    const [id, setId] = useState('');
+    const [identificacion, setIdentificacion] = useState('');
+
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -29,10 +36,7 @@ export default function buscarPQR() {
     }, []);
 
 
-    const [datosusuarios, setDatosUsuarios] = useState([]);
-    const [id, setId] = useState('');
-    const [identificacion, setIdentificacion] = useState('');
-
+    //función para obtener datos de usuarios de PQR
     useEffect(() => {
         const obtenerDatos = async () => {
             try {
@@ -48,12 +52,22 @@ export default function buscarPQR() {
         obtenerDatos();
     }, []);
 
+
+    //Función para buscar pqr y verificar si hay algún campo vacio
     const buscarPQR = () => {
-        const pqrEncontrado = datosusuarios.find(pqr => pqr.id.toString() === id && pqr.identificacion === identificacion);
-        if (pqrEncontrado) {
-            router.push(`./verPQR?id=${pqrEncontrado.id}`);
+        if (id && identificacion) {
+            const pqrEncontrado = datosusuarios.find(pqr => pqr.id.toString() === id && pqr.identificacion === identificacion);
+            if (pqrEncontrado) {
+                router.push(`./verPQR?id=${pqrEncontrado.id}`);
+            } else {
+                setTituloMensajes('¡Cuidado!');
+                setTextoMensajes('No se encontró un PQR para esa combinación de datos.');
+                setShowModal(true);
+            }
         } else {
-            alert('No se encontró un PQR para esa combinación de números.');
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('Debes llenar todos los campos para buscar.');
+            setShowModal(true);
         }
     };
 
@@ -87,29 +101,36 @@ export default function buscarPQR() {
                                         <div className="inputsPQR">
                                             <div>
                                                 <p>Número de identificación</p>
-                                                <input type="text" />
-                                                 
+                                                <input type="text" value={identificacion} onChange={e => setIdentificacion(e.target.value)} onKeyPress={(event) => {
+                                                    if (!/[0-9]/.test(event.key)) {
+                                                        event.preventDefault();
+                                                    }
+                                                }} />
+
                                             </div>
 
                                             <div>
                                                 <p>Número de solicitud</p>
-                                                <input type="text" />
+                                                <input type="text" value={id} onChange={e => setId(e.target.value)} onKeyPress={(event) => {
+                                                    if (!/[0-9]/.test(event.key)) {
+                                                        event.preventDefault();
+                                                    }
+                                                }} />
                                             </div>
                                         </div>
 
                                         <div className="sendBuscarPQR">
-                                            <button >Buscar</button>
+                                            <button onClick={buscarPQR}>Buscar</button>
                                         </div>
                                     </div>
-
-                                    <div>
-                                        <TextField label="ID" value={id} onChange={e => setId(e.target.value)} />
-                                        <TextField label="Identificación" value={identificacion} onChange={e => setIdentificacion(e.target.value)} />
-                                        <button onClick={buscarPQR}>Buscar</button>
-                                    </div>
-
                                 </Grid>
-
+                                <ModalMensajes
+                                    shown={showModal}
+                                    close={handleModalClose}
+                                    titulo={tituloMensajes}
+                                    mensaje={textoMensajes}
+                                    tipo="error"
+                                />
                             </div>
                         </div>
                     </div>

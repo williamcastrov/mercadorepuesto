@@ -15,6 +15,7 @@ import { HiOutlineDocumentPlus } from "react-icons/hi2";
 import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 
+import { useDispatch, useSelector } from "react-redux";
 
 
 export default function verPQR() {
@@ -23,6 +24,8 @@ export default function verPQR() {
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage
+    const ciudades = useSelector((state) => state.datosgenerales.datosgenerales.vgl_ciudades);
+
 
     useEffect(() => {
         if (irA.current) {
@@ -55,6 +58,13 @@ export default function verPQR() {
         };
         obtenerTiposIdentificacion();
     }, []);
+
+ 
+
+    useEffect(() => {
+        console.log(ciudades);
+    }, [ciudades]);
+
 
     useEffect(() => {
         const obtenerPQR = async () => {
@@ -131,7 +141,7 @@ export default function verPQR() {
 
                                                 <div>
                                                     <p>Ciudad</p>
-                                                    <p>{pqr.ciudad}</p>
+                                                    <p>{ciudades && ciudades.find(ciudad => ciudad.id_ciu === pqr.ciudad)?.nombre_ciu}</p>
                                                 </div>
 
                                                 <div>
