@@ -30,11 +30,45 @@ export default function RetiroDinero() {
     const [datosUsuario, setDatosUsuario] = useState(null);
     const [bancos, setBancos] = useState([]);
     const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
-
+    const [tipoIdentificacion, setTipoIdentificacion] = useState(""); // Agrega esta línea
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
     };
+    const [selectedTipoIdentificacion, setSelectedTipoIdentificacion] = useState("tipo de identificación");
+    const handleSelectTipoIdentificacion = (value, nombre) => {
+        setSelectedTipoIdentificacion(nombre);
+        setForm({ ...form, tipoidentificacion: value });
+    };
+
+    useEffect(() => {
+        const obtenerTiposIdentificacion = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}7`,
+                });
+                if (Array.isArray(res.data.tipoidentificacion)) {
+                    setTipoIdentificacion(res.data.tipoidentificacion);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.tipoidentificacion);
+                }
+            } catch (error) {
+                console.error("Error al obtener los tipos de identificación", error);
+            }
+        };
+        obtenerTiposIdentificacion();
+    }, []);
+
+
+    const [selectedEntidadBancaria, setSelectedEntidadBancaria] = useState("Seleccione banco");
+
+    const handleSelectEntidadBancaria = (value, nombre) => {
+        setSelectedEntidadBancaria(nombre);
+        setForm({ ...form, entidadbancaria: value });
+    };
+
+
 
 
 
@@ -49,6 +83,37 @@ export default function RetiroDinero() {
             block: "start",
         });
     }, []);
+
+
+
+
+    const CustomDropdownButton = React.forwardRef(({ children, onClick, href }, ref) => (
+        <button
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+            href={href}
+            className="DropDownTipoDocumentoBanco"
+        >
+            {children}
+        </button>
+    ));
+
+    const CustomDropdownButtonBanco = React.forwardRef(({ children, onClick, href }, ref) => (
+        <button
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+            href={href}
+            className="DropDownTipoDocumentoBanco"
+        >
+            {children}
+        </button>
+    ));
 
 
     //Botón de siguiente verificando el numero y el dinero del usuario
@@ -341,64 +406,21 @@ export default function RetiroDinero() {
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Tipo de documento del titular de la cuenta</p>
                                                             <div>
-                                                                <Autocomplete
-                                                                    id="combo-box-demo"
-                                                                    options={tiposIdentificacion}
-                                                                    getOptionLabel={(option) => option.descripcion}
-                                                                    style={{ width: 230 }}
-                                                                    disableClearable // Desactiva el icono de la "x"
-                                                                    renderInput={(params) =>
-                                                                        <TextField
-                                                                            {...params}
-                                                                            label={form.tipoidentificacion ? "" : "Tipo de identificación"} // Condición para la etiqueta
-                                                                            InputLabelProps={{
-                                                                                shrink: false, // Evita que la etiqueta se encoja
-                                                                                sx: {
-                                                                                    fontSize: 18, // Tamaño de la letra
-                                                                                    fontWeight: 500, // Peso de la fuente
-                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
-                                                                                    color: '#2D2E83', // Color de letra
-                                                                                    textAlign: 'right' // Alineación del texto
-                                                                                }
-                                                                            }}
-                                                                            inputProps={{
-                                                                                ...params.inputProps, // Asegúrate de pasar esto
-                                                                                sx: {
-                                                                                    fontSize: 16, // Tamaño de la letra
-                                                                                    fontWeight: 500, // Peso de la fuente
-                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
-                                                                                    color: '#2D2E83', // Color de letra
-                                                                                }
-                                                                            }}
-                                                                            sx={{
-                                                                                '& fieldset': {
-                                                                                    border: 'none',
-                                                                                },
-                                                                                '&:hover fieldset': {
-                                                                                    borderColor: 'transparent',
-                                                                                },
-                                                                                '&.Mui-focused fieldset': {
-                                                                                    borderColor: 'transparent',
-                                                                                },
-                                                                                '& .MuiOutlinedInput-input': {
-                                                                                    padding: '0',
-                                                                                },
-                                                                            }}
-                                                                        />
-                                                                    }
-                                                                    onInputChange={(event, newValue) => {
-                                                                        setForm({
-                                                                            ...form,
-                                                                            tipoidentificacion: tiposIdentificacion.find(tipo => tipo.descripcion === newValue)?.id,
-                                                                        });
-                                                                    }}
-                                                                    popupIcon={<MdExpandMore style={{ fontSize: '20px', color: '#2D2E83', display: 'flex', alignItems: 'center' }} />} // Icono personalizado
-                                                                    renderOption={(props, option, { selected }) => (
-                                                                        <li {...props} style={optionStyles}>
-                                                                            {option.descripcion}
-                                                                        </li>
-                                                                    )}
-                                                                />
+                                                                <Dropdown style={{ width: '230px', marginBottom: '2rem' }}>
+                                                                    <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                        {selectedTipoIdentificacion}
+                                                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu className="tamañocajaoDropDownBanco">
+                                                                        {tipoIdentificacion && tipoIdentificacion.map((tipo) => (
+                                                                            <Dropdown.Item
+                                                                                className="itemsdropdownBanco"
+                                                                                onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.descripcion}`)}
+                                                                            >
+                                                                                {`${tipo.descripcion}`}
+                                                                            </Dropdown.Item>
+                                                                        ))}
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
                                                             </div>
                                                         </div>
 
@@ -423,66 +445,21 @@ export default function RetiroDinero() {
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Entidad Bancaria</p>
                                                             <div>
-                                                                <Autocomplete
-                                                                    id="combo-box-demo"
-                                                                    options={bancos}
-                                                                    getOptionLabel={(option) => option.nombre}
-                                                                    style={{ width: 230 }}
-                                                                    disableClearable // Desactiva el icono de la "x"
-                                                                    disableListWrap // Desactiva la capacidad de buscar en el input
-                                                                    renderInput={(params) =>
-                                                                        <TextField
-                                                                            {...params}
-                                                                            label={form.entidadbancaria ? "" : "Entidad bancaria"} // Condición para la etiqueta
-                                                                            InputLabelProps={{
-                                                                                shrink: false, // Evita que la etiqueta se encoja
-                                                                                sx: {
-                                                                                    fontSize: 18, // Tamaño de la letra
-                                                                                    fontWeight: 500, // Peso de la fuente
-                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
-                                                                                    color: '#2D2E83', // Color de letra
-                                                                                    textAlign: 'right' // Alineación del texto
-                                                                                }
-                                                                            }}
-                                                                            inputProps={{
-                                                                                ...params.inputProps, // Asegúrate de pasar esto
-                                                                                sx: {
-                                                                                    fontSize: 16, // Tamaño de la letra
-                                                                                    fontWeight: 500, // Peso de la fuente
-                                                                                    fontFamily: '"Jost", sans-serif', // Fuente
-                                                                                    color: '#2D2E83', // Color de letra
-                                                                                    textAlign: 'right' // Alineación del texto
-                                                                                }
-                                                                            }}
-                                                                            sx={{
-                                                                                '& fieldset': {
-                                                                                    border: 'none',
-                                                                                },
-                                                                                '&:hover fieldset': {
-                                                                                    borderColor: 'transparent',
-                                                                                },
-                                                                                '&.Mui-focused fieldset': {
-                                                                                    borderColor: 'transparent',
-                                                                                },
-                                                                                '& .MuiOutlinedInput-input': {
-                                                                                    padding: '0',
-                                                                                },
-                                                                            }}
-                                                                        />
-                                                                    }
-                                                                    onInputChange={(event, newValue) => {
-                                                                        setForm({
-                                                                            ...form,
-                                                                            entidadbancaria: bancos.find(banco => banco.nombre === newValue)?.codigo,
-                                                                        });
-                                                                    }}
-                                                                    popupIcon={<MdExpandMore style={{ fontSize: '20px', color: '#2D2E83', display: 'flex', alignItems: 'center' }} />} // Icono personalizado
-                                                                    renderOption={(props, option, { selected }) => (
-                                                                        <li {...props} style={optionStyles}>
-                                                                            {option.nombre}
-                                                                        </li>
-                                                                    )}
-                                                                />
+                                                                <Dropdown style={{ width: '230px', marginBottom: '2rem' }}>
+                                                                    <Dropdown.Toggle as={CustomDropdownButtonBanco} id="dropdown-basic">
+                                                                        {selectedEntidadBancaria}
+                                                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu className="tamañocajaoDropDownBanco" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                                                                        {bancos && bancos.map((banco) => (
+                                                                            <Dropdown.Item
+                                                                                className="itemsdropdownBanco"
+                                                                                onClick={() => handleSelectEntidadBancaria(banco.codigo, `${banco.nombre}`)}
+                                                                            >
+                                                                                {`${banco.nombre}`}
+                                                                            </Dropdown.Item>
+                                                                        ))}
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
                                                             </div>
                                                         </div>
 

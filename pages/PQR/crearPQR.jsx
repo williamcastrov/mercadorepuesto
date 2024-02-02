@@ -1,5 +1,5 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton  } from "@mui/material";
+import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
@@ -16,7 +16,7 @@ import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { HiOutlineDocumentArrowUp } from "react-icons/hi2";
 import { MdExpandMore } from 'react-icons/md';
-
+import { Dropdown } from 'react-bootstrap';
 import { RiArrowDropDownFill } from "react-icons/ri";
 
 
@@ -24,12 +24,36 @@ import { RiArrowDropDownFill } from "react-icons/ri";
 
 import { useDispatch, useSelector } from "react-redux";
 export default function crearPQR() {
+
+
+
     const irA = useRef(null); //PosiciónTopPage
     const router = useRouter();//NextRouter
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(true); // Estado para el primer contenedor
+    const [isNextOpen, setIsNextOpen] = useState(false); // Estado para el segundo contenedor
     const [text, setText] = useState('Para nosotros es muy importante tus preguntas, quejas, reclamos o felicitaciones. Para poder gestionarlos de la mejor manera, te invitamos a completar la siguiente información:');
+    const [tipoIdentificacion, setTipoIdentificacion] = useState(""); // Agrega esta línea
+    const [selectedTipoIdentificacion, setSelectedTipoIdentificacion] = useState("Seleccione tipo de identificación");
+    const [selectedCiudad, setSelectedCiudad] = useState("Seleccione la ciudad");
+    const [selectedMotivo, setSelectedMotivo] = useState("Seleccione el motivo");
+    const [imagenes, setImagenes] = useState({ imagen1: null, imagen2: null, imagen3: null });
+    const [nombresImagenes, setNombresImagenes] = useState({ nombreimagen1: "", nombreimagen2: "", nombreimagen3: "" });
+
+    const handleImagen = (e, id) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64 = reader.result;
+            const extension = "." + base64.substring(base64.indexOf("/") + 1, base64.indexOf(";base64"));
+            const nombreImagen = shortid.generate().substring(0, 11) + extension;
+            setImagenes(prevState => ({ ...prevState, [id]: file })); // Guarda el objeto File en lugar de la cadena base64
+            setNombresImagenes(prevState => ({ ...prevState, ["nombre" + id]: nombreImagen }));
+        };
+        reader.readAsDataURL(file);
+    };
+
 
     let ciudades = useSelector(
         (state) => state.datosgenerales.datosgenerales.vgl_ciudades
@@ -57,121 +81,9 @@ export default function crearPQR() {
 
 
 
-
-    const themeDos = createTheme({
-        typography: {
-            fontFamily: '"Jost", sans-serif',
-        },
-        components: {
-            MuiInputBase: {
-                styleOverrides: {
-                    input: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiInputLabel: {
-                styleOverrides: {
-                    root: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiMenuItem: {
-                styleOverrides: {
-                    root: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiOutlinedInput: {
-                styleOverrides: {
-                    root: {
-                        '& fieldset': {
-                            border: 'none',
-                        },
-                        '&:hover fieldset': {
-                            borderColor: 'transparent',
-                        },
-                        '&.Mui-focused fieldset': {
-                            borderColor: 'transparent',
-                        },
-                        '& .MuiOutlinedInput-input': {
-                            padding: '0',
-                        },
-                    },
-                },
-            },
-        },
-    });
-
-    const themeTres = createTheme({
-        typography: {
-            fontFamily: '"Jost", sans-serif',
-        },
-        components: {
-            MuiInputBase: {
-                styleOverrides: {
-                    input: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiInputLabel: {
-                styleOverrides: {
-                    root: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiMenuItem: {
-                styleOverrides: {
-                    root: {
-                        fontSize: 14,
-                        fontWeight: 500,
-                        color: '#2D2E83',
-                        backgroundColor: '#f0f1f5',
-                    },
-                },
-            },
-            MuiOutlinedInput: {
-                styleOverrides: {
-                    root: {
-                        '& fieldset': {
-                            border: 'none',
-                        },
-                        '&:hover fieldset': {
-                            borderColor: 'transparent',
-                        },
-                        '&.Mui-focused fieldset': {
-                            borderColor: 'transparent',
-                        },
-                        '& .MuiOutlinedInput-input': {
-                            padding: '0',
-                        },
-                    },
-                },
-            },
-        },
-    });
-
-
     const [form, setForm] = useState({
+        nombres: "",
+        apellidos: "",
         tipoidentificacion: "",
         identificacion: "",
         email: "",
@@ -185,7 +97,6 @@ export default function crearPQR() {
         estado: 80,
     });
 
-    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -193,16 +104,46 @@ export default function crearPQR() {
 
     const hacerPeticion = async (e) => {
         e.preventDefault(); // Previene la recarga de la página
-        let params = {
-            ...form,
-        };
+
+        // Verifica que todas las imágenes se hayan cargado
+        if (!imagenes.imagen1 || !imagenes.imagen2 || !imagenes.imagen3) {
+            alert("Por favor, carga todas las imágenes antes de enviar.");
+            return; // Detiene la ejecución de la función
+        }
+
+        const formData = new FormData();
+        formData.append("tipoidentificacion", form.tipoidentificacion);
+        formData.append("identificacion", form.identificacion);
+        formData.append("email", form.email);
+        formData.append("telefono", form.telefono);
+        formData.append("ciudad", form.ciudad);
+        formData.append("direccion", form.direccion);
+        formData.append("barrio", form.barrio);
+        formData.append("motivo", form.motivo);
+        formData.append("asunto", form.asunto);
+        formData.append("descripcion", form.descripcion);
+        formData.append("estado", form.estado);
+        formData.append("imagen1", imagenes.imagen1); // Adjunta el objeto File al FormData
+        formData.append("nombreimagen1", nombresImagenes.nombreimagen1);
+        formData.append("imagen2", imagenes.imagen2); // Adjunta el objeto File al FormData
+        formData.append("nombreimagen2", nombresImagenes.nombreimagen2);
+        formData.append("imagen3", imagenes.imagen3); // Adjunta el objeto File al FormData
+        formData.append("nombreimagen3", nombresImagenes.nombreimagen3);
+        formData.append("numeroimagenes", 1); 
+
+
+        // Muestra los nombres de las imágenes en la consola
+        console.log("Nombre imagen 1:", nombresImagenes.nombreimagen1);
+        console.log("Nombre imagen 2:", nombresImagenes.nombreimagen2);
+        console.log("Nombre imagen 3:", nombresImagenes.nombreimagen3);
+        // Aquí va el resto de tu código para hacer la petición
         try {
             const res = await axios({
                 method: "post",
                 url: `${URL_BD_MR}151`,
-                params,
+                data: formData,
             });
-            console.log("Datos enviados:", params);
+            console.log("Datos enviados:", formData);
             console.log("Respuesta del servidor:", res.data);
         } catch (error) {
             console.error("Error al hacer la petición", error);
@@ -217,7 +158,7 @@ export default function crearPQR() {
                     url: `${URL_BD_MR}7`,
                 });
                 if (Array.isArray(res.data.tipoidentificacion)) {
-                    setTiposIdentificacion(res.data.tipoidentificacion);
+                    setTipoIdentificacion(res.data.tipoidentificacion);
                 } else {
                     console.error("Error: se esperaba un array, pero se recibió", res.data.tipoidentificacion);
                 }
@@ -227,6 +168,36 @@ export default function crearPQR() {
         };
         obtenerTiposIdentificacion();
     }, []);
+
+
+    const CustomDropdownButton = React.forwardRef(({ children, onClick, href }, ref) => (
+        <button
+            ref={ref}
+            onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+            }}
+            href={href}
+            className="DropDownTipoDocumentoPQR"
+        >
+            {children}
+        </button>
+    ));
+
+    const handleSelectCiudad = (value, nombre) => {
+        setSelectedCiudad(nombre);
+        setForm({ ...form, ciudad: value });
+    };
+
+    const handleSelectTipoIdentificacion = (value, nombre) => {
+        setSelectedTipoIdentificacion(nombre);
+        setForm({ ...form, tipoidentificacion: value });
+    };
+
+    const handleSelectMotivo = (value, nombre) => {
+        setSelectedMotivo(nombre);
+        setForm({ ...form, motivo: value });
+    };
 
 
 
@@ -264,23 +235,56 @@ export default function crearPQR() {
                                                 <div className="InputsContainerPQR">
                                                     <div>
                                                         <p>Nombres</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input type="text" name="nombres" id="" onChange={handleChange} />
                                                     </div>
                                                     <div>
                                                         <p>Tipo de documento</p>
-                                                        <input type="text" name="" id="" />
+                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                {selectedTipoIdentificacion}
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
+                                                                {tipoIdentificacion && tipoIdentificacion.map((tipo) => (
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.tipoidentificacion} - ${tipo.descripcion}`)}
+                                                                    >
+                                                                        {`${tipo.tipoidentificacion} - ${tipo.descripcion}`}
+                                                                    </Dropdown.Item>
+                                                                ))}
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
                                                     </div>
                                                     <div>
                                                         <p>Correo electrónico</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input
+                                                            autoComplete="off"
+                                                            name="email"
+                                                            type="text"
+                                                            onChange={handleChange}
+                                                        />
                                                     </div>
                                                     <div>
                                                         <p>Ciudad</p>
-                                                        <input type="text" name="" id="" />
+                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                {selectedCiudad}
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                                                                {ciudades && ciudades.map((ciudad) => (
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectCiudad(ciudad.id_ciu, `${ciudad.nombre_ciu}`)}
+                                                                    >
+                                                                        {`${ciudad.nombre_ciu}`}
+                                                                    </Dropdown.Item>
+                                                                ))}
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
                                                     </div>
                                                     <div>
                                                         <p>Barrio</p>
-                                                        <input type="text" />
+                                                        <input type="text" name="barrio" onChange={handleChange} />
                                                     </div>
                                                 </div>
                                             </Grid>
@@ -288,23 +292,64 @@ export default function crearPQR() {
                                                 <div className="InputsContainerPQR">
                                                     <div>
                                                         <p>Apellidos</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input type="text" name="apellidos" id="" onChange={handleChange} />
                                                     </div>
                                                     <div>
                                                         <p>Numero de documento</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input
+                                                            autoComplete="off"
+                                                            name="identificacion"
+                                                            type="text"
+                                                            onChange={handleChange}
+                                                            maxLength={10}
+                                                            onKeyPress={(event) => {
+                                                                if (!/[0-9]/.test(event.key)) {
+                                                                    event.preventDefault();
+                                                                }
+                                                            }}
+                                                        />
                                                     </div>
                                                     <div>
                                                         <p>Numero de contacto</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input type="text" name="telefono" id="" onChange={handleChange} />
                                                     </div>
                                                     <div>
                                                         <p>Dirección</p>
-                                                        <input type="text" name="" id="" />
+                                                        <input type="text" name="direccion" id="" onChange={handleChange} />
                                                     </div>
                                                     <div>
                                                         <p>Motivo</p>
-                                                        <input type="text" />
+                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                {selectedMotivo}
+                                                            </Dropdown.Toggle>
+                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
+                                                                <Dropdown.Item
+                                                                    className="itemsdropdownTipoDoc"
+                                                                    onClick={() => handleSelectMotivo("Petición", "Petición")}
+                                                                >
+                                                                    Petición
+                                                                </Dropdown.Item>
+                                                                <Dropdown.Item
+                                                                    className="itemsdropdownTipoDoc"
+                                                                    onClick={() => handleSelectMotivo("Queja", "Queja")}
+                                                                >
+                                                                    Queja
+                                                                </Dropdown.Item>
+                                                                <Dropdown.Item
+                                                                    className="itemsdropdownTipoDoc"
+                                                                    onClick={() => handleSelectMotivo("Reclamo", "Reclamo")}
+                                                                >
+                                                                    Reclamo
+                                                                </Dropdown.Item>
+                                                                <Dropdown.Item
+                                                                    className="itemsdropdownTipoDoc"
+                                                                    onClick={() => handleSelectMotivo("Felicitación", "Felicitación")}
+                                                                >
+                                                                    Felicitación
+                                                                </Dropdown.Item>
+                                                            </Dropdown.Menu>
+                                                        </Dropdown>
                                                     </div>
                                                 </div>
                                             </Grid>
@@ -327,12 +372,12 @@ export default function crearPQR() {
                                             <div className="ContCrearSolMain">
                                                 <div className="DescrAsunto">
                                                     <p>Asunto</p>
-                                                    <input type="text" />
+                                                    <input type="text" name="asunto" onChange={handleChange} />
                                                 </div>
 
                                                 <div className="DescripSoli">
                                                     <p>Descripción</p>
-                                                    <textarea />
+                                                    <textarea name="descripcion" onChange={handleChange} />
 
                                                 </div>
 
@@ -343,9 +388,18 @@ export default function crearPQR() {
 
                                                     <div className="AdjArchSoliIcons">
                                                         <div className="SubAdjArchSoliIcons">
-                                                            <div><HiOutlineDocumentArrowUp /></div>
-                                                            <div><HiOutlineDocumentArrowUp /></div>
-                                                            <div><HiOutlineDocumentArrowUp /></div>
+                                                            <div>
+                                                                <input type="file" onChange={(e) => handleImagen(e, "imagen1")} />
+                                                                <HiOutlineDocumentArrowUp />
+                                                            </div>
+                                                            <div>
+                                                                <input type="file" onChange={(e) => handleImagen(e, "imagen2")} />
+                                                                <HiOutlineDocumentArrowUp />
+                                                            </div>
+                                                            <div>
+                                                                <input type="file" onChange={(e) => handleImagen(e, "imagen3")} />
+                                                                <HiOutlineDocumentArrowUp />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -359,69 +413,9 @@ export default function crearPQR() {
 
 
                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <ThemeProvider theme={themeTres}>
-                                            <FormControl sx={{ m: 1, minWidth: 120, backgroundColor: '#f0f1f5', borderRadius: '10px' }}>
-                                                <Autocomplete
-                                                    disableClearable // Desactiva el icono de la "x"
-                                                    options={tiposIdentificacion}
-                                                    getOptionLabel={(option) => option.descripcion}
-                                                    renderInput={(params) =>
-                                                        <TextField
-                                                            {...params}
-                                                            label={params.inputProps.value ? '' : 'Seleccione Tipo de Documento'}
-                                                            InputLabelProps={{ shrink: params.inputProps.value ? true : false }}
-                                                            InputProps={{
-                                                                ...params.InputProps,
-                                                                endAdornment: (
-                                                                    <InputAdornment position="end">
-                                                                        <IconButton sx={{ color: '#2D2E83', fontSize: '20px', marginRight:'-15px' }}>
-                                                                            <RiArrowDropDownFill style={{marginRight:'-15px'}} />
-                                                                        </IconButton>
-                                                                        {params.InputProps.endAdornment}
-                                                                    </InputAdornment>
-                                                                ),
-                                                            }}
-                                                            sx={{
-                                                                backgroundColor: '#f0f1f5',
-                                                                borderRadius: '10px',
-                                                            }}
-                                                        />
-                                                    }
-                                                    onChange={(event, newValue) => {
-                                                        setForm({ ...form, tipoidentificacion: newValue ? newValue.id : '' });
-                                                    }}
-                                                    clearIcon={null}
-                                                    popupIcon={null}
-                                                />
-                                            </FormControl>
-                                        </ThemeProvider>
-                                        <TextField name="identificacion" placeholder="Identificación" onChange={handleChange} />
-                                        <TextField name="email" placeholder="Correo Electrónico" onChange={handleChange} />
-                                        <TextField name="telefono" placeholder="Teléfono" onChange={handleChange} />
-                                        <ThemeProvider theme={themeDos}>
-                                            <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                                <Autocomplete
-                                                    disableClearable // Desactiva el icono de la "x"
-                                                    options={ciudades}
-                                                    getOptionLabel={(option) => option.nombre_ciu}
-                                                    renderInput={(params) =>
-                                                        <TextField
-                                                            {...params}
-                                                            label={params.inputProps.value ? '' : 'Seleccione Ciudad'}
-                                                            InputLabelProps={{ shrink: params.inputProps.value ? true : false }}
-                                                        />
-                                                    }
-                                                    onChange={(event, newValue) => {
-                                                        setForm({ ...form, ciudad: newValue ? newValue.id_ciu : '' });
-                                                    }}
-                                                />
-                                            </FormControl>
-                                        </ThemeProvider>
-                                        <TextField name="direccion" placeholder="Dirección" onChange={handleChange} />
-                                        <TextField name="barrio" placeholder="Barrio" onChange={handleChange} />
-                                        <TextField name="motivo" placeholder="Motivo" onChange={handleChange} />
-                                        <TextField name="asunto" placeholder="Asunto" onChange={handleChange} />
-                                        <TextField name="descripcion" placeholder="Descripción" onChange={handleChange} />
+
+
+
                                         <Button type="submit" onClick={hacerPeticion}>Enviar</Button>
                                     </div>
                                 </Grid>

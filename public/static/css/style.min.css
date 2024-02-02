@@ -35884,8 +35884,65 @@ label {
     padding-right: 13px;
     /* Ajusta este valor según tus necesidades */
 }
+.DropDownTipoDocumentoPQR {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 46px !important;
+    background-color: #f1f2f5 !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 18px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    padding-right: 13px;
+    /* Ajusta este valor según tus necesidades */
+}
+
+
+.DropDownTipoDocumentoBanco {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100% !important;
+    border-radius: 10px !important;
+    height: 46px !important;
+    gap: 2rem;
+    text-align: center;
+    background-color: #f1f2f5 !important;
+    border: none !important;
+    color: #2D2E83 !important;
+    outline: none !important;
+    font-size: 14px !important;
+    padding-left: 13px;
+    /* Ajusta este valor según tus necesidades */
+    padding-right: 13px;
+    /* Ajusta este valor según tus necesidades */
+}
+.DropDownTipoDocumentoBanco::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/FlechaAzulRegister.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important; 
+    background-position: center center !important;
+}
+
 
 .DropDownTipoDocumento::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("../../../public/static/img/FlechaAzulRegister.png") !important;
+    background-size: 10px !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+}
+.DropDownTipoDocumentoPQR::after {
     content: '';
     width: 10px;
     height: 10px;
@@ -35904,6 +35961,13 @@ label {
     height: 35px !important;
     font-size: 14px !important;
     white-space: nowrap !important;
+}
+
+.itemsdropdownBanco {
+    color: #2D2E83 !important;
+    height: 35px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important; 
 }
 
 .containerRegistrarse {
@@ -36550,7 +36614,12 @@ label {
 .itemsDropdownBanco:hover {
     background-color: #d3d4e4;
 }
-
+.tamañocajaoDropDownBanco {
+    margin-left: 5px !important;
+    width: 100% !important;
+    font-size: 18px !important;
+    background-color: #f1f2f6;
+}
 /*Fin estilos mi billetera*/
 
 
@@ -36819,11 +36888,7 @@ label {
     font-weight: 600; 
     font-family: "Jost", sans-serif;
 }
-.InputsContainerPQR div{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
+ 
 .InputsContainerPQR input{ 
     background-color: #F0F1F5;
     border-radius: 10px;
