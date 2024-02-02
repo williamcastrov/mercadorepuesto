@@ -36989,8 +36989,26 @@ label {
     display: flex;
     gap: 3rem;  
 }
-
-.SubAdjArchSoliIcons div{
+.SubAdjArchSoliIcons img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* o "cover" dependiendo de tu preferencia */
+    max-width: 100px;
+    max-height: 100px;
+}
+.SubAdjArchSoliIcons svg{
+    font-size: 27px !important;
+    color: #2D2E83;
+    margin-top: 1rem;
+}
+.SubAdjArchSoliIcons div{  
+    justify-content: center;
+    display: flex;
+    align-items: center;  
+    flex-direction: column;
+}
+.SubAdjArchSoliIcons div div{
     height: 120px;
     width: 120px;
     border: 5px solid #2D2E83;
