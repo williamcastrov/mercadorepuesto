@@ -270,7 +270,7 @@ export default function crearPQR() {
                                                             <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
                                                                 {selectedCiudad}
                                                             </Dropdown.Toggle>
-                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento" style={{ maxHeight: '281px', overflowY: 'auto' }}>
                                                                 {ciudades && ciudades.map((ciudad) => (
                                                                     <Dropdown.Item
                                                                         className="itemsdropdownTipoDoc"

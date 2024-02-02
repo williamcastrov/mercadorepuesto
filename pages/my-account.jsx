@@ -1198,19 +1198,25 @@ const MyAccountScreen = () => {
                                                 <Col xs lg={6}>
                                                     <label className="ps-form__label">Tipo Identificación</label>
                                                     <div >
-                                                        <Dropdown style={{ width: '100%' }}>
-                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                        <Dropdown style={{ width: '100%' }} >
+                                                            <Dropdown.Toggle
+                                                                as={CustomDropdownButton}
+                                                                id="dropdown-basic"
+                                                            > 
                                                                 {selectedItem}
                                                             </Dropdown.Toggle>
                                                             <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
-                                                                {tiposIdentificacion.map((tipo) => (
-                                                                    <Dropdown.Item
-                                                                        className="itemsdropdownTipoDoc"
-                                                                        onClick={() => handleSelect(tipo.id, `${tipo.tipoidentificacion} - ${tipo.descripcion}`)}
-                                                                    >
-                                                                        {`${tipo.tipoidentificacion} - ${tipo.descripcion}`}
-                                                                    </Dropdown.Item>
-                                                                ))}
+                                                                {tiposId &&
+                                                                    tiposId.map((itemselect) => (
+                                                                        <Dropdown.Item
+                                                                            className="itemsdropdownTipoDoc"
+                                                                            onClick={() => handleSelect(itemselect.id, `${itemselect.tipoidentificacion} - ${itemselect.descripcion}`)}
+                                                                            eventKey={itemselect.id}
+                                                                        >
+                                                                            {`${itemselect.tipoidentificacion} - ${itemselect.descripcion}`}
+                                                                        </Dropdown.Item>
+                                                                    ))
+                                                                }
                                                             </Dropdown.Menu>
                                                         </Dropdown>
                                                     </div>
