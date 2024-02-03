@@ -40,7 +40,7 @@ export default function index() {
                             <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
                                 <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "85%" }} display={"flex"} flexDirection={"column"}>
                                     <div className="TopAyudaPQR">
-                                        <p>Ayuda / PQR</p>
+                                        <p className="TopAyudaPQRIndex">Ayuda / PQR</p>
                                         <p>Para nosotros es muy importante tus preguntas, quejas, reclamos o felicitaciones.</p>
                                     </div>
 
@@ -63,7 +63,7 @@ export default function index() {
                                         <div className="bottomAyudaPQR">
                                             <p>A tener en cuenta</p>
                                             <p>Si deseas ingresar una petición, queja, reclamo o felicitación; haz clic en “Crear una solicitud” 
-                                                Si deseas <br /> buscar una solictud ya enviada, haz clic en “Buscar mi solicitud” y luego igresa el numero de tu solicitud <br /> o tu numero de identificación para realizar la busqueda</p>
+                                             <br />   Si deseas buscar una solictud ya enviada, haz clic en “Buscar mi solicitud” y luego igresa el <br /> numero de tu solicitud o tu numero de identificación para realizar la busqueda</p>
                                         </div>
                                     </div>
 

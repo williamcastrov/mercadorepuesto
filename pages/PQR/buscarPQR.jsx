@@ -22,6 +22,10 @@ export default function buscarPQR() {
     const [datosusuarios, setDatosUsuarios] = useState([]);
     const [id, setId] = useState('');
     const [identificacion, setIdentificacion] = useState('');
+    // Estado para manejar el error en los campos "id" e "identificacion"
+    const [errorId, setErrorId] = useState(false);
+    const [errorIdentificacion, setErrorIdentificacion] = useState(false);
+
 
     //cerrar modal advertencia
     const handleModalClose = () => {
@@ -55,6 +59,20 @@ export default function buscarPQR() {
 
     //Función para buscar pqr y verificar si hay algún campo vacio
     const buscarPQR = () => {
+        // Verificamos si los campos "id" e "identificacion" están vacíos
+        if (!id) {
+            setErrorId(true);
+        } else {
+            setErrorId(false);
+        }
+
+        if (!identificacion) {
+            setErrorIdentificacion(true);
+        } else {
+            setErrorIdentificacion(false);
+        }
+
+        // Si los campos no están vacíos, procedemos a buscar el PQR
         if (id && identificacion) {
             const pqrEncontrado = datosusuarios.find(pqr => pqr.id.toString() === id && pqr.identificacion === identificacion);
             if (pqrEncontrado) {
@@ -70,6 +88,8 @@ export default function buscarPQR() {
             setShowModal(true);
         }
     };
+
+
 
     return (
         <>
@@ -100,22 +120,41 @@ export default function buscarPQR() {
 
                                         <div className="inputsPQR">
                                             <div>
-                                                <p>Número de identificación</p>
-                                                <input type="text" value={identificacion} onChange={e => setIdentificacion(e.target.value)} onKeyPress={(event) => {
-                                                    if (!/[0-9]/.test(event.key)) {
-                                                        event.preventDefault();
-                                                    }
-                                                }} />
-
+                                                <p>Número de identificación</p> 
+                                                <input
+                                                    type="text"
+                                                    value={identificacion}
+                                                    onChange={e => setIdentificacion(e.target.value)}
+                                                    onClick={() => setErrorIdentificacion(false)}
+                                                    onKeyPress={(event) => {
+                                                        if (!/[0-9]/.test(event.key)) {
+                                                            event.preventDefault();
+                                                        }
+                                                    }}
+                                                    style={errorIdentificacion ? { border: '1px solid red' } : {}}
+                                                /> 
+                                                <div className="ErrBuscarPQR">
+                                                    {errorIdentificacion && <div className="errorInputPQR"> <span>Ingresa un numero de solicitud valido!</span></div>}
+                                                </div> 
                                             </div>
 
                                             <div>
                                                 <p>Número de solicitud</p>
-                                                <input type="text" value={id} onChange={e => setId(e.target.value)} onKeyPress={(event) => {
-                                                    if (!/[0-9]/.test(event.key)) {
-                                                        event.preventDefault();
-                                                    }
-                                                }} />
+                                                <input
+                                                    type="text"
+                                                    value={id}
+                                                    onChange={e => setId(e.target.value)}
+                                                    onClick={() => setErrorId(false)}
+                                                    onKeyPress={(event) => {
+                                                        if (!/[0-9]/.test(event.key)) {
+                                                            event.preventDefault();
+                                                        }
+                                                    }}
+                                                    style={errorId ? { border: '1px solid red' } : {}}
+                                                /> 
+                                                <div className="ErrBuscarPQR">
+                                                    {errorId && <div className="errorInputPQR"> <span>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10!</span></div>}
+                                                </div> 
                                             </div>
                                         </div>
 

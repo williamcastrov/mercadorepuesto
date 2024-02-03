@@ -36651,19 +36651,27 @@ label {
 /*Inicio estilos ayuda PQR*/
 
 .TopAyudaPQR{
-    margin-bottom: 3rem; 
+    display: flex !important;
+    flex-direction: column !important;
+    margin-bottom: 4rem !important;  
 }
-.TopAyudaPQR p:first-child{
-    font-size: 24px !important;
-    color: #2D2E83;
-    font-weight: 600;
-    font-family: "Jost", sans-serif;
+.solPQR{
+    font-size: 24px !important ;
+    color: #2D2E83 !important;
+    font-weight: 600 !important;
+    font-family: "Jost" , sans-serif !important;
 }
-.TopAyudaPQR p:last-child{
-    font-size: 20px !important;
-    color: #2D2E83;
-    font-weight: 500;
-    font-family: "Jost", sans-serif;
+.TopAyudaPQR p:last-child {
+    font-size: 20px !important ;
+    color: #2D2E83 !important;
+    font-weight: 500 !important;
+    font-family: "Jost", sans-serif !important;
+}
+.TopAyudaPQRIndex{
+    font-size: 20px !important ;
+    color: #2D2E83 !important;
+    font-weight: 500 !important;
+    font-family: "Jost", sans-serif !important;
 }
 .MainmiddleAyudaPQR{
     width: 100%;
@@ -36716,7 +36724,7 @@ label {
     font-family: "Jost", sans-serif;
 }
 .bottomAyudaPQR p:last-child{
-    font-size: 20px !important;
+    font-size: 17px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
@@ -36746,9 +36754,12 @@ label {
     font-size: 18px;
     color: #2D2E83;
     height: 46px;
-    font-weight: 500;
-    margin-bottom: 2rem;
+    font-weight: 500; 
     padding: 1rem 2rem;
+}
+.ErrBuscarPQR{
+    width: 370px;
+    margin-bottom: 2rem;
 }
 .inputsPQR p{
     font-size: 18px !important;
@@ -36777,17 +36788,19 @@ label {
     border-radius: 10px;
 }
 .mainContVerPQR{
-    width: 100%;
+    width: 100%; 
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     justify-content: flex-start;
 }
 .SubMainContVerPQR{
-    width: 480px;  
+    width: 580px;  
 }
 .SubMainContVerPQR div{
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     justify-content: space-between;
 }
 .DatePQR{
@@ -36797,8 +36810,14 @@ label {
     margin-top: 5rem !important;
     margin-bottom: 0 !important;
 }
-.SubMainContVerPQR div p{
-    font-size: 18px !important;
+.SubMainContVerPQR div p:first-child{
+    font-size: 19px;
+    color: #2D2E83;
+    font-weight: 600;
+    font-family: "Jost", sans-serif;
+}
+.SubMainContVerPQR div p:last-child{
+    font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
@@ -36806,7 +36825,7 @@ label {
 .AsuntoDescrpPQR{
     margin-top: 3rem;
     width: 100%;
-    display: flex;
+    display: flex; 
     flex-direction: column;
 }
 .AsuntoDescrpPQR  p:first-child{
@@ -36826,7 +36845,7 @@ label {
 
 .docsPQR{
     margin-top: 2rem;
-    display: flex;
+    display: flex; 
     flex-direction: column;
 }
 .SolicituState{
@@ -36845,8 +36864,8 @@ label {
     font-family: "Jost", sans-serif;
 }
 .docsPQR div {
-    display: flex;
-    gap: 3rem;
+    display: flex !important;
+    gap: 3rem !important;
 }
 .docsPQR div div{
     height: 120px;
@@ -36874,6 +36893,11 @@ label {
     font-family: "Jost", sans-serif;
 }
 .DownloadRespuesta{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.DownloadRespuesta span{
     display: flex;
     gap: 1rem;
     align-items: center;

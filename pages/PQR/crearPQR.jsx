@@ -379,7 +379,7 @@ export default function crearPQR() {
         motivo: "",
         asunto: "",
         descripcion: "",
-        estado: 42,
+        estado: 72,
     });
 
     //Handlechange de los campos de inputs y textArea del form

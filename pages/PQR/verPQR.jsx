@@ -24,7 +24,10 @@ export default function verPQR() {
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage
     const ciudades = useSelector((state) => state.datosgenerales.datosgenerales.vgl_ciudades);
-
+    const [estados, setEstados] = useState([]);
+    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+    const { id } = router.query;
+    const [pqr, setPQR] = useState(null);
 
     useEffect(() => {
         if (irA.current) {
@@ -33,11 +36,7 @@ export default function verPQR() {
                 block: "start",
             });
         }
-    }, []);
-    const { id } = router.query;
-    const [pqr, setPQR] = useState(null);
-
-    const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
+    }, []);  
 
     useEffect(() => {
         const obtenerTiposIdentificacion = async () => {
@@ -56,15 +55,33 @@ export default function verPQR() {
             }
         };
         obtenerTiposIdentificacion();
-    }, []);
+    }, []);  
 
+    useEffect(() => {
+        const obtenerEstados = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}158`,
+                });
+                console.log('Respuesta del servidor:', res.data); // Agregamos esta línea para imprimir la respuesta del servidor
+                if (Array.isArray(res.data.listarestados)) {
+                    setEstados(res.data.listarestados);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.listarestados);
+                }
+            } catch (error) {
+                console.error("Error al obtener los estados", error);
+            }
+        };
+        obtenerEstados();
+    }, []);
 
 
     useEffect(() => {
         console.log(ciudades);
     }, [ciudades]);
-
-
+ 
     useEffect(() => {
         const obtenerPQR = async () => {
             try {
@@ -82,9 +99,7 @@ export default function verPQR() {
             obtenerPQR();
         }
     }, [id]);
-
-
-
+ 
     return (
         <>
             {pqr && (
@@ -95,14 +110,16 @@ export default function verPQR() {
                                 <div className="ps-page__header"> </div>
                                 <div className="ps-page__content ps-account" style={{ marginBottom: "18rem" }}>
                                     <Grid className="contMainOpiniones" container style={{ width: isMdDown ? "100%" : "80%" }} display={"flex"} flexDirection={"column"}>
-                                        <div className="TopAyudaPQR">
-                                            <p>Solicitud #{pqr.id}</p>
-                                            <p>Información de la solicitud</p>
-                                        </div>
+
 
                                         <div className="mainContVerPQR">
 
                                             <div className="SubMainContVerPQR">
+                                                <div className="TopAyudaPQR">
+                                                    <p className="solPQR">Solicitud #{pqr.id}</p>
+                                                    <p>Información de la solicitud</p>
+                                                </div>
+
                                                 <div className="DatePQR">
                                                     <p>Fecha solicitud</p>
                                                     <p>{pqr.fechacreacion.slice(0, 10)}</p>
@@ -156,55 +173,63 @@ export default function verPQR() {
                                                 <div className="MotivoPQR">
                                                     <p>Motivo: {pqr.motivo}</p>
                                                 </div>
-                                            </div>
 
-                                            <div className="AsuntoDescrpPQR">
-                                                <p>Asunto: {pqr.asunto}</p>
-                                                <p>Descripción: {pqr.descripcion}</p>
-                                            </div>
+                                                <div className="AsuntoDescrpPQR">
+                                                    <p>Asunto: {pqr.asunto}</p>
+                                                    <p>Descripción: {pqr.descripcion}</p>
+                                                </div>
 
-                                            <div className="docsPQR">
                                                 <div>
                                                     <p>Archivos adjuntos</p>
                                                 </div>
 
-                                                <div>
-                                                    {pqr.nombreimagen1 && (
-                                                        <div>
-                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} target="_blank" rel="noopener noreferrer">
-                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} />
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                    {pqr.nombreimagen2 && (
-                                                        <div>
-                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} target="_blank" rel="noopener noreferrer">
-                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} />
-                                                            </a>
-                                                        </div>
-                                                    )}
-                                                    {pqr.nombreimagen3 && (
-                                                        <div>
-                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} target="_blank" rel="noopener noreferrer">
-                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} />
-                                                            </a>
-                                                        </div>
-                                                    )}
+
+                                                <div className="docsPQR">
+                                                    <div>
+                                                        {pqr.nombreimagen1 && (
+                                                            <div>
+                                                                <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} target="_blank" rel="noopener noreferrer">
+                                                                    <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} />
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                        {pqr.nombreimagen2 && (
+                                                            <div>
+                                                                <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} target="_blank" rel="noopener noreferrer">
+                                                                    <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} />
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                        {pqr.nombreimagen3 && (
+                                                            <div>
+                                                                <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} target="_blank" rel="noopener noreferrer">
+                                                                    <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} />
+                                                                </a>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="SolicituState">
+                                                        <p>Estado de la solicitud: {estados.find(estado => estado.tipodeestado === pqr.estado)?.nombre}</p>
+                                                    </div>
+
+                                                    <div className="descrRespuesta">
+                                                        <p>Tu solicitud fue enviada y tienen un tiempo aproximado de respuesta de XX día habiles</p>
+                                                    </div>
+
+                                                    <div className="DownloadRespuesta">
+                                                        <span>
+                                                            <p>Descargar respuesta</p>
+                                                            <MdOutlineDownloadForOffline />
+                                                        </span>
+                                                    </div>
+
                                                 </div>
-
-                                                <div className="SolicituState">
-                                                    <p>Estado de la solicitud: {pqr.estado}</p>
-                                                </div>
                                             </div>
 
-                                            <div className="descrRespuesta">
-                                                <p>Tu solicitud fue enviada y tienen un tiempo aproximado de respuesta de XX día habiles</p>
-                                            </div>
 
-                                            <div className="DownloadRespuesta">
-                                                <p>Descargar respuesta</p>
-                                                <MdOutlineDownloadForOffline />
-                                            </div>
+
+
                                         </div>
 
                                     </Grid>
