@@ -36629,7 +36629,19 @@ label {
 .ErrorRetitorText p{
     color: red;
     text-align: end;
-    font-size: 13px;
+    font-size: 13px; 
+}
+.ErrorRetitorTextDos{
+    width: 240px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.ErrorRetitorTextDos p{
+    color: red;
+    text-align: end;
+    font-size: 13px; 
+    margin-right: 10px;
 }
 /*Fin estilos mi billetera*/
 
@@ -36895,9 +36907,16 @@ label {
 .InputsContainerPQR div{
     margin-bottom: 2rem;
 }
-.errorInputPQR {
-    font-size: 14px;
-    color: red;
+.errorInputPQR span{
+    font-size: 15px !important;
+    color: red !important;
+}
+.errorInputPQRS span{
+    font-size: 15px !important;
+    color: red !important; 
+}
+.errorInputPQRS{
+    margin-top: -1.8rem !important; 
 }
  
 .InputsContainerPQR p{ 

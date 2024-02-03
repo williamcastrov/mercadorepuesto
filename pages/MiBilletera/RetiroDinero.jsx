@@ -333,7 +333,7 @@ export default function RetiroDinero() {
     const hacerPeticionRetiro = async () => {
         // Inicializamos una variable para verificar si el formulario es válido
         let esFormularioValido = true;
-
+    
         // Verificamos si el campo "nombretitular" está vacío
         if (!form.nombretitular) {
             setErrorNombreTitular(true);
@@ -341,7 +341,7 @@ export default function RetiroDinero() {
         } else {
             setErrorNombreTitular(false);
         }
-
+    
         // Verificamos si el campo "identificacion" está vacío o tiene menos de 6 caracteres
         if (!form.identificacion || form.identificacion.length < 6) {
             setErrorIdentificacion(true);
@@ -349,7 +349,7 @@ export default function RetiroDinero() {
         } else {
             setErrorIdentificacion(false);
         }
-
+    
         // Verificamos si el campo "numerodecuenta" está vacío o tiene menos de 6 caracteres
         if (!form.numerodecuenta || form.numerodecuenta.length < 6) {
             setErrorNumeroDeCuenta(true);
@@ -357,7 +357,7 @@ export default function RetiroDinero() {
         } else {
             setErrorNumeroDeCuenta(false);
         }
-
+    
         // Verificamos si el campo "selectedTipoIdentificacion" está vacío o es "tipo de identificación"
         if (!selectedTipoIdentificacion || selectedTipoIdentificacion === "tipo de identificación") {
             setErrorTipoIdentificacion(true);
@@ -365,7 +365,7 @@ export default function RetiroDinero() {
         } else {
             setErrorTipoIdentificacion(false);
         }
-
+    
         // Verificamos si el campo "selectedEntidadBancaria" está vacío o es "Seleccione banco"
         if (!selectedEntidadBancaria || selectedEntidadBancaria === "Seleccione banco") {
             setErrorEntidadBancaria(true);
@@ -373,12 +373,15 @@ export default function RetiroDinero() {
         } else {
             setErrorEntidadBancaria(false);
         }
-
-        // Si el formulario no es válido, salimos de la función para no enviar la petición
+    
+        // Si el formulario no es válido, mostramos el modal y salimos de la función para no enviar la petición
         if (!esFormularioValido) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('Por favor, asegúrate de llenar todos los campos correctamente antes de enviar el formulario.');
+            setShowModal(true);
             return;
         }
-
+    
         // Si el formulario es válido, procedemos a hacer la petición
         let params = {
             usuario: datosusuarios.uid,
@@ -387,7 +390,7 @@ export default function RetiroDinero() {
             valortransferencia: form.valortransferencia.replace(/,/g, ''), // Eliminamos las comas
         };
         console.log("Parámetros enviados a retirar: ", params);
-
+    
         // Llamamos a la función para enviar la petición
         enviarPeticion(params);
     };
@@ -532,7 +535,7 @@ export default function RetiroDinero() {
                                                                         ))}
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
-                                                                {errorTipoIdentificacion && <div className="ErrorRetitorText"> <p>Recuerda, debes elegir un tipo de identificación</p></div>}
+                                                                {errorTipoIdentificacion && <div className="ErrorRetitorTextDos"> <p>Recuerda, debes elegir un tipo de identificación</p></div>}
                                                             </div>
                                                         </div>
 
@@ -580,7 +583,7 @@ export default function RetiroDinero() {
                                                                         ))}
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
-                                                                {errorEntidadBancaria && <div className="ErrorRetitorText"> <p>Recuerda, debes elegir un banco</p></div>}
+                                                                {errorEntidadBancaria && <div className="ErrorRetitorTextDos"> <p>Recuerda, debes elegir un banco</p></div>}
                                                             </div>
                                                         </div>
 

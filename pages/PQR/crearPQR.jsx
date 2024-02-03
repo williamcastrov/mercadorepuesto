@@ -673,7 +673,7 @@ export default function crearPQR() {
                                                                     e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
                                                                 }}
                                                             />
-                                                            {errorNombres && <div className="errorInputPQR"> <p>Ingresa un nombre valido!</p></div>}
+                                                            {errorNombres && <div className="errorInputPQR"> <span>Ingresa un nombre valido!</span></div>}
                                                         </div>
                                                     </div>
                                                     <div>
@@ -694,11 +694,11 @@ export default function crearPQR() {
                                                                     ))}
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
-                                                            {errorTipoIdentificacion && <div className="errorInputPQRS"> <p>Recuerda, debes elegir un tipo de identificación</p></div>}
+                                                            {errorTipoIdentificacion && <div className="errorInputPQRS"> <span style={{marginTop:'-1.8rem', marginBottom:'2rem'}}>Recuerda, debes elegir un tipo de identificación</span></div>}
                                                         </div>
 
                                                     </div>
-                                                    <div >
+                                                    <div style={{marginTop:'-2rem'}}>
                                                         <p>Correo electrónico</p>
                                                         <div>
                                                             <input
@@ -709,7 +709,7 @@ export default function crearPQR() {
                                                                 onClick={() => setErrorEmail(false)}
                                                                 style={errorEmail ? { border: '1px solid red' } : {}}
                                                             />
-                                                            {errorEmail && <div className="errorInputPQR"> <p>Ingresa un email valido! Ej: juan@gmail.com</p></div>}
+                                                            {errorEmail && <div className="errorInputPQR"> <span>Ingresa un email valido! Ej: juan@gmail.com</span></div>}
                                                         </div>
 
                                                     </div>
@@ -731,11 +731,11 @@ export default function crearPQR() {
                                                                     ))}
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
-                                                            {errorCiudad && <div className="errorInputPQRS"> <p>Recuerda, debes elegir una ciudad</p></div>}
+                                                            {errorCiudad && <div className="errorInputPQRS"> <span>Recuerda, debes elegir una ciudad</span></div>}
                                                         </div>
 
                                                     </div>
-                                                    <div >
+                                                    <div  style={{marginTop:'-2rem'}}>
                                                         <p>Barrio</p>
                                                         <div>
                                                             <input
@@ -747,7 +747,7 @@ export default function crearPQR() {
                                                                 autoComplete={Math.random().toString()}
                                                                 maxLength={20}
                                                             />
-                                                            {errorIdentificacion && <div className="errorInputPQR"> <p>Recuerda, debes elegir un barrio valido</p></div>}
+                                                            {errorIdentificacion && <div className="errorInputPQR"> <span>Recuerda, debes elegir un barrio valido</span></div>}
                                                         </div>
 
                                                     </div>
@@ -771,7 +771,7 @@ export default function crearPQR() {
                                                                     e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
                                                                 }}
                                                             />
-                                                            {errorApellidos && <div className="errorInputPQR"> <p>Ingresa un apellido valido!</p></div>}
+                                                            {errorApellidos && <div className="errorInputPQR"> <span>Ingresa un apellido valido!</span></div>}
                                                         </div>
 
                                                     </div>
@@ -792,7 +792,7 @@ export default function crearPQR() {
                                                                     }
                                                                 }}
                                                             />
-                                                            {errorIdentificacion && <div className="errorInputPQR"> <p>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10</p></div>}
+                                                            {errorIdentificacion && <div className="errorInputPQR"> <span>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10</span></div>}
                                                         </div>
 
                                                     </div>
@@ -813,7 +813,7 @@ export default function crearPQR() {
                                                                     }
                                                                 }}
                                                             />
-                                                            {errorTelefono && <div className="errorInputPQR"> <p>Recuerda, El teléfono de contacto debe contener 10 digitos</p></div>}
+                                                            {errorTelefono && <div className="errorInputPQR"> <span>Recuerda, El teléfono de contacto debe contener 10 digitos</span></div>}
                                                         </div>
 
                                                     </div>
@@ -829,7 +829,7 @@ export default function crearPQR() {
                                                                 autoComplete={Math.random().toString()}
                                                                 maxLength={30}
                                                             />
-                                                            {errorDireccion && <div className="errorInputPQR"> <p>Ingresa una dirección valida! Ej: CLL 40 # 22...</p></div>}
+                                                            {errorDireccion && <div className="errorInputPQR"> <span>Ingresa una dirección valida! Ej: CLL 40 # 22...</span></div>}
                                                         </div>
 
                                                     </div>
@@ -867,7 +867,7 @@ export default function crearPQR() {
                                                                     </Dropdown.Item>
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
-                                                            {errorMotivo && <div className="errorInputPQRS"> <p>Recuerda, debes elegir el motivo de la petición</p></div>}
+                                                            {errorMotivo && <div className="errorInputPQRS"> <span>Recuerda, debes elegir el motivo de la petición</span></div>}
                                                         </div>
 
                                                     </div>
