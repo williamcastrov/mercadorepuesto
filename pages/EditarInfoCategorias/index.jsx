@@ -9,7 +9,7 @@ import shortid from "shortid";
 import { LuImagePlus } from "react-icons/lu";
 
 export default function index() {
-
+ 
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage

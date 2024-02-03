@@ -68,49 +68,158 @@ export default function crearPQR() {
     const [selectedImage3, setSelectedImage3] = useState(null);
     const [imagen3, setImagen3] = useState(null);
 
+    //abrir dialog de confirmación de envío
+    const handleOpenDialog = () => {
+        setDialogOpen(true);
+    };
+
+    //cerrar modal advertencia
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
+    //Función para leer ciudades
+    let ciudades = useSelector(
+        (state) => state.datosgenerales.datosgenerales.vgl_ciudades
+    );
+
+
+    //handle para tercera imagen
     const handleImagen3 = (e) => {
         const file = e.target.files[0];
         if (!file) {
             return;
         }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const image = reader.result;
-            const extension =
-                "." +
-                image.substring(
-                    image.indexOf("/") + 1,
-                    image.indexOf(";base64")
-                );
-            const nombreImagen = shortid.generate().substring(0, 11) + extension;
-            setSelectedImage3(image);
-            setImagen3({ image: file, nombreImagen });
+
+        // Verifica el tamaño del archivo (no debe ser mayor a 800 KB)
+        if (file.size > 800 * 1024) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('La imagen no puede pesar más de 800kb.');
+            setShowModal(true);
+            return;
+        }
+
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = function () {
+            // Verifica el tamaño de la imagen (no debe ser mayor a 1024*1024)
+            if (this.width > 1024 || this.height > 1024) {
+                setTituloMensajes('¡Cuidado!');
+                setTextoMensajes('La imagen no puede ser mayor de 1024*1024.');
+                setShowModal(true);
+                URL.revokeObjectURL(url);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const image = reader.result;
+                const extension =
+                    "." +
+                    image.substring(
+                        image.indexOf("/") + 1,
+                        image.indexOf(";base64")
+                    );
+                const nombreImagen = shortid.generate().substring(0, 11) + extension;
+                setSelectedImage3(image);
+                setImagen3({ image: file, nombreImagen });
+            };
+            reader.readAsDataURL(file);
         };
-        reader.readAsDataURL(file);
+        img.src = url;
     };
+
+
+    //handle para segunda imagen
     const handleImagen2 = (e) => {
         const file = e.target.files[0];
         if (!file) {
             return;
         }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const image = reader.result;
-            const extension =
-                "." +
-                image.substring(
-                    image.indexOf("/") + 1,
-                    image.indexOf(";base64")
-                );
-            const nombreImagen = shortid.generate().substring(0, 11) + extension;
-            setSelectedImage2(image);
-            setImagen2({ image: file, nombreImagen });
+
+        // Verifica el tamaño del archivo (no debe ser mayor a 800 KB)
+        if (file.size > 800 * 1024) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('La imagen no puede pesar más de 800kb.');
+            setShowModal(true);
+            return;
+        }
+
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = function () {
+            // Verifica el tamaño de la imagen (no debe ser mayor a 1024*1024)
+            if (this.width > 1024 || this.height > 1024) {
+                setTituloMensajes('¡Cuidado!');
+                setTextoMensajes('La imagen no puede ser mayor de 1024*1024.');
+                setShowModal(true);
+                URL.revokeObjectURL(url);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const image = reader.result;
+                const extension =
+                    "." +
+                    image.substring(
+                        image.indexOf("/") + 1,
+                        image.indexOf(";base64")
+                    );
+                const nombreImagen = shortid.generate().substring(0, 11) + extension;
+                setSelectedImage2(image);
+                setImagen2({ image: file, nombreImagen });
+            };
+            reader.readAsDataURL(file);
         };
-        reader.readAsDataURL(file);
+        img.src = url;
     };
-    //abrir dialog de confirmación
-    const handleOpenDialog = () => {
-        setDialogOpen(true);
+
+
+    //Función para handle De imagen 1
+    const handleImagen = (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            // No se seleccionó ningún archivo
+            return;
+        }
+
+        // Verifica el tamaño del archivo (no debe ser mayor a 800 KB)
+        if (file.size > 800 * 1024) {
+            setTituloMensajes('¡Cuidado!');
+            setTextoMensajes('La imagen no puede pesar más de 800kb.');
+            setShowModal(true);
+            return;
+        }
+
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = function () {
+            // Verifica el tamaño de la imagen (no debe ser mayor a 1024*1024)
+            if (this.width > 1024 || this.height > 1024) {
+                setTituloMensajes('¡Cuidado!');
+                setTextoMensajes('La imagen no puede ser mayor de 1024*1024.');
+                setShowModal(true);
+                URL.revokeObjectURL(url);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                const image = reader.result;
+                const extension =
+                    "." +
+                    image.substring(
+                        image.indexOf("/") + 1,
+                        image.indexOf(";base64")
+                    );
+                const nombreImagen = shortid.generate().substring(0, 11) + extension;
+                setSelectedImage(image);
+                setImagen({ image: file, nombreImagen }); // Guarda el objeto File y el nombre de la imagen
+            };
+            reader.readAsDataURL(file);
+        };
+        img.src = url;
     };
 
     //Verifica los datos antes de pasar a siguiente
@@ -132,7 +241,6 @@ export default function crearPQR() {
             setErrorApellidos(false);
         }
 
-
         const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!form.email || !regexEmail.test(form.email)) {
             setErrorEmail(true);
@@ -148,7 +256,6 @@ export default function crearPQR() {
         } else {
             setErrorIdentificacion(false);
         }
-
 
         // Verificar que el campo "telefono" no esté vacío y tenga exactamente 10 caracteres
         if (!form.telefono || form.telefono.length !== 10) {
@@ -198,7 +305,7 @@ export default function crearPQR() {
             setErrorMotivo(false);
         }
         // Si todos los controles pasan, retorna "true"
-        return true;
+        return isValid; // Devuelve el valor actual de isValid
     };
 
     //Verificación de asunto y descripción antes de envíar
@@ -229,40 +336,6 @@ export default function crearPQR() {
         // Si todos los controles pasan, retorna "true"
         return true;
     };
-
-    //Función para handle De imagen
-    const handleImagen = (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            // No se seleccionó ningún archivo
-            return;
-        }
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const image = reader.result;
-            const extension =
-                "." +
-                image.substring(
-                    image.indexOf("/") + 1,
-                    image.indexOf(";base64")
-                );
-            const nombreImagen = shortid.generate().substring(0, 11) + extension;
-            setSelectedImage(image);
-            setImagen({ image: file, nombreImagen }); // Guarda el objeto File y el nombre de la imagen
-        };
-        reader.readAsDataURL(file);
-    };
-
-    //Función para botón de eliminar imagen
-    const eliminarImagen = () => {
-        setImagen(null);
-        setNombreImagen("");
-    };
-
-    //Función para leer ciudades
-    let ciudades = useSelector(
-        (state) => state.datosgenerales.datosgenerales.vgl_ciudades
-    );
 
     //función para ir a siguiente que verifica que estén bien todos los campos
     const irASiguiente = () => {
@@ -306,7 +379,7 @@ export default function crearPQR() {
         motivo: "",
         asunto: "",
         descripcion: "",
-        estado: 80,
+        estado: 42,
     });
 
     //Handlechange de los campos de inputs y textArea del form
@@ -405,10 +478,12 @@ export default function crearPQR() {
         // Verifica que todas las imágenes se hayan cargado
         if (!imagen) {
             setTituloMensajes('¡Cuidado!');
-            setTextoMensajes('Por favor, carga la imagen antes de enviar.');
+            setTextoMensajes('Por favor, debes cargar almenos una imagen antes de enviar la petición.');
             setShowModal(true);
             return; // Detiene la ejecución de la función
         }
+
+        let numeroImagenes = 0; // Inicializa el contador de imágenes
 
         const formData = new FormData();
         formData.append("nombres", form.nombres);
@@ -424,18 +499,31 @@ export default function crearPQR() {
         formData.append("asunto", form.asunto);
         formData.append("descripcion", form.descripcion);
         formData.append("estado", form.estado);
-        formData.append("nombreimagen1", imagen.nombreImagen);
-        formData.append("imagen1", selectedImage);
-        formData.append("nombreimagen2", imagen2.nombreImagen);
-        formData.append("imagen2", selectedImage2);
-        formData.append("nombreimagen3", imagen3.nombreImagen);
-        formData.append("imagen3", selectedImage3);
-        formData.append("numeroimagenes", 3);
+
+        //Condicionales para reconocer la longitud de las imagenes
+        if (imagen) {
+            formData.append("nombreimagen1", imagen.nombreImagen);
+            formData.append("imagen1", selectedImage);
+            numeroImagenes++; // Incrementa el contador de imágenes
+        }
+        if (imagen2) {
+            formData.append("nombreimagen2", imagen2.nombreImagen);
+            formData.append("imagen2", selectedImage2);
+            numeroImagenes++; // Incrementa el contador de imágenes
+        }
+        if (imagen3) {
+            formData.append("nombreimagen3", imagen3.nombreImagen);
+            formData.append("imagen3", selectedImage3);
+            numeroImagenes++; // Incrementa el contador de imágenes
+        }
+
+        formData.append("numeroimagenes", numeroImagenes); // contador de imágenes
+        console.log("Número de imágenes:", numeroImagenes); // Muestra el número de imágenes en la consola
 
         // Muestra los nombres de las imágenes en la consola
-        console.log("Nombre imagen 1:", imagen.nombreImagen);
-        console.log("Nombre imagen 2:", imagen2.nombreImagen);
-        console.log("Nombre imagen 3:", imagen3.nombreImagen);
+        console.log("Nombre imagen 1:", imagen ? imagen.nombreImagen : 'No hay imagen 1');
+        console.log("Nombre imagen 2:", imagen2 ? imagen2.nombreImagen : 'No hay imagen 2');
+        console.log("Nombre imagen 3:", imagen3 ? imagen3.nombreImagen : 'No hay imagen 3');
         try {
             const res = await axios({
                 method: "post",
@@ -445,12 +533,11 @@ export default function crearPQR() {
             console.log("Datos enviados:", formData);
             console.log("Respuesta del servidor:", res.data);
 
-            // Obtén el número total de PQRs existentes después de enviar la nueva petición
+            // Obténgo el número total de PQRs existentes después de enviar la nueva petición
             const resPQRs = await axios.post(`${URL_BD_MR}152`);
-            const numeroPeticion = resPQRs.data.listarpqr.length;
-            setNumeroPeticion(resPQRs.data.listarpqr.length);  // Actualiza numeroPeticion
+            setNumeroPeticion(resPQRs.data.listarpqr.length);  // Actualiza numeroPeticion para mostrar al usuario el numero de su PQR
 
-
+            //abro dialog para mostrar al usuario el numero de peticion de su PQR
             handleOpenDialog();
         } catch (error) {
             console.error("Error al hacer la petición", error);
@@ -531,10 +618,7 @@ export default function crearPQR() {
     };
 
 
-    //cerrar modal advertencia
-    const handleModalClose = () => {
-        setShowModal(false);
-    };
+
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -850,7 +934,11 @@ export default function crearPQR() {
                                                                 </div>
                                                                 <span>
                                                                     {imagen && (
-                                                                        <button onClick={() => setImagen(null)}>
+                                                                        <button onClick={() => {
+                                                                            setImagen(null);
+                                                                            setImagen2(null);
+                                                                            setImagen3(null);
+                                                                        }}>
                                                                             <IoClose className="deleteImgPQR" />
                                                                         </button>
                                                                     )}
@@ -864,6 +952,7 @@ export default function crearPQR() {
                                                                         onChange={handleImagen2} // Usa la función handleImagen2 para la segunda imagen
                                                                         onClick={(e) => e.target.value = null} // Resetea el valor del input para poder seleccionar el mismo archivo 
                                                                         style={{ display: 'none' }}
+                                                                        disabled={!imagen}
                                                                         id="fileInput2" // Cambia el id para diferenciarlo del primer input
                                                                     />
                                                                     <label htmlFor="fileInput2"> {/* Asegúrate de cambiar el htmlFor al nuevo id */}
@@ -875,8 +964,11 @@ export default function crearPQR() {
                                                                     </label>
                                                                 </div>
                                                                 <span>
-                                                                    {imagen2 && ( // Usa imagen2 en lugar de imagen
-                                                                        <button onClick={() => setImagen2(null)}> {/* Usa setImagen2 para resetear la segunda imagen */}
+                                                                    {imagen2 && (
+                                                                        <button onClick={() => {
+                                                                            setImagen2(null);
+                                                                            setImagen3(null);
+                                                                        }}>
                                                                             <IoClose className="deleteImgPQR" />
                                                                         </button>
                                                                     )}
@@ -890,6 +982,7 @@ export default function crearPQR() {
                                                                         onChange={handleImagen3} // Usa la función handleImagen3 para la tercera imagen
                                                                         onClick={(e) => e.target.value = null} // Resetea el valor del input para poder seleccionar el mismo archivo 
                                                                         style={{ display: 'none' }}
+                                                                        disabled={!imagen2} // Deshabilita el input si no hay imagen en el input de la imagen 2
                                                                         id="fileInput3" // Cambia el id para diferenciarlo del segundo input
                                                                     />
                                                                     <label htmlFor="fileInput3"> {/* Asegúrate de cambiar el htmlFor al nuevo id */}

@@ -2,7 +2,7 @@ import Container from "../../components/layouts/Container";
 import { Breadcrumbs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
-import axios from "axios"; 
+import axios from "axios";
 import ModalMensajes from "../mensajes/ModalMensajes";
 import shortid from "shortid";
 import Link from '@mui/material/Link';
@@ -58,7 +58,7 @@ export default function verPQR() {
         obtenerTiposIdentificacion();
     }, []);
 
- 
+
 
     useEffect(() => {
         console.log(ciudades);
@@ -169,9 +169,27 @@ export default function verPQR() {
                                                 </div>
 
                                                 <div>
-                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} /></div>
-                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} /></div>
-                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} /></div>
+                                                    {pqr.nombreimagen1 && (
+                                                        <div>
+                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} target="_blank" rel="noopener noreferrer">
+                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} />
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                    {pqr.nombreimagen2 && (
+                                                        <div>
+                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} target="_blank" rel="noopener noreferrer">
+                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} />
+                                                            </a>
+                                                        </div>
+                                                    )}
+                                                    {pqr.nombreimagen3 && (
+                                                        <div>
+                                                            <a href={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} target="_blank" rel="noopener noreferrer">
+                                                                <img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} />
+                                                            </a>
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                                 <div className="SolicituState">
