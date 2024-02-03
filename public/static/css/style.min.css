@@ -35906,8 +35906,7 @@ label {
 .DropDownTipoDocumentoBanco {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    width: 100% !important;
+    align-items: center; 
     border-radius: 10px !important;
     height: 46px !important;
     gap: 2rem;
@@ -35915,12 +35914,11 @@ label {
     background-color: #f1f2f5 !important;
     border: none !important;
     color: #2D2E83 !important;
+    margin-left: auto; /* Esto centrará al fondo */
     outline: none !important;
-    font-size: 14px !important;
-    padding-left: 13px;
-    /* Ajusta este valor según tus necesidades */
-    padding-right: 13px;
-    /* Ajusta este valor según tus necesidades */
+    margin-top: 10px;
+    font-size: 16px !important;
+    padding-left: 13px; 
 }
 .DropDownTipoDocumentoBanco::after {
     content: '';
@@ -35966,7 +35964,7 @@ label {
 .itemsdropdownBanco {
     color: #2D2E83 !important;
     height: 35px !important;
-    font-size: 12px !important;
+    font-size: 13px !important;
     white-space: nowrap !important; 
 }
 
@@ -36378,7 +36376,7 @@ label {
 
 /*Inicio estilos mi billetera*/
 .contMainBilletera {
-    width: 700px;
+    width: 800px;
     margin: 0 auto;
 }
 
@@ -36491,9 +36489,9 @@ label {
     justify-content: space-between;
     width: 100%;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
-
+ 
 .DataMiddleContMovimientos p {
     font-size: 18px;
     color: #2D2E83;
@@ -36502,6 +36500,9 @@ label {
     color: #2D2E83;
     background-color: #f0f1f5;
     display: flex; 
+    padding: .6rem;
+    width: 250px;
+    font-size: 18px;
     text-align: end; 
 }
 .DataMiddleContMovimientos input::placeholder {
@@ -36604,12 +36605,7 @@ label {
     background-position: center center !important;
 }
 
-.itemsDropdownBanco {
-    color: #2D2E83 !important;
-    height: 30px !important;
-    font-size: 14px !important;
-    white-space: nowrap !important;
-}
+ 
 
 .itemsDropdownBanco:hover {
     background-color: #d3d4e4;
@@ -36617,8 +36613,23 @@ label {
 .tamañocajaoDropDownBanco {
     margin-left: 5px !important;
     width: 100% !important;
-    font-size: 18px !important;
+    font-size: 20px !important;
     background-color: #f1f2f6;
+}
+
+.itemsdropdownBanco:hover {
+    background-color: #d3d4e4;
+}
+.ErrorRetitorText{
+    width: 240px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.ErrorRetitorText p{
+    color: red;
+    text-align: end;
+    font-size: 13px;
 }
 /*Fin estilos mi billetera*/
 
@@ -36881,6 +36892,14 @@ label {
 .InputsContainerPQR{
     margin-bottom: 2.5rem; 
 }
+.InputsContainerPQR div{
+    margin-bottom: 2rem;
+}
+.errorInputPQR {
+    font-size: 14px;
+    color: red;
+}
+ 
 .InputsContainerPQR p{ 
     font-size: 18px !important;
     color: #2D2E83;
@@ -36889,14 +36908,14 @@ label {
     font-family: "Jost", sans-serif;
 }
  
+ 
 .InputsContainerPQR input{ 
     background-color: #F0F1F5;
     border-radius: 10px;
     font-size: 18px;
     color: #2D2E83;
     height: 46px;
-    font-weight: 500;
-    margin-bottom: 2rem;
+    font-weight: 500;  
     padding: 9px 15px;
     width: 100%;
 }

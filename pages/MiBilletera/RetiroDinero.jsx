@@ -30,16 +30,25 @@ export default function RetiroDinero() {
     const [datosUsuario, setDatosUsuario] = useState(null);
     const [bancos, setBancos] = useState([]);
     const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
-    const [tipoIdentificacion, setTipoIdentificacion] = useState(""); // Agrega esta línea
+    const [tipoIdentificacion, setTipoIdentificacion] = useState("");
+    const [selectedTipoIdentificacion, setSelectedTipoIdentificacion] = useState("tipo de identificación");
+    const [errorNombreTitular, setErrorNombreTitular] = useState(false);
+    // Estado para manejar el error en el campo "identificacion"
+    const [errorIdentificacion, setErrorIdentificacion] = useState(false);
+    // Estado para manejar el error en el campo "numerodecuenta"
+    const [errorNumeroDeCuenta, setErrorNumeroDeCuenta] = useState(false);
+    // Estado para manejar el error en el campo "selectedTipoIdentificacion"
+    const [errorTipoIdentificacion, setErrorTipoIdentificacion] = useState(false);
+    // Estado para manejar el error en el campo "selectedEntidadBancaria"
+    const [errorEntidadBancaria, setErrorEntidadBancaria] = useState(false);
+
+    const [selectedEntidadBancaria, setSelectedEntidadBancaria] = useState("Seleccione banco");
     //cerrar modal advertencia
     const handleModalClose = () => {
         setShowModal(false);
     };
-    const [selectedTipoIdentificacion, setSelectedTipoIdentificacion] = useState("tipo de identificación");
-    const handleSelectTipoIdentificacion = (value, nombre) => {
-        setSelectedTipoIdentificacion(nombre);
-        setForm({ ...form, tipoidentificacion: value });
-    };
+
+
 
     useEffect(() => {
         const obtenerTiposIdentificacion = async () => {
@@ -60,18 +69,6 @@ export default function RetiroDinero() {
         obtenerTiposIdentificacion();
     }, []);
 
-
-    const [selectedEntidadBancaria, setSelectedEntidadBancaria] = useState("Seleccione banco");
-
-    const handleSelectEntidadBancaria = (value, nombre) => {
-        setSelectedEntidadBancaria(nombre);
-        setForm({ ...form, entidadbancaria: value });
-    };
-
-
-
-
-
     const handleOpenDialog = () => {
         setDialogOpen(true);
     };
@@ -83,8 +80,6 @@ export default function RetiroDinero() {
             block: "start",
         });
     }, []);
-
-
 
 
     const CustomDropdownButton = React.forwardRef(({ children, onClick, href }, ref) => (
@@ -241,23 +236,51 @@ export default function RetiroDinero() {
         });
     };
 
-    //Función para handles de form para hacer retiro
-    const handleChangeRetiro = (event) => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value,
-        });
+    //Función para handles de form para hacer retiro 
+    const handleChangeRetiro = (e) => {
+        const { name, value } = e.target;
+
+        // Actualiza el valor del campo
+        setForm(prevState => ({ ...prevState, [name]: value }));
+
+        // Verifica el campo "nombretitular"
+        if (name === 'nombretitular') {
+            if (!value) {
+                setErrorNombreTitular(true);
+            } else {
+                setErrorNombreTitular(false);
+            }
+        }
+
+        // Verifica el campo "identificacion"
+        if (name === 'identificacion') {
+            if (!value || value.length < 6) {
+                setErrorIdentificacion(true);
+            } else {
+                setErrorIdentificacion(false);
+            }
+        }
+
+        // Verifica el campo "numerodecuenta"
+        if (name === 'numerodecuenta') {
+            if (!value || value.length < 6) {
+                setErrorNumeroDeCuenta(true);
+            } else {
+                setErrorNumeroDeCuenta(false);
+            }
+        }
+
     };
 
     //petición para hacer el retiro del usuario
-    const hacerPeticionRetiro = async () => {
+    const validarFormulario = () => {
         // Verificamos si algún campo está vacío
         for (let campo in form) {
             if (form[campo] === '') {
                 setTituloMensajes('¡Cuidado!');
                 setTextoMensajes('Todos los campos deben estar llenos para poder enviar la petición.');
                 setShowModal(true);
-                return; // Salimos de la función para no enviar la petición
+                return false; // Salimos de la función para no enviar la petición
             }
         }
 
@@ -266,7 +289,7 @@ export default function RetiroDinero() {
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('El número de identificación y el número de cuenta deben tener al menos 6 caracteres.');
             setShowModal(true);
-            return; // Salimos de la función para no enviar la petición
+            return false; // Salimos de la función para no enviar la petición
         }
 
         // Verificamos si el valor de la transferencia es 0 o comienza con 0
@@ -275,7 +298,7 @@ export default function RetiroDinero() {
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('El valor de la transferencia debe ser mayor que 0 y no puede comenzar con 0.');
             setShowModal(true);
-            return; // Salimos de la función para no enviar la petición
+            return false; // Salimos de la función para no enviar la petición
         }
 
         // Verificamos si el valor de la transferencia es mayor que el saldo final
@@ -283,16 +306,15 @@ export default function RetiroDinero() {
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('El valor de la transferencia no puede ser mayor al saldo de tu cuenta!');
             setShowModal(true);
-            return; // Salimos de la función para no enviar la petición
+            return false; // Salimos de la función para no enviar la petición
         }
 
-        let params = {
-            usuario: datosusuarios.uid,
-            estado: 72,
-            ...form,
-            valortransferencia: form.valortransferencia.replace(/,/g, ''), // Eliminamos las comas
-        };
-        console.log("Parámetros enviados a retirar: ", params);
+        // Si todas las validaciones pasan, retornamos true
+        return true;
+    };
+
+    // Función para hacer la petición a la API
+    const enviarPeticion = async (params) => {
         try {
             const res = await axios({
                 method: "post",
@@ -308,6 +330,67 @@ export default function RetiroDinero() {
         }
     };
 
+    const hacerPeticionRetiro = async () => {
+        // Inicializamos una variable para verificar si el formulario es válido
+        let esFormularioValido = true;
+
+        // Verificamos si el campo "nombretitular" está vacío
+        if (!form.nombretitular) {
+            setErrorNombreTitular(true);
+            esFormularioValido = false;
+        } else {
+            setErrorNombreTitular(false);
+        }
+
+        // Verificamos si el campo "identificacion" está vacío o tiene menos de 6 caracteres
+        if (!form.identificacion || form.identificacion.length < 6) {
+            setErrorIdentificacion(true);
+            esFormularioValido = false;
+        } else {
+            setErrorIdentificacion(false);
+        }
+
+        // Verificamos si el campo "numerodecuenta" está vacío o tiene menos de 6 caracteres
+        if (!form.numerodecuenta || form.numerodecuenta.length < 6) {
+            setErrorNumeroDeCuenta(true);
+            esFormularioValido = false;
+        } else {
+            setErrorNumeroDeCuenta(false);
+        }
+
+        // Verificamos si el campo "selectedTipoIdentificacion" está vacío o es "tipo de identificación"
+        if (!selectedTipoIdentificacion || selectedTipoIdentificacion === "tipo de identificación") {
+            setErrorTipoIdentificacion(true);
+            esFormularioValido = false;
+        } else {
+            setErrorTipoIdentificacion(false);
+        }
+
+        // Verificamos si el campo "selectedEntidadBancaria" está vacío o es "Seleccione banco"
+        if (!selectedEntidadBancaria || selectedEntidadBancaria === "Seleccione banco") {
+            setErrorEntidadBancaria(true);
+            esFormularioValido = false;
+        } else {
+            setErrorEntidadBancaria(false);
+        }
+
+        // Si el formulario no es válido, salimos de la función para no enviar la petición
+        if (!esFormularioValido) {
+            return;
+        }
+
+        // Si el formulario es válido, procedemos a hacer la petición
+        let params = {
+            usuario: datosusuarios.uid,
+            estado: 72,
+            ...form,
+            valortransferencia: form.valortransferencia.replace(/,/g, ''), // Eliminamos las comas
+        };
+        console.log("Parámetros enviados a retirar: ", params);
+
+        // Llamamos a la función para enviar la petición
+        enviarPeticion(params);
+    };
 
 
     //Estilos a arreglar
@@ -336,13 +419,32 @@ export default function RetiroDinero() {
         },
     };
 
-    const optionStyles = {
-        fontSize: 14,
-        fontWeight: 500,
-        fontFamily: '"Jost", sans-serif',
-        color: '#2D2E83',
-        backgroundColor: '#f0f1f5'
+
+
+    const handleSelectTipoIdentificacion = (value, nombre) => {
+        setSelectedTipoIdentificacion(nombre);
+        setForm({ ...form, tipoidentificacion: value });
+
+        // Verificamos si el campo "selectedTipoIdentificacion" está vacío o es "tipo de identificación"
+        if (!nombre || nombre === "tipo de identificación") {
+            setErrorTipoIdentificacion(true);
+        } else {
+            setErrorTipoIdentificacion(false);
+        }
     };
+
+    const handleSelectEntidadBancaria = (value, nombre) => {
+        setSelectedEntidadBancaria(nombre);
+        setForm({ ...form, entidadbancaria: value });
+
+        // Verificamos si el campo "selectedEntidadBancaria" está vacío o es "Seleccione banco"
+        if (!nombre || nombre === "Seleccione banco") {
+            setErrorEntidadBancaria(true);
+        } else {
+            setErrorEntidadBancaria(false);
+        }
+    };
+
 
     return (
         <>
@@ -386,27 +488,36 @@ export default function RetiroDinero() {
                                                     <div className="MiddleContMovimientos">
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Nombre del titular de la cuenta</p>
-                                                            <input
-                                                                autoComplete="off"
-                                                                name="nombretitular"
-                                                                type="text"
-                                                                value={form.nombretitular}
-                                                                onChange={handleChangeRetiro}
-                                                                placeholder="Nombre del titular"
-                                                                maxLength={50}
-                                                                onInput={(e) => {
-                                                                    // Permitir solo letras y espacios
-                                                                    e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
-                                                                    // Capitalizar la primera letra de cada palabra
-                                                                    e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                                }}
-                                                            />
+                                                            <div>
+                                                                <input
+                                                                    autoComplete="off"
+                                                                    name="nombretitular"
+                                                                    type="text"
+                                                                    value={form.nombretitular}
+                                                                    onChange={handleChangeRetiro}
+                                                                    onClick={() => setErrorNombreTitular(false)}
+                                                                    style={errorNombreTitular ? { border: '1px solid red', textAlign: 'center', borderRadius: '10px' } : {}}
+                                                                    placeholder="Nombre del titular"
+                                                                    maxLength={50}
+                                                                    onInput={(e) => {
+                                                                        // Permitir solo letras y espacios
+                                                                        e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
+                                                                        // Capitalizar la primera letra de cada palabra
+                                                                        e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
+                                                                    }}
+                                                                />
+                                                                {errorNombreTitular && <div className="ErrorRetitorText"> <p>Ingresa un nombre valido!</p></div>}
+                                                            </div>
+
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Tipo de documento del titular de la cuenta</p>
                                                             <div>
-                                                                <Dropdown style={{ width: '230px', marginBottom: '2rem' }}>
+                                                                <Dropdown
+                                                                    style={errorTipoIdentificacion ? { border: '1px solid red', borderRadius: '10px', width: '230px' } : { width: '230px' }}
+                                                                    onClick={() => setErrorTipoIdentificacion(false)}
+                                                                >
                                                                     <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
                                                                         {selectedTipoIdentificacion}
                                                                     </Dropdown.Toggle>
@@ -414,42 +525,51 @@ export default function RetiroDinero() {
                                                                         {tipoIdentificacion && tipoIdentificacion.map((tipo) => (
                                                                             <Dropdown.Item
                                                                                 className="itemsdropdownBanco"
-                                                                                onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.descripcion}`)}
+                                                                                onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.tipoidentificacion}`)}
                                                                             >
                                                                                 {`${tipo.descripcion}`}
                                                                             </Dropdown.Item>
                                                                         ))}
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
+                                                                {errorTipoIdentificacion && <div className="ErrorRetitorText"> <p>Recuerda, debes elegir un tipo de identificación</p></div>}
                                                             </div>
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Numero de documento del titular de la cuenta</p>
-                                                            <input
-                                                                autoComplete="off"
-                                                                name="identificacion"
-                                                                placeholder="Número identificación"
-                                                                type="text"
-                                                                value={form.identificacion}
-                                                                onChange={handleChangeRetiro}
-                                                                maxLength={10}
-                                                                onKeyPress={(event) => {
-                                                                    if (!/[0-9]/.test(event.key)) {
-                                                                        event.preventDefault();
-                                                                    }
-                                                                }}
-                                                            />
+                                                            <div>
+                                                                <input
+                                                                    autoComplete="off"
+                                                                    name="identificacion"
+                                                                    type="text"
+                                                                    maxLength={16}
+                                                                    value={form.identificacion}
+                                                                    onChange={handleChangeRetiro}
+                                                                    onClick={() => setErrorIdentificacion(false)}
+                                                                    style={errorIdentificacion ? { border: '1px solid red', textAlign: 'center', borderRadius: '10px' } : {}}
+                                                                    placeholder="Número de identificación"
+                                                                    onKeyPress={(event) => {
+                                                                        if (!/[0-9]/.test(event.key)) {
+                                                                            event.preventDefault();
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                {errorIdentificacion && <div className="ErrorRetitorText"> <p>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10</p></div>}
+                                                            </div>
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Entidad Bancaria</p>
                                                             <div>
-                                                                <Dropdown style={{ width: '230px', marginBottom: '2rem' }}>
+                                                                <Dropdown
+                                                                    style={errorEntidadBancaria ? { border: '1px solid red', borderRadius: '10px', width: '230px' } : { width: '230px'}}
+                                                                    onClick={() => setErrorEntidadBancaria(false)}
+                                                                >
                                                                     <Dropdown.Toggle as={CustomDropdownButtonBanco} id="dropdown-basic">
                                                                         {selectedEntidadBancaria}
                                                                     </Dropdown.Toggle>
-                                                                    <Dropdown.Menu className="tamañocajaoDropDownBanco" style={{ maxHeight: '280px', overflowY: 'auto' }}>
+                                                                    <Dropdown.Menu className="tamañocajaoDropDownBanco"  style={{ maxHeight: '280px', overflowY: 'auto' }}>
                                                                         {bancos && bancos.map((banco) => (
                                                                             <Dropdown.Item
                                                                                 className="itemsdropdownBanco"
@@ -460,25 +580,32 @@ export default function RetiroDinero() {
                                                                         ))}
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
+                                                                {errorEntidadBancaria && <div className="ErrorRetitorText"> <p>Recuerda, debes elegir un banco</p></div>}
                                                             </div>
                                                         </div>
 
                                                         <div className="DataMiddleContMovimientos">
                                                             <p>Numero de cuenta</p>
-                                                            <input
-                                                                autoComplete="off"
-                                                                name="numerodecuenta"
-                                                                placeholder="Número de cuenta"
-                                                                type="text"
-                                                                maxLength={16}
-                                                                value={form.numerodecuenta}
-                                                                onChange={handleChangeRetiro}
-                                                                onKeyPress={(event) => {
-                                                                    if (!/[0-9]/.test(event.key)) {
-                                                                        event.preventDefault();
-                                                                    }
-                                                                }}
-                                                            />
+                                                            <div>
+                                                                <input
+                                                                    autoComplete="off"
+                                                                    name="numerodecuenta"
+                                                                    type="text"
+                                                                    maxLength={16}
+                                                                    value={form.numerodecuenta}
+                                                                    onChange={handleChangeRetiro}
+                                                                    onClick={() => setErrorNumeroDeCuenta(false)}
+                                                                    style={errorNumeroDeCuenta ? { border: '1px solid red', textAlign: 'center', borderRadius: '10px' } : {}}
+                                                                    placeholder="Número de cuenta"
+                                                                    onKeyPress={(event) => {
+                                                                        if (!/[0-9]/.test(event.key)) {
+                                                                            event.preventDefault();
+                                                                        }
+                                                                    }}
+                                                                />
+                                                                {errorNumeroDeCuenta && <div className="ErrorRetitorText"> <p>Porfavor, ingresa un número de cuenta bancaria valido!</p></div>}
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 ) : (

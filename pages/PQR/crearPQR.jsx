@@ -658,79 +658,98 @@ export default function crearPQR() {
                                                 <div className="InputsContainerPQR">
                                                     <div>
                                                         <p>Nombres</p>
-                                                        <input type="text"
-                                                            name="nombres"
-                                                            id=""
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorNombres(false)}
-                                                            style={errorNombres ? { border: '1px solid red' } : {}}
-                                                            maxLength={20}
-                                                            onInput={(e) => {
-                                                                // Permitir solo letras y espacios
-                                                                e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
-                                                                // Capitalizar la primera letra de cada palabra
-                                                                e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                            }}
-                                                        />
+                                                        <div>
+                                                            <input type="text"
+                                                                name="nombres"
+                                                                id=""
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorNombres(false)}
+                                                                style={errorNombres ? { border: '1px solid red' } : {}}
+                                                                maxLength={20}
+                                                                onInput={(e) => {
+                                                                    // Permitir solo letras y espacios
+                                                                    e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
+                                                                    // Capitalizar la primera letra de cada palabra
+                                                                    e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
+                                                                }}
+                                                            />
+                                                            {errorNombres && <div className="errorInputPQR"> <p>Ingresa un nombre valido!</p></div>}
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <p>Tipo de documento</p>
-                                                        <Dropdown style={errorTipoIdentificacion ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorTipoIdentificacion(false)}>
-                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
-                                                                {selectedTipoIdentificacion}
-                                                            </Dropdown.Toggle>
-                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
-                                                                {tipoIdentificacion && tipoIdentificacion.map((tipo) => (
-                                                                    <Dropdown.Item
-                                                                        className="itemsdropdownTipoDoc"
-                                                                        onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.tipoidentificacion} - ${tipo.descripcion}`)}
-                                                                    >
-                                                                        {`${tipo.tipoidentificacion} - ${tipo.descripcion}`}
-                                                                    </Dropdown.Item>
-                                                                ))}
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
+                                                        <div>
+                                                            <Dropdown style={errorTipoIdentificacion ? { border: '1px solid red', borderRadius: '10px', width: '100%' } : { borderRadius: '10px', width: '100%' }} onClick={() => setErrorTipoIdentificacion(false)}>
+                                                                <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                    {selectedTipoIdentificacion}
+                                                                </Dropdown.Toggle>
+                                                                <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
+                                                                    {tipoIdentificacion && tipoIdentificacion.map((tipo) => (
+                                                                        <Dropdown.Item
+                                                                            className="itemsdropdownTipoDoc"
+                                                                            onClick={() => handleSelectTipoIdentificacion(tipo.id, `${tipo.tipoidentificacion} - ${tipo.descripcion}`)}
+                                                                        >
+                                                                            {`${tipo.tipoidentificacion} - ${tipo.descripcion}`}
+                                                                        </Dropdown.Item>
+                                                                    ))}
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                            {errorTipoIdentificacion && <div className="errorInputPQRS"> <p>Recuerda, debes elegir un tipo de identificación</p></div>}
+                                                        </div>
+
                                                     </div>
-                                                    <div>
+                                                    <div >
                                                         <p>Correo electrónico</p>
-                                                        <input
-                                                            autoComplete={Math.random().toString()}
-                                                            name="email"
-                                                            type="text"
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorEmail(false)}
-                                                            style={errorEmail ? { border: '1px solid red' } : {}}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                autoComplete={Math.random().toString()}
+                                                                name="email"
+                                                                type="text"
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorEmail(false)}
+                                                                style={errorEmail ? { border: '1px solid red' } : {}}
+                                                            />
+                                                            {errorEmail && <div className="errorInputPQR"> <p>Ingresa un email valido! Ej: juan@gmail.com</p></div>}
+                                                        </div>
+
                                                     </div>
-                                                    <div>
+                                                    <div >
                                                         <p>Ciudad</p>
-                                                        <Dropdown style={errorCiudad ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorCiudad(false)}>
-                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
-                                                                {selectedCiudad}
-                                                            </Dropdown.Toggle>
-                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento" style={{ maxHeight: '281px', overflowY: 'auto' }}>
-                                                                {ciudades && ciudades.map((ciudad) => (
-                                                                    <Dropdown.Item
-                                                                        className="itemsdropdownTipoDoc"
-                                                                        onClick={() => handleSelectCiudad(ciudad.id_ciu, `${ciudad.nombre_ciu}`)}
-                                                                    >
-                                                                        {`${ciudad.nombre_ciu}`}
-                                                                    </Dropdown.Item>
-                                                                ))}
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
+                                                        <div>
+                                                            <Dropdown style={errorCiudad ? { border: '1px solid red', borderRadius: '10px', width: '100%' } : { borderRadius: '10px', width: '100%' }} onClick={() => setErrorCiudad(false)}>
+                                                                <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                    {selectedCiudad}
+                                                                </Dropdown.Toggle>
+                                                                <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento" style={{ maxHeight: '281px', overflowY: 'auto' }}>
+                                                                    {ciudades && ciudades.map((ciudad) => (
+                                                                        <Dropdown.Item
+                                                                            className="itemsdropdownTipoDoc"
+                                                                            onClick={() => handleSelectCiudad(ciudad.id_ciu, `${ciudad.nombre_ciu}`)}
+                                                                        >
+                                                                            {`${ciudad.nombre_ciu}`}
+                                                                        </Dropdown.Item>
+                                                                    ))}
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                            {errorCiudad && <div className="errorInputPQRS"> <p>Recuerda, debes elegir una ciudad</p></div>}
+                                                        </div>
+
                                                     </div>
-                                                    <div>
+                                                    <div >
                                                         <p>Barrio</p>
-                                                        <input
-                                                            type="text"
-                                                            name="barrio"
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorBarrio(false)}
-                                                            style={errorBarrio ? { border: '1px solid red' } : {}}
-                                                            autoComplete={Math.random().toString()}
-                                                            maxLength={20}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                name="barrio"
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorBarrio(false)}
+                                                                style={errorBarrio ? { border: '1px solid red' } : {}}
+                                                                autoComplete={Math.random().toString()}
+                                                                maxLength={20}
+                                                            />
+                                                            {errorIdentificacion && <div className="errorInputPQR"> <p>Recuerda, debes elegir un barrio valido</p></div>}
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </Grid>
@@ -738,99 +757,119 @@ export default function crearPQR() {
                                                 <div className="InputsContainerPQR">
                                                     <div>
                                                         <p>Apellidos</p>
-                                                        <input type="text"
-                                                            name="apellidos" id=""
-                                                            onClick={() => setErrorApellidos(false)}
-                                                            style={errorApellidos ? { border: '1px solid red' } : {}}
-                                                            onChange={handleChange}
-                                                            maxLength={20}
-                                                            onInput={(e) => {
-                                                                // Permitir solo letras y espacios
-                                                                e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
-                                                                // Capitalizar la primera letra de cada palabra
-                                                                e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                            }}
-                                                        />
+                                                        <div>
+                                                            <input type="text"
+                                                                name="apellidos" id=""
+                                                                onClick={() => setErrorApellidos(false)}
+                                                                style={errorApellidos ? { border: '1px solid red' } : {}}
+                                                                onChange={handleChange}
+                                                                maxLength={20}
+                                                                onInput={(e) => {
+                                                                    // Permitir solo letras y espacios
+                                                                    e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
+                                                                    // Capitalizar la primera letra de cada palabra
+                                                                    e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
+                                                                }}
+                                                            />
+                                                            {errorApellidos && <div className="errorInputPQR"> <p>Ingresa un apellido valido!</p></div>}
+                                                        </div>
+
                                                     </div>
                                                     <div>
                                                         <p>Numero de documento</p>
-                                                        <input
-                                                            autoComplete="off"
-                                                            name="identificacion"
-                                                            type="text"
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorIdentificacion(false)}
-                                                            style={errorIdentificacion ? { border: '1px solid red' } : {}}
-                                                            maxLength={10}
-                                                            onKeyPress={(event) => {
-                                                                if (!/[0-9]/.test(event.key)) {
-                                                                    event.preventDefault();
-                                                                }
-                                                            }}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                autoComplete="off"
+                                                                name="identificacion"
+                                                                type="text"
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorIdentificacion(false)}
+                                                                style={errorIdentificacion ? { border: '1px solid red' } : {}}
+                                                                maxLength={10}
+                                                                onKeyPress={(event) => {
+                                                                    if (!/[0-9]/.test(event.key)) {
+                                                                        event.preventDefault();
+                                                                    }
+                                                                }}
+                                                            />
+                                                            {errorIdentificacion && <div className="errorInputPQR"> <p>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10</p></div>}
+                                                        </div>
+
                                                     </div>
                                                     <div>
                                                         <p>Numero de contacto</p>
-                                                        <input
-                                                            autoComplete="off"
-                                                            type="text"
-                                                            name="telefono"
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorTelefono(false)}
-                                                            style={errorTelefono ? { border: '1px solid red' } : {}}
-                                                            maxLength={10}
-                                                            onKeyPress={(event) => {
-                                                                if (!/[0-9]/.test(event.key)) {
-                                                                    event.preventDefault();
-                                                                }
-                                                            }}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                autoComplete="off"
+                                                                type="text"
+                                                                name="telefono"
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorTelefono(false)}
+                                                                style={errorTelefono ? { border: '1px solid red' } : {}}
+                                                                maxLength={10}
+                                                                onKeyPress={(event) => {
+                                                                    if (!/[0-9]/.test(event.key)) {
+                                                                        event.preventDefault();
+                                                                    }
+                                                                }}
+                                                            />
+                                                            {errorTelefono && <div className="errorInputPQR"> <p>Recuerda, El teléfono de contacto debe contener 10 digitos</p></div>}
+                                                        </div>
+
                                                     </div>
                                                     <div>
                                                         <p>Dirección</p>
-                                                        <input
-                                                            type="text"
-                                                            name="direccion"
-                                                            onChange={handleChange}
-                                                            onClick={() => setErrorDireccion(false)}
-                                                            style={errorDireccion ? { border: '1px solid red' } : {}}
-                                                            autoComplete={Math.random().toString()}
-                                                            maxLength={30}
-                                                        />
+                                                        <div>
+                                                            <input
+                                                                type="text"
+                                                                name="direccion"
+                                                                onChange={handleChange}
+                                                                onClick={() => setErrorDireccion(false)}
+                                                                style={errorDireccion ? { border: '1px solid red' } : {}}
+                                                                autoComplete={Math.random().toString()}
+                                                                maxLength={30}
+                                                            />
+                                                            {errorDireccion && <div className="errorInputPQR"> <p>Ingresa una dirección valida! Ej: CLL 40 # 22...</p></div>}
+                                                        </div>
+
                                                     </div>
                                                     <div>
                                                         <p>Motivo</p>
-                                                        <Dropdown style={errorMotivo ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorMotivo(false)}>
-                                                            <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
-                                                                {selectedMotivo}
-                                                            </Dropdown.Toggle>
-                                                            <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
-                                                                <Dropdown.Item
-                                                                    className="itemsdropdownTipoDoc"
-                                                                    onClick={() => handleSelectMotivo("Petición", "Petición")}
-                                                                >
-                                                                    Petición
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item
-                                                                    className="itemsdropdownTipoDoc"
-                                                                    onClick={() => handleSelectMotivo("Queja", "Queja")}
-                                                                >
-                                                                    Queja
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item
-                                                                    className="itemsdropdownTipoDoc"
-                                                                    onClick={() => handleSelectMotivo("Reclamo", "Reclamo")}
-                                                                >
-                                                                    Reclamo
-                                                                </Dropdown.Item>
-                                                                <Dropdown.Item
-                                                                    className="itemsdropdownTipoDoc"
-                                                                    onClick={() => handleSelectMotivo("Felicitación", "Felicitación")}
-                                                                >
-                                                                    Felicitación
-                                                                </Dropdown.Item>
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
+                                                        <div>
+                                                            <Dropdown style={errorMotivo ? { border: '1px solid red', borderRadius: '10px', width: '100%' } : { borderRadius: '10px', width: '100%' }} onClick={() => setErrorMotivo(false)}>
+                                                                <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
+                                                                    {selectedMotivo}
+                                                                </Dropdown.Toggle>
+                                                                <Dropdown.Menu className="tamañocajaoDropDownTipoDocumento">
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectMotivo("Petición", "Petición")}
+                                                                    >
+                                                                        Petición
+                                                                    </Dropdown.Item>
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectMotivo("Queja", "Queja")}
+                                                                    >
+                                                                        Queja
+                                                                    </Dropdown.Item>
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectMotivo("Reclamo", "Reclamo")}
+                                                                    >
+                                                                        Reclamo
+                                                                    </Dropdown.Item>
+                                                                    <Dropdown.Item
+                                                                        className="itemsdropdownTipoDoc"
+                                                                        onClick={() => handleSelectMotivo("Felicitación", "Felicitación")}
+                                                                    >
+                                                                        Felicitación
+                                                                    </Dropdown.Item>
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                            {errorMotivo && <div className="errorInputPQRS"> <p>Recuerda, debes elegir el motivo de la petición</p></div>}
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </Grid>
