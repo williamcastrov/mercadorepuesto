@@ -2,8 +2,7 @@ import Container from "../../components/layouts/Container";
 import { Breadcrumbs, Grid, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
-import axios from "axios";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
+import axios from "axios"; 
 import ModalMensajes from "../mensajes/ModalMensajes";
 import shortid from "shortid";
 import Link from '@mui/material/Link';
@@ -16,7 +15,7 @@ import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 
 export default function verPQR() {
 
@@ -170,9 +169,9 @@ export default function verPQR() {
                                                 </div>
 
                                                 <div>
-                                                    <div><HiOutlineDocumentArrowDown /></div>
-                                                    <div><HiOutlineDocumentArrowDown /></div>
-                                                    <div><HiOutlineDocumentArrowDown /></div>
+                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen1}`} /></div>
+                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen2}`} /></div>
+                                                    <div><img src={`${URL_IMAGES_RESULTSSMS}${pqr.nombreimagen3}`} /></div>
                                                 </div>
 
                                                 <div className="SolicituState">

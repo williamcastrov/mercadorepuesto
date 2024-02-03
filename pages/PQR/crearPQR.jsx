@@ -49,6 +49,65 @@ export default function crearPQR() {
     const [textoMensajes, setTextoMensajes] = useState("");
     const [dialogOpen, setDialogOpen] = useState(false);
     const [numeroPeticion, setNumeroPeticion] = useState(null);
+    const [errorNombres, setErrorNombres] = useState(false);
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorApellidos, setErrorApellidos] = useState(false);
+    const [errorIdentificacion, setErrorIdentificacion] = useState(false);
+    const [errorTelefono, setErrorTelefono] = useState(false);
+    const [errorDireccion, setErrorDireccion] = useState(false);
+    const [errorBarrio, setErrorBarrio] = useState(false);
+    const [errorCiudad, setErrorCiudad] = useState(false);
+    const [errorTipoIdentificacion, setErrorTipoIdentificacion] = useState(false);
+    const [errorMotivo, setErrorMotivo] = useState(false);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [errorAceptaTerminos, setErrorAceptaTerminos] = useState(false);
+    const [errorAsunto, setErrorAsunto] = useState(false);
+    const [errorDescripcion, setErrorDescripcion] = useState(false);
+    const [selectedImage2, setSelectedImage2] = useState(null);
+    const [imagen2, setImagen2] = useState(null);
+    const [selectedImage3, setSelectedImage3] = useState(null);
+    const [imagen3, setImagen3] = useState(null);
+
+    const handleImagen3 = (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const image = reader.result;
+            const extension =
+                "." +
+                image.substring(
+                    image.indexOf("/") + 1,
+                    image.indexOf(";base64")
+                );
+            const nombreImagen = shortid.generate().substring(0, 11) + extension;
+            setSelectedImage3(image);
+            setImagen3({ image: file, nombreImagen });
+        };
+        reader.readAsDataURL(file);
+    };
+    const handleImagen2 = (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const image = reader.result;
+            const extension =
+                "." +
+                image.substring(
+                    image.indexOf("/") + 1,
+                    image.indexOf(";base64")
+                );
+            const nombreImagen = shortid.generate().substring(0, 11) + extension;
+            setSelectedImage2(image);
+            setImagen2({ image: file, nombreImagen });
+        };
+        reader.readAsDataURL(file);
+    };
     //abrir dialog de confirmación
     const handleOpenDialog = () => {
         setDialogOpen(true);
@@ -56,53 +115,88 @@ export default function crearPQR() {
 
     //Verifica los datos antes de pasar a siguiente
     const verificarDatos = () => {
+        let isValid = true;
         // Verificar que los campos "nombres" y "apellidos" no estén vacíos
-        if (!form.nombres || !form.apellidos) {
-            return false; // Detiene la ejecución de la función y retorna "false"
+        if (!form.nombres) {
+            setErrorNombres(true);
+            isValid = false;
+        } else {
+            setErrorNombres(false);
         }
 
-        // Verificar que el campo "email" no esté vacío y sea un correo electrónico válido
+        // Verificar que los campos "nombres" y "apellidos" no estén vacíos
+        if (!form.apellidos) {
+            setErrorApellidos(true);
+            isValid = false;
+        } else {
+            setErrorApellidos(false);
+        }
+
+
         const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!form.email || !regexEmail.test(form.email)) {
-            return false; // Detiene la ejecución de la función y retorna "false"
-        }
-
-        // Verificar que se haya seleccionado un "Tipo de documento"
-        if (selectedTipoIdentificacion === "Seleccione tipo de identificación") {
-            return false; // Detiene la ejecución de la función y retorna "false"
-        }
-
-        // Verificar que se haya seleccionado una "Ciudad"
-        if (selectedCiudad === "Seleccione la ciudad") {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorEmail(true);
+            isValid = false;
+        } else {
+            setErrorEmail(false);
         }
 
         // Verificar que el campo "identificacion" no esté vacío y tenga al menos 6 caracteres
         if (!form.identificacion || form.identificacion.length < 6) {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorIdentificacion(true);
+            isValid = false;
+        } else {
+            setErrorIdentificacion(false);
         }
+
 
         // Verificar que el campo "telefono" no esté vacío y tenga exactamente 10 caracteres
         if (!form.telefono || form.telefono.length !== 10) {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorTelefono(true);
+            isValid = false;
+        } else {
+            setErrorTelefono(false);
         }
 
         // Verificar que el campo "direccion" no esté vacío
         if (!form.direccion) {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorDireccion(true);
+            isValid = false;
+        } else {
+            setErrorDireccion(false);
         }
 
         // Verificar que el campo "barrio" no esté vacío y solo contenga letras
         const regexBarrio = /^[a-zA-Z\s]*$/;
         if (!form.barrio || !regexBarrio.test(form.barrio)) {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorBarrio(true);
+            isValid = false;
+        } else {
+            setErrorBarrio(false);
+        }
+
+        if (selectedCiudad === "Seleccione la ciudad") {
+            setErrorCiudad(true);
+            isValid = false;
+        } else {
+            setErrorCiudad(false);
+        }
+
+        // Verificar que se haya seleccionado un "Tipo de documento"
+        if (selectedTipoIdentificacion === "Seleccione tipo de identificación") {
+            setErrorTipoIdentificacion(true);
+            isValid = false;
+        } else {
+            setErrorTipoIdentificacion(false);
         }
 
         // Verificar que se haya seleccionado un "Motivo"
         if (selectedMotivo === "Seleccione el motivo") {
-            return false; // Detiene la ejecución de la función y retorna "false"
+            setErrorMotivo(true);
+            isValid = false;
+        } else {
+            setErrorMotivo(false);
         }
-
         // Si todos los controles pasan, retorna "true"
         return true;
     };
@@ -112,18 +206,24 @@ export default function crearPQR() {
         // Verificar que el campo "asunto" no esté vacío, solo contenga letras y no esté completamente lleno
         const regexTexto = /^[a-zA-Z\s]*$/;
         if (!form.asunto || !regexTexto.test(form.asunto) || form.asunto.length === 100) {
+            setErrorAsunto(true);
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('Por favor, ingresa un asunto válido.');
             setShowModal(true);
             return false; // Detiene la ejecución de la función y retorna "false"
+        } else {
+            setErrorAsunto(false);
         }
 
-        // Verificar que el campo "descripcion" no esté vacío, solo contenga letras y no esté completamente lleno
+        // Verificar que el campo "descripcion" no esté vacío, solo contenga letras y no esté completamente lleno 
         if (!form.descripcion || !regexTexto.test(form.descripcion) || form.descripcion.length === 500) {
+            setErrorDescripcion(true);
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('Por favor, ingresa una descripción válida.');
             setShowModal(true);
             return false; // Detiene la ejecución de la función y retorna "false"
+        } else {
+            setErrorDescripcion(false);
         }
 
         // Si todos los controles pasan, retorna "true"
@@ -147,6 +247,7 @@ export default function crearPQR() {
                     image.indexOf(";base64")
                 );
             const nombreImagen = shortid.generate().substring(0, 11) + extension;
+            setSelectedImage(image);
             setImagen({ image: file, nombreImagen }); // Guarda el objeto File y el nombre de la imagen
         };
         reader.readAsDataURL(file);
@@ -174,10 +275,13 @@ export default function crearPQR() {
         }
 
         if (!aceptaTerminos) {
+            setErrorAceptaTerminos(true);
             setTituloMensajes('¡Cuidado!');
             setTextoMensajes('Por favor, acepta los términos y condiciones.');
             setShowModal(true);
             return; // Detiene la ejecución de la función
+        } else {
+            setErrorAceptaTerminos(false);
         }
 
         setIsOpen(false);
@@ -207,7 +311,88 @@ export default function crearPQR() {
 
     //Handlechange de los campos de inputs y textArea del form
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        // Actualiza el valor del campo
+        setForm(prevState => ({ ...prevState, [name]: value }));
+
+        // Verifica el campo "nombres"
+        if (name === 'nombres') {
+            if (!value) {
+                setErrorNombres(true);
+            } else {
+                setErrorNombres(false);
+            }
+        }
+
+        // Verifica el campo "email"
+        if (name === 'email') {
+            const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!value || !regexEmail.test(value)) {
+                setErrorEmail(true);
+            } else {
+                setErrorEmail(false);
+            }
+        }
+
+        if (name === 'apellidos') {
+            if (!value) {
+                setErrorApellidos(true);
+            } else {
+                setErrorApellidos(false);
+            }
+        }
+
+        if (name === 'identificacion') {
+            if (!value || value.length < 6) {
+                setErrorIdentificacion(true);
+            } else {
+                setErrorIdentificacion(false);
+            }
+        }
+
+        if (name === 'telefono') {
+            if (!value || value.length !== 10) {
+                setErrorTelefono(true);
+            } else {
+                setErrorTelefono(false);
+            }
+        }
+
+        if (name === 'direccion') {
+            if (!value) {
+                setErrorDireccion(true);
+            } else {
+                setErrorDireccion(false);
+            }
+        }
+
+        if (name === 'barrio') {
+            const regexBarrio = /^[a-zA-Z\s]*$/;
+            if (!value || !regexBarrio.test(value)) {
+                setErrorBarrio(true);
+            } else {
+                setErrorBarrio(false);
+            }
+        }
+
+        if (name === 'asunto') {
+            const regexTexto = /^[a-zA-Z\s]*$/;
+            if (!value || !regexTexto.test(value) || value.length === 100) {
+                setErrorAsunto(true);
+            } else {
+                setErrorAsunto(false);
+            }
+        }
+
+        if (name === 'descripcion') {
+            const regexTexto = /^[a-zA-Z\s]*$/;
+            if (!value || !regexTexto.test(value) || value.length === 500) {
+                setErrorDescripcion(true);
+            } else {
+                setErrorDescripcion(false);
+            }
+        }
     };
 
     //Función para hacer petición
@@ -240,12 +425,17 @@ export default function crearPQR() {
         formData.append("descripcion", form.descripcion);
         formData.append("estado", form.estado);
         formData.append("nombreimagen1", imagen.nombreImagen);
-        formData.append("imagen1", imagen.image);
-        formData.append("numeroimagenes", 1);
+        formData.append("imagen1", selectedImage);
+        formData.append("nombreimagen2", imagen2.nombreImagen);
+        formData.append("imagen2", selectedImage2);
+        formData.append("nombreimagen3", imagen3.nombreImagen);
+        formData.append("imagen3", selectedImage3);
+        formData.append("numeroimagenes", 3);
 
         // Muestra los nombres de las imágenes en la consola
         console.log("Nombre imagen 1:", imagen.nombreImagen);
-
+        console.log("Nombre imagen 2:", imagen2.nombreImagen);
+        console.log("Nombre imagen 3:", imagen3.nombreImagen);
         try {
             const res = await axios({
                 method: "post",
@@ -308,18 +498,36 @@ export default function crearPQR() {
     const handleSelectCiudad = (value, nombre) => {
         setSelectedCiudad(nombre);
         setForm({ ...form, ciudad: value });
+
+        if (nombre === "Seleccione la ciudad") {
+            setErrorCiudad(true);
+        } else {
+            setErrorCiudad(false);
+        }
     };
 
     //Handle dropdown tipo ident
     const handleSelectTipoIdentificacion = (value, nombre) => {
         setSelectedTipoIdentificacion(nombre);
         setForm({ ...form, tipoidentificacion: value });
+
+        if (nombre === "Seleccione tipo de identificación") {
+            setErrorTipoIdentificacion(true);
+        } else {
+            setErrorTipoIdentificacion(false);
+        }
     };
 
     //Handle dropdown motivo
     const handleSelectMotivo = (value, nombre) => {
         setSelectedMotivo(nombre);
         setForm({ ...form, motivo: value });
+
+        if (nombre === "Seleccione el motivo") {
+            setErrorMotivo(true);
+        } else {
+            setErrorMotivo(false);
+        }
     };
 
 
@@ -367,8 +575,11 @@ export default function crearPQR() {
                                                     <div>
                                                         <p>Nombres</p>
                                                         <input type="text"
-                                                            name="nombres" id=""
+                                                            name="nombres"
+                                                            id=""
                                                             onChange={handleChange}
+                                                            onClick={() => setErrorNombres(false)}
+                                                            style={errorNombres ? { border: '1px solid red' } : {}}
                                                             maxLength={20}
                                                             onInput={(e) => {
                                                                 // Permitir solo letras y espacios
@@ -380,7 +591,7 @@ export default function crearPQR() {
                                                     </div>
                                                     <div>
                                                         <p>Tipo de documento</p>
-                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                        <Dropdown style={errorTipoIdentificacion ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorTipoIdentificacion(false)}>
                                                             <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
                                                                 {selectedTipoIdentificacion}
                                                             </Dropdown.Toggle>
@@ -403,11 +614,13 @@ export default function crearPQR() {
                                                             name="email"
                                                             type="text"
                                                             onChange={handleChange}
+                                                            onClick={() => setErrorEmail(false)}
+                                                            style={errorEmail ? { border: '1px solid red' } : {}}
                                                         />
                                                     </div>
                                                     <div>
                                                         <p>Ciudad</p>
-                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                        <Dropdown style={errorCiudad ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorCiudad(false)}>
                                                             <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
                                                                 {selectedCiudad}
                                                             </Dropdown.Toggle>
@@ -429,14 +642,10 @@ export default function crearPQR() {
                                                             type="text"
                                                             name="barrio"
                                                             onChange={handleChange}
+                                                            onClick={() => setErrorBarrio(false)}
+                                                            style={errorBarrio ? { border: '1px solid red' } : {}}
                                                             autoComplete={Math.random().toString()}
                                                             maxLength={20}
-                                                            onInput={(e) => {
-                                                                // Permitir solo letras y espacios
-                                                                e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
-                                                                // Capitalizar la primera letra de cada palabra
-                                                                e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                            }}
                                                         />
                                                     </div>
                                                 </div>
@@ -447,6 +656,8 @@ export default function crearPQR() {
                                                         <p>Apellidos</p>
                                                         <input type="text"
                                                             name="apellidos" id=""
+                                                            onClick={() => setErrorApellidos(false)}
+                                                            style={errorApellidos ? { border: '1px solid red' } : {}}
                                                             onChange={handleChange}
                                                             maxLength={20}
                                                             onInput={(e) => {
@@ -464,6 +675,8 @@ export default function crearPQR() {
                                                             name="identificacion"
                                                             type="text"
                                                             onChange={handleChange}
+                                                            onClick={() => setErrorIdentificacion(false)}
+                                                            style={errorIdentificacion ? { border: '1px solid red' } : {}}
                                                             maxLength={10}
                                                             onKeyPress={(event) => {
                                                                 if (!/[0-9]/.test(event.key)) {
@@ -479,6 +692,8 @@ export default function crearPQR() {
                                                             type="text"
                                                             name="telefono"
                                                             onChange={handleChange}
+                                                            onClick={() => setErrorTelefono(false)}
+                                                            style={errorTelefono ? { border: '1px solid red' } : {}}
                                                             maxLength={10}
                                                             onKeyPress={(event) => {
                                                                 if (!/[0-9]/.test(event.key)) {
@@ -489,11 +704,19 @@ export default function crearPQR() {
                                                     </div>
                                                     <div>
                                                         <p>Dirección</p>
-                                                        <input type="text" name="direccion" id="" onChange={handleChange} autoComplete={Math.random().toString()} maxLength={30} />
+                                                        <input
+                                                            type="text"
+                                                            name="direccion"
+                                                            onChange={handleChange}
+                                                            onClick={() => setErrorDireccion(false)}
+                                                            style={errorDireccion ? { border: '1px solid red' } : {}}
+                                                            autoComplete={Math.random().toString()}
+                                                            maxLength={30}
+                                                        />
                                                     </div>
                                                     <div>
                                                         <p>Motivo</p>
-                                                        <Dropdown style={{ width: '100%', marginBottom: '2rem' }}>
+                                                        <Dropdown style={errorMotivo ? { border: '1px solid red', borderRadius: '10px', width: '100%', marginBottom: '2rem' } : { borderRadius: '10px', width: '100%', marginBottom: '2rem' }} onClick={() => setErrorMotivo(false)}>
                                                             <Dropdown.Toggle as={CustomDropdownButton} id="dropdown-basic">
                                                                 {selectedMotivo}
                                                             </Dropdown.Toggle>
@@ -537,11 +760,22 @@ export default function crearPQR() {
                                                             cursor: 'pointer',
                                                             justifyContent: 'center'
                                                         }}
-                                                        onClick={() => setAceptaTerminos(!aceptaTerminos)} // Cambia el estado a 'true' si es 'false' y viceversa cuando el usuario hace clic en el div
+                                                        onClick={() => {
+                                                            setAceptaTerminos(!aceptaTerminos);
+                                                            setErrorAceptaTerminos(false); // Restablece errorAceptaTerminos a 'false' cuando el usuario hace clic en el div
+                                                        }}
                                                     >
                                                         {aceptaTerminos && <FaCheck color="white" />} {/* Muestra el icono de verificación si el usuario ha aceptado los términos */}
                                                     </div>
-                                                    <p>Acepto el tratamiento de mis datos personales</p>
+                                                    <p
+                                                        onClick={() => {
+                                                            setAceptaTerminos(!aceptaTerminos);
+                                                            setErrorAceptaTerminos(false); // Restablece errorAceptaTerminos a 'false' cuando el usuario hace clic en el p
+                                                        }}
+                                                        style={errorAceptaTerminos ? { textDecoration: 'underline', textDecorationColor: 'red' } : {}}
+                                                    >
+                                                        Acepto el tratamiento de mis datos personales
+                                                    </p>
                                                 </div>
                                                 <div className="SigPQR">
                                                     <button onClick={irASiguiente}>Siguiente</button>
@@ -560,13 +794,16 @@ export default function crearPQR() {
                                                         type="text"
                                                         name="asunto"
                                                         onChange={handleChange}
+                                                        onClick={() => setErrorAsunto(false)}
+                                                        style={errorAsunto ? { border: '1px solid red' } : {}}
                                                         maxLength={90}
                                                         onInput={(e) => {
                                                             // Permitir solo letras y espacios
                                                             e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
                                                             // Capitalizar la primera letra de cada palabra
                                                             e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                        }} />
+                                                        }}
+                                                    />
                                                 </div>
 
                                                 <div className="DescripSoli">
@@ -574,13 +811,16 @@ export default function crearPQR() {
                                                     <textarea
                                                         name="descripcion"
                                                         onChange={handleChange}
+                                                        onClick={() => setErrorDescripcion(false)}
+                                                        style={errorDescripcion ? { border: '1px solid red' } : {}}
                                                         maxLength={350}
                                                         onInput={(e) => {
                                                             // Permitir solo letras y espacios
                                                             e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
                                                             // Capitalizar la primera letra de cada palabra
                                                             e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
-                                                        }} />
+                                                        }}
+                                                    />
 
                                                 </div>
 
@@ -604,14 +844,66 @@ export default function crearPQR() {
                                                                         {imagen ? (
                                                                             <img src={URL.createObjectURL(imagen.image)} alt="Previsualización" style={{ width: '100px', height: '100px' }} />
                                                                         ) : (
-                                                                            <HiOutlineDocumentArrowUp />
+                                                                            <HiOutlineDocumentArrowUp className="InputIconPQR" />
                                                                         )}
                                                                     </label>
                                                                 </div>
                                                                 <span>
                                                                     {imagen && (
                                                                         <button onClick={() => setImagen(null)}>
-                                                                            <IoClose />
+                                                                            <IoClose className="deleteImgPQR" />
+                                                                        </button>
+                                                                    )}
+                                                                </span>
+                                                            </div>
+
+                                                            <div>
+                                                                <div>
+                                                                    <input
+                                                                        type="file"
+                                                                        onChange={handleImagen2} // Usa la función handleImagen2 para la segunda imagen
+                                                                        onClick={(e) => e.target.value = null} // Resetea el valor del input para poder seleccionar el mismo archivo 
+                                                                        style={{ display: 'none' }}
+                                                                        id="fileInput2" // Cambia el id para diferenciarlo del primer input
+                                                                    />
+                                                                    <label htmlFor="fileInput2"> {/* Asegúrate de cambiar el htmlFor al nuevo id */}
+                                                                        {imagen2 ? ( // Usa imagen2 en lugar de imagen
+                                                                            <img src={URL.createObjectURL(imagen2.image)} alt="Previsualización" style={{ width: '100px', height: '100px' }} />
+                                                                        ) : (
+                                                                            <HiOutlineDocumentArrowUp className="InputIconPQR" />
+                                                                        )}
+                                                                    </label>
+                                                                </div>
+                                                                <span>
+                                                                    {imagen2 && ( // Usa imagen2 en lugar de imagen
+                                                                        <button onClick={() => setImagen2(null)}> {/* Usa setImagen2 para resetear la segunda imagen */}
+                                                                            <IoClose className="deleteImgPQR" />
+                                                                        </button>
+                                                                    )}
+                                                                </span>
+                                                            </div>
+
+                                                            <div>
+                                                                <div>
+                                                                    <input
+                                                                        type="file"
+                                                                        onChange={handleImagen3} // Usa la función handleImagen3 para la tercera imagen
+                                                                        onClick={(e) => e.target.value = null} // Resetea el valor del input para poder seleccionar el mismo archivo 
+                                                                        style={{ display: 'none' }}
+                                                                        id="fileInput3" // Cambia el id para diferenciarlo del segundo input
+                                                                    />
+                                                                    <label htmlFor="fileInput3"> {/* Asegúrate de cambiar el htmlFor al nuevo id */}
+                                                                        {imagen3 ? ( // Usa imagen3 en lugar de imagen
+                                                                            <img src={URL.createObjectURL(imagen3.image)} alt="Previsualización" style={{ width: '100px', height: '100px' }} />
+                                                                        ) : (
+                                                                            <HiOutlineDocumentArrowUp className="InputIconPQR" />
+                                                                        )}
+                                                                    </label>
+                                                                </div>
+                                                                <span>
+                                                                    {imagen3 && ( // Usa imagen3 en lugar de imagen
+                                                                        <button onClick={() => setImagen3(null)}> {/* Usa setImagen3 para resetear la tercera imagen */}
+                                                                            <IoClose className="deleteImgPQR" />
                                                                         </button>
                                                                     )}
                                                                 </span>
@@ -636,7 +928,7 @@ export default function crearPQR() {
                                         style: {
                                             width: isMdDown ? '80%' : '35%',
                                             backgroundColor: 'white',
-                                            border: '2px solid gray',
+                                            border: '1px solid gray',
                                             padding: '1.4rem',
                                             borderRadius: '10px'
                                         },

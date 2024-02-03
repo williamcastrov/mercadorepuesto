@@ -36997,8 +36997,14 @@ label {
     max-width: 100px;
     max-height: 100px;
 }
-.SubAdjArchSoliIcons svg{
+
+.deleteImgPQR{
     font-size: 27px !important;
+    color: #2D2E83;
+    margin-top: 1rem;
+}
+.InputIconPQR{
+    font-size: 70px !important;
     color: #2D2E83;
     margin-top: 1rem;
 }
