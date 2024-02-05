@@ -53,6 +53,7 @@ const MyAccountScreen = () => {
     const [loading, setLoading] = useState(false);
     const { getUsers } = useGetUsers();
     const [user, setUser] = useState(false);
+    const [selectedItem, setSelectedItem] = useState("Seleccione tipo de identificación");
     const [formDataToken, setFormDataToken] = useState(defaultValueToken());
     const [showModal, setShowModal] = useState(false);
     const [showModalDocsNit, setShowModalDocsNit] = useState(false);
@@ -1178,7 +1179,7 @@ const MyAccountScreen = () => {
         setTipoIdentificacion(value);
     };
 
-    const [selectedItem, setSelectedItem] = useState("Seleccione tipo de identificación");
+
 
     return (
         <Container title="Mi Cuenta">

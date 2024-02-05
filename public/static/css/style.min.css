@@ -35519,19 +35519,23 @@ label {
     margin-bottom: 1rem;
 
 }
-.SendDialogTokenLogin div div{
+
+.SendDialogTokenLogin div div {
     display: flex;
-    gap: 8px; 
-    align-items: center; 
+    gap: 8px;
+    align-items: center;
 }
-.SendDialogTokenLogin div div p{
+
+.SendDialogTokenLogin div div p {
     font-size: 15px;
     color: rgb(44, 46, 130);
 }
-.SendDialogTokenLogin div div svg{
+
+.SendDialogTokenLogin div div svg {
     font-size: 15px;
     color: rgb(44, 46, 130);
 }
+
 .inputsLoginA {
     display: flex;
     margin-top: 2rem;
@@ -35569,7 +35573,7 @@ label {
 .CodeToken {
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
 /*Fin nuevos estilos login*/
@@ -35884,6 +35888,7 @@ label {
     padding-right: 13px;
     /* Ajusta este valor según tus necesidades */
 }
+
 .DropDownTipoDocumentoPQR {
     display: flex;
     justify-content: space-between;
@@ -35906,7 +35911,7 @@ label {
 .DropDownTipoDocumentoBanco {
     display: flex;
     justify-content: flex-end;
-    align-items: center; 
+    align-items: center;
     border-radius: 10px !important;
     height: 46px !important;
     gap: 2rem;
@@ -35914,19 +35919,21 @@ label {
     background-color: #f1f2f5 !important;
     border: none !important;
     color: #2D2E83 !important;
-    margin-left: auto; /* Esto centrará al fondo */
+    margin-left: auto;
+    /* Esto centrará al fondo */
     outline: none !important;
     margin-top: 10px;
     font-size: 16px !important;
-    padding-left: 13px; 
+    padding-left: 13px;
 }
+
 .DropDownTipoDocumentoBanco::after {
     content: '';
     width: 10px;
     height: 10px;
     background-image: url("../../../public/static/img/FlechaAzulRegister.png") !important;
     background-size: 10px !important;
-    background-repeat: no-repeat !important; 
+    background-repeat: no-repeat !important;
     background-position: center center !important;
 }
 
@@ -35940,6 +35947,7 @@ label {
     background-repeat: no-repeat !important;
     background-position: center center !important;
 }
+
 .DropDownTipoDocumentoPQR::after {
     content: '';
     width: 10px;
@@ -35965,7 +35973,7 @@ label {
     color: #2D2E83 !important;
     height: 35px !important;
     font-size: 13px !important;
-    white-space: nowrap !important; 
+    white-space: nowrap !important;
 }
 
 .containerRegistrarse {
@@ -36491,22 +36499,25 @@ label {
     align-items: center;
     margin-bottom: 1rem;
 }
- 
+
 .DataMiddleContMovimientos p {
     font-size: 18px;
     color: #2D2E83;
 }
-.DataMiddleContMovimientos input{
+
+.DataMiddleContMovimientos input {
     color: #2D2E83;
     background-color: #f0f1f5;
-    display: flex; 
+    display: flex;
     padding: .6rem;
     width: 250px;
     font-size: 18px;
-    text-align: end; 
+    text-align: end;
 }
+
 .DataMiddleContMovimientos input::placeholder {
-    color: rgba(45, 46, 131, 0.8); /* #2D2E83 con 50% de opacidad */
+    color: rgba(45, 46, 131, 0.8);
+    /* #2D2E83 con 50% de opacidad */
 }
 
 .SendSolicitudb {
@@ -36543,9 +36554,11 @@ label {
 .dataMovimientosTop {
     margin-bottom: 2rem;
 }
-.dataMovimientosM{
+
+.dataMovimientosM {
     margin-bottom: 1.5rem;
 }
+
 .dataMovimientosM p {
     font-size: 16px;
     color: #2D2E83;
@@ -36605,11 +36618,12 @@ label {
     background-position: center center !important;
 }
 
- 
+
 
 .itemsDropdownBanco:hover {
     background-color: #d3d4e4;
 }
+
 .tamañocajaoDropDownBanco {
     margin-left: 5px !important;
     width: 100% !important;
@@ -36620,29 +36634,34 @@ label {
 .itemsdropdownBanco:hover {
     background-color: #d3d4e4;
 }
-.ErrorRetitorText{
+
+.ErrorRetitorText {
     width: 240px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
 }
-.ErrorRetitorText p{
+
+.ErrorRetitorText p {
     color: red;
     text-align: end;
-    font-size: 13px; 
+    font-size: 13px;
 }
-.ErrorRetitorTextDos{
+
+.ErrorRetitorTextDos {
     width: 240px;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
 }
-.ErrorRetitorTextDos p{
+
+.ErrorRetitorTextDos p {
     color: red;
     text-align: end;
-    font-size: 13px; 
+    font-size: 13px;
     margin-right: 10px;
 }
+
 /*Fin estilos mi billetera*/
 
 
@@ -36650,132 +36669,153 @@ label {
 
 /*Inicio estilos ayuda PQR*/
 
-.TopAyudaPQR{
+.TopAyudaPQR {
     display: flex !important;
     flex-direction: column !important;
-    margin-bottom: 4rem !important;  
+    margin-bottom: 4rem !important;
 }
-.solPQR{
-    font-size: 24px !important ;
+
+.solPQR {
+    font-size: 24px !important;
     color: #2D2E83 !important;
     font-weight: 600 !important;
-    font-family: "Jost" , sans-serif !important;
+    font-family: "Jost", sans-serif !important;
 }
+
 .TopAyudaPQR p:last-child {
-    font-size: 20px !important ;
+    font-size: 20px !important;
     color: #2D2E83 !important;
     font-weight: 500 !important;
     font-family: "Jost", sans-serif !important;
 }
-.TopAyudaPQRIndex{
-    font-size: 20px !important ;
+
+.TopAyudaPQRIndex {
+    font-size: 20px !important;
     color: #2D2E83 !important;
     font-weight: 500 !important;
     font-family: "Jost", sans-serif !important;
 }
-.MainmiddleAyudaPQR{
+
+.MainmiddleAyudaPQR {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-} 
-.middleAyudaPQR{
+}
+
+.middleAyudaPQR {
     display: flex;
     margin-top: 8rem;
     gap: 19rem;
 }
-.middlePQR{
+
+.middlePQR {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
-.middlePQR p{
+
+.middlePQR p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.middlePQR div{
+
+.middlePQR div {
     margin-top: 2rem;
     background-color: #F0F1F5;
     border-radius: 12px;
     height: 70px;
-    width: 70px; 
+    width: 70px;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
-.middlePQR svg{
+
+.middlePQR svg {
     color: #3E4089;
     font-size: 42px !important;
 }
-.bottomAyudaPQR{
+
+.bottomAyudaPQR {
     margin-top: 11rem;
     width: 100%;
 }
-.bottomAyudaPQR p:first-child{
-    font-size: 20px !important;
+
+.bottomAyudaPQR p:first-child {
+    font-size: 16px !important;
     color: #2D2E83;
     font-weight: 600;
     margin-bottom: 2.2rem;
     font-family: "Jost", sans-serif;
 }
-.bottomAyudaPQR p:last-child{
-    font-size: 17px !important;
+
+.bottomAyudaPQR p:last-child {
+    font-size: 14px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.TopBuscarPQR{
+
+.TopBuscarPQR {
     width: 100%;
     margin-bottom: 3rem;
 }
-.SubtitleBuscar{ 
+
+.SubtitleBuscar {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.inputsPQR{
+
+.inputsPQR {
     margin-top: 3rem;
 }
-.inputsPQR div{
+
+.inputsPQR div {
     display: flex;
     flex-direction: column;
     align-items: start;
 }
-.inputsPQR input{
+
+.inputsPQR input {
     width: 370px;
     background-color: #F0F1F5;
     border-radius: 10px;
     font-size: 18px;
     color: #2D2E83;
     height: 46px;
-    font-weight: 500; 
+    font-weight: 500;
     padding: 1rem 2rem;
 }
-.ErrBuscarPQR{
+
+.ErrBuscarPQR {
     width: 370px;
     margin-bottom: 2rem;
 }
-.inputsPQR p{
+
+.inputsPQR p {
     font-size: 18px !important;
     color: #2D2E83;
     margin-bottom: 8px;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.sendBuscarPQR{
+
+.sendBuscarPQR {
     width: 100%;
     margin-top: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
-.sendBuscarPQR button{
+
+.sendBuscarPQR button {
     background-color: #2D2E83;
     color: white;
     height: 41px;
@@ -36787,55 +36827,65 @@ label {
     padding: 1rem 3rem;
     border-radius: 10px;
 }
-.mainContVerPQR{
-    width: 100%; 
+
+.mainContVerPQR {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     justify-content: flex-start;
 }
-.SubMainContVerPQR{
-    width: 580px;  
+
+.SubMainContVerPQR {
+    width: 580px;
 }
-.SubMainContVerPQR div{
+
+.SubMainContVerPQR div {
     display: flex;
     margin-bottom: 2rem;
     justify-content: space-between;
 }
-.DatePQR{
+
+.DatePQR {
     margin-bottom: 3rem !important;
 }
-.MotivoPQR{
+
+.MotivoPQR {
     margin-top: 5rem !important;
     margin-bottom: 0 !important;
 }
-.SubMainContVerPQR div p:first-child{
+
+.SubMainContVerPQR div p:first-child {
     font-size: 19px;
     color: #2D2E83;
     font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.SubMainContVerPQR div p:last-child{
+
+.SubMainContVerPQR div p:last-child {
     font-size: 18px;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.AsuntoDescrpPQR{
+
+.AsuntoDescrpPQR {
     margin-top: 3rem;
     width: 100%;
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
-.AsuntoDescrpPQR  p:first-child{
+
+.AsuntoDescrpPQR p:first-child {
     font-size: 19px !important;
     color: #2D2E83;
     font-weight: 500;
     margin-bottom: 2.7rem;
     font-family: "Jost", sans-serif;
 }
-.AsuntoDescrpPQR p:last-child{
+
+.AsuntoDescrpPQR p:last-child {
     font-size: 19px !important;
     color: #2D2E83;
     font-weight: 500;
@@ -36843,31 +36893,36 @@ label {
 
 }
 
-.docsPQR{
+.docsPQR {
     margin-top: 2rem;
-    display: flex; 
+    display: flex;
     flex-direction: column;
 }
-.SolicituState{
+
+.SolicituState {
     margin-top: 5rem;
 }
-.SolicituState p{
+
+.SolicituState p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 600 !important;
     font-family: "Jost", sans-serif;
 }
-.docsPQR p{
+
+.docsPQR p {
     font-size: 20px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
+
 .docsPQR div {
     display: flex !important;
     gap: 3rem !important;
 }
-.docsPQR div div{
+
+.docsPQR div div {
     height: 120px;
     width: 120px;
     border: 5px solid #2D2E83;
@@ -36877,38 +36932,46 @@ label {
     margin-top: 2rem;
     background-color: transparent;
 }
-.docsPQR svg{
+
+.docsPQR svg {
     font-size: 65px;
     color: #2D2E83;
     cursor: pointer;
 }
-.descrRespuesta{
+
+.descrRespuesta {
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
-.descrRespuesta p{
+
+.descrRespuesta p {
     font-size: 19px !important;
     color: #2D2E83;
     font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.DownloadRespuesta{
+
+.DownloadRespuesta {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
-.DownloadRespuesta span{
+
+.DownloadRespuesta span {
     display: flex;
     gap: 1rem;
     align-items: center;
 }
-.ContCrearSolMain{
+
+.ContCrearSolMain {
     width: 100%;
 }
-.DescrAsunto{
+
+.DescrAsunto {
     width: 100%;
 }
-.DownloadRespuesta p{
+
+.DownloadRespuesta p {
     text-decoration: underline;
     font-size: 19px !important;
     color: #2D2E83;
@@ -36916,83 +36979,96 @@ label {
     cursor: pointer;
     font-family: "Jost", sans-serif;
 }
-.DownloadRespuesta svg{
+
+.DownloadRespuesta svg {
     font-size: 25px !important;
     color: #2D2E83;
     cursor: pointer;
 }
-.MainFormCrearPQR{
+
+.MainFormCrearPQR {
     width: 90%;
-    display: flex; 
+    display: flex;
 }
-.InputsContainerPQR{
-    margin-bottom: 2.5rem; 
+
+.InputsContainerPQR {
+    margin-bottom: 2.5rem;
 }
-.InputsContainerPQR div{
+
+.InputsContainerPQR div {
     margin-bottom: 2rem;
 }
-.errorInputPQR span{
+
+.errorInputPQR span {
     font-size: 15px !important;
     color: red !important;
 }
-.errorInputPQRS span{
+
+.errorInputPQRS span {
     font-size: 15px !important;
-    color: red !important; 
+    color: red !important;
 }
-.errorInputPQRS{
-    margin-top: -1.8rem !important; 
+
+.errorInputPQRS {
+    margin-top: -1.8rem !important;
 }
- 
-.InputsContainerPQR p{ 
+
+.InputsContainerPQR p {
     font-size: 18px !important;
     color: #2D2E83;
     margin-bottom: 10px;
-    font-weight: 600; 
+    font-weight: 600;
     font-family: "Jost", sans-serif;
 }
- 
- 
-.InputsContainerPQR input{ 
+
+
+.InputsContainerPQR input {
     background-color: #F0F1F5;
     border-radius: 10px;
     font-size: 18px;
     color: #2D2E83;
     height: 46px;
-    font-weight: 500;  
+    font-weight: 500;
     padding: 9px 15px;
     width: 100%;
 }
-.ButtomFormCrearPQR{
+
+.ButtomFormCrearPQR {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding-left: 48px;
 }
-.acepptCond{
+
+.acepptCond {
     display: flex;
     gap: 6px;
     align-items: center;
     margin-top: -2rem !important;
 }
-.acepptCond p{ 
+
+.acepptCond p {
     font-size: 16px !important;
     color: #2D2E83;
-    font-weight: 500; 
+    font-weight: 500;
     font-family: "Jost", sans-serif;
 }
-.acepptCond div{
+
+.acepptCond div {
     height: 23px;
     width: 23px;
     cursor: pointer;
     border-radius: 6px;
     background-color: #F0F1F5;
 }
-.SigPQR{
+
+.SigPQR {
     display: flex;
     justify-content: flex-end;
     margin-top: 3rem;
 }
-.SigPQR button{
+
+.SigPQR button {
     height: 41px;
     color: white;
     font-size: 18px;
@@ -37003,22 +37079,25 @@ label {
     align-items: center;
     border-radius: 10px;
 }
-.DescrAsunto p{
+
+.DescrAsunto p {
     font-size: 18px !important;
     color: #2D2E83;
     margin-bottom: 10px;
-    font-weight: 600; 
+    font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.AdjArchSoliTitle p{
+
+.AdjArchSoliTitle p {
     font-size: 18px !important;
     color: #2D2E83;
     margin-bottom: 10px;
     margin-top: 1.6rem;
-    font-weight: 600; 
+    font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.DescrAsunto input{
+
+.DescrAsunto input {
     background-color: #F0F1F5;
     border-radius: 10px;
     font-size: 18px;
@@ -37029,14 +37108,36 @@ label {
     padding: 9px 15px;
     width: 100%;
 }
-.DescripSoli p{
+
+.DescripSoli p {
     font-size: 18px !important;
     color: #2D2E83;
     margin-bottom: 10px;
-    font-weight: 600; 
+    font-weight: 600;
     font-family: "Jost", sans-serif;
 }
-.DescripSoli textarea{
+
+.DescrAsunto textarea {
+    resize: none;
+    width: 100%;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    padding: 9px 15px;
+    height: 65px !important;
+}
+
+.contPQR {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contPQR p {
+    font-size: 15px;
+}
+
+.DescripSoli textarea {
     resize: none;
     width: 100%;
     background-color: #F0F1F5;
@@ -37047,11 +37148,12 @@ label {
     height: 250px;
 }
 
-.SubAdjArchSoliIcons{
+.SubAdjArchSoliIcons {
     display: flex;
-    gap: 3rem;  
+    gap: 3rem;
 }
-.SubAdjArchSoliIcons img{
+
+.SubAdjArchSoliIcons img {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -37060,44 +37162,50 @@ label {
     max-height: 100px;
 }
 
-.deleteImgPQR{
+.deleteImgPQR {
     font-size: 27px !important;
     color: #2D2E83;
     margin-top: 1rem;
 }
-.InputIconPQR{
+
+.InputIconPQR {
     font-size: 70px !important;
     color: #2D2E83;
     margin-top: 1rem;
 }
-.SubAdjArchSoliIcons div{  
+
+.SubAdjArchSoliIcons div {
     justify-content: center;
     display: flex;
-    align-items: center;  
+    align-items: center;
     flex-direction: column;
 }
-.SubAdjArchSoliIcons div div{
+
+.SubAdjArchSoliIcons div div {
     height: 120px;
     width: 120px;
     border: 5px solid #2D2E83;
     justify-content: center;
     display: flex;
     align-items: center;
-    border-radius: 12px; 
+    border-radius: 12px;
     background-color: transparent;
 }
-.SubAdjArchSoliIcons svg{
+
+.SubAdjArchSoliIcons svg {
     font-size: 65px;
     color: #2D2E83;
     cursor: pointer;
 }
-.EnviarPeticionPQR{
+
+.EnviarPeticionPQR {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     margin-top: 2.5rem;
 }
-.EnviarPeticionPQR button{
+
+.EnviarPeticionPQR button {
     height: 41px;
     color: white;
     font-size: 18px;
@@ -37108,4 +37216,32 @@ label {
     align-items: center;
     border-radius: 10px;
 }
+
+.recomendacionesArchivosPQR {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.recomendacionesArchivosPQR p {
+    font-size: 15px;
+    color: #2D2E83;
+}
+
+.buttonRecArchivos {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.buttonRecArchivos button {
+    color: #A0AFD0;
+    text-decoration: underline;
+    margin-left: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
 /*Fin estilos ayuda PQR*/

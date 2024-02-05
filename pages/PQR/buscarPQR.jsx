@@ -57,7 +57,6 @@ export default function buscarPQR() {
     }, []);
 
 
-    //Función para buscar pqr y verificar si hay algún campo vacio
     const buscarPQR = () => {
         // Verificamos si los campos "id" e "identificacion" están vacíos
         if (!id) {
@@ -66,14 +65,15 @@ export default function buscarPQR() {
             setErrorId(false);
         }
 
-        if (!identificacion) {
+        // Verificamos si el campo "identificacion" está vacío o si su longitud no está entre 6 y 10
+        if (!identificacion || identificacion.length < 6 || identificacion.length > 10) {
             setErrorIdentificacion(true);
         } else {
             setErrorIdentificacion(false);
         }
 
-        // Si los campos no están vacíos, procedemos a buscar el PQR
-        if (id && identificacion) {
+        // Si los campos no están vacíos y la longitud de "identificacion" es correcta, procedemos a buscar el PQR
+        if (id && identificacion && identificacion.length >= 6 && identificacion.length <= 10) {
             const pqrEncontrado = datosusuarios.find(pqr => pqr.id.toString() === id && pqr.identificacion === identificacion);
             if (pqrEncontrado) {
                 router.push(`./verPQR?id=${pqrEncontrado.id}`);
@@ -84,10 +84,10 @@ export default function buscarPQR() {
             }
         } else {
             setTituloMensajes('¡Cuidado!');
-            setTextoMensajes('Debes llenar todos los campos para buscar.');
+            setTextoMensajes('Debes llenar todos los campos correctamente para buscar.');
             setShowModal(true);
         }
-    };
+    }
 
 
 
@@ -120,7 +120,7 @@ export default function buscarPQR() {
 
                                         <div className="inputsPQR">
                                             <div>
-                                                <p>Número de identificación</p> 
+                                                <p>Número de identificación</p>
                                                 <input
                                                     type="text"
                                                     value={identificacion}
@@ -132,10 +132,10 @@ export default function buscarPQR() {
                                                         }
                                                     }}
                                                     style={errorIdentificacion ? { border: '1px solid red' } : {}}
-                                                /> 
+                                                />
                                                 <div className="ErrBuscarPQR">
-                                                    {errorIdentificacion && <div className="errorInputPQR"> <span>Ingresa un numero de solicitud valido!</span></div>}
-                                                </div> 
+                                                    {errorIdentificacion && <div className="errorInputPQR"> <span>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10! </span></div>}
+                                                </div>
                                             </div>
 
                                             <div>
@@ -151,10 +151,10 @@ export default function buscarPQR() {
                                                         }
                                                     }}
                                                     style={errorId ? { border: '1px solid red' } : {}}
-                                                /> 
+                                                />
                                                 <div className="ErrBuscarPQR">
-                                                    {errorId && <div className="errorInputPQR"> <span>Recuerda, El documento debe contener solo números, longitud minima de 6 y maximo de 10!</span></div>}
-                                                </div> 
+                                                    {errorId && <div className="errorInputPQR"> <span>Ingresa un numero de solicitud valido!</span></div>}
+                                                </div>
                                             </div>
                                         </div>
 

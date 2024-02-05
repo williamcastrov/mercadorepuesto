@@ -9,7 +9,7 @@ import shortid from "shortid";
 import { LuImagePlus } from "react-icons/lu";
 
 export default function index() {
- 
+
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
     const irA = useRef(null); //PosiciónTopPage
@@ -24,6 +24,12 @@ export default function index() {
     const [contenedorActivo, setContenedorActivo] = useState(null);
     const [contenedorActivo2, setContenedorActivo2] = useState(null);
     const [selectedImages, setSelectedImages] = useState({});
+    // Definimos el estado para la imagen, el nombre de la imagen y las imágenes de vista previa
+    const [image, setImage] = useState(null);
+    const [imageName, setImageName] = useState("");
+    const [previewImages, setPreviewImages] = useState({});
+    const [imagenesSubcategorias, setImagenesSubcategorias] = useState([]);
+
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -104,11 +110,7 @@ export default function index() {
 
 
 
-    // Definimos el estado para la imagen, el nombre de la imagen y las imágenes de vista previa
-    const [image, setImage] = useState(null);
-    const [imageName, setImageName] = useState("");
-    const [previewImages, setPreviewImages] = useState({});
-    const [imagenesSubcategorias, setImagenesSubcategorias] = useState([]);
+
 
 
     // Manejamos la carga de la imagen 
@@ -191,7 +193,7 @@ export default function index() {
                     method: "get",
                     url: URL_BD_MR + "141",
                 });
-             //   console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
+                //   console.log("Imágenes de las subcategorías:", res.data.listimgsubcategorias);
                 setImagenesSubcategorias(res.data.listimgsubcategorias);
             } catch (error) {
                 console.error("Error al leer las imágenes de las subcategorías", error);

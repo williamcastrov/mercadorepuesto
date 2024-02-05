@@ -27,7 +27,7 @@ const CustomDropdownButton = React.forwardRef(({ children, onClick, href }, ref)
         {children}
     </button>
 ));
- 
+
 
 
 export default function FormDocumento() {
@@ -62,8 +62,6 @@ export default function FormDocumento() {
 
     const [tipoDocumentoSeleccionado, setTipoDocumentoSeleccionado] = useState(null); // Nuevo estado
     const [selectedItem, setSelectedItem] = useState('Tipo documento');
-
-
     const [nroDocumentoSeleccionado, setNroDocumentoSeleccionado] = useState("");
     const [nombres, setNombres] = useState("");
     const [apellidos, setApellidos] = useState("");
@@ -71,6 +69,10 @@ export default function FormDocumento() {
     const [apellidosDos, setApellidosDos] = useState("");
     // Asignamos Datos al arreglo de Usuarios desde el state
     const datosusuarios = useSelector((state) => state.userlogged.userlogged);
+
+    const [tipoIdentificacion, setTipoIdentificacion] = useState("");
+
+
 
     useEffect(() => {
         const leerDatosUsuario = async () => {
@@ -158,7 +160,7 @@ export default function FormDocumento() {
         }
     };
 
-    const updateData = () => { 
+    const updateData = () => {
 
         let params = {
             primernombre: nombres,
@@ -176,12 +178,9 @@ export default function FormDocumento() {
             fechacreacion: datosUsuario.fechacreacion,
             fechatoken: datosUsuario.fechatoken,
             uid: datosUsuario.uid,
-            // ...resto de los datos
         };
-        //console.log("Datos usuario : ", params);
-        //return
+        console.log("Datos usuario : ", params);
         const updateDatosUsuario = async () => {
-            //console.log("VISITAS: ", params);
             await axios({
                 method: "post",
                 url: URL_BD_MR + "75",
@@ -212,7 +211,24 @@ export default function FormDocumento() {
         { value: 6, nombre: "Numero de identificación tributaria" }
     ];
 
-
+    useEffect(() => {
+        const obtenerTiposIdentificacion = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: `${URL_BD_MR}7`,
+                });
+                if (Array.isArray(res.data.tipoidentificacion)) {
+                    setTipoIdentificacion(res.data.tipoidentificacion);
+                } else {
+                    console.error("Error: se esperaba un array, pero se recibió", res.data.tipoidentificacion);
+                }
+            } catch (error) {
+                console.error("Error al obtener los tipos de identificación", error);
+            }
+        };
+        obtenerTiposIdentificacion();
+    }, []);
 
 
     const handleValidP = () => {
@@ -247,7 +263,7 @@ export default function FormDocumento() {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} md={4}>
                                             <p className='titlesFormsUsers2'>Tipo de documento</p>
-                                            <Dropdown style={{ width: '100%' }} >
+                                            <Dropdown style={{ width: '100%' }}>
                                                 <Dropdown.Toggle
                                                     as={CustomDropdownButton}
                                                     id="dropdown-basic"
@@ -255,30 +271,18 @@ export default function FormDocumento() {
                                                     {selectedItem}
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu className="tamañocajaoptionsTdocPersona">
-                                                    {tipoDocumento &&
-                                                        tipoDocumento.map(
-                                                            (item) => {
-                                                                return (
-                                                                    <Dropdown.Item
-                                                                        className="itemsdropdowncustomcity"
-                                                                        onClick={() =>
-                                                                            handleSelect(
-                                                                                item.value,
-                                                                                item.nombre
-                                                                            )
-                                                                        }
-                                                                        eventKey={
-                                                                            item.value
-                                                                        }>
-                                                                        {
-                                                                            item.nombre
-                                                                        }
-                                                                    </Dropdown.Item>
-                                                                )
-                                                            }
-                                                        )
-                                                    }
-                                                   
+                                                    {tipoIdentificacion &&
+                                                        tipoIdentificacion.map((item) => (
+                                                            <Dropdown.Item
+                                                                className="itemsdropdowncustomcity"
+                                                                onClick={() =>
+                                                                    handleSelect(item.id, item.descripcion)
+                                                                }
+                                                                eventKey={item.id}
+                                                            >
+                                                                {item.descripcion}
+                                                            </Dropdown.Item>
+                                                        ))}
                                                 </Dropdown.Menu>
                                             </Dropdown>
                                         </Grid>

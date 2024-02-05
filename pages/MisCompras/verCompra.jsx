@@ -124,7 +124,7 @@ export default function verCompra() {
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Estado de pago:</p>
-                                                <p>Aprobado</p>
+                                                <p>{producto.estadodelaventa} </p>
                                             </div>
                                             <div className="subtitlesvercompra">
                                                 <p>Número de aprobación:</p>

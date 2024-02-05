@@ -350,7 +350,7 @@ export default function verVenta() {
                                     <Grid className="contDataUsersVerventa" container style={{ width: isMdDown ? '100%' : '90%' }}>
                                         <Grid item xs={12} md={7} className="misVentasr" >
                                             <div >
-                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>{venta.estadodelaventa} </p>
+                                                <p style={{ fontSize: '24px', color: '#2D2E83', fontWeight: '700' }}>{venta.estadodeldespacho} </p>
                                             </div>
                                             <div className="subtitlesvercompra" style={{ display: 'flex' }}>
                                                 <p>{venta.nombreProducto} </p>

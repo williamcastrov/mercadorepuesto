@@ -28,7 +28,8 @@ import { useDispatch, useSelector } from "react-redux";
 export default function crearPQR() {
 
 
-
+    const [contadorAsunto, setContadorAsunto] = useState(0);
+    const [contadorDescripcion, setContadorDescripcion] = useState(0);
     const irA = useRef(null); //PosiciónTopPage
     const router = useRouter();//NextRouter
     const theme = useTheme();
@@ -40,7 +41,6 @@ export default function crearPQR() {
     const [selectedTipoIdentificacion, setSelectedTipoIdentificacion] = useState("Seleccione tipo de identificación");
     const [selectedCiudad, setSelectedCiudad] = useState("Seleccione la ciudad");
     const [selectedMotivo, setSelectedMotivo] = useState("Seleccione el motivo");
-    // Estado para la imagen
     const [imagen, setImagen] = useState(null);
     const [nombreImagen, setNombreImagen] = useState("");
     const [aceptaTerminos, setAceptaTerminos] = useState(false); // Estado para saber si el usuario ha aceptado los términos
@@ -67,7 +67,12 @@ export default function crearPQR() {
     const [imagen2, setImagen2] = useState(null);
     const [selectedImage3, setSelectedImage3] = useState(null);
     const [imagen3, setImagen3] = useState(null);
+    const [showAll, setShowAll] = useState(false);
 
+    //abrir o cerrar ver más en recomendaciones de archivos
+    const toggleShowAll = () => {
+        setShowAll(!showAll);
+    };
     //abrir dialog de confirmación de envío
     const handleOpenDialog = () => {
         setDialogOpen(true);
@@ -78,16 +83,52 @@ export default function crearPQR() {
         setShowModal(false);
     };
 
+    //Handle dropdown tipo ident
+    const handleSelectTipoIdentificacion = (value, nombre) => {
+        setSelectedTipoIdentificacion(nombre);
+        setForm({ ...form, tipoidentificacion: value });
+
+        if (nombre === "Seleccione tipo de identificación") {
+            setErrorTipoIdentificacion(true);
+        } else {
+            setErrorTipoIdentificacion(false);
+        }
+    };
+
+    //Handle dropdown motivo
+    const handleSelectMotivo = (value, nombre) => {
+        setSelectedMotivo(nombre);
+        setForm({ ...form, motivo: value });
+
+        if (nombre === "Seleccione el motivo") {
+            setErrorMotivo(true);
+        } else {
+            setErrorMotivo(false);
+        }
+    };
+
+    //Handle dropdown ciudad
+    const handleSelectCiudad = (value, nombre) => {
+        setSelectedCiudad(nombre);
+        setForm({ ...form, ciudad: value });
+
+        if (nombre === "Seleccione la ciudad") {
+            setErrorCiudad(true);
+        } else {
+            setErrorCiudad(false);
+        }
+    };
+
     //Función para leer ciudades
     let ciudades = useSelector(
         (state) => state.datosgenerales.datosgenerales.vgl_ciudades
     );
 
-
-    //handle para tercera imagen
-    const handleImagen3 = (e) => {
+    //Función para handle De imagen 1
+    const handleImagen = (e) => {
         const file = e.target.files[0];
         if (!file) {
+            // No se seleccionó ningún archivo
             return;
         }
 
@@ -121,14 +162,13 @@ export default function crearPQR() {
                         image.indexOf(";base64")
                     );
                 const nombreImagen = shortid.generate().substring(0, 11) + extension;
-                setSelectedImage3(image);
-                setImagen3({ image: file, nombreImagen });
+                setSelectedImage(image);
+                setImagen({ image: file, nombreImagen }); // Guarda el objeto File y el nombre de la imagen
             };
             reader.readAsDataURL(file);
         };
         img.src = url;
     };
-
 
     //handle para segunda imagen
     const handleImagen2 = (e) => {
@@ -175,12 +215,10 @@ export default function crearPQR() {
         img.src = url;
     };
 
-
-    //Función para handle De imagen 1
-    const handleImagen = (e) => {
+    //handle para tercera imagen
+    const handleImagen3 = (e) => {
         const file = e.target.files[0];
         if (!file) {
-            // No se seleccionó ningún archivo
             return;
         }
 
@@ -214,8 +252,8 @@ export default function crearPQR() {
                         image.indexOf(";base64")
                     );
                 const nombreImagen = shortid.generate().substring(0, 11) + extension;
-                setSelectedImage(image);
-                setImagen({ image: file, nombreImagen }); // Guarda el objeto File y el nombre de la imagen
+                setSelectedImage3(image);
+                setImagen3({ image: file, nombreImagen });
             };
             reader.readAsDataURL(file);
         };
@@ -456,6 +494,7 @@ export default function crearPQR() {
             } else {
                 setErrorAsunto(false);
             }
+            setContadorAsunto(value.length);
         }
 
         if (name === 'descripcion') {
@@ -465,6 +504,7 @@ export default function crearPQR() {
             } else {
                 setErrorDescripcion(false);
             }
+            setContadorDescripcion(value.length)
         }
     };
 
@@ -544,7 +584,6 @@ export default function crearPQR() {
         }
     };
 
-
     //Función para obtener los tipos de identificación
     useEffect(() => {
         const obtenerTiposIdentificacion = async () => {
@@ -578,47 +617,7 @@ export default function crearPQR() {
         >
             {children}
         </button>
-    ));
-
-
-    //Handle dropdown ciudad
-    const handleSelectCiudad = (value, nombre) => {
-        setSelectedCiudad(nombre);
-        setForm({ ...form, ciudad: value });
-
-        if (nombre === "Seleccione la ciudad") {
-            setErrorCiudad(true);
-        } else {
-            setErrorCiudad(false);
-        }
-    };
-
-    //Handle dropdown tipo ident
-    const handleSelectTipoIdentificacion = (value, nombre) => {
-        setSelectedTipoIdentificacion(nombre);
-        setForm({ ...form, tipoidentificacion: value });
-
-        if (nombre === "Seleccione tipo de identificación") {
-            setErrorTipoIdentificacion(true);
-        } else {
-            setErrorTipoIdentificacion(false);
-        }
-    };
-
-    //Handle dropdown motivo
-    const handleSelectMotivo = (value, nombre) => {
-        setSelectedMotivo(nombre);
-        setForm({ ...form, motivo: value });
-
-        if (nombre === "Seleccione el motivo") {
-            setErrorMotivo(true);
-        } else {
-            setErrorMotivo(false);
-        }
-    };
-
-
-
+    ));  
 
     useEffect(() => {
         irA.current.scrollIntoView({
@@ -694,11 +693,11 @@ export default function crearPQR() {
                                                                     ))}
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
-                                                            {errorTipoIdentificacion && <div className="errorInputPQRS"> <span style={{marginTop:'-1.8rem', marginBottom:'2rem'}}>Recuerda, debes elegir un tipo de identificación</span></div>}
+                                                            {errorTipoIdentificacion && <div className="errorInputPQRS"> <span style={{ marginTop: '-1.8rem', marginBottom: '2rem' }}>Recuerda, debes elegir un tipo de identificación</span></div>}
                                                         </div>
 
                                                     </div>
-                                                    <div style={{marginTop:'-2rem'}}>
+                                                    <div style={{ marginTop: '-2rem' }}>
                                                         <p>Correo electrónico</p>
                                                         <div>
                                                             <input
@@ -735,7 +734,7 @@ export default function crearPQR() {
                                                         </div>
 
                                                     </div>
-                                                    <div  style={{marginTop:'-2rem'}}>
+                                                    <div style={{ marginTop: '-2rem' }}>
                                                         <p>Barrio</p>
                                                         <div>
                                                             <input
@@ -912,7 +911,7 @@ export default function crearPQR() {
                                             <div className="ContCrearSolMain">
                                                 <div className="DescrAsunto">
                                                     <p>Asunto</p>
-                                                    <input
+                                                    <textarea
                                                         autoComplete="off"
                                                         type="text"
                                                         name="asunto"
@@ -927,6 +926,9 @@ export default function crearPQR() {
                                                             e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
                                                         }}
                                                     />
+                                                    <div className="contPQR">
+                                                        <p>{contadorAsunto}/90</p>
+                                                    </div>
                                                 </div>
 
                                                 <div className="DescripSoli">
@@ -936,7 +938,7 @@ export default function crearPQR() {
                                                         onChange={handleChange}
                                                         onClick={() => setErrorDescripcion(false)}
                                                         style={errorDescripcion ? { border: '1px solid red' } : {}}
-                                                        maxLength={350}
+                                                        maxLength={400}
                                                         onInput={(e) => {
                                                             // Permitir solo letras y espacios
                                                             e.target.value = e.target.value.replace(/[^a-zA-Z ]/g, '');
@@ -944,7 +946,9 @@ export default function crearPQR() {
                                                             e.target.value = e.target.value.replace(/\b\w/g, (char) => char.toUpperCase());
                                                         }}
                                                     />
-
+                                                    <div className="contPQR">
+                                                        <p>{contadorDescripcion}/400</p>
+                                                    </div>
                                                 </div>
 
                                                 <div className="AdjArchSoli">
@@ -1040,8 +1044,47 @@ export default function crearPQR() {
                                                                     )}
                                                                 </span>
                                                             </div>
+
+
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div className="recomendacionesArchivosPQR">
+                                                    {showAll ? (
+                                                        <>
+
+                                                            <p>- Debes agregar como mínimo un(1) archivo y como máximo tres(3)</p>
+                                                            <p>- El tamaño máximo de las imágenes es 1024 x 1024</p>
+                                                            <p>- La proporción de las imágenes debe ser de 4:3, <br /> es decir 4 unidades de alto por 3 de ancho</p>
+                                                            <p>- Cada imagen debe pesar máximo 800KB</p>
+                                                            <p>- Cada pdf debe pesar máximo 800KB</p>
+                                                            <p>- Tus archivos deben ser en formato jpg, jpeg, png o pdf</p>
+                                                            <p>- Las imágenes deben ser cuadradas, óptimo 1024 x 1024</p>
+                                                            <p>- Las imágenes deben llenar al menos el 85% o más del marco de la imagen</p>
+                                                            <p>- La imagen debe estar enfocada</p>
+                                                            <p>- No incluir datos de teléfonos</p>
+                                                            <p>- No incluir datos de contactos</p>
+                                                            <p>- Las imágenes deben ser nítidas</p>
+                                                            <div className="buttonRecArchivos">
+                                                                <button onClick={toggleShowAll}>Ver menos...</button>
+                                                            </div>
+
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <p>**Ten en cuenta que:</p>
+                                                            <p>- Debes agregar como mínimo un(1) archivo y como máximo tres(3)</p>
+                                                            <p>- El tamaño máximo de las imágenes es 1024 x 1024</p>
+                                                            <p>- La proporción de las imágenes debe ser de 4:3, <br /> es decir 4 unidades de alto por 3 de ancho</p>
+                                                            <p>- Cada imagen debe pesar máximo 800KB</p>
+                                                            <p>- Tus archivos deben ser en formato jpg, jpeg, png o pdf</p>
+                                                            <div className="buttonRecArchivos">
+                                                                <button onClick={toggleShowAll}>Ver más...</button>
+                                                            </div>
+
+                                                        </>
+                                                    )}
                                                 </div>
 
                                                 <div className="EnviarPeticionPQR">

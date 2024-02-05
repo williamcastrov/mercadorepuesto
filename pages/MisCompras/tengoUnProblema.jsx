@@ -657,7 +657,7 @@ export default function tengoUnProblema() {
                                                     {showAll ? (
                                                         <>
 
-                                                            <p>- Debes agregar como mínimo una(01) imagen y como máximo cinco(05)</p>
+                                                            <p>- Debes agregar como mínimo un(1) archivo y como máximo tres(3)</p>
                                                             <p>- El tamaño máximo de las imágenes es 1024 x 1024</p>
                                                             <p>- La proporción de las imágenes debe ser de 4:3, <br /> es decir 4 unidades de alto por 3 de ancho</p>
                                                             <p>- Cada imagen debe pesar máximo 800KB</p>
@@ -676,7 +676,7 @@ export default function tengoUnProblema() {
                                                     ) : (
                                                         <>
                                                             <p>**Ten en cuenta que:</p>
-                                                            <p>- Debes agregar como mínimo una(01) imagen y como máximo cinco(05)</p>
+                                                            <p>- Debes agregar como mínimo un(1) archivo y como máximo tres(3)</p>
                                                             <p>- El tamaño máximo de las imágenes es 1024 x 1024</p>
                                                             <p>- La proporción de las imágenes debe ser de 4:3, <br /> es decir 4 unidades de alto por 3 de ancho</p>
                                                             <p>- Cada imagen debe pesar máximo 800KB</p>

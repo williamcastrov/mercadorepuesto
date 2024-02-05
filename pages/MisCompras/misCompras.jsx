@@ -31,14 +31,38 @@ export default function misCompras() {
     //PosiciónTopPage
     const irA = useRef(null);
     const [detallesProducto, setDetallesProducto] = useState(null);
+    const [estados, setEstados] = useState([]);
+    const [mapaEstados, setMapaEstados] = useState({}); // Agrega esta línea al inicio de tu componente
 
 
-    const estadosDespacho = {
-        40: "Alistando tu compra",
-        41: "Compra enviada",
-        42: "Compra entregada",
-        43: "Compra finalizada"
-    };
+    // Primero, hacemos la solicitud para obtener los estados
+    useEffect(() => {
+        const obtenerEstados = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "158",
+                });
+
+                if (res.data && res.data.listarestados) {
+                    // Creamos un mapa de estados
+                    const mapaEstados = {};
+                    res.data.listarestados.forEach(estado => {
+                        mapaEstados[estado.tipodeestado] = estado.nombre;
+                    });
+
+                    // Guardamos el mapa de estados en el estado de React
+                    setMapaEstados(mapaEstados);
+                } else {
+                    console.error("Error: res.data o res.data.listarestados es undefined");
+                }
+            } catch (error) {
+                console.error("Error al obtener los estados", error);
+            }
+        };
+
+        obtenerEstados();
+    }, []);
 
 
     function formatearPrecio(precio) {
@@ -67,12 +91,7 @@ export default function misCompras() {
         obtenerUidUsuario();
     }, [datosusuarios]);
 
-
-
-
-
-
-
+    //Handlepara dropdown
     const handleSelect = (eventKey) => {
         // Actualiza el estado para almacenar la opción seleccionada
         setSelectedSortOption(eventKey);
@@ -85,6 +104,7 @@ export default function misCompras() {
         }
     };
 
+    //Botón de dropdown
     const CustomDropdownButton = React.forwardRef(({ children, onClick }, ref) => (
         <button
             ref={ref}
@@ -94,14 +114,14 @@ export default function misCompras() {
             {selectedSortOption ? `${selectedSortOption}` : "Ordenar por"}
         </button>
     ));
-    //Obtener datos de mis compras
 
+
+    //Obtener datos de mis compras 
     useEffect(() => {
-        const leerDirecciones = async () => {
+        const leerCompras = async () => {
             let params = {
                 uidcomprador: UidUser,
             };
-
             await axios({
                 method: "post",
                 url: URL_BD_MR + "103",
@@ -109,43 +129,35 @@ export default function misCompras() {
             })
                 .then(async (res) => {
                     if (res.data && res.data.listarmiscompras) {
-                        const direcciones = await Promise.all(
-                            res.data.listarmiscompras.map(async (direccion) => {
-                                // Obtén los detalles del producto
-                                const detallesProducto = await obtenerNombreProducto(direccion.idproducto);
+                        const comprasUsuario = await Promise.all(
+                            res.data.listarmiscompras.map(async (compra) => {
+                                const detallesProducto = await obtenerNombreProducto(compra.idproducto);
                                 setDetallesProducto(detallesProducto);
-
-                                // Obtén el nombre del vendedor
                                 const detallesVendedor = await obtenerNombreVendedor(detallesProducto.usuario);
-
                                 return {
-                                    ...direccion,
-                                    estadodeldespacho:estadosDespacho[direccion.estadodeldespacho], 
-                                    fechacompra: direccion.fechacompra.slice(0, 10),
-                                    fechaentrega: direccion.fechaentrega.slice(0, 10),
-                                    fechadespacho: direccion.fechadespacho.slice(0, 10),
-                                    fechadepago: direccion.fechadepago.slice(0, 10),
-                                    nuevoValor: formatearPrecio(direccion.preciodeventa + direccion.precioenvio),
+                                    ...compra,
+                                    estadodeldespacho: mapaEstados[compra.estadodeldespacho], // Aquí usamos el mapa de estados
+                                    estadodelaventa: mapaEstados[compra.estadodelaventa],
+                                    fechacompra: compra.fechacompra.slice(0, 10),
+                                    fechaentrega: compra.fechaentrega.slice(0, 10),
+                                    fechadespacho: compra.fechadespacho.slice(0, 10),
+                                    fechadepago: compra.fechadepago.slice(0, 10),
+                                    nuevoValor: formatearPrecio(compra.preciodeventa + compra.precioenvio),
                                     nombreProducto: detallesProducto.nombreProducto,
-                                    UsuarioVendedor: detallesProducto.usuario,  
+                                    UsuarioVendedor: detallesProducto.usuario,
                                     salePrice: formatearPrecio(detallesProducto.salePrice),
                                     nombreImagen: detallesProducto.nombreImagen,
                                     idPrdoductRuta: detallesProducto.idPrdoductRuta,
                                     nombreVendedor: detallesVendedor.nombreVendedor,
                                     apellidoVendedor: detallesVendedor.apellidoVendedor,
-                                    precioDeVentaFormateado: formatearPrecio(direccion.preciodeventa),
-                                    precioEnvioFormateado: formatearPrecio(direccion.precioenvio),
+                                    precioDeVentaFormateado: formatearPrecio(compra.preciodeventa),
+                                    precioEnvioFormateado: formatearPrecio(compra.precioenvio),
                                 };
                             })
                         );
-
-                        // Almacena las direcciones en el estado de tu componente
-                        setCompras(direcciones);
-                        console.log("Direcciones: ", direcciones)
+                        setCompras(comprasUsuario);
+                        console.log("Compras de usuario: ", comprasUsuario)
                         console.log(compras);
-                        console.log("Direcciones:", idPrdoductRuta);
-                        // Imprime las direcciones en la consola
-                        console.log("Direcciones:", direcciones);
                     } else {
                         console.error("Error: res.data o res.data.listarunadireccion es undefined");
                     }
@@ -154,8 +166,9 @@ export default function misCompras() {
                     console.error("Error al leer los datos del usuario", error);
                 });
         };
-        leerDirecciones();
-    }, [UidUser]);
+        leerCompras();
+    }, [UidUser, mapaEstados]);
+
     //función para obtener datos del producto
     async function obtenerNombreProducto(idprd) {
         let params = {
@@ -182,8 +195,7 @@ export default function misCompras() {
             console.error("Error al obtener el nombre del producto", error);
         }
     }
-
-    //función para obtener el nombre del vendedor
+ 
     //función para obtener el nombre y apellido del vendedor
     async function obtenerNombreVendedor(uid) {
         let params = {
@@ -205,11 +217,7 @@ export default function misCompras() {
         } catch (error) {
             console.error("Error al obtener el nombre del vendedor", error);
         }
-    }
-
-
-
-
+    } 
 
     const filteredCompras = compras.filter((producto) =>
         producto && producto.nombreProducto && producto.nombreProducto.toLowerCase().includes(searchTerm.toLowerCase())
@@ -220,28 +228,7 @@ export default function misCompras() {
             behavior: "smooth",
             block: "start",
         });
-    }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Función para enviar mensajes
-
-
-
-
-
-
+    }, []); 
 
 
 
@@ -340,7 +327,7 @@ export default function misCompras() {
                                                                 </div>
                                                                 <p className="dateCompra">{producto.fechacompra}</p>
                                                             </Grid>
-                                                        </Grid> 
+                                                        </Grid>
                                                         <Grid item xs={12} md={3} className="precioProductMisCompras">
                                                             <p>${producto.salePrice}</p>
                                                         </Grid>

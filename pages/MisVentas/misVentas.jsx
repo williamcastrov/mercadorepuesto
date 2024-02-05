@@ -31,23 +31,43 @@ export default function misVentas() {
     //PosiciónTopPage
     const irA = useRef(null);
     const [ventas, setVentas] = useState([]);
-
     const [selectedSortOption, setSelectedSortOption] = useState(null);
+    const [mapaEstados, setMapaEstados] = useState({});
+    const [busqueda, setBusqueda] = useState('');
+    const [compras, setCompras] = useState([]);
+    const palabrasBusqueda = busqueda.toLowerCase().split(' ');
 
-    const estadosDespacho = {
-        40: "Alistando la venta",
-        41: "Venta enviada",
-        42: "Venta entregada",
-        43: "Venta finalizada"
-    };
 
-    const estadosVenta = {
-        50: "Alistando la venta",
-        51: "Venta enviada",
-        52: "Venta entregada",
-        53: "Venta finalizada"
-    };
+    // Primero, hacemos la solicitud para obtener los estados
+    useEffect(() => {
+        const obtenerEstados = async () => {
+            try {
+                const res = await axios({
+                    method: "post",
+                    url: URL_BD_MR + "158",
+                });
 
+                if (res.data && res.data.listarestados) {
+                    // Creamos un mapa de estados
+                    const mapaEstados = {};
+                    res.data.listarestados.forEach(estado => {
+                        mapaEstados[estado.tipodeestado] = estado.nombre;
+                    });
+
+                    // Guardamos el mapa de estados en el estado de React
+                    setMapaEstados(mapaEstados);
+                } else {
+                    console.error("Error: res.data o res.data.listarestados es undefined");
+                }
+            } catch (error) {
+                console.error("Error al obtener los estados", error);
+            }
+        };
+
+        obtenerEstados();
+    }, []);
+
+ 
 
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
@@ -67,7 +87,7 @@ export default function misVentas() {
                 console.error("Error al leer los datos del usuario", error);
                 // Maneja el error según tus necesidades
             }
-        }; 
+        };
         obtenerUidUsuario();
     }, [datosusuarios]);
 
@@ -97,8 +117,8 @@ export default function misVentas() {
 
                             return {
                                 ...venta,
-                                estadodeldespacho: estadosDespacho[venta.estadodeldespacho],
-                                estadodelaventa: estadosVenta[venta.estadodelaventa],
+                                estadodeldespacho: mapaEstados[venta.estadodeldespacho],  
+                                estadodelaventa: mapaEstados[venta.estadodelaventa],
                                 fechadeventa1: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null,
                                 fechadeventa: venta.fechacompra ? venta.fechacompra.slice(0, 10) : null,
                                 fechaentrega: venta.fechaentrega ? venta.fechaentrega.slice(0, 10) : null,
@@ -129,7 +149,7 @@ export default function misVentas() {
         if (UidUser) {
             obtenerVentasUsuario();
         }
-    }, [UidUser]);
+    }, [UidUser, mapaEstados]);
 
     //función para obtener datos del producto
     async function obtenerNombreProducto(idproducto) {
@@ -170,13 +190,7 @@ export default function misVentas() {
         } catch (error) {
             console.error("Error al leer los datos del comprador", error);
         }
-    };
-
-
-
-
-
-
+    }; 
 
     // Programación de dropdown de mis ventas actual
     const handleSelect = (eventKey) => {
@@ -199,14 +213,7 @@ export default function misVentas() {
         >
             {selectedSortOption ? `${selectedSortOption}` : "Ordenar por"}
         </button>
-    ));
-
-
-
-    const [busqueda, setBusqueda] = useState('');
-    const [compras, setCompras] = useState([]);
-    const palabrasBusqueda = busqueda.toLowerCase().split(' ');
-
+    )); 
 
     const handleChange = (event) => {
         setBusqueda(event.target.value);
@@ -309,7 +316,7 @@ export default function misVentas() {
                                                     <Grid container>
                                                         <Grid item xs={12} md={9}>
                                                             <Grid className="subContMiscompras">
-                                                                <p className="estadoCompra">{venta.estadodelaventa}</p>
+                                                                <p className="estadoCompra">{venta.estadodeldespacho}</p>
                                                                 <p className="nombreProductMiCompra" onClick={() => router.push(`/product/${venta.idPrdoductRuta}`)}>{venta.nombreProducto}</p>
                                                                 <div className="divCantCompradas">
                                                                     <p className="UnidCompradas">Unidades vendidas:</p>
