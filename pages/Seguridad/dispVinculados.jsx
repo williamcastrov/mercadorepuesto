@@ -75,7 +75,7 @@ export default function dispVinculados() {
         if (!isUserLogged) {
             dispatch(getLeeIra(11));
             localStorage.setItem("ira", JSON.stringify(11));
-            let itemsadddispvinvulados = {
+            let itemsadddispvinvulados = { 
                 ruta: "/Seguridad/dispVinculados",
             };
             localStorage.setItem(
