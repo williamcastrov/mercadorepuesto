@@ -37244,4 +37244,97 @@ label {
     font-size: 16px;
 }
 
+.ContGestionPQR{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.MainGestPQr{
+    display: flex;
+    width: 730px;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border-radius: 10px;
+    border: 3px solid #f1f2f5;
+}
+.infoGestData{
+    display: flex;
+    flex-direction: column;
+}
+.infoGestData p{
+    font-size: 18px;
+    color: #2d2e93;
+    margin-bottom: 1rem;
+}
+.dataPQRGest{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+
+}
+.dataPQRGest p{
+    margin-bottom: 1.2rem;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d2e93;
+}
+.ResInputPQR {
+    width: 100%;
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+}
+.ResInputPQR p{
+    margin-top: 1.2rem;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d2e93;
+}
+.ResInputPQR textarea{ 
+    resize: none;
+    width: 100%;
+    background-color: #F0F1F5;
+    border-radius: 10px;
+    font-size: 18px;
+    color: #2D2E83;
+    padding: 9px 15px;
+    height: 175px !important;
+}
+.ButtonsEstadosPQR{
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    gap: 2rem;
+}
+.ButtonsEstadosPQR button{
+    background-color: #2D2E83;
+    padding: 1rem;
+    color: white;
+    border-radius: 10px;
+}
+
+.InactivoPQRbtn{
+    background-color: #2D2E83;
+    padding: 1rem;
+    color: white;
+    border-radius: 10px; 
+}
+.ButtonsGestionPQR{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+    gap: 2.5rem;
+}
+.activoBtnPQR{
+    background-color: White;
+    padding: 1rem;
+    color: #2D2E83;
+    border-radius: 10px; 
+    border: 2px solid #2D2E83;
+}
 /*Fin estilos ayuda PQR*/

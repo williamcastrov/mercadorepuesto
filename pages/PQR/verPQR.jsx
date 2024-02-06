@@ -13,7 +13,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { HiOutlineDocumentPlus } from "react-icons/hi2";
 import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
-
+import { jsPDF } from "jspdf";
 import { useDispatch, useSelector } from "react-redux";
 import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 
@@ -28,6 +28,8 @@ export default function verPQR() {
     const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
     const { id } = router.query;
     const [pqr, setPQR] = useState(null);
+    const [respuesta, setRespuesta] = useState({});
+
 
     useEffect(() => {
         if (irA.current) {
@@ -36,7 +38,7 @@ export default function verPQR() {
                 block: "start",
             });
         }
-    }, []);  
+    }, []);
 
     useEffect(() => {
         const obtenerTiposIdentificacion = async () => {
@@ -55,7 +57,7 @@ export default function verPQR() {
             }
         };
         obtenerTiposIdentificacion();
-    }, []);  
+    }, []);
 
     useEffect(() => {
         const obtenerEstados = async () => {
@@ -81,7 +83,7 @@ export default function verPQR() {
     useEffect(() => {
         console.log(ciudades);
     }, [ciudades]);
- 
+
     useEffect(() => {
         const obtenerPQR = async () => {
             try {
@@ -99,7 +101,15 @@ export default function verPQR() {
             obtenerPQR();
         }
     }, [id]);
- 
+
+    const descargarRespuesta = () => {
+        const doc = new jsPDF();
+        doc.text(respuesta[pqr.id] || pqr.respuesta || '', 10, 10);
+        doc.save('respuesta.pdf');
+    }
+
+
+
     return (
         <>
             {pqr && (
@@ -217,12 +227,16 @@ export default function verPQR() {
                                                         <p>Tu solicitud fue enviada y tienen un tiempo aproximado de respuesta de XX día habiles</p>
                                                     </div>
 
-                                                    <div className="DownloadRespuesta">
-                                                        <span>
-                                                            <p>Descargar respuesta</p>
-                                                            <MdOutlineDownloadForOffline />
-                                                        </span>
-                                                    </div>
+                                                    {respuesta[pqr.id] || pqr.respuesta ? (
+                                                        <div className="DownloadRespuesta">
+                                                            <span onClick={descargarRespuesta}>
+                                                                <p>Descargar respuesta</p>
+                                                                <MdOutlineDownloadForOffline />
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <p>Aún no tienes respuesta.</p>
+                                                    )}
 
                                                 </div>
                                             </div>
