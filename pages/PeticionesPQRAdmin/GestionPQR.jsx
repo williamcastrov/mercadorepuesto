@@ -156,7 +156,7 @@ export default function GestionPQR() {
                                                                     <p>Id de petición: {pqr.id}</p>
                                                                     <p>Estado de la petición: {estado ? estado.nombre : 'Desconocido'}</p>
                                                                     <p>Identificación del usuario: {pqr.identificacion}</p>
-                                                                    <p>Fecha de Creación: {pqr.fechacreacion}</p>
+                                                                    <p>Fecha de Creación: {pqr.fechacreacion.slice(0, 10)}</p>
                                                                     <p>Nombre del usuario: {pqr.nombres} {pqr.apellidos}</p>
                                                                     <p>Email del usuario: {pqr.email}</p>
                                                                     <p>Teléfono del usuario: {pqr.telefono}</p>
