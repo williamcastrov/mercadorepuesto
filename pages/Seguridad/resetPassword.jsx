@@ -22,7 +22,14 @@ import { URL_BD_MR } from "../../helpers/Constants";
 import { useDispatch, connect, useSelector } from "react-redux";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
-
+import {
+    createUserWithEmailAndPassword,
+    getAuth,
+    onAuthStateChanged,
+    updateProfile
+} from "firebase/auth";
+import TokenRegistroRepository from "../../repositories/TokenRegistroRepository";
+import firebase from "../../utilities/firebase";
 
 export default function resetPassword() {
 
@@ -36,7 +43,42 @@ export default function resetPassword() {
         });
     }, []);
 
-    return(
+
+    const [password, setPassword] = useState('');
+    const [code, setCode] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var code = url.searchParams.get("oobCode");
+            setCode(code);
+        }
+    }, []);
+
+    const handlePasswordReset = () => {
+        if (code) {
+            firebase.auth().confirmPasswordReset(code, password)
+                .then(() => {
+                    alert('La contraseña se ha cambiado correctamente.');
+                })
+                .catch((error) => {
+                    alert('Se produjo un error al cambiar la contraseña. Por favor, inténtalo de nuevo.');
+                });
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+    return (
         <>
             <div ref={irA}>
                 <Container title="Mi Cuenta">
@@ -48,7 +90,21 @@ export default function resetPassword() {
                                 <div className='titlesformsUsers'>
                                     <p>Actualizar contraseña</p>
                                 </div>
- 
+
+
+                                <div className="ResetPasswordCont">
+                                    <div>
+                                        <p>Nueva contraseña</p>
+                                        <input
+                                            type="password"
+                                            id="newPassword"
+                                            placeholder="Nueva contraseña"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                        <button onClick={handlePasswordReset}>GUARDAR</button>
+                                    </div> 
+                                </div>
                             </div>
                         </div>
                     </div>
