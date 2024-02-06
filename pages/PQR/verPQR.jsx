@@ -1,20 +1,12 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
-import ModalMensajes from "../mensajes/ModalMensajes";
-import shortid from "shortid";
-import Link from '@mui/material/Link';
-import { GrNext } from "react-icons/gr";
 import { useRouter } from "next/router";
-import { TbSearch } from "react-icons/tb";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { HiOutlineDocumentPlus } from "react-icons/hi2";
-import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
 import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { jsPDF } from "jspdf";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 
 export default function verPQR() {

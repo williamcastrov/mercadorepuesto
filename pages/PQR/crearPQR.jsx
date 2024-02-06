@@ -1,30 +1,22 @@
 import Container from "../../components/layouts/Container";
-import { Breadcrumbs, Grid, useMediaQuery, useTheme, TextField, Button, FormControl, Select, MenuItem, FormHelperText, Autocomplete, ThemeProvider, createTheme, InputAdornment, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
+import { Breadcrumbs, Grid, useMediaQuery, useTheme, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import React, { useEffect, useState, useRef } from "react";
 import { URL_BD_MR } from "../../helpers/Constants";
 import axios from "axios";
-import { URL_IMAGES_RESULTSSMS } from "../../helpers/Constants";
 import ModalMensajes from "../mensajes/ModalMensajes";
 import shortid from "shortid";
 import Link from '@mui/material/Link';
 import { GrNext } from "react-icons/gr";
 import { useRouter } from "next/router";
-import { TbSearch } from "react-icons/tb";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { HiOutlineDocumentPlus } from "react-icons/hi2";
-import { HiOutlineDocumentArrowDown } from "react-icons/hi2";
-import { MdOutlineDownloadForOffline } from "react-icons/md";
 import { HiOutlineDocumentArrowUp } from "react-icons/hi2";
-import { MdExpandMore } from 'react-icons/md';
 import { Dropdown } from 'react-bootstrap';
-import { RiArrowDropDownFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { FaCheck } from 'react-icons/fa'; // Importa el icono de verificación de 'react-icons'
 import { FaCheckCircle } from "react-icons/fa";
 
 
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 export default function crearPQR() {
 
 
