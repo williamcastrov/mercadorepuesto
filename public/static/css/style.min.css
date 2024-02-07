@@ -37175,9 +37175,9 @@ label {
 }
 
 .SubAdjArchSoliIcons div {
-    justify-content: center;
+    justify-content: space-between;
     display: flex;
-    align-items: center;
+    align-items: center; 
     flex-direction: column;
 }
 
