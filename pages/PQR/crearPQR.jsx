@@ -26,7 +26,7 @@ export default function crearPQR() {
     const router = useRouter();//NextRouter
     const theme = useTheme();
     const isMdDown = useMediaQuery(theme.breakpoints.down("md")); //Consts measured, 80% and in md 100%.
-    const [isOpen, setIsOpen] = useState(false); // Estado para el primer contenedor
+    const [isOpen, setIsOpen] = useState(true); // Estado para el primer contenedor
     const [isNextOpen, setIsNextOpen] = useState(false); // Estado para el segundo contenedor
     const [text, setText] = useState('Para nosotros es muy importante tus preguntas, quejas, reclamos o felicitaciones. Para poder gestionarlos de la mejor manera, te invitamos a completar la siguiente información:');
     const [tipoIdentificacion, setTipoIdentificacion] = useState(""); // Agrega esta línea
