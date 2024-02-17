@@ -133,7 +133,7 @@ export default function CompSMS() {
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
     
             try {

@@ -49,7 +49,7 @@ export default function preguntasSobreMisProductos() {
     useEffect(() => {
         const obtenerUidUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 const res = await axios({

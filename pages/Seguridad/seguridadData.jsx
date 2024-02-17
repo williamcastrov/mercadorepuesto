@@ -62,7 +62,7 @@ export default function seguridadData() {
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
 
             try {

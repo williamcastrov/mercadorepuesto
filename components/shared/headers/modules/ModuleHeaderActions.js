@@ -169,7 +169,7 @@ const ModuleHeaderActions = ({ ecomerce, search = false }) => {
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
 
             await axios({

@@ -79,7 +79,7 @@ export default function formPassword() {
         const leerDatosUsuario = async () => {
             // Define los parámetros para la solicitud
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
 
             // Realiza una solicitud POST a tu endpoint

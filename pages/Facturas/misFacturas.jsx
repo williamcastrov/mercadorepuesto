@@ -87,7 +87,7 @@ export default function misFacturas() {
     useEffect(() => {
         const obtenerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 const res = await axios({

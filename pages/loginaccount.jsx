@@ -1,28 +1,29 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { useRouter } from "next/router";
-import React, { useRef, useState } from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
-import { BsInfoCircleFill } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+import React, { useState, useEffect, useRef } from "react";
 import Container from "~/components/layouts/Container";
-import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
+import { validateEmail } from "../utilities/Validations";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import ActivateUserRepository from "../repositories/ActivateUserRepository";
+import UpdateTokenRepository from "~/repositories/UpdateTokenRepository";
 import ReadUserEmail from "../repositories/ReadUserEmail";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Row, Col, Modal, Form } from "react-bootstrap";
+
+import { getTokenRegistro } from "../store/tokenregistro/action";
 import { getAddEdToCart } from "../store/addedtocart/action";
 import { getAddLogin } from "../store/addlogin/action";
 import { getDuplicarPrd } from "../store/duplicarprd/action";
-import { validateEmail } from "../utilities/Validations";
 
 import axios from "axios";
-import Moment from "moment";
 import Users from "~/repositories/Users";
-import ModalLogin from "./mensajes/ModalMensajes";
+import Moment from "moment";
+import ModalLogin from "./mensajes/ModalLogin";
 //Constantes
 import InfoIcon from "@material-ui/icons/Info";
-import { URL_BD_MR } from "../helpers/Constants";
-//Firebase
+import { URL_BD_MR, URL_IMAGES_RESULTS } from "../helpers/Constants";
 import Dialog from '@mui/material/Dialog';
+//Firebase
 import {
     getAuth,
     sendPasswordResetEmail,
@@ -30,6 +31,8 @@ import {
 } from "firebase/auth";
 
 import firebase from "../utilities/firebase";
+
+import { format } from "prettier";
 import TokenRegistroRepository from "../repositories/TokenRegistroRepository";
 
 const LoginAccount = () => {
@@ -76,7 +79,7 @@ const LoginAccount = () => {
     const [classNamePassword, setClassNamePassword] = useState("password");
 
     const [classNameEye, setClassNameEye] = useState(
-        "fa fa-eye-slash toogle-password colorinput"
+        "fa fa-eye-slash toogle-password colorinput colorbase" 
     );
 
     // Asignamos Datos al arreglo de Usuarios desde el state
@@ -85,7 +88,6 @@ const LoginAccount = () => {
     const [inputControlEmail, setInputControlEmail] = useState(
         "form-controlNuevo ps-form__inputNuevo"
     );
-
 
     const [isError, setIsError] = useState(false);
     const [recoveryMethod, setRecoveryMethod] = useState("");
@@ -113,7 +115,6 @@ const LoginAccount = () => {
 
     const onCloseModalVerificar = () => {
         setShowModalVerificar(!showModalVerificar);
-        closeModalOlvidasteContraseña();
     };
 
     const onCloseModalPropietario = () => {
@@ -214,12 +215,13 @@ const LoginAccount = () => {
             const auth = getAuth(firebase);
             signInWithEmailAndPassword(auth, formData.email, formData.password)
                 .then((userCredential) => {
+                    //alert("ENTRE")
                     const user = userCredential.user;
-                    //console.log("DATOS USER : ", user);
+                  
                     // Lee los datos del usuario para validar si ya esta aActivo
 
                     const dat = {
-                        uid: user.metadata.createdAt,
+                        usuario: user.metadata.createdAt,
                     };
 
                     setIdUid(user.metadata.createdAt);
@@ -235,8 +237,10 @@ const LoginAccount = () => {
                             JSON.stringify(datprd)
                         );
                         dispatch(getDuplicarPrd(0));
-                        const DatosUsuario = await Users.getUsers(dat);
 
+                        const DatosUsuario = await Users.getUsers(dat);
+                        
+                        //console.log("DATOS USER : ", DatosUsuario);
 
                         if (DatosUsuario.length > 0) {
                             setUsuario(DatosUsuario);
@@ -248,7 +252,6 @@ const LoginAccount = () => {
                                     login: false,
                                 };
 
-
                                 if (ira == 12) {
                                     let datitem = JSON.parse(
                                         localStorage.getItem(
@@ -256,32 +259,27 @@ const LoginAccount = () => {
                                         )
                                     );
 
-                                    router.push(
-                                        datitem.ruta
-                                    );
+                                    router.push(datitem.ruta);
 
                                     localStorage.setItem(
                                         "itemsresolverdudas",
                                         JSON.stringify("Ok")
                                     );
-                                }
-
-                                else if (ira == 11) {
+                                } else if (ira == 11) {
                                     let datitem = JSON.parse(
                                         localStorage.getItem(
                                             "itemsadddispvinvulados"
                                         )
                                     );
 
-                                    router.push(
-                                        datitem.ruta
-                                    );
+                                    router.push(datitem.ruta);
 
                                     localStorage.setItem(
                                         "itemsadddispvinvulados",
                                         JSON.stringify("Ok")
                                     );
-                                } else if (ira == 4) {
+                                }
+                                if (ira == 4) {
                                     let datitem = JSON.parse(
                                         localStorage.getItem("itemswishlistadd")
                                     );
@@ -336,7 +334,7 @@ const LoginAccount = () => {
                                                 .then((res) => {
                                                     router.push(
                                                         datitem.ruta +
-                                                        datitem.idproducto
+                                                            datitem.idproducto
                                                     );
 
                                                     localStorage.setItem(
@@ -569,12 +567,18 @@ const LoginAccount = () => {
                                     router.push(
                                         datitem.ruta + datitem.idproducto
                                     );
+                                } else if (ira == 7) {
+                                    let rutaira = JSON.parse(
+                                        localStorage.getItem("rutaira")
+                                    );
+                                    router.push(rutaira);
                                 } else {
                                     localStorage.setItem(
                                         "loginvender",
                                         JSON.stringify(item)
                                     );
-                                    router.push("/CreateProduct/createproduct");
+                                    //router.push("/CreateProduct/createproduct");
+                                    router.push("/");
                                 }
                             } else {
                                 router.push("/");
@@ -594,7 +598,7 @@ const LoginAccount = () => {
                     setShowModalMensajes(true);
                     setTituloMensajes("Control de acceso");
                     setTextoMensajes(
-                        "Error al Intentar ingresar, asegurate de los datos estén correctos."
+                        "La contraseña ingresada no es correcta, para cambiar, dar click en olvidaste contraseña!"
                     );
                     //router.push("/");
                 });
@@ -611,7 +615,7 @@ const LoginAccount = () => {
                 // Lee los datos del usuario para validar si ya esta aActivo
 
                 const dat = {
-                    uid: user.metadata.createdAt,
+                    usuario: user.metadata.createdAt,
                 };
 
                 setIdUid(user.metadata.createdAt);
@@ -1030,19 +1034,16 @@ const LoginAccount = () => {
     const mostrarContraseña = () => {
         if (classNamePassword === "password") {
             setClassNamePassword("text");
-            setClassNameEye("fa fa-eye toogle-password colorinput");
+            setClassNameEye("fa fa-eye toogle-password colorinput  colorbase");
         } else if (classNamePassword === "text") {
             setClassNamePassword("password");
-            setClassNameEye("fa fa-eye-slash toogle-password colorinput");
+            setClassNameEye("fa fa-eye-slash toogle-password colorinput  colorbase");
         }
     };
 
     const closeModalOlvidasteContraseña = () => {
         setShowModalMedio(false);
     };
-
-
-
 
     const resetInputs = () => {
         setInput1("");
@@ -1053,7 +1054,6 @@ const LoginAccount = () => {
         setInput6("");
     };
 
-
     const handleButtonClickSMS = () => {
         setRecoveryMethod("SMS");
         const code = Math.floor(100000 + Math.random() * 900000);
@@ -1061,7 +1061,6 @@ const LoginAccount = () => {
         console.log(code);
         setShowModalMedio(false);
         setOpenDialog(true);
-
     };
 
     const handleCloseDialog = () => {
@@ -1089,14 +1088,18 @@ const LoginAccount = () => {
                 setIsError(false);
                 setShowModalMensajes(true);
                 setTituloMensajes("Recuperar contraseña");
-                setTextoMensajes("¡Hemos enviado al correo electrónico registrado un link para recuperar tu contraseña, recuerda revisar en spam o correos no deseados!");
+                setTextoMensajes(
+                    "¡Hemos enviado al correo electrónico registrado un link para recuperar tu contraseña, recuerda revisar en spam o correos no deseados!"
+                );
                 setOpenDialog(false);
                 resetInputs();
             })
             .catch((error) => {
                 setShowModalMensajes(true);
                 setTituloMensajes("Error");
-                setTextoMensajes(`Error al enviar el correo electrónico de recuperación: ${error.message}`);
+                setTextoMensajes(
+                    `Error al enviar el correo electrónico de recuperación: ${error.message}`
+                );
             });
     };
 
@@ -1154,7 +1157,11 @@ const LoginAccount = () => {
 
                             <div className="inputContLogin inputContLoginCorreo">
                                 <p>* Correo electronico</p>
-                                <input className={inputControlEmail} name="email" type="email" />
+                                <input
+                                    className={inputControlEmail}
+                                    name="email"
+                                    type="email"
+                                />
                             </div>
                             <div className="inputContLogin inputContLoginContraseña">
                                 <p>* Contraseña</p>
@@ -1167,10 +1174,7 @@ const LoginAccount = () => {
                                     <a
                                         className={classNameEye}
                                         href="#"
-                                        onClick={
-                                            mostrarContraseña
-                                        }></a>
-
+                                        onClick={mostrarContraseña}></a>
                                 </div>
                             </div>
                             <div className="partebajaLogin">
@@ -1181,13 +1185,15 @@ const LoginAccount = () => {
                                         id="remember"
                                     />
                                     <label
-                                        className="form-check-label"
+                                        className="form-check-label colorbase"
                                         htmlFor="remember">
                                         Recuérdame
                                     </label>
                                 </div>
 
-                                <p onClick={() => textoMedioToken()}>¿Olvidaste tu contraseña?</p>
+                                <p onClick={() => textoMedioToken()}>
+                                    ¿Olvidaste tu contraseña?
+                                </p>
                             </div>
                             {user ? (
                                 <div
@@ -1197,7 +1203,9 @@ const LoginAccount = () => {
                                 </div>
                             ) : null}
                             <div className="ContbuttonEntrarLogin">
-                                <div className="buttonEntrarLogin" onClick={login}>
+                                <div
+                                    className="buttonEntrarLogin"
+                                    onClick={login}>
                                     Ingresar
                                 </div>
                             </div>
@@ -1205,15 +1213,20 @@ const LoginAccount = () => {
                                 <p>O</p>
                             </div>
                             <div className="CrearcuentaCont">
-                                <p onClick={() => crearCuenta()}>Crea tu cuenta</p>
+                                <p onClick={() => crearCuenta()}>
+                                    Crea tu cuenta
+                                </p>
                             </div>
                             <div className="Otext">
-                                <p>Sugerencia: Si no estas registrado en Mercado Repuesto, primero debes crear tu usuario, una cuenta te permite estar al tanto de las novedades de nuestro sitio.</p>
+                                <p>
+                                    Sugerencia: Si no estas registrado en
+                                    Mercado Repuesto, primero debes crear tu
+                                    usuario, una cuenta te permite estar al
+                                    tanto de las novedades de nuestro sitio.
+                                </p>
                             </div>
                         </div>
                     </form>
-
-
                 </div>
             </div>
 
@@ -1262,15 +1275,13 @@ const LoginAccount = () => {
                     className="modal-fondo mtmenos15"
                     onClick={() => {
                         closeModalOlvidasteContraseña();
-                    }}
-                >
+                    }}>
                     <div
                         className="modal-mensajesLogin redondearventamensajes"
                         onClick={(e) => {
                             // Evitar que se cierre el modal si se hace clic en su contenido
                             e.stopPropagation();
-                        }}
-                    >
+                        }}>
                         {/* Contenido del modal */}
                         <Row>
                             <Col xl={1} lg={1} md={1} sm={1}>
@@ -1290,8 +1301,7 @@ const LoginAccount = () => {
                                     data-dismiss="modal"
                                     onClick={() => {
                                         closeModalOlvidasteContraseña();
-                                    }}
-                                >
+                                    }}>
                                     X
                                 </button>
                             </Col>
@@ -1299,45 +1309,41 @@ const LoginAccount = () => {
 
                         <div className="mt-18 textoventanamensajesNuevo">
                             <div>
-                                Para recuperar tu contraseña te
-                                vamos a enviar un código de
-                                verificación
+                                Para recuperar tu contraseña te vamos a enviar
+                                un código de verificación
                             </div>
                         </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <div>
-                                ¿Por dónde deseas recibirlo?
-                            </div>
+                            <div>¿Por dónde deseas recibirlo?</div>
                         </div>
 
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickSMS}>
+                            <button
+                                className="RecuperarContraseñaSMSDOS"
+                                onClick={handleButtonClickSMS}>
                                 SMS - Mensaje de Texto
                                 <br />
-                                Al número celular terminado en{" "}
-                                {cortartelefono}
+                                Al número celular terminado en {cortartelefono}
                             </button>
                         </div>
 
-
                         <div className="mt-15 textoventanamensajesNuevo">
-                            <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickWhatsApp}>
+                            <button
+                                className="RecuperarContraseñaSMSDOS"
+                                onClick={handleButtonClickWhatsApp}>
                                 WhatsApp
                                 <br />
-                                Al número celular terminado en{" "}
-                                {cortartelefono}
+                                Al número celular terminado en {cortartelefono}
                             </button>
                         </div>
 
                         <div className="mt-24 textoventanamensajesNuevo">
-                            <button className="VerifOtraManerButon" onClick={onCloseModalVerificar}
-                                onMouseOver={
-                                    pasarmouseverificarotraforma
-                                }
-                                onMouseOut={
-                                    salirmouseverificarotraforma
-                                }>
+                            <button
+                                className="VerifOtraManerButon"
+                                onClick={onCloseModalVerificar}
+                                onMouseOver={pasarmouseverificarotraforma}
+                                onMouseOut={salirmouseverificarotraforma}>
                                 Verificar de otra forma
                             </button>
                         </div>
@@ -1345,41 +1351,178 @@ const LoginAccount = () => {
                 </div>
             ) : null}
 
-            <Dialog open={openDialog}
+            <Dialog
+                open={openDialog}
                 maxWidth="lg"
                 fullWidth={true}
                 PaperProps={{
                     style: {
                         maxWidth: "580px",
-                        borderRadius: "10px"
+                        borderRadius: "10px",
                     },
                 }}
-                disableScrollLock={true}
-            >
+                disableScrollLock={true}>
                 <div className="DialogTokenLogin">
                     <div className="TopDialogTokenLogin">
                         <p>Ingresa el codigo que recibiste.</p>
-                        <p>Recibiste un número de 6 dígitos por {recoveryMethod}.</p>
+                        <p>
+                            Recibiste un número de 6 dígitos por{" "}
+                            {recoveryMethod}.
+                        </p>
                     </div>
 
                     <div className="inputsLoginA">
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input1} onChange={(e) => { setInput1(e.target.value); if (e.target.value) input2Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input1) input1Ref.current.focus(); }} ref={input1Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input2} onChange={(e) => { setInput2(e.target.value); if (e.target.value) input3Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input2) input1Ref.current.focus(); }} ref={input2Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input3} onChange={(e) => { setInput3(e.target.value); if (e.target.value) input4Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input3) input2Ref.current.focus(); }} ref={input3Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input4} onChange={(e) => { setInput4(e.target.value); if (e.target.value) input5Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input4) input3Ref.current.focus(); }} ref={input4Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input5} onChange={(e) => { setInput5(e.target.value); if (e.target.value) input6Ref.current.focus(); }} onKeyDown={(e) => { if (e.key === 'Backspace' && !input5) input4Ref.current.focus(); }} ref={input5Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
-                        <input className="InputPutCode" maxLength="1" type="tel" value={input6} onChange={(e) => setInput6(e.target.value)} onKeyDown={(e) => { if (e.key === 'Backspace' && !input6) input5Ref.current.focus(); }} ref={input6Ref} onFocus={(e) => e.target.style.border = '2px solid #2d2e83'} onBlur={(e) => e.target.style.border = '1px solid #f0f1f5'} />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input1}
+                            onChange={(e) => {
+                                setInput1(e.target.value);
+                                if (e.target.value) input2Ref.current.focus();
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input1)
+                                    input1Ref.current.focus();
+                            }}
+                            ref={input1Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input2}
+                            onChange={(e) => {
+                                setInput2(e.target.value);
+                                if (e.target.value) input3Ref.current.focus();
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input2)
+                                    input1Ref.current.focus();
+                            }}
+                            ref={input2Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input3}
+                            onChange={(e) => {
+                                setInput3(e.target.value);
+                                if (e.target.value) input4Ref.current.focus();
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input3)
+                                    input2Ref.current.focus();
+                            }}
+                            ref={input3Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input4}
+                            onChange={(e) => {
+                                setInput4(e.target.value);
+                                if (e.target.value) input5Ref.current.focus();
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input4)
+                                    input3Ref.current.focus();
+                            }}
+                            ref={input4Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input5}
+                            onChange={(e) => {
+                                setInput5(e.target.value);
+                                if (e.target.value) input6Ref.current.focus();
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input5)
+                                    input4Ref.current.focus();
+                            }}
+                            ref={input5Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
+                        <input
+                            className="InputPutCode"
+                            maxLength="1"
+                            type="tel"
+                            value={input6}
+                            onChange={(e) => setInput6(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && !input6)
+                                    input5Ref.current.focus();
+                            }}
+                            ref={input6Ref}
+                            onFocus={(e) =>
+                                (e.target.style.border = "2px solid #2d2e83")
+                            }
+                            onBlur={(e) =>
+                                (e.target.style.border = "1px solid #f0f1f5")
+                            }
+                        />
                     </div>
 
                     <div className="SendDialogTokenLogin">
                         <div>
-                            <button onClick={sendResetEmail} className="ButtonSendToken">Enviar código de verificación</button>
-                            {isError && <div><BsInfoCircleFill /> <p>El código de verificación es incorrecto.</p></div>}
+                            <button
+                                onClick={sendResetEmail}
+                                className="ButtonSendToken">
+                                Enviar código de verificación
+                            </button>
+                            {isError && (
+                                <div>
+                                    <BsInfoCircleFill />{" "}
+                                    <p>
+                                        El código de verificación es incorrecto.
+                                    </p>
+                                </div>
+                            )}
                         </div>
-                        <button className="ButtonCancelToken" onClick={handleCloseDialog}>Cancelar</button>
+                        <button
+                            className="ButtonCancelToken"
+                            onClick={handleCloseDialog}>
+                            Cancelar
+                        </button>
                     </div>
 
-                    <div className="ChangeMetodToken" onClick={handleAlternativeMethod}>
+                    <div
+                        className="ChangeMetodToken"
+                        onClick={handleAlternativeMethod}>
                         <p>Probar otro metodo</p>
                     </div>
 
@@ -1389,72 +1532,71 @@ const LoginAccount = () => {
                 </div>
             </Dialog>
 
-            {
-                showModalVerificar ? (
+            {showModalVerificar ? (
+                <div
+                    className="modal-fondo mtmenos15"
+                    onClick={onCloseModalVerificar}>
                     <div
-                        className="modal-fondo mtmenos15"
-                        onClick={onCloseModalVerificar}
-                    >
-                        <div
-                            className="modal-Verificar redondearventamensajes"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                            }}
-                        >
-                            <Row>
-                                <Col xl={1} lg={1} md={1} sm={1}>
-                                    <div className="iconoventanamensajes mtmenos14">
-                                        <InfoIcon style={{ fontSize: 45 }} />
-                                    </div>
-                                </Col>
-                                <Col xl={9} lg={9} md={9} sm={9}>
-                                    <div className="ml-30 titulodetaildescription">
-                                        Recuperar contraseña
-                                    </div>
-                                </Col>
-                                <Col xl={1} lg={1} md={1} sm={1}>
-                                    <button
-                                        type="button"
-                                        className="cerrarmodal ml-40 sinborder colorbase"
-                                        data-dismiss="modal"
-                                        onClick={() => {
-                                            onCloseModalVerificar();
-                                        }}
-                                    >
-                                        X
-                                    </button>
-                                </Col>
-                            </Row>
-                            <div className="mt-18 textoventanamensajesNuevo">
-                                <div>
-                                    Selecciona el medio para recuperar el acceso a tu cuenta.
+                        className="modal-Verificar redondearventamensajes"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}>
+                        <Row>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <div className="iconoventanamensajes mtmenos14">
+                                    <InfoIcon style={{ fontSize: 45 }} />
                                 </div>
-                            </div>
-
-                            <div className="mt-15 textoventanamensajesNuevo">
-                                <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickGoogle}>
-                                    Ingresa con Google
+                            </Col>
+                            <Col xl={9} lg={9} md={9} sm={9}>
+                                <div className="ml-30 titulodetaildescription">
+                                    Recuperar contraseña
+                                </div>
+                            </Col>
+                            <Col xl={1} lg={1} md={1} sm={1}>
+                                <button
+                                    type="button"
+                                    className="cerrarmodal ml-40 sinborder colorbase"
+                                    data-dismiss="modal"
+                                    onClick={() => {
+                                        onCloseModalVerificar();
+                                    }}>
+                                    X
                                 </button>
-                            </div>
-
-                            <div className="mt-15 textoventanamensajesNuevo">
-                                <button className="RecuperarContraseñaSMSDOS" onClick={handleButtonClickEmail}>
-                                    Ingresa con tu e-mail
-                                </button>
-                            </div>
-                            <div className="cerrarVerifButton">
-                                <button onClick={() => { onCloseModalVerificar(); }}>
-                                    Cerrar
-                                </button>
+                            </Col>
+                        </Row>
+                        <div className="mt-18 textoventanamensajesNuevo">
+                            <div>
+                                Selecciona el medio para recuperar el acceso a
+                                tu cuenta.
                             </div>
                         </div>
+
+                        <div className="mt-15 textoventanamensajesNuevo">
+                            <button
+                                className="RecuperarContraseñaSMSDOS"
+                                onClick={handleButtonClickGoogle}>
+                                Ingresa con Google
+                            </button>
+                        </div>
+
+                        <div className="mt-15 textoventanamensajesNuevo">
+                            <button
+                                className="RecuperarContraseñaSMSDOS"
+                                onClick={handleButtonClickEmail}>
+                                Ingresa con tu e-mail
+                            </button>
+                        </div>
+                        <div className="cerrarVerifButton">
+                            <button
+                                onClick={() => {
+                                    onCloseModalVerificar();
+                                }}>
+                                Cerrar
+                            </button>
+                        </div>
                     </div>
-                ) : null
-            }
-
-
-
-
+                </div>
+            ) : null}
 
             <Modal
                 dialogClassName="modalmediotoken"
@@ -1496,171 +1638,167 @@ const LoginAccount = () => {
                 </Modal.Body>
             </Modal>
 
-            {
-                showModalPropietarioCuenta ? (
+            {showModalPropietarioCuenta ? (
+                <div
+                    className="mlmenos650 modal-fondo"
+                    onClick={() => {
+                        onCloseModalPropietario();
+                    }}>
                     <div
-                        className="mlmenos650 modal-fondo"
-                        onClick={() => {
-                            onCloseModalPropietario();
+                        className="modal-contenido redondearventamensajes"
+                        onClick={(e) => {
+                            // do not close modal if anything inside modal content is clicked
+                            e.stopPropagation();
                         }}>
-                        <div
-                            className="modal-contenido redondearventamensajes"
-                            onClick={(e) => {
-                                // do not close modal if anything inside modal content is clicked
-                                e.stopPropagation();
-                            }}>
-                            <br />
-                            <Row className="mtmenos10">
-                                <Col
-                                    xl={10}
-                                    lg={10}
-                                    md={10}
-                                    sm={10}
-                                    className="textotuproductoestaen ml-2">
-                                    <h2>Ingresa el codigo de verificación</h2>
-                                </Col>
+                        <br />
+                        <Row className="mtmenos10">
+                            <Col
+                                xl={10}
+                                lg={10}
+                                md={10}
+                                sm={10}
+                                className="textotuproductoestaen ml-2">
+                                <h2>Ingresa el codigo de verificación</h2>
+                            </Col>
 
-                                <Col
-                                    xl={1}
-                                    lg={1}
-                                    md={1}
-                                    sm={1}
-                                    className="ml-50 mtmenos10">
-                                    <h1 onClick={onCloseModalPropietario}>X</h1>
-                                </Col>
-                            </Row>
-                            <br />
+                            <Col
+                                xl={1}
+                                lg={1}
+                                md={1}
+                                sm={1}
+                                className="ml-50 mtmenos10">
+                                <h1 onClick={onCloseModalPropietario}>X</h1>
+                            </Col>
+                        </Row>
+                        <br />
+                        <Row>
+                            <Col xl={9} lg={9} md={9} sm={7} className="ml-2">
+                                <form onChange={onChangeValidarToken}>
+                                    <div className="ps-form__group tamañotextotoken">
+                                        <h3 className="textoenviocodigo">
+                                            Hemos enviado un código de 6 digitos
+                                            por {cortartelefono}
+                                        </h3>
+                                        <div className="ml-200 mt-60">
+                                            <Row>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-10 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-20 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-30 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-40 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                                <Col
+                                                    xl={1}
+                                                    lg={1}
+                                                    md={1}
+                                                    sm={1}>
+                                                    <input
+                                                        className="ml-50 tamañoinputtoken"
+                                                        name="tokenvalidar"
+                                                        type="text"
+                                                        size="1"
+                                                        minlength="1"
+                                                        maxlength="1"
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </div>
+                                    </div>
+                                </form>
+                            </Col>
+                        </Row>
+                        <br />
+                        <br />
+                        <div className="ml-100 mt-60 mb-20">
                             <Row>
-                                <Col xl={9} lg={9} md={9} sm={7} className="ml-2">
-                                    <form onChange={onChangeValidarToken}>
-                                        <div className="ps-form__group tamañotextotoken">
-                                            <h3 className="textoenviocodigo">
-                                                Hemos enviado un código de 6 digitos
-                                                por {cortartelefono}
-                                            </h3>
-                                            <div className="ml-200 mt-60">
-                                                <Row>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="ml-10 tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="ml-20 tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="ml-30 tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="ml-40 tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                    <Col
-                                                        xl={1}
-                                                        lg={1}
-                                                        md={1}
-                                                        sm={1}>
-                                                        <input
-                                                            className="ml-50 tamañoinputtoken"
-                                                            name="tokenvalidar"
-                                                            type="text"
-                                                            size="1"
-                                                            minlength="1"
-                                                            maxlength="1"
-                                                        />
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </div>
-                                    </form>
+                                <Col xl={5} lg={5} md={5} sm={5}></Col>
+                                <Col xl={4} lg={4} md={4} sm={4}>
+                                    <div
+                                        className="botonreenviarcodigo"
+                                        onClick={reenvioCodigo}>
+                                        Reenviar código
+                                    </div>
+                                </Col>
+                                <Col xl={1} lg={1} md={1} sm={1}>
+                                    <Button
+                                        className="ps-btn"
+                                        onClick={() =>
+                                            setShowModalPropietarioCuenta(false)
+                                        }>
+                                        {" "}
+                                        Continuar{" "}
+                                    </Button>
                                 </Col>
                             </Row>
-                            <br />
-                            <br />
-                            <div className="ml-100 mt-60 mb-20">
-                                <Row>
-                                    <Col xl={5} lg={5} md={5} sm={5}></Col>
-                                    <Col xl={4} lg={4} md={4} sm={4}>
-                                        <div
-                                            className="botonreenviarcodigo"
-                                            onClick={reenvioCodigo}>
-                                            Reenviar código
-                                        </div>
-                                    </Col>
-                                    <Col xl={1} lg={1} md={1} sm={1}>
-                                        <Button
-                                            className="ps-btn"
-                                            onClick={() =>
-                                                setShowModalPropietarioCuenta(false)
-                                            }>
-                                            {" "}
-                                            Continuar{" "}
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </div>
-                            <br />
                         </div>
+                        <br />
                     </div>
-                ) : null
-            }
-
-
+                </div>
+            ) : null}
 
             <Modal dialogClassName="modaltoken" show={showModalLlamada}>
                 <Modal.Header closeButton>
@@ -1683,7 +1821,7 @@ const LoginAccount = () => {
                     </Row>
                 </Modal.Body>
             </Modal>
-        </Container >
+        </Container>
     );
 };
 

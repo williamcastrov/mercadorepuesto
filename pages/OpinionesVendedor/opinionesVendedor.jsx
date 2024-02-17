@@ -86,7 +86,7 @@ export default function opinionesVendedor() {
     useEffect(() => {
         const fechaCreacionVendedor = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 console.log("Enviando solicitud a tuEndPoint con params: ", params);

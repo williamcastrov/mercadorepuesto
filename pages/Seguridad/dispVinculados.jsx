@@ -179,25 +179,11 @@ export default function dispVinculados() {
     }, []);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //Función para obtener el UID del Usuario que nos sirve para mapear sus historial
     useEffect(() => {
         const obtenerUidUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 const res = await axios({

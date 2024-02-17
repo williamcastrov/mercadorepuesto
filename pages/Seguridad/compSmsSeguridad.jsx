@@ -123,7 +123,7 @@ export default function compSmsSeguridad() {
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
 
             try {

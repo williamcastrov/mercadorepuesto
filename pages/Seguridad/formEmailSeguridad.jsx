@@ -164,7 +164,7 @@ export default function formEmailSeguridad() {
     useEffect(() => {
         const leerDatosUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             //console.log("VISITAS: ", params);
             await axios({

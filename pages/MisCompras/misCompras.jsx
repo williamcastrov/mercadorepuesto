@@ -73,7 +73,7 @@ export default function misCompras() {
     useEffect(() => {
         const obtenerUidUsuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 const res = await axios({
@@ -199,7 +199,7 @@ export default function misCompras() {
     //función para obtener el nombre y apellido del vendedor
     async function obtenerNombreVendedor(uid) {
         let params = {
-            uid: uid,
+            usuario: uid,
         };
 
         try {

@@ -152,7 +152,7 @@ export default function RetiroDinero() {
     useEffect(() => {
         const datosDeusuario = async () => {
             let params = {
-                uid: datosusuarios.uid,
+                usuario: datosusuarios.uid,
             };
             try {
                 const res = await axios({
